@@ -214,6 +214,7 @@ push: remove touch-time touch-block-time git-add
 	git push --set-upstream origin master
 	bash -c "git commit --allow-empty -m '$(TIME)'"
 	bash -c "git push -f $(GIT_REPO_ORIGIN)	+master:master"
+	bash -c "git push -f git@github.com:timechain-academy/.github.git	+master:master"
 
 
 .PHONY: branch
