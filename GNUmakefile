@@ -205,23 +205,21 @@ git-add: remove
 	@echo git-add
 
 	git config advice.addIgnoredFile false
-	#git add *
+	# git add *
 
 	git add --ignore-errors GNUmakefile
 	git add --ignore-errors README.md
-	git add --ignore-errors sources/*.md
-	git add --ignore-errors sources/*.html
-	#git add --ignore-errors CNAME
-	git add --ignore-errors *.py
+	git add --ignore-errors sources
 	git add --ignore-errors index.html
 	git add --ignore-errors .gitignore
 	git add --ignore-errors .github
 	git add --ignore-errors *.sh
 	git add --ignore-errors *.yml
+	git add --ignore-errors *TIME*
 
 .PHONY: push
 .ONESHELL:
-push: remove touch-time touch-block-time git-add
+push: remove git-add
 	@echo push
 	git push --set-upstream origin master
 	bash -c "git commit --allow-empty -m '$(TIME)'"
