@@ -17,7 +17,23 @@ export PIP2
 PIP3                                    := $(notdir $(shell which pip3))
 export PIP3
 
-ifeq ($(PYTHON3),/usr/local/bin/python3)
+python_version_full := $(wordlist 2,4,$(subst ., ,$(shell python3 --version 2>&1)))
+python_version_major := $(word 1,${python_version_full})
+python_version_minor := $(word 2,${python_version_full})
+python_version_patch := $(word 3,${python_version_full})
+
+my_cmd.python.2 := python2 some_script.py2
+my_cmd.python.3 := python3 some_script.py3
+my_cmd := ${my_cmd.python.${python_version_major}}
+
+export python_version_major
+export python_version_minor
+export python_version_patch
+
+
+
+
+ifeq ($(python_version_major),3)
 PIP                                    := pip
 PIP3                                   := pip
 export PIP
@@ -121,6 +137,16 @@ I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 .PHONY: init
 .ONESHELL:
 init:
+
+	@echo ${python_version_full}
+	@echo ${python_version_major}
+	@echo ${python_version_minor}
+	@echo ${python_version_patch}
+	@echo ${my_cmd}
+
+
+
+
 	# @echo $(PYTHON)
 	# @echo $(PYTHON2)
 	# @echo $(PYTHON3)
@@ -132,6 +158,7 @@ init:
 	$(PYTHON3) -m pip install --user --upgrade pip
 	$(PYTHON3) -m $(PIP) install --user -r requirements.txt
 	cp -R sources/hooks/ .git/hooks/ && chmod +x .git/hooks/*
+	./sources/scripts/initialize
 
 .PHONY: help
 help: report
