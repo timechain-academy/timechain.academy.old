@@ -131,7 +131,7 @@ init:
 	@echo PATH=$(PATH):$(HOME)/Library/Python/3.9/bin
 	$(PYTHON3) -m pip install --user --upgrade pip
 	$(PYTHON3) -m $(PIP) install --user -r requirements.txt
-	cp -R sources/hooks/ .git/hooks/
+	cp -R sources/hooks/ .git/hooks/ && chmod +x .git/hooks/*
 
 .PHONY: help
 help: report
