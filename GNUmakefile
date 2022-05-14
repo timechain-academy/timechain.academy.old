@@ -161,47 +161,33 @@ init:
 	./sources/scripts/initialize
 
 .PHONY: help
-help: report
+help:
 	@echo ""
+	@echo "  make "
+	@echo "  make help"
+	@echo "  make init"
 	@echo "  make docs"
 	@echo "  make report"
-	@echo "  make dotfiles"
-	@echo "  make awesome"
-	@echo "  make legit"
-	@echo "  make git-add"
-	@echo "  make remove"
-	@echo "  make global-branch"
-	@echo "  make time-branch"
-	@echo "  make touch-global"
-	@echo "  make touch-time"
-	@echo "  make branch"
-	@echo "  make trigger"
 	@echo "  make push"
-	@echo "  make bitcoin-test-battery"
 	@echo ""
 
 .PHONY: report
 report:
 	@echo ''
-	@echo '	[ARGUMENTS]	'
-	@echo '      args:'
-	@echo '        - TIME=${TIME}'
-	@echo '        - BASENAME=${BASENAME}'
-	@echo '        - PROJECT_NAME=${PROJECT_NAME}'
-	@echo '        - PROJECTPATH=${PROJECTPATH}'
-	@echo '        - GIT_USER_NAME=${GIT_USER_NAME}'
-	@echo '        - GH_USER_REPO=${GH_USER_REPO}'
-	@echo '        - GH_USER_SPECIAL_REPO=${GH_USER_SPECIAL_REPO}'
-	@echo '        - KB_USER_REPO=${KB_USER_REPO}'
-	@echo '        - GIT_USER_EMAIL=${GIT_USER_EMAIL}'
-	@echo '        - GIT_SERVER=${GIT_SERVER}'
-	@echo '        - GIT_PROFILE=${GIT_PROFILE}'
-	@echo '        - GIT_BRANCH=${GIT_BRANCH}'
-	@echo '        - GIT_HASH=${GIT_HASH}'
-	@echo '        - GIT_PREVIOUS_HASH=${GIT_PREVIOUS_HASH}'
-	@echo '        - GIT_REPO_ORIGIN=${GIT_REPO_ORIGIN}'
-	@echo '        - GIT_REPO_NAME=${GIT_REPO_NAME}'
-	@echo '        - GIT_REPO_PATH=${GIT_REPO_PATH}'
+	@echo '  args:'
+	@echo '    - TIME=${TIME}'
+	@echo '    - BASENAME=${BASENAME}'
+	@echo '    - PROJECT_NAME=${PROJECT_NAME}'
+	@echo '    - GIT_USER_NAME=${GIT_USER_NAME}'
+	@echo '    - GIT_USER_EMAIL=${GIT_USER_EMAIL}'
+	@echo '    - GIT_SERVER=${GIT_SERVER}'
+	@echo '    - GIT_PROFILE=${GIT_PROFILE}'
+	@echo '    - GIT_BRANCH=${GIT_BRANCH}'
+	@echo '    - GIT_HASH=${GIT_HASH}'
+	@echo '    - GIT_PREVIOUS_HASH=${GIT_PREVIOUS_HASH}'
+	@echo '    - GIT_REPO_ORIGIN=${GIT_REPO_ORIGIN}'
+	@echo '    - GIT_REPO_NAME=${GIT_REPO_NAME}'
+	@echo '    - GIT_REPO_PATH=${GIT_REPO_PATH}'
 
 .PHONY: super
 super:
