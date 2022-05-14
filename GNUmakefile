@@ -46,8 +46,8 @@ else
 PROJECT_NAME							:= $(project)
 endif
 export PROJECT_NAME
-PYTHONPATH=$(PWD)
-export PYTHONPATH
+PROJECTPATH=$(PWD)
+export PROJECTPATH
 ifeq ($(port),)
 PORT									:= 0
 else
@@ -188,7 +188,7 @@ report:
 	@echo '        - TIME=${TIME}'
 	@echo '        - BASENAME=${BASENAME}'
 	@echo '        - PROJECT_NAME=${PROJECT_NAME}'
-	@echo '        - PYTHONPATH=${PYTHONPATH}'
+	@echo '        - PROJECTPATH=${PROJECTPATH}'
 	@echo '        - GIT_USER_NAME=${GIT_USER_NAME}'
 	@echo '        - GH_USER_REPO=${GH_USER_REPO}'
 	@echo '        - GH_USER_SPECIAL_REPO=${GH_USER_SPECIAL_REPO}'
