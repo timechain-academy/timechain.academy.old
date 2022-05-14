@@ -131,8 +131,7 @@ init:
 	@echo PATH=$(PATH):$(HOME)/Library/Python/3.9/bin
 	$(PYTHON3) -m pip install --user --upgrade pip
 	$(PYTHON3) -m $(PIP) install --user -r requirements.txt
-	@echo pip3 install --user twint
-	@echo pip3 install --user TwitterAPI
+	cp -R sources/hooks/ .git/hooks/
 
 .PHONY: help
 help: report
