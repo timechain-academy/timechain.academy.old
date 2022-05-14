@@ -1,0 +1,96 @@
+name: automate.yml
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+
+    branches:       #[ master ]
+      - '*'         # matches every branch that doesn't contain a '/'
+      - '*/*'       # matches every branch containing a single '/'
+      - '**'        # matches every branch
+      - 'master'    # includes master
+      - 'main'      # includes main
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+
+  printenv:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ['3.6','3.7','3.8','3.10']
+        exclude:
+          - os: ubuntu-latest
+            python-version: ['2.7']
+          - os: macos-latest
+            python-version: ['2.7']
+          - os: macos-10.15
+            python-version: ['2.7']
+          - os: m1.local
+            python-version: ['2.7']
+    steps:
+      - uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+      - name: Setup Matrix
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+      - name: Print github workspace
+        run: |
+          printenv
+          echo $GITHUB_WORKSPACE
+          cd $GITHUB_WORKSPACE
+          make init
+          make build-shell
+
+  automate:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ['3.6','3.7','3.8','3.10']
+        exclude:
+          - os: ubuntu-latest
+            python-version: ['2.7']
+          - os: macos-latest
+            python-version: ['2.7']
+          - os: macos-10.15
+            python-version: ['2.7']
+          - os: m1.local
+            python-version: ['2.7']
+    steps:
+      - uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+      - name: Setup Matrix
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+      - name: automate.sh matrix
+        run: |
+          echo $GITHUB_WORKSPACE
+          cd $GITHUB_WORKSPACE
+          python3 -c "import sys; print(sys.version)"
+          make
+          make help
+          make report
+          make init
+          git config --global user.email "admin@timechain.academy"
+          git config --global user.name "TimeChain Academy Admin"
+          make books
+          make sources
+          make resources
+          make build-playground
+          make build-shell
+

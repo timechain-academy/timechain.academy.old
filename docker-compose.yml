@@ -1,0 +1,53 @@
+version: '3.4'
+services:
+
+  ubuntu:
+    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}
+    hostname: ${PROJECT_NAME}_${HOST_UID:-4000}
+    environment:
+      - UID=${HOST_UID:-4000}
+    user: ${HOST_USER:-nodummy}
+    image: ${PROJECT_NAME}:${HOST_USER:-nodummy}
+    privileged: true
+    build:
+      context: .
+      target: base
+      dockerfile: docker/ubuntu.dockerfile
+      args:
+        - HOST_UID=${HOST_UID:-4000}
+        - HOST_USER=${HOST_USER:-nodummy}
+        - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
+        - PASSWORD=${PASSWORD}
+        - UBUNTU_VERSION=${UBUNTU_VERSION}
+    command: ["ssh-agent ssh-add"]
+    volumes:
+      - type: bind
+        source: ${PWD:-.}
+        target: /home/${HOST_USER}/timechain.academy
+      - type: bind
+        source: ~/.ssh
+        target: /home/${HOST_USER}/.ssh
+
+  docs:
+    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}_docs
+    restart: unless-stopped
+    expose:
+        - '8000'
+        - '8008'
+    ports:
+        - 8008:8000
+    image: ${PROJECT_NAME}_${HOST_UID:-4000}_docs
+    build:
+      context: .
+      dockerfile: mkdocs/mkdocs.dockerfile
+    volumes:
+    volumes:
+    - type: bind
+      source: ${PWD:-.}
+      target: /root
+    - type: bind
+      source: ${PWD:-.}/sources
+      target: /root/mkdocs
+    - type: bind
+      source: ${PWD:-.}/docs
+      target: /root/docs
