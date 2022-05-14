@@ -1,0 +1,55 @@
+== Lightning Network Architecture
+
+((("architecture, Lightning Network", id="ix_06_lightning_architecture-asciidoc0", range="startofrange")))In the first part of this book we introduced the main concepts of the Lightning Network and worked through a comprehensive example of routing a payment and setting up the tools we can use to explore further. In the second part of the book we will explore the Lightning Network in a lot more technical detail, dissecting each of the building blocks.
+
+In this section we will outline the components of the Lightning Network in more detail and provide a "big picture" perspective to guide you through the following chapters.
+
+=== The Lightning Network Protocol Suite
+
+((("architecture, Lightning Network","protocol suite")))((("protocol stack")))The Lightning Network is composed of a complex collection of protocols that run on top of the internet. We can broadly classify these protocols into five distinct layers that make up a _protocol stack_, where each layer builds upon and uses the protocols in the layer below. Also, each protocol layer abstracts the underlying layers and "hides" some of the complexity.
+
+The architecture diagram shown in <<lightning_network_protocol_suite>> provides an overview of these layers and their component protocols. 
+
+[[lightning_network_protocol_suite]]
+.The Lightning Network protocol suite
+image::images/mtln_0601.png[]
+
+((("architecture, Lightning Network","layers")))The five layers of the Lightning Network, from the bottom up, are:
+
+Network connection layer:: This contains the protocols that interact directly with the internet core protocols (TCP/IP), overlay protocols (Tor v2/v3), and internet services (DNS). This layer also contains the cryptographic transport protocols that protect Lightning pass:[<span class="keep-together">messages</span>].
+
+Messaging layer:: This layer contains the protocols that nodes use to negotiate features, format messages, and encode message fields.
+
+Peer-to-peer (P2P) layer:: This layer is the primary protocol layer for communication between Lightning nodes and contains all the different messages exchanged between nodes.
+
+Routing layer:: This layer contains the protocols used to route payments between nodes, end-to-end and atomically. This layer contains the core functionality of the Lightning Network: routed payments.
+
+Payment layer:: The highest layer of the network, which presents a reliable payment interface to applications.
+
+=== Lightning in Detail
+
+((("architecture, Lightning Network","outline of details")))Over the next 10 chapters, we will dissect the protocol suite and examine each component of the Lightning Network in detail.
+
+We spent quite some time trying to decide the best order of presenting this detail. It's not an easy choice because there is so much interdependence between different components: as you start explaining one, you find that it pulls in quite a few of the other componenents. Instead of a top-down or bottom-up approach, we ended up choosing a more meandering path that starts with the most fundamental building blocks that are unique to the Lightning Network-Payment Channels and moves outward from there. But since that path is not obvious, we will use the Lightning Protocol Suite shown in <<lightning_network_protocol_suite>> as a map. In each chapter will focus on one or more related components, and you will see them highlighted in the protocol suite. Kind of like a map marker saying "You are here!"
+
+Here's what we will cover:
+
+pass:[<a data-type="xref" href="payment_channels" data-xrefstyle="chap-num-title">#payment_channels</a>]:: In this chapter we will look at how payment channels work, in significantly more depth than we saw in the earlier parts of the book. We will look at the structure and Bitcoin Script of the funding and commitment transactions, and the process used by nodes to negotiate each step in the protocol.
+
+pass:[<a data-type="xref" href="#routing" data-xrefstyle="chap-num-title">#routing</a>]:: Next, we will put together several payment channels in a network and route a payment from one end to the other. In that process we will dive into the hash time-locked contract (HTLC) smart contract and the Bitcoin Script that we use to construct it.
+
+pass:[<a data-type="xref" href="#channel_operation" data-xrefstyle="chap-num-title">#channel_operation</a>]:: Putting together the concepts of a simple payment channel and a routed payment using HTLCs, we will now look at how HTLCs are part of each channel's commitment transaction. We will also look at the protocol for adding, settling, failing, and removing HTLCs from the commitments.
+
+pass:[<a data-type="xref" href="#onion_routing" data-xrefstyle="chap-num-title">#onion_routing</a>]:: Next, we will look at how the HTLC information is propagated across the network inside the onion routing protocol. We will look at the mechanism for layered encryption and decryption that gives the Lightning Network some of its privacy characteristics.
+
+pass:[<a data-type="xref" href="#gossip" data-xrefstyle="chap-num-title">#gossip</a>]:: In this chapter we will look at how Lightning nodes find each other and learn about published channels to construct a channel graph that they can use to find paths across the network.
+
+pass:[<a data-type="xref" href="#path_finding" data-xrefstyle="chap-num-title">>#path_finding</a>]:: Next, we will see how the information from the gossip protocol is used by each node to build a "map" of the entire network, which it can use to find paths from one point to another to route payments. We'll also look at the exiting innovations in pathfinding, such as multipart payments.
+
+pass:[<a data-type="xref" href="#wire_protocol" data-xrefstyle="chap-num-title">#wire_protocol</a>]:: Underpinning the Lightning Network is the peer-to-peer protocol that nodes use to exchange messages about the network and about their channels. In this chapter we look at how those messages are constructed and the extension capabilities built into messages with feature bits and Type-Length-Value (TLV) encoding.
+
+pass:[<a data-type="xref" href="#encrypted_message_transport" data-xrefstyle="chap-num-title">#encrypted_message_transport</a>]:: Moving down to the lower-level part of the network, we will look at the underlying encrypted transport system that ensures the secrecy and integrity of all communications between nodes.(((range="endofrange", startref="ix_06_lightning_architecture-asciidoc0")))
+
+pass:[<a data-type="xref" href="#invoices" data-xrefstyle="chap-num-title">#invoices</a>]:: A key part of the Lightning Network is payment requests, also known as Lightning invoices. In this chapter we dissect the structure and encoding of an invoice.
+
+Let's dive in!
