@@ -224,6 +224,8 @@ push: remove git-add
 	git push --set-upstream origin $(GIT_BRANCH)
 	bash -c "git commit --allow-empty -m '$(TIME)'"
 	bash -c "git push -f $(GIT_REPO_ORIGIN)	+$(GIT_BRANCH):$(GIT_BRANCH)"
+	echo github.timechain.academy > CNAME
+	git add --ignore-errors GNAME
 	bash -c "git push -f git@github.com:timechain-academy/.github.git	+$(GIT_BRANCH):$(GIT_BRANCH)"
 
 
