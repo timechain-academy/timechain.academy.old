@@ -221,10 +221,10 @@ git-add: remove
 .ONESHELL:
 push: remove git-add
 	@echo push
-	git push --set-upstream origin master
+	git push --set-upstream origin $(GIT_BRANCH)
 	bash -c "git commit --allow-empty -m '$(TIME)'"
-	bash -c "git push -f $(GIT_REPO_ORIGIN)	+master:master"
-	bash -c "git push -f git@github.com:timechain-academy/.github.git	+master:master"
+	bash -c "git push -f $(GIT_REPO_ORIGIN)	+$(GIT_BRANCH):$(GIT_BRANCH)"
+	bash -c "git push -f git@github.com:timechain-academy/.github.git	+$(GIT_BRANCH):$(GIT_BRANCH)"
 
 
 .PHONY: branch
