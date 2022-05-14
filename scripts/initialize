@@ -158,6 +158,10 @@ fi
     if ! hash node 2>/dev/null; then
         brew install node
     fi
+    if ! hash docker 2>/dev/null; then
+        rm -f /usr/local/share/fish/vendor_completions.d/docker-compose.*
+        brew install --cask docker
+    fi
     brew install openssl@1.1 glib-openssl pyside@2
 
 else

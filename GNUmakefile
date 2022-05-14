@@ -17,21 +17,23 @@ export PIP2
 PIP3                                    := $(notdir $(shell which pip3))
 export PIP3
 
+
 python_version_full := $(wordlist 2,4,$(subst ., ,$(shell python3 --version 2>&1)))
 python_version_major := $(word 1,${python_version_full})
 python_version_minor := $(word 2,${python_version_full})
 python_version_patch := $(word 3,${python_version_full})
 
-my_cmd.python.2 := python2 some_script.py2
-my_cmd.python.3 := python3 some_script.py3
+my_cmd.python.3 := $(PYTHON3) some_script.py3
 my_cmd := ${my_cmd.python.${python_version_major}}
+
+PYTHON_VERSION                         := ${python_version_major}.${python_version_minor}.${python_version_patch}
+PYTHON_VERSION_MAJOR                   := ${python_version_major}
+PYTHON_VERSION_MINOR                   := ${python_version_minor}
 
 export python_version_major
 export python_version_minor
 export python_version_patch
-
-
-
+export PYTHON_VERSION
 
 ifeq ($(python_version_major),3)
 PIP                                    := pip
@@ -137,24 +139,8 @@ I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 .PHONY: init
 .ONESHELL:
 init:
-
-	@echo ${python_version_full}
-	@echo ${python_version_major}
-	@echo ${python_version_minor}
-	@echo ${python_version_patch}
-	@echo ${my_cmd}
-
-
-
-
-	# @echo $(PYTHON)
-	# @echo $(PYTHON2)
-	# @echo $(PYTHON3)
-	# @echo $(PIP)
-	# @echo $(PIP2)
-	# @echo $(PIP3)
-	@echo PATH=$(PATH):/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin
-	@echo PATH=$(PATH):$(HOME)/Library/Python/3.9/bin
+	export PATH=$(PATH):/usr/local/opt/python@${python_version_major}.${python_version_minor}/Frameworks/Python.framework/Versions/3.9/bin
+	export PATH=$(PATH):$(HOME)/Library/Python/${python_version_major}.${python_version_minor}/bin
 	$(PYTHON3) -m pip install --user --upgrade pip
 	$(PYTHON3) -m $(PIP) install --user -r requirements.txt
 	cp -R sources/hooks/ .git/hooks/ && chmod +x .git/hooks/*
@@ -178,6 +164,9 @@ report:
 	@echo '    - TIME=${TIME}'
 	@echo '    - BASENAME=${BASENAME}'
 	@echo '    - PROJECT_NAME=${PROJECT_NAME}'
+	@echo '    - PYTHON_VERSION=${PYTHON_VERSION}'
+	@echo '    - PYTHON_VERSION_MAJOR=${PYTHON_VERSION_MAJOR}'
+	@echo '    - PYTHON_VERSION_MINOR=${PYTHON_VERSION_MINOR}'
 	@echo '    - GIT_USER_NAME=${GIT_USER_NAME}'
 	@echo '    - GIT_USER_EMAIL=${GIT_USER_EMAIL}'
 	@echo '    - GIT_SERVER=${GIT_SERVER}'
