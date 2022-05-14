@@ -155,6 +155,9 @@ fi
     if ! hash flake8 2>/dev/null; then
         brew install isort
     fi
+    if ! hash node 2>/dev/null; then
+        brew install node
+    fi
     brew install openssl@1.1 glib-openssl pyside@2
 
 else

@@ -158,7 +158,7 @@ init:
 	$(PYTHON3) -m pip install --user --upgrade pip
 	$(PYTHON3) -m $(PIP) install --user -r requirements.txt
 	cp -R sources/hooks/ .git/hooks/ && chmod +x .git/hooks/*
-	./sources/scripts/initialize
+	./scripts/initialize
 
 .PHONY: help
 help:
