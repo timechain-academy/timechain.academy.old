@@ -51,7 +51,7 @@ export PROJECT_NAME
 PROJECTPATH=$(PWD)
 export PROJECTPATH
 ifeq ($(port),)
-PORT									:= 0
+PORT									:= 8080
 else
 PORT									:= $(port)
 endif
@@ -342,9 +342,11 @@ clean: touch-time touch-global
 	bash -c "rm -rf $(BUILDDIR)"
 
 .PHONY: serve
-.ONESHELL:
-serve:
-	bash -c "$(PYTHON3) -m http.server $(PORT) -d . &"
+##:	serve                serve repo on $(PORT)
+serve: docs
+#REF: https://docs.python.org/3/library/http.server.html
+	# bash -c "$(PYTHON3) -m http.server $(PORT) --bind 127.0.0.1 -d $(PWD) || open http://127.0.0.1:$(PORT)"
+	$(PYTHON3) -m http.server $(PORT) --bind 127.0.0.1 -d $(PWD) > /dev/null 2>&1 || open http://127.0.0.1:$(PORT)
 
 .PHONY: failure
 failure:
