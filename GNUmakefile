@@ -211,8 +211,8 @@ git-add: remove
 push: remove git-add
 	@echo push
 	git push --set-upstream origin $(GIT_BRANCH)
-	bash -c "git commit --allow-empty -m '$(TIME)'"
-	bash -c "git push -f $(GIT_REPO_ORIGIN)	+$(GIT_BRANCH):$(GIT_BRANCH)"
+	git commit --allow-empty -m '$(TIME)'
+	git push -f $(GIT_REPO_ORIGIN)	+$(GIT_BRANCH):$(GIT_BRANCH)
 	# echo github.timechain.academy > CNAME
 	# git add --ignore-errors CNAME
 	# bash -c "git commit --allow-empty -m '$(TIME)'"
