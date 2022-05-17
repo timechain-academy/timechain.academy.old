@@ -213,13 +213,19 @@ push: remove git-add
 	git push --set-upstream origin $(GIT_BRANCH)
 	bash -c "git commit --allow-empty -m '$(TIME)'"
 	bash -c "git push -f $(GIT_REPO_ORIGIN)	+$(GIT_BRANCH):$(GIT_BRANCH)"
-	echo github.timechain.academy > CNAME
-	git add --ignore-errors CNAME
-	bash -c "git commit --allow-empty -m '$(TIME)'"
-	bash -c "git push -f git@github.com:timechain-academy/.github.git	+$(GIT_BRANCH):$(GIT_BRANCH)"
-	echo timechain.academy > CNAME
-	git add --ignore-errors CNAME
-	bash -c "git commit --allow-empty -m '$(TIME)'"
+	# echo github.timechain.academy > CNAME
+	# git add --ignore-errors CNAME
+	# bash -c "git commit --allow-empty -m '$(TIME)'"
+	# bash -c "git push -f git@github.com:timechain-academy/.github.git	+$(GIT_BRANCH):$(GIT_BRANCH)"
+	# echo timechain.academy > CNAME
+	# git add --ignore-errors CNAME
+	# bash -c "git commit --allow-empty -m '$(TIME)'"
+
+.PHONY: push-subtrees
+##	:
+##:	push-subtrees        push all subtrees to their repos
+push-subtrees:
+	git subtree push --prefix=.github                               git@github.com:timechain-academy/.github          $(TIME)-$(shell git rev-parse --short HEAD)
 
 
 .PHONY: branch
