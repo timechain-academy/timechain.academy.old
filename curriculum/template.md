@@ -1,4 +1,4 @@
-# Title here
+# Your Course Title here
 
 *Proposed workshop syllabus for timechain.academy*
 
