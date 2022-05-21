@@ -52,11 +52,9 @@ Time for workshop assumes students already have an plebnet instance up. This wor
     - Where to get help
 - Q & A session
 
-
-### Notes: Other workshop ideas:
-
-- advanced workshop for building sample production ready applications on LNBits
-- workshop on LNURL/webLN applications, e.g. lnurl-auth, lightning addresses, webln.dev
+> **Note**: Other workshop ideas:
+> - advanced workshop for building sample production ready applications on LNBits
+> - workshop on LNURL/webLN applications, e.g. lnurl-auth, lightning addresses, webln.dev
 
 
 ### About the Instructor:
