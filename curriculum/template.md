@@ -12,7 +12,7 @@ Your Content here
 Your Content here
 
 
-### What this workshop will cover:
+### What this course or workshop will cover:
 - Lesson 1
 - Lesson 2
 - Q & A session
