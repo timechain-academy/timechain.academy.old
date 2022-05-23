@@ -21,7 +21,7 @@ endif
 ifneq ($(target),)
 SERVICE_TARGET := $(target)
 else
-SERVICE_TARGET := alpine-base
+SERVICE_TARGET := ubuntu
 endif
 export SERVICE_TARGET
 
@@ -259,8 +259,7 @@ serve: build
 	mkdocs serve & open http://127.0.0.1:$(PORT) || open http://127.0.0.1:$(PORT)
 	#$(PYTHON3) -m http.server $(PORT) --bind 127.0.0.1 -d $(PWD)/docs > /dev/null 2>&1 || open http://127.0.0.1:$(PORT)
 
-.PHONY: shell alpine
-alpine: shell
+.PHONY: shell
 shell:
 ifeq ($(CMD_ARGUMENTS),)
 	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run --rm ${SERVICE_TARGET} sh
@@ -268,19 +267,20 @@ else
 	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run --rm $(SERVICE_TARGET) sh -c "$(CMD_ARGUMENTS)"
 endif
 
-alpine-build:
+shell-build:
 	# only build the container. Note, docker does this also if you apply other targets.
-	docker-compose build alpine-base
+	docker-compose build ${SERVICE_TARGET}
 
 #######################
-alpine-rebuild:
+shell-rebuild:
 	# force a rebuild by passing --no-cache
 	docker-compose build --no-cache $(VERBOSE) ${SERVICE_TARGET}
 
-alpine-test:
+shell-test:
 	docker-compose -p $(PROJECT_NAME)_$(HOST_UID) run --rm ${SERVICE_TARGET} sh -c '\
 		echo "I am `whoami`. My uid is `id -u`." && /bin/bash -c "curl -fsSL https://raw.githubusercontent.com/randymcmillan/docker.shell/master/whatami"' \
 	&& echo success
+
 
 
 git-add:
