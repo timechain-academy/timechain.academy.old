@@ -18,21 +18,14 @@ theme:
 use_directory_urls: true
 
 nav:
-    - TimeChain Academy: ~
-        - TimeChain Academy: 'README.md'
-        - TimeChain Academy: 'README.md'
+    - TimeChain Academy: 'README.md'
     - Setup Commands: 'COMMANDS.md'
     - Mastering Bitcoin: 'bitcoinbook/README.md'
     - git: 'git/README.md'
     - Bitcoin Script: 'ide/Readme.md'
-    - 'ide/doc/index.md'
-    - 'ide/lib/ace/mode/_test/Readme.md'
-    - 'ide/tool/Readme.md'
     - 'lnbits/lnbits.md'
     - 'lnbook/README.md'
-    - 'lnbook/CONTRIBUTING.md'
-    - 'lnbook/LICENSE.md'
-    - 'template/template.md'
+    - Coarse Template: 'template/template.md'
 
 plugins:
     - exclude:
