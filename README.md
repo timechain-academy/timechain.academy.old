@@ -2,7 +2,9 @@
 
 ```
 git clone https://github.com/timechain-academy/timechain.academy.git
-```## Setup
+```
+
+## Setup
 
 <details>
 <summary>👀</summary>
