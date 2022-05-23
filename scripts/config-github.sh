@@ -29,30 +29,23 @@ config-github() {
     echo "Host *" > ~/.ssh/config
     echo "  AddKeysToAgent yes" >> ~/.ssh/config
 
-    GITHUB_RSA=~/.ssh/$DATE.github_rsa
-    DOCKER_RSA=~/.ssh/$DATE.docker_rsa
-    DO_RSA=~/.ssh/$DATE.do_rsa
+    ID_RSA=~/.ssh/id_rsa
+    GITHUB_RSA=~/.ssh/github_rsa
+    ssh-keygen -t rsa -b 4096 -N '' -C $GITHUB_USER_EMAIL -f $ID_RSA
     ssh-keygen -t rsa -b 4096 -N '' -C $GITHUB_USER_EMAIL -f $GITHUB_RSA
     echo "  IdentityFile $GITHUB_RSA" >> ~/.ssh/config
-    ssh-keygen -t rsa -b 4096 -N '' -C $GITHUB_USER_EMAIL -f $DOCKER_RSA
-    echo "  IdentityFile $DOCKER_RSA" >> ~/.ssh/config
-    ssh-keygen -t rsa -b 4096 -N '' -C $GITHUB_USER_EMAIL -f $DO_RSA
-    echo "  IdentityFile $DO_RSA" >> ~/.ssh/config
 
+
+    sudo chmod 600 $ID_RSA
+    sudo chmod 644 $ID_RSA.pub
     sudo chmod 600 $GITHUB_RSA
     sudo chmod 644 $GITHUB_RSA.pub
-    sudo chmod 600 $DOCKER_RSA
-    sudo chmod 644 $DOCKER_RSA.pub
-    sudo chmod 600 $DO_RSA
-    sudo chmod 644 $DO_RSA.pub
 
     eval "$(ssh-agent -s)"
+    ssh-add ~/.ssh/id_rsa
     ssh-add ~/.ssh/github_rsa
-    ssh-add ~/.ssh/docker_rsa
-    ssh-add ~/.ssh/do_rsa
+    ssh-add $ID_RSA
     ssh-add $GITHUB_RSA
-    ssh-add $DOCKER_RSA
-    ssh-add $DO_RSA
 
     echo
     cat ~/.ssh/config
@@ -68,14 +61,8 @@ config-github() {
     cat $GITHUB_RSA.pub
     echo
     echo
-    ls -lT $DOCKER_RSA.pub
-    echo  "$DOCKER_RSA.pub"
-    echo
-    cat $DOCKER_RSA.pub
-    echo
-    echo
-    ls -lT $DO_RSA.pub
-    echo  "$DO_RSA.pub"
+    ls -lT $ID_RSA.pub
+    echo  "$ID_RSA.pub"
     echo
     cat $DO_RSA.pub
     echo
@@ -86,8 +73,7 @@ config-github() {
     echo "";
     if [[ $REPLY =~ ^[Yy]$ ]]; then
     read -p 'ENTER your GPG Signing Key: ' GPG_SIGNING_KEY
-    #git config --global user.signingkey $GPG_SIGNING_KEY
-    git config --global user.signingkey 97966C06BB06757B
+    git config --global user.signingkey $GPG_SIGNING_KEY
     echo && echo
     echo Your GPG Siging Key has been added...
     echo && echo
@@ -102,8 +88,8 @@ config-github() {
 eval "$(ssh-agent -s)"
 config-github
 ssh-add
-ssh-add ~/.ssh/*.github_rsa
+ssh-add ~/.ssh/id_rsa
+ssh-add ~/.ssh/github_rsa
 ./config-git.sh
 git config --global -l
 ssh -v git@github.com
-#./install-github-utility.sh
