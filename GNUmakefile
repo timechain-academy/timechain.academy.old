@@ -18,6 +18,27 @@ TRIPLET                                 :=aarch64-linux-gnu
 export TRIPLET
 endif
 
+ifneq ($(target),)
+SERVICE_TARGET := $(target)
+else
+SERVICE_TARGET := alpine-base
+endif
+export SERVICE_TARGET
+
+ifeq ($(user),root)
+HOST_USER := root
+HOST_UID  := $(strip $(if $(uid),$(uid),0))
+else
+# allow override by adding user= and/ or uid=  (lowercase!).
+# uid= defaults to 0 if user= set (i.e. root).
+# USER retrieved from env, UID from shell.
+HOST_USER :=  $(strip $(if $(USER),$(USER),nodummy))
+HOST_UID  :=  $(strip $(if $(shell id -u),$(shell id -u),4000))
+endif
+export HOST_USER
+export HOST_UID
+
+
 PYTHON                                  := $(shell which python)
 export PYTHON
 PYTHON2                                 := $(shell which python2)
@@ -52,11 +73,86 @@ export PYTHON_VERSION
 
 # PROJECT_NAME defaults to name of the current directory.
 ifeq ($(project),)
-PROJECT_NAME							:= $(notdir $(PWD))
+PROJECT_NAME							:= timechain-academy#$(notdir $(PWD))
 else
 PROJECT_NAME							:= $(project)
 endif
 export PROJECT_NAME
+
+ifeq ($(user),root)
+HOST_USER := root
+HOST_UID  := $(strip $(if $(uid),$(uid),0))
+else
+# allow override by adding user= and/ or uid=  (lowercase!).
+# uid= defaults to 0 if user= set (i.e. root).
+# USER retrieved from env, UID from shell.
+HOST_USER :=  $(strip $(if $(USER),$(USER),nodummy))
+HOST_UID  :=  $(strip $(if $(shell id -u),$(shell id -u),4000))
+endif
+ifneq ($(uid),)
+HOST_UID  := $(uid)
+endif
+
+ifeq ($(ssh-pkey),)
+SSH_PRIVATE_KEY := $(HOME)/.ssh/id_rsa
+else
+SSH_PRIVATE_KEY := $(ssh-pkey)
+endif
+export SSH_PRIVATE_KEY
+
+ifeq ($(alpine),)
+ALPINE_VERSION := 3.15
+else
+ALPINE_VERSION := $(alpine)
+endif
+export ALPINE_VERSION
+
+ifeq ($(dind),)
+DIND_VERSION := 20.10.16
+else
+DIND_VERSION := $(dind)
+endif
+export DIND_VERSION
+
+ifeq ($(debian),)
+DEBIAN_VERSION := bookworm
+else
+DEBIAN_VERSION := $(debian)
+endif
+export DEBIAN_VERSION
+
+ifeq ($(ubuntu),)
+UBUNTU_VERSION := jammy
+else
+UBUNTU_VERSION := $(ubuntu)
+endif
+export UBUNTU_VERSION
+
+ifeq ($(nocache),true)
+NO_CACHE := --no-cache
+else
+NO_CACHE :=
+endif
+export NO_CACHE
+
+ifeq ($(verbose),true)
+VERBOSE := --verbose
+else
+VERBOSE :=
+endif
+export VERBOSE
+
+ifneq ($(passwd),)
+PASSWORD := $(passwd)
+else
+PASSWORD := changeme
+endif
+export PASSWORD
+
+DOCKER:=$(shell which docker)
+export DOCKER
+DOCKER_COMPOSE:=$(shell which docker-compose)
+export DOCKER_COMPOSE
 
 #GIT CONFIG
 GIT_USER_NAME							:= $(shell git config user.name)
@@ -162,6 +258,30 @@ build:
 serve: build
 	mkdocs serve & open http://127.0.0.1:$(PORT) || open http://127.0.0.1:$(PORT)
 	#$(PYTHON3) -m http.server $(PORT) --bind 127.0.0.1 -d $(PWD)/docs > /dev/null 2>&1 || open http://127.0.0.1:$(PORT)
+
+.PHONY: shell alpine
+alpine: shell
+shell:
+ifeq ($(CMD_ARGUMENTS),)
+	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run --rm ${SERVICE_TARGET} sh
+else
+	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run --rm $(SERVICE_TARGET) sh -c "$(CMD_ARGUMENTS)"
+endif
+
+alpine-build:
+	# only build the container. Note, docker does this also if you apply other targets.
+	docker-compose build alpine-base
+
+#######################
+alpine-rebuild:
+	# force a rebuild by passing --no-cache
+	docker-compose build --no-cache $(VERBOSE) ${SERVICE_TARGET}
+
+alpine-test:
+	docker-compose -p $(PROJECT_NAME)_$(HOST_UID) run --rm ${SERVICE_TARGET} sh -c '\
+		echo "I am `whoami`. My uid is `id -u`." && /bin/bash -c "curl -fsSL https://raw.githubusercontent.com/randymcmillan/docker.shell/master/whatami"' \
+	&& echo success
+
 
 git-add:
 

@@ -1,0 +1,254 @@
+version: '3.4'
+services:
+
+  alpine-base:
+    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}
+    hostname: ${PROJECT_NAME}
+    environment:
+      - UID=${HOST_UID:-4000}
+    user: ${HOST_USER:-nodummy}
+    image: ${PROJECT_NAME}:${HOST_USER:-nodummy}
+    privileged: true
+    build:
+      context: .
+      target: user
+      dockerfile: alpine-base.dockerfile
+      args:
+        - HOST_UID=${HOST_UID:-4000}
+        - HOST_USER=${HOST_USER:-nodummy}
+        - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
+        - ALPINE_VERSION=${ALPINE_VERSION}
+        - DIND_VERSION=${DIND_VERSION}
+        - PASSWORD=${PASSWORD}
+    command: ["tail", "-f", "/dev/null"]
+    volumes:
+      - ${HOME:-.}:/home/${HOST_USER}
+
+  alpine-guix:
+    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}
+    hostname: ${PROJECT_NAME}
+    environment:
+      - UID=${HOST_UID:-4000}
+    user: ${HOST_USER:-nodummy}
+    image: ${PROJECT_NAME}:${HOST_USER:-nodummy}
+    privileged: true
+    build:
+      context: .
+      target: user
+      dockerfile: core-review/guix/Dockerfile
+      args:
+        - HOST_UID=${HOST_UID:-4000}
+        - HOST_USER=${HOST_USER:-nodummy}
+        - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
+        - ALPINE_VERSION=${ALPINE_VERSION}
+        - DIND_VERSION=${DIND_VERSION}
+        - PASSWORD=${PASSWORD}
+    command: ["tail", "-f", "/dev/null"]
+    volumes:
+      - ${HOME:-.}:/home/${HOST_USER}
+
+  ubuntu:
+    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}
+    hostname: ${PROJECT_NAME}
+    environment:
+      - UID=${HOST_UID:-4000}
+    user: ${HOST_USER:-nodummy}
+    image: ${PROJECT_NAME}:${HOST_USER:-nodummy}
+    privileged: true
+    build:
+      context: .
+      target: user
+      dockerfile: ubuntu.dockerfile
+      args:
+        - HOST_UID=${HOST_UID:-4000}
+        - HOST_USER=${HOST_USER:-nodummy}
+        - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
+        - PASSWORD=${PASSWORD}
+        - UBUNTU_VERSION=${UBUNTU_VERSION}
+    command: ["tail", "-f", "/dev/null"]
+    volumes:
+      - ${HOME:-.}:/home/${HOST_USER}
+
+  debian:
+    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}
+    hostname: ${PROJECT_NAME}
+    environment:
+      - UID=${HOST_UID:-4000}
+    user: ${HOST_USER:-nodummy}
+    image: ${PROJECT_NAME}:${HOST_USER:-nodummy}
+    privileged: true
+    build:
+      context: .
+      target: user
+      dockerfile: debian.dockerfile
+      args:
+        - HOST_UID=${HOST_UID:-4000}
+        - HOST_USER=${HOST_USER:-nodummy}
+        - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
+        - PASSWORD=${PASSWORD}
+        - DEBIAN_VERSION=${DEBIAN_VERSION}
+    command: ["tail", "-f", "/dev/null"]
+    volumes:
+      - ${HOME:-.}:/home/${HOST_USER}
+
+  debian9:
+    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}
+    hostname: ${PROJECT_NAME}
+    environment:
+      - UID=${HOST_UID:-4000}
+    user: ${HOST_USER:-nodummy}
+    image: ${PROJECT_NAME}:${HOST_USER:-nodummy}
+    privileged: true
+    build:
+      context: .
+      target: user
+      dockerfile: debian9.dockerfile
+      args:
+        - HOST_UID=${HOST_UID:-4000}
+        - HOST_USER=${HOST_USER:-nodummy}
+        - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
+        - ALPINE_VERSION=${ALPINE_VERSION}
+        - DIND_VERSION=${DIND_VERSION}
+        - PASSWORD=${PASSWORD}
+    command: ["tail", "-f", "/dev/null"]
+    volumes:
+      - ${HOME:-.}:/home/${HOST_USER}
+
+  fedora33:
+    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}
+    hostname: ${PROJECT_NAME}
+    environment:
+      - UID=${HOST_UID:-4000}
+    user: ${HOST_USER:-nodummy}
+    image: ${PROJECT_NAME}:${HOST_USER:-nodummy}
+    privileged: true
+    build:
+      context: .
+      target: user
+      dockerfile: fedora33.dockerfile
+      args:
+        - HOST_UID=${HOST_UID:-4000}
+        - HOST_USER=${HOST_USER:-nodummy}
+        - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
+        - ALPINE_VERSION=${ALPINE_VERSION}
+        - DIND_VERSION=${DIND_VERSION}
+        - PASSWORD=${PASSWORD}
+    command: ["tail", "-f", "/dev/null"]
+    volumes:
+      - ${HOME:-.}:/home/${HOST_USER}
+
+  fedora34:
+    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}
+    hostname: ${PROJECT_NAME}
+    environment:
+      - UID=${HOST_UID:-4000}
+    user: ${HOST_USER:-nodummy}
+    image: ${PROJECT_NAME}:${HOST_USER:-nodummy}
+    privileged: true
+    build:
+      context: .
+      target: user
+      dockerfile: fedora34.dockerfile
+      args:
+        - HOST_UID=${HOST_UID:-4000}
+        - HOST_USER=${HOST_USER:-nodummy}
+        - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
+        - ALPINE_VERSION=${ALPINE_VERSION}
+        - DIND_VERSION=${DIND_VERSION}
+        - PASSWORD=${PASSWORD}
+    command: ["tail", "-f", "/dev/null"]
+    volumes:
+      - ${HOME:-.}:/home/${HOST_USER}
+
+  gentoo:
+    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}
+    hostname: ${PROJECT_NAME}
+    environment:
+      - UID=${HOST_UID:-4000}
+    user: ${HOST_USER:-nodummy}
+    image: ${PROJECT_NAME}:${HOST_USER:-nodummy}
+    privileged: true
+    build:
+      context: .
+      target: user
+      dockerfile: gentoo.dockerfile
+      args:
+        - HOST_UID=${HOST_UID:-4000}
+        - HOST_USER=${HOST_USER:-nodummy}
+        - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
+        - ALPINE_VERSION=${ALPINE_VERSION}
+        - DIND_VERSION=${DIND_VERSION}
+        - PASSWORD=${PASSWORD}
+    command: ["tail", "-f", "/dev/null"]
+    volumes:
+      - ${HOME:-.}:/home/${HOST_USER}
+
+  centos:
+    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}
+    hostname: ${PROJECT_NAME}
+    environment:
+      - UID=${HOST_UID:-4000}
+    user: ${HOST_USER:-nodummy}
+    image: ${PROJECT_NAME}:${HOST_USER:-nodummy}
+    privileged: true
+    build:
+      context: .
+      target: user
+      dockerfile: centos.dockerfile
+      args:
+        - HOST_UID=${HOST_UID:-4000}
+        - HOST_USER=${HOST_USER:-nodummy}
+        - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
+        - ALPINE_VERSION=${ALPINE_VERSION}
+        - DIND_VERSION=${DIND_VERSION}
+        - PASSWORD=${PASSWORD}
+    command: ["tail", "-f", "/dev/null"]
+    volumes:
+      - ${HOME:-.}:/home/${HOST_USER}
+
+  centos7:
+    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}
+    hostname: ${PROJECT_NAME}
+    environment:
+      - UID=${HOST_UID:-4000}
+    user: ${HOST_USER:-nodummy}
+    image: ${PROJECT_NAME}:${HOST_USER:-nodummy}
+    privileged: true
+    build:
+      context: .
+      target: user
+      dockerfile: centos7.dockerfile
+      args:
+        - HOST_UID=${HOST_UID:-4000}
+        - HOST_USER=${HOST_USER:-nodummy}
+        - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
+        - ALPINE_VERSION=${ALPINE_VERSION}
+        - DIND_VERSION=${DIND_VERSION}
+        - PASSWORD=${PASSWORD}
+    command: ["tail", "-f", "/dev/null"]
+    volumes:
+      - ${HOME:-.}:/home/${HOST_USER}
+
+  base:
+    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}
+    hostname: ${PROJECT_NAME}
+    environment:
+      - UID=${HOST_UID:-4000}
+    user: ${HOST_USER:-nodummy}
+    image: ${PROJECT_NAME}:${HOST_USER:-nodummy}
+    privileged: true
+    build:
+      context: .
+      target: user
+      dockerfile: base.dockerfile
+      args:
+        - HOST_UID=${HOST_UID:-4000}
+        - HOST_USER=${HOST_USER:-nodummy}
+        - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
+        - ALPINE_VERSION=${ALPINE_VERSION}
+        - DIND_VERSION=${DIND_VERSION}
+        - PASSWORD=${PASSWORD}
+    command: ["tail", "-f", "/dev/null"]
+    volumes:
+      - ${HOME:-.}:/home/${HOST_USER}
+
