@@ -294,9 +294,9 @@ push:
 	bash -c "git push -f --all git@github.com:$(GIT_PROFILE)/$(PROJECT_NAME).git || echo failed to push docs"
 
 push-to-master:
-	git push -f git@github.com:$(GIT_PROFILE)/$(PROJECT_NAME).git $(GIT_BRANCH):master || echo failed to push docs
+	git push -f  $(GIT_REPO_ORIGIN) $(GIT_BRANCH):master || echo failed to push docs
 push-to-main:
-	git push -f git@github.com:$(GIT_PROFILE)/$(PROJECT_NAME).git $(GIT_BRANCH):main || echo failed to push docs
+	git push -f  $(GIT_REPO_ORIGIN) $(GIT_BRANCH):main || echo failed to push docs
 
 
 SIGNIN=randymcmillan
