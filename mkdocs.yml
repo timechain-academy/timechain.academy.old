@@ -23,9 +23,9 @@ nav:
     - Mastering Bitcoin: 'bitcoinbook/README.md'
     - git: 'git/README.md'
     - Bitcoin Script: 'ide/Readme.md'
-    - 'lnbits/lnbits.md'
-    - 'lnbook/README.md'
-    - Coarse Template: 'template/template.md'
+    - Mastering Lighting: 'lnbook/README.md'
+    - LnBits: 'lnbits/lnbits.md'
+      # - Coarse Template: 'template/template.md'
 
 plugins:
     - exclude:
