@@ -1,0 +1,63 @@
+site_name: timechain.academy
+site_url: https://timechain.academy
+repo_url: https://github.com/timechain-academy/timechain.academy
+docs_dir: sources
+site_dir: docs
+
+#REF: https://www.mkdocs.org/user-guide/configuration/
+#REF: https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/
+theme:
+    name: material
+    features:
+        - navigation.instant
+        - navigation.tabs
+        - navigation.tabs.sticky
+        - navigation.sections
+
+
+use_directory_urls: true
+
+nav:
+    - TimeChain Academy: ~
+        - TimeChain Academy: 'README.md'
+        - TimeChain Academy: 'README.md'
+    - Setup Commands: 'COMMANDS.md'
+    - Mastering Bitcoin: 'bitcoinbook/README.md'
+    - git: 'git/README.md'
+    - Bitcoin Script: 'ide/Readme.md'
+    - 'ide/doc/index.md'
+    - 'ide/lib/ace/mode/_test/Readme.md'
+    - 'ide/tool/Readme.md'
+    - 'lnbits/lnbits.md'
+    - 'lnbook/README.md'
+    - 'lnbook/CONTRIBUTING.md'
+    - 'lnbook/LICENSE.md'
+    - 'template/template.md'
+
+plugins:
+    - exclude:
+        glob:
+            - openpgp.org/vendor/bundle/**
+            - "*.tmp"
+            - "*.pdf"
+            - "*.gz"
+        regex:
+            - '.*\.(tmp|bin|tar)$'
+    - search
+    - redirects:
+        redirect_maps:
+            user-guide/plugins.md: dev-guide/plugins.md
+            user-guide/custom-themes.md: dev-guide/themes.md
+            user-guide/styling-your-docs.md: user-guide/choosing-your-theme.md
+
+markdown_extensions:
+    - pymdownx.striphtml:
+        strip_comments: true
+        strip_js_on_attributes: false
+
+copyright: Copyright &copy; 2014 <a href="https://twitter.com/_tomchristie">Tom Christie</a>, Maintained by the <a href="/about/release-notes/#maintenance-team">MkDocs Team</a>.
+
+
+# Development
+watch:
+    - sources

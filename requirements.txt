@@ -1,3 +1,5 @@
-setuptools
-blockcypher
-setuptools
+mkdocs
+mkdocs-material
+mkdocs-exclude
+mkdocs-redirects
+mkdocs-toc-sidebar-plugin
