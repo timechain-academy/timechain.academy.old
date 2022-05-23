@@ -19,9 +19,9 @@ use_directory_urls: true
 
 nav:
     - TimeChain Academy: 'README.md'
-    - Setup Commands: 'COMMANDS.md'
-    - Mastering Bitcoin: 'bitcoinbook/README.md'
+    - Setup: 'COMMANDS.md'
     - git: 'git/README.md'
+    - Mastering Bitcoin: 'bitcoinbook/README.md'
     - Bitcoin Script: 'ide/Readme.md'
     - Mastering Lighting: 'lnbook/README.md'
     - LnBits: 'lnbits/lnbits.md'
@@ -37,11 +37,11 @@ plugins:
         regex:
             - '.*\.(tmp|bin|tar)$'
     - search
-    - redirects:
-        redirect_maps:
-            user-guide/plugins.md: dev-guide/plugins.md
-            user-guide/custom-themes.md: dev-guide/themes.md
-            user-guide/styling-your-docs.md: user-guide/choosing-your-theme.md
+      # - redirects:
+      #     redirect_maps:
+      #         user-guide/plugins.md: dev-guide/plugins.md
+      #         user-guide/custom-themes.md: dev-guide/themes.md
+      #         user-guide/styling-your-docs.md: user-guide/choosing-your-theme.md
 
 markdown_extensions:
     - pymdownx.striphtml:
