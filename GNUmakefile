@@ -173,6 +173,11 @@ push:
 	#bash -c "git commit         --no-edit --allow-empty -m '$(GIT_PREVIOUS_HASH)' || echo failed to commit --amend --no-edit"
 	bash -c "git push -f --all git@github.com:$(GIT_PROFILE)/$(PROJECT_NAME).git || echo failed to push docs"
 
+push-to-master:
+	git push -f git@github.com:$(GIT_PROFILE)/$(PROJECT_NAME).git $(GIT_BRANCH):master || echo failed to push docs
+push-to-main:
+	git push -f git@github.com:$(GIT_PROFILE)/$(PROJECT_NAME).git $(GIT_BRANCH):main || echo failed to push docs
+
 
 SIGNIN=randymcmillan
 export SIGNIN
