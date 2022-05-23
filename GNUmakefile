@@ -267,18 +267,18 @@ else
 	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run --rm $(SERVICE_TARGET) bash -c "$(CMD_ARGUMENTS)"
 endif
 
-shell-build:
+build-shell:
 	# only build the container. Note, docker does this also if you apply other targets.
 	docker-compose build ${SERVICE_TARGET}
 
 #######################
-shell-rebuild:
+rebuild-shell:
 	# force a rebuild by passing --no-cache
 	docker-compose build --no-cache $(VERBOSE) ${SERVICE_TARGET}
 
 shell-test:
 	docker-compose -p $(PROJECT_NAME)_$(HOST_UID) run --rm ${SERVICE_TARGET} sh -c '\
-		echo "I am `whoami`. My uid is `id -u`." && /bin/bash -c "curl -fsSL https://raw.githubusercontent.com/randymcmillan/docker.shell/master/whatami"' \
+		echo "I am `whoami`. My uid is `id -u`." && /bin/bash -c "curl -fsSL https://raw.githubusercontent.com/timechain-academy/timechain.academy/master/whatami"' \
 	&& echo success
 
 
