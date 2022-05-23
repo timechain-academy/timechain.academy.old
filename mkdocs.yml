@@ -18,7 +18,7 @@ theme:
 use_directory_urls: true
 
 nav:
-    - TimeChain Academy: 'README.md'
+    - 'README.md'
     - Setup: 'COMMANDS.md'
     - git: 'git/README.md'
     - Mastering Bitcoin: 'bitcoinbook/README.md'
