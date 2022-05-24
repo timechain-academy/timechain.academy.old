@@ -259,6 +259,8 @@ docs: init
 	echo '```' >> README.md
 	make >> README.md
 	echo '```' >> README.md
+	bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
+	bash -c 'pandoc -s timechain.academy.md -o index.html  --metadata title="" '
 
 init:
 	python3 -m pip install -r requirements.txt
