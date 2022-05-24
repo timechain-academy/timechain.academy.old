@@ -12,14 +12,3 @@ tr -d '\n' | cut -c 17-368600 | xxd -r -p > bitcoin.pdf
 
 </p>
 </details>
-
-<details>
-<summary>👀</summary>
-<p>
-
-#### Referal Links:
-
-[![DigitalOcean Referral Badge](https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%202.svg)](https://www.digitalocean.com/?refcode=ae5c7d05da91&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
-
-</p>
-</details>
