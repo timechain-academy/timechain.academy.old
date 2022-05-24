@@ -248,9 +248,11 @@ report:
 	@echo '        - GIT_REPO_PATH=${GIT_REPO_PATH}'
 
 #######################
+.PHONY: init docs clean build serve
+init:
+	python3 -m pip install -r requirements.txt
 
-.PHONY: docs
-docs: init build
+docs: build
 	@echo "Use 'make docs nocache=true' to force docs rebuild..."
 
 	mkdir -p docs
@@ -274,21 +276,21 @@ docs: init build
 	pushd sources/lnbook      > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
 	pushd sources/lnbook      > /dev/null; for string in *.asciidoc; do asciidoctor $$string; done; popd || echo "......"
 
-
-init:
+clean:
 	rm -rf sources/playground
 	rm -rf sources/git
 	rm -rf sources/ide
 	rm -rf sources/bitcoinbook
 	rm -rf sources/lnbook
+
+build:
 	git clone --depth 1 git@github.com:timechain-academy/playground.git sources/playground   || git pull -f git@github.com:timechain-academy/playground.git        sources/playground || true
 	git clone --depth 1 https://github.com/jlord/git-it-electron.git    sources/git          || git pull -f https://github.com/jlord/git-it-electron.git           sources/git || true
 	git clone --depth 1 https://github.com/siminchen/bitcoinIDE.git     sources/ide          || git pull -f https://github.com/siminchen/bitcoinIDE.git            sources/ide || true
 	git clone --depth 1 https://github.com/bitcoinbook/bitcoinbook.git  sources/bitcoinbook  || git pull -f https://github.com/bitcoinbook/bitcoinbook.git         sources/bitcoinbook || true
 	git clone https://github.com/lnbook/lnbook.git                      sources/lnbook       || git pull -f https://github.com/lnbook/lnbook.git                   sources/lnbook || true
-	python3 -m pip install -r requirements.txt
-build:
 	mkdocs build
+
 serve: build
 	mkdocs serve & open http://127.0.0.1:$(PORT) || open http://127.0.0.1:$(PORT)
 	#$(PYTHON3) -m http.server $(PORT) --bind 127.0.0.1 -d $(PWD)/docs > /dev/null 2>&1 || open http://127.0.0.1:$(PORT)
@@ -327,7 +329,7 @@ push:
 	#bash -c "git commit         --no-edit --allow-empty -m '$(GIT_PREVIOUS_HASH)' || echo failed to commit --amend --no-edit"
 	bash -c "git push -f --all git@github.com:$(GIT_PROFILE)/$(PROJECT_NAME).git || echo failed to push docs"
 
-push-to-master: docs
+push-to-master:
 	git push -f  $(GIT_REPO_ORIGIN) $(GIT_BRANCH):master || echo failed to push docs
 push-to-main: docs
 	git push -f  $(GIT_REPO_ORIGIN) $(GIT_BRANCH):main || echo failed to push docs
