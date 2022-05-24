@@ -263,6 +263,7 @@ docs: init
 	bash -c 'pandoc -s timechain.academy.md -o index.html  --metadata title="" '
 
 init:
+	git clone git@github.com:timechain-academy/plebnet.git sources/plebnet || git pull -f git@github.com:timechain-academy/plebnet.git sources/plebnet || true
 	python3 -m pip install -r requirements.txt
 build:
 	mkdocs build

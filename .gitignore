@@ -1,17 +1,6 @@
 CNAME
 
-164*
-
-bitcoin-test-battery-*
-bitcoin-test-battery-1*
-
-twitterAPI/
-twitter.access.tokens
-twitter.access.tokens/*
-twitter_access_tokens
-twitter_access_tokens/*
-
-twitter_access_tokens.zip
+sources/plebnet
 
 bitcoin.pdf
 
