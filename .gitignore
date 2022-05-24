@@ -1,5 +1,6 @@
 CNAME
 
+sources/*.html
 sources/playground
 sources/git
 sources/bitcoinbook

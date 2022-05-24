@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.17">
+<title>Operating a Lightning Network Node</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="node_operations">Operating a Lightning Network Node</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After having read this far, you have probably set up a Lightning wallet. In this chapter, we will take things one step further and set up a full Lightning node. In addition to setting one up, we will learn how to operate it and maintain it over time.</p>
+</div>
+<div class="paragraph">
+<p>There are many reasons why you might want to set up your own Lightning node. They include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To be a full, active participant in the Lightning Network, not just an end user</p>
+</li>
+<li>
+<p>To run an ecommerce store or receive income via Lightning payments</p>
+</li>
+<li>
+<p>To earn income from Lightning routing fees or by renting channel liquidity</p>
+</li>
+<li>
+<p>To develop new services, applications, or plug-ins for the Lightning Network</p>
+</li>
+<li>
+<p>To increase your financial privacy while using Lightning</p>
+</li>
+<li>
+<p>To use some apps built on top of Lightning, like Lightning-powered instant messaging apps</p>
+</li>
+<li>
+<p>For financial freedom, independence, and sovereignty</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>There are costs associated with running an LN node. You need a computer, a permanent internet connection, lots of disk space, and lots of time!
+Operational costs will include electricity expenses.</p>
+</div>
+<div class="paragraph">
+<p>But the skills you will learn from this experience are valuable and can be applied to a variety of other tasks too.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s get started!</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It is important that you set your own expectations correctly on accurate facts.
+If you plan to operate a Lightning node <em>solely</em> to gain income by earning routing fees,
+please do your homework diligently first. Running a profitable business by operating a Lightning node is
+definitely <em>not</em> easy. Calculate all your initial and ongoing costs in a spreadsheet. Study LN statistics carefully.
+What is the current payment volume? What is the volume per node? What are the current average routing fees? Consult forums and ask
+for advice or feedback from other community members who have already gained real-world experience. Form your own educated opinion only
+<em>after</em> you have done this due diligence exercise. Most people will find their motivation for running a node not in financial gain,
+but somewhere else.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_choosing_your_platform">Choosing Your Platform</h3>
+<div class="paragraph">
+<p>There are many ways you can run a Lightning node, ranging from a small mini PC hosted in your home or a dedicated server, to a hosted server in the cloud. The method you choose will depend on the resources you have and how much money you want to spend.</p>
+</div>
+<div class="sect3">
+<h4 id="continuous_operation">Why Is Reliability Important for Running a Lightning Node?</h4>
+<div class="paragraph">
+<p>In Bitcoin, hardware is not particularly important unless one is specifically running a mining node.
+The Bitcoin Core node software can be run on any machine that meets its minimum requirements and does not need to be online to receive payments—only to send them.
+If a Bitcoin node goes down for an extended period of time, the user can simply reboot the node, and once it connects to the rest of the network, it will resync the blockchain.</p>
+</div>
+<div class="paragraph">
+<p>In Lightning, however, the user needs to be online both to send <em>and</em> to receive payments. If the Lightning node is offline, it cannot receive any payments from anyone, and thus its open invoices cannot be fulfilled.
+Furthermore, the open channels of an offline node cannot be used to route payments. Your channel partners will notice that you are offline and cannot contact you to route a payment. If you are offline too often, they may consider the bitcoin locked up in their channels with you to be underutilized capacity, and may close those channels. We already discussed the case of a protocol attack in which your channel partner tries to cheat you by submitting an earlier commitment transaction. If you are offline and your channels aren&#8217;t being monitored, then the attempted theft could succeed, and you will have no recourse once the timelock expires.
+Hence, node reliability is extremely important for a Lightning node.</p>
+</div>
+<div class="paragraph">
+<p>There are also the issues of hardware failure and loss of data. In Bitcoin, a hardware failure can be a trivial problem if the user has a backup of their mnemonic phrase or private keys. The Bitcoin wallet and the bitcoin inside the wallet can be easily restored from the private keys on a new computer. Most information can be redownloaded from the blockchain.</p>
+</div>
+<div class="paragraph">
+<p>In contrast, in Lightning the information about the user&#8217;s channels, including the commitment transactions and revocation secrets, are not publicly known and are only stored on the individual user&#8217;s hardware.
+Thus, software and hardware failures in the Lightning Network can easily result in loss of funds.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_types_of_hardware_lightning_nodes">Types of Hardware Lightning Nodes</h4>
+<div class="paragraph">
+<p>There are three main types of hardware Lightning nodes:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">General-purpose computers</dt>
+<dd>
+<p>An LN node can be run on a home computer or laptop running Windows, macOS, or Linux. Typically this is run alongside a Bitcoin node.</p>
+</dd>
+<dt class="hdlist1">Dedicated hardware</dt>
+<dd>
+<p>A Lightning node can also be run on dedicated hardware like a Raspberry Pi, Rock64, or mini PC. This setup would usually run a software stack, including a Bitcoin node and other applications. This setup is popular because the hardware is dedicated to running and maintaining the Lightning node only and is usually set up with an installation "helper."</p>
+</dd>
+<dt class="hdlist1">Preconfigured hardware</dt>
+<dd>
+<p>An LN node can also be run on purpose-built hardware specifically selected and configured for it. This would include "out-of-the-box" Lightning node solutions that can be purchased as a kit or a turnkey system.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_running_in_the_cloud">Running in the "Cloud"</h4>
+<div class="paragraph">
+<p><em>Virtual private server</em> (VPS) and cloud computing services such as Microsoft Azure, Google Cloud, Amazon Web Services (AWS), or DigitalOcean are quite affordable and can be set up very quickly. A Lightning node can be hosted for between $20 and $40 per month on such a service.</p>
+</div>
+<div class="paragraph">
+<p>However, as the saying goes, "&lsquo;Cloud&rsquo; is just other people&#8217;s computers." Using these services means running your node on other people&#8217;s computers. This brings along the corresponding advantages and disadvantages. The key advantages are convenience, efficiency, uptime, and possibly even cost. The cloud operator manages and runs the node to a high degree, automatically providing you with convenience and efficiency. They provide excellent uptime and availability, often much better than what an individual can achieve at home. If you consider that just the electricity cost of running a server in many Western countries is around $10 per month, then add to that the cost of network bandwidth and the hardware itself, the VPS offering becomes financially competitive. Lastly, with a VPS you need no space for a PC at home and don&#8217;t have any issues with PC noise or heat.
+On the other hand, there are several notable disadvantages. A Lightning node running in the "cloud" will always be less secure and less private than one running on your own computer. Additionally, these cloud computing services are very centralized. The vast majority of Bitcoin and Lightning nodes running on such services are located in a handful of data centers in Virginia, Sunnyvale, Seattle, London, and Frankfurt. When the networks or data centers of these providers have service problems, it affects thousands of nodes on so-called "decentralized" networks.</p>
+</div>
+<div class="paragraph">
+<p>If you have the possibility and capacity of running a node on your own computer at home or in your office, then this might be preferable to running it
+in the cloud. Nonetheless, if running your own server is not an option, by all means consider running one on a VPS.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_running_a_node_at_home">Running a Node at Home</h4>
+<div class="paragraph">
+<p>If you have a reasonable-capacity internet connection at home or in your office, you can certainly run a Lightning node there. Any "broadband" connection is sufficient for the purpose of running a lightweight node, and a fast connection will allow you to run a Bitcoin full node too.</p>
+</div>
+<div class="paragraph">
+<p>While you can run a Lightning node (and even a Bitcoin node) on your laptop, it will become annoying quite fast. These programs consume your computer&#8217;s resources and need to run 24/7. Your user applications like your browser or your spreadsheet will be competing against the Lightning background services for your computer&#8217;s resources. In other words, your browser and other desktop workloads will be slowed down.
+And when your word-processing app freezes up your laptop, your Lightning node will go down as well, leaving you unable to receive transactions and potentially vulnerable to attacks. Furthermore, you should never turn off your laptop.
+All this combined together results in a setup that is not ideal. The same will apply to your daily-use personal desktop PC.</p>
+</div>
+<div class="paragraph">
+<p>Instead, most users will choose to run a node on a dedicated computer.
+Fortunately, you don&#8217;t need a "server" class computer to do this.
+You can run a Lightning node on a single-board computer, such as a Raspberry Pi or on a mini PC (usually marketed as home theater PCs).
+These are simple computers which are commonly used as a home automation hub or a media server.
+They are relatively inexpensive when compared to a PC or a laptop.
+The advantage of a dedicated device as a platform for Lightning and Bitcoin nodes is that it can run continuously, silently, and unobtrusively on your home network, tucked behind your router or TV.
+No one will even know that this little box is actually part of a global banking system!</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Operating a node on a 32-bit operating system and/or 32-bit CPU is not recommended, because the node software may run into resource issues, causing a crash and possibly a loss of funds.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_what_hardware_is_required_to_run_a_lightning_node">What Hardware Is Required to Run a Lightning Node?</h4>
+<div class="paragraph">
+<p>At a minimum, the following are required to run a Lightning node:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">CPU</dt>
+<dd>
+<p>Sufficient processing power is required to run a Bitcoin node, which will continuously download and validate new blocks. The user also needs to consider the initial block download (IBD) when setting up a new Bitcoin node, which can take anywhere from several hours to several days. A 2-core or 4-core CPU is recommended.</p>
+</dd>
+<dt class="hdlist1">RAM</dt>
+<dd>
+<p>A system with 2 GB of RAM will <em>barely</em> run both Bitcoin and Lightning nodes. It will perform much better with at least 4 GB of RAM. The IBD will be especially challenging with less than 4 GB of RAM. More than 8 GB of RAM is unnecessary because the CPU is the greater bottleneck for these types of services, due to cryptographic operations such as signature validation.</p>
+</dd>
+<dt class="hdlist1">Storage drive</dt>
+<dd>
+<p>This can be a hard disk drive (HDD) or a solid state drive (SSD).
+An SSD will be significantly quicker (but more expensive) for running a node.
+Most of the storage is used for the Bitcoin blockchain, which is hundreds of gigabytes in size.
+A fair trade-off (cost for complexity) is to buy a small SSD to boot the OS from, and a larger HDD to store large data objects (mostly databases).</p>
+</dd>
+</dl>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Raspberry Pis are a common choice for running node software, due to the cost and parts availability.
+The OS that runs on the device usually boots from a secure digital (SD) card.
+For most use cases, this is a nonissue, but Bitcoin Core is notorious for being I/O heavy.
+You should make sure to place the Bitcoin blockchain and Lightning data directory on a different drive because long-term intensive I/O can cause an SD card to fail.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Internet connection</dt>
+<dd>
+<p>A reliable internet connection is required to download new Bitcoin blocks, as well as to communicate with other Lightning peers. During operation the estimated data use ranges from 10 to 100 GB per month, depending on configuration. At startup, a Bitcoin full node downloads the full blockchain.</p>
+</dd>
+<dt class="hdlist1">Power supply</dt>
+<dd>
+<p>A reliable power supply is required because Lightning nodes need to be online at all times. A power failure will cause in-progress payments to fail. For heavy duty routing nodes, a backup or uninterruptible power supply (UPS) is useful in the event of power outages.
+Ideally, you should connect your internet router to this UPS as well.</p>
+</dd>
+<dt class="hdlist1">Backup</dt>
+<dd>
+<p>Backup is crucial because a failure can result in loss of data and hence in loss of funds.
+You will want to consider some kind of data backup solution. This could be a cloud-based automated backup to a server or web service you control. Alternatively, it could be an automated local hardware backup, such as a second hard drive. For best results, both local and remote backup can be combined.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_switching_server_configuration_in_the_cloud">Switching Server Configuration in the Cloud</h4>
+<div class="paragraph">
+<p>When renting a cloud server, it is often cost effective to change the configuration between two phases of operation. A faster CPU and faster storage will be needed during the IBD (e.g., the first day). After the blockchain has synced, the CPU and storage speed requirements are much less, so the performance can be downgraded to a more cost-effective level.</p>
+</div>
+<div class="paragraph">
+<p>For example, on Amazon&#8217;s cloud, we would use an 8&ndash;16 GB RAM, 8-core CPU (e.g., t3-large or m3.large) and faster 400 GB SSD (1000+ provisioned input/output operations per second [IOPS]) for the IBD, reducing its time to just 6-8 hours. Once that is complete, we would switch the server instance to a 2 GB RAM, 2-core CPU (e.g., t3.small) and storage to a general purpose 1 TB HDD. This will cost about the same as if you ran it on the slower server the entire time, but it will get you up and running in less than a day instead of having to wait almost a week for the IBD.</p>
+</div>
+<div class="sect4">
+<h5 id="_permanent_data_storage_drive">Permanent data storage (drive)</h5>
+<div class="paragraph">
+<p>If you use a mini PC or rent a server, the storage can be the most expensive part, costing as much as the computer and connectivity (data) added together.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s have a look at the different options available. First, there are two main types of drives, HDDs and SSDs. HDDs are cheaper and SSDs are faster, but both do the job.</p>
+</div>
+<div class="paragraph">
+<p>The fastest SSDs available today use the Non-Volatile Memory Express (NVMe) interface. The NVMe SSDs are faster in high-end machines, but also more costly.
+Traditional SATA-based SSDs are cheaper, but not as fast. SATA SSDs perform sufficiently well for your node setup.
+Smaller computers might not be able to take advantage of NVMe SSDs.
+For example, the Raspberry Pi 4 cannot benefit from them because of the limited bandwidth of its USB port.</p>
+</div>
+<div class="paragraph">
+<p>To choose the size, let&#8217;s look at the Bitcoin blockchain. As of August 2021, its size is 360 GB, including the transaction index, and grows by roughly 60 GB per year. If you want to have some margin available for future growth or to install other data on your node, purchase at least a 512 GB drive, or better yet, a 1 TB drive.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="helpers">Using an Installer or Helper</h3>
+<div class="paragraph">
+<p>Installing a Lightning node or a Bitcoin node may be daunting if you are not familiar with a command-line environment. Luckily, there are a number of projects that make "helpers," i.e., software that installs and configures the various components for you. You will still need to learn some command-line incantations to interact with your node, but most of the initial work is done for you.</p>
+</div>
+<div class="sect3">
+<h4 id="_raspiblitz">RaspiBlitz</h4>
+<div class="paragraph">
+<p>One of the most popular and complete "helpers" is <em>RaspiBlitz</em> (<a href="#RaspiBlitz">A RaspiBlitz node</a>), a project built by Christian Rotzoll. It is intended to be installed on a Raspberry Pi 4. RaspiBlitz comes with a recommended hardware kit that you can build in a matter of hours or at most a weekend. If you attend a Lightning "hackathon" in your city, you are likely to see many people working on their RaspiBlitz setup, swapping tips, and helping each other. You can find the RaspiBlitz project on <a href="https://github.com/rootzoll/raspiblitz">GitHub</a>.</p>
+</div>
+<div class="paragraph">
+<p>In addition to a Bitcoin and Lightning node, RaspiBlitz can install a number of additional services, such as:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Tor (run as hidden service)</p>
+</li>
+<li>
+<p>ElectRS (Electrum server in Rust)</p>
+</li>
+<li>
+<p>BTCPay Server (cryptocurrency payment processor)</p>
+</li>
+<li>
+<p>BTC RPC Explorer (Bitcoin blockchain explorer)</p>
+</li>
+<li>
+<p>Ride The Lightning (Lightning node management GUI)</p>
+</li>
+<li>
+<p>LNbits (Lightning wallet/accounts system)</p>
+</li>
+<li>
+<p>Specter Desktop (multisig Trezor, Ledger, Coldcard wallet, and Specter-DIY)</p>
+</li>
+<li>
+<p>lndmanage (command-line interface for advanced channel management)</p>
+</li>
+<li>
+<p>Loop (submarine swaps service)</p>
+</li>
+<li>
+<p>JoinMarket (CoinJoin service)</p>
+</li>
+</ul>
+</div>
+<div id="RaspiBlitz" class="imageblock">
+<div class="content">
+<img src="images/mtln_0501.png" alt="mtln 0501">
+</div>
+<div class="title">Figure 1. A RaspiBlitz node</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_mynode">Mynode</h4>
+<div class="paragraph">
+<p><a href="https://mynodebtc.com"><em>myNode</em></a> is another popular open source "helper" project including a lot of Bitcoin related software. It is easy to install: you "flash" the installer onto an SD card and boot your mini PC from the SD card. You do not need any monitor to use myNode because the administrative tools are accessible remotely from a browser. If your mini PC has no monitor, mouse, or keyboard, you can manage it from another computer or even from your smartphone. Once installed, go to <a href="http://mynode.local" class="bare">http://mynode.local</a> and create a Lightning wallet and node in two clicks.</p>
+</div>
+<div class="paragraph">
+<p>In addition to a Bitcoin and Lightning node, myNode can optionally install a variety of additional services, such as:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ride The Lightning (Lightning node management GUI)</p>
+</li>
+<li>
+<p>OpenVPN (virtual private network [VPN] support for remote management or wallet)</p>
+</li>
+<li>
+<p>lndmanage (command-line interface for advanced channel management)</p>
+</li>
+<li>
+<p>BTC RPC Explorer (a Bitcoin blockchain explorer)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_umbrel">Umbrel</h4>
+<div class="paragraph">
+<p>Famous for their UX/UI (shown in <a href="#umbrel">The Umbrel web interface</a>), <em>Umbrel</em> provides a very easy and accessible way to get your Bitcoin and Lightning node up and running in no time, especially for beginners. A very distinctive feature is that Umbrel utilizes Neutrino/SPV during the IBD so you can instantly start using your node. Once Bitcoin Core is fully synced in the background, it automatically switches over and disables SPV mode. Umbrel OS supports the Raspberry Pi 4 and can also be installed on any Linux-based OS or on a virtual machine on macOS or Windows. You can also connect any wallet that supports Bitcoin Core P2P, Bitcoin Core RPC, the Electrum protocol, or lndconnect.</p>
+</div>
+<div class="paragraph">
+<p>There&#8217;s no need to wait for a rainy day&mdash;you can go right to <a href="https://getumbrel.com">Umbrel</a> to learn more.</p>
+</div>
+<div id="umbrel" class="imageblock">
+<div class="content">
+<img src="images/mtln_0502.png" alt="The Umbrel web interface">
+</div>
+<div class="title">Figure 2. The Umbrel web interface</div>
+</div>
+<div class="paragraph">
+<p>In addition to a Bitcoin and Lightning node, Umbrel introduced the Umbrel App Store, where you can easily install additional services, such as:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Lightning Terminal (interface for managing channel liquidity, Loop In, and Loop Out)</p>
+</li>
+<li>
+<p>Ride The Lightning (Lightning node management GUI)</p>
+</li>
+<li>
+<p>Specter Desktop (watch-only coordinator for multisignature and single-key Bitcoin wallets)</p>
+</li>
+<li>
+<p>BTCPay Server (cryptocurrency payment processor)</p>
+</li>
+<li>
+<p>BTC RPC Explorer (Bitcoin blockchain explorer)</p>
+</li>
+<li>
+<p>ThunderHub (monitor and manage your node)</p>
+</li>
+<li>
+<p>Sphinx Relay (handling connectivity and storage for Sphinx chat)</p>
+</li>
+<li>
+<p>mempool.space (mempool visualizer and block explorer)</p>
+</li>
+<li>
+<p>LNbits (Lightning wallet/accounts system)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Umbrel is currently still in beta and is not considered secure.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_btcpay_server">BTCPay Server</h4>
+<div class="paragraph">
+<p>While not initially designed as an installation "helper," the ecommerce and payment platform <em>BTCPay Server</em> has an incredibly easy installation system that uses Docker containers and docker-compose to install a Bitcoin node, Lightning node, and payment gateway, among many other services. It can be installed on a variety of hardware platforms, from a simple Raspberry Pi 4 (4 GB recommended) to a mini PC or old laptop, desktop, or server.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://btcpayserver.org">BTCPay Server</a> is a fully featured self-hosted, self-custody ecommerce platform that can be integrated with many ecommerce platforms, such as WordPress WooCommerce and others. The installation of the full node is only a step of the ecommerce platform installation.
+While originally developed as a feature-for-feature replacement of the <em>BitPay</em> commercial payment service and API, it has evolved past that to be a complete platform for BTC and Lightning services related to ecommerce. For many sellers or shops it is a one-shop turnkey solution to ecommerce.</p>
+</div>
+<div class="paragraph">
+<p>In addition to a Bitcoin and Lightning node, BTCPay Server can also install a variety of services, including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>c-lightning</code> or LND Lightning node</p>
+</li>
+<li>
+<p>Litecoin support</p>
+</li>
+<li>
+<p>Monero support</p>
+</li>
+<li>
+<p>Spark server (<code>c-lightning</code> web wallet)</p>
+</li>
+<li>
+<p>Charge server (<code>c-lightning</code> ecommerce API)</p>
+</li>
+<li>
+<p>Ride The Lightning (Lightning node management web GUI)</p>
+</li>
+<li>
+<p>Many BTC forks</p>
+</li>
+<li>
+<p>BTCTransmuter (event-action automation service supporting currency exchange)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The number of additional services and features is growing rapidly, so the preceding list is only a small subset of what is available on the BTCPay Server platform.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_bitcoin_node_or_lightweight_lightning">Bitcoin Node or Lightweight Lightning</h4>
+<div class="paragraph">
+<p>One critical choice for your setup will be the choice of the Bitcoin node and its configuration. <em>Bitcoin Core</em>, the reference implementation, is the most common choice but not the only choice available. One alternative choice is <em>btcd</em>, which is a Go-language implementation of a Bitcoin node. btcd supports some features that are useful for running an LND Lightning node and are not available in Bitcoin Core.</p>
+</div>
+<div class="paragraph">
+<p>A second consideration is whether you will run an <em>archival</em> Bitcoin node with a full copy of the blockchain (some 350 GB in mid-2021) or a <em>pruned</em> blockchain that only keeps the most recent blocks. A pruned blockchain can save you some disk space, but you will still need to download the full blockchain at least once (during the IBD). Hence it won&#8217;t save you any network traffic. Using a pruned node to run a Lightning node is still an experimental capability and might not support all the functionality. However, many people are running a node like that successfully.</p>
+</div>
+<div class="paragraph">
+<p>Finally, you also have the option of not running a Bitcoin node at all. Instead you can operate the LND Lightning node in "lightweight" mode, using the Neutrino Protocol to retrieve blockchain information from public Bitcoin nodes operated by others. Running like this means that you are taking resources from the Bitcoin network without offering any in return. Instead, you are offering your resources and contributing to the LN community. For smaller Lightning nodes this will generally reduce network traffic in comparison to running a full Bitcoin node.</p>
+</div>
+<div class="paragraph">
+<p>Keep in mind that operating a Bitcoin node allows you to support other services, besides and on top of a Lightning node. These other services may require an archival (not pruned) Bitcoin node and often can&#8217;t run without a Bitcoin node. Consider up front what other services you may want to run now or in the future to make an informed decision on the type of Bitcoin node you select.</p>
+</div>
+<div class="paragraph">
+<p>The bottom line for this decision is: if you can afford a disk larger than 500 GB, run a full archival Bitcoin node. You will be contributing resources to the Bitcoin system and helping others who cannot afford to do so. If you can&#8217;t afford such a big disk, run a pruned node. If you can&#8217;t afford the disk or the bandwidth for even a pruned node, run a lightweight LND node over Neutrino.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_operating_system_choice">Operating System Choice</h4>
+<div class="paragraph">
+<p>The next step is to select an operating system for your node. The vast majority of internet servers run on some variant of Linux. Linux is the platform of choice for the internet because it is a powerful open source operating system. Linux, however, has a steep learning curve and requires familiarity with a command-line environment. It is often intimidating for new users.</p>
+</div>
+<div class="paragraph">
+<p>Ultimately, most of the services can be run on any modern POSIX operating system, which includes macOS, Windows, and of course Linux. Your choice should be driven more by your familiarity and comfort with an operating system and your learning objectives. If you want to expand your knowledge and learn how to operate a Linux system, this is a great opportunity to do so with a specific project and a clear goal. If you just want to get a node up and running, go with what you know.</p>
+</div>
+<div class="paragraph">
+<p>Nowadays, many services are also delivered in the form of containers, usually based on the Docker system. These containers can be deployed on a variety of operating systems, abstracting the underlying OS. You may need to learn some Linux CLI commands nonetheless, as most of the containers run some variant of Linux inside.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_choose_your_lightning_node_implementation">Choose Your Lightning Node Implementation</h3>
+<div class="paragraph">
+<p>As with the choice of operating system, your choice of Lightning node implementation should depend primarily on your familiarity with the programming language and development tools used by the projects. While there are some small differences in features between the various node implementations, those are relatively minor, and most implementations converge on the common standards defined by the BOLTs.</p>
+</div>
+<div class="paragraph">
+<p>Familiarity with the programming language and build system, on the other hand, is a good basis for choosing a node. That&#8217;s because installation, configuration, ongoing maintenance, and troubleshooting will all involve interacting with the various tools used by the build system. This includes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make, Autotools, and GNU utilities for <code>c-lightning</code></p>
+</li>
+<li>
+<p>Go utilities for LND</p>
+</li>
+<li>
+<p>Java/Maven for Eclair</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The programming language influences not only the choice of build system but also many other aspects of the program. Each programming language comes with a whole design philosophy and affects many other aspects, such as:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Format and syntax of configuration files</p>
+</li>
+<li>
+<p>File locations (in the filesystem)</p>
+</li>
+<li>
+<p>Command-line arguments and their syntax</p>
+</li>
+<li>
+<p>Error message formatting</p>
+</li>
+<li>
+<p>Prerequisite libraries</p>
+</li>
+<li>
+<p>Remote procedure call interfaces</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When you choose your Lightning node, you are also choosing all the aforementioned characteristics. So your familiarity with these tools and design philosophies will make it easier to run a node. Or harder, if you land in an unfamiliar domain.</p>
+</div>
+<div class="paragraph">
+<p>On the other hand, if this is your first foray into the command-line and server/service environment, you will find yourself unfamiliar with any implementation and have the opportunity to learn something completely new. In that case you might want to decide based on a number of other factors, such as:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Quality of support forums and chat rooms</p>
+</li>
+<li>
+<p>Quality of documentation</p>
+</li>
+<li>
+<p>Degree of integration with other tools you want to run</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As a final consideration, you may want to examine the performance and reliability of different node implementations. This is especially important if you will be using this node in a production environment and expect heavy traffic and high reliability requirements. This might be the case if you plan to run the payment system of a shop on it.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_installing_a_bitcoin_or_lightning_node">Installing a Bitcoin or Lightning Node</h3>
+<div class="paragraph">
+<p>You decided not to use an installation "helper" and instead to dive into the command line of a Linux operating system? That is a brave decision, and we&#8217;ll try to help you make it work. If you&#8217;d rather not try to do this manually, consider using an application that helps you install the node software or a container-based solution, as described in <a href="#helpers">Using an Installer or Helper</a>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This section will delve into the advanced topic of system administration from the command line. Linux administration is its own skill set that is outside the scope of this book. It is a complicated topic and there are many pitfalls. Proceed with caution!</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In the next few sections we will briefly describe how to install and configure a Bitcoin and Lightning node on a Linux operating system. You will need to review the installation instructions for the specific Bitcoin and Lightning node applications you decided to use. You can usually find these in a file called <em>INSTALL</em> or in the <em>docs</em> subdirectory of each project. We will only describe some of the common steps that apply to all such services, and the instructions we offer will be necessarily incomplete.</p>
+</div>
+<div class="sect3">
+<h4 id="_background_services">Background Services</h4>
+<div class="paragraph">
+<p>For those accustomed to running applications on their desktop or smartphone, an application always has a graphical user interface even if it may sometimes run in the background. The Bitcoin and Lightning node applications, however, are very different. These applications do not have a graphical user interface built in. Instead, they run as <em>headless</em> background services, meaning they are always operating in the background and do not interact with the user directly.</p>
+</div>
+<div class="paragraph">
+<p>This can create some confusion for users who are not used to running background services. How do you know if such a service is currently running? How do you start and stop it? How do you interact with it? The answers to these questions depend on the operating system you are using. For now we will assume you are using some Linux variant and answer them in that context.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_process_isolation">Process Isolation</h4>
+<div class="paragraph">
+<p>Background services usually run under a specific user account to isolate them from the operating system and each other. For example, Bitcoin Core is configured to run as user bitcoin. You will need to use the command line to create a user for each of the services you run.</p>
+</div>
+<div class="paragraph">
+<p>In addition, if you have connected an external drive, you will need to tell the operating system to relocate the user&#8217;s home directory to that drive. That&#8217;s because a service like Bitcoin Core will create files under the user&#8217;s home directory. If you are setting it up to download the full Bitcoin blockchain, these files will take up several hundred gigabytes. Here, we assume you have connected the external drive and it is located on the <em>/external_drive/</em> path of the operating system.</p>
+</div>
+<div class="paragraph">
+<p>On most Linux systems you can create a new user with the useradd command, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ sudo useradd -m -d /external_drive/bitcoin -s /dev/null bitcoin</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The m and d flags create the user&#8217;s home directory as specified by <em>/external_drive/bitcoin</em> in this case. The s flag assigns the user&#8217;s interactive shell. In this case, we set it to <em>/dev/null</em> to disable interactive shell use. The last argument is the new user&#8217;s username bitcoin.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_node_startup">Node Startup</h4>
+<div class="paragraph">
+<p>For both Bitcoin and Lightning node services, "installation" also involves creating a so-called <em>startup script</em> to make sure that the node starts when the computer boots. Startup and shutdown of background services is handled by an operating system process, which in Linux is called init or systemd. You can usually find a system startup script in the contrib subdirectory of each project. For example, if you are on a modern Linux OS that uses systemd, you would find a script called <em>bitcoind.service</em> that can start and stop the Bitcoin Core node service.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s an example of what a Bitcoin node&#8217;s startup script looks like, taken from the Bitcoin Core code repository:</p>
+</div>
+<div class="listingblock">
+<div class="title">From bitcoin/contrib/init/bitcoind.service</div>
+<div class="content">
+<pre>[Unit]
+Description=Bitcoin daemon
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/bitcoind -daemon \
+                            -pid=/run/bitcoind/bitcoind.pid \
+                            -conf=/etc/bitcoin/bitcoin.conf \
+                            -datadir=/var/lib/bitcoind
+
+# Make sure the config directory is readable by the service user
+PermissionsStartOnly=true
+ExecStartPre=/bin/chgrp bitcoin /etc/bitcoin
+
+# Process management
+####################
+
+Type=forking
+PIDFile=/run/bitcoind/bitcoind.pid
+Restart=on-failure
+TimeoutStopSec=600
+
+# Directory creation and permissions
+####################################
+
+# Run as bitcoin:bitcoin
+User=bitcoin
+Group=bitcoin
+
+# /run/bitcoind
+RuntimeDirectory=bitcoind
+RuntimeDirectoryMode=0710
+
+# /etc/bitcoin
+ConfigurationDirectory=bitcoin
+ConfigurationDirectoryMode=0710
+
+# /var/lib/bitcoind
+StateDirectory=bitcoind
+StateDirectoryMode=0710
+
+[...]
+
+[Install]
+WantedBy=multi-user.target</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As the root user, install the script by copying it into the systemd service folder <em>/lib/systemd/system/</em> and then reload systemd:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ sudo systemctl daemon-reload</pre>
+</div>
+</div>
+<div class="paragraph pagebreak-before">
+<p>Next, enable the service:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ sudo systemctl enable bitcoind</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can now start and stop the service. Don&#8217;t start it yet, as we haven&#8217;t configured the Bitcoin node.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ sudo systemctl start bitcoind
+$ sudo systemctl stop bitcoind</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_node_configuration">Node Configuration</h4>
+<div class="paragraph">
+<p>To configure your node, you need to create and reference a configuration file. By convention, this file is usually created in <em>/etc</em>, under a directory with the name of the program. For example, Bitcoin Core and LND configurations would usually be stored in <em>/etc/bitcoin/bitcoin.conf</em> and
+<em>/etc/lnd/lnd.conf</em>, respectively.</p>
+</div>
+<div class="paragraph">
+<p>These configuration files are text files with each line expressing one configuration option and its value. Default values are assumed for anything not defined in the configuration file. You can see what options can be set in the configuration in two ways. First, running the node application with a help argument will show the options that can be defined on the command line. These same options can be defined in the configuration file. Second, you can usually find an example configuration file, with all the default options, in the code repository of the software.</p>
+</div>
+<div class="paragraph">
+<p>You can find one example of a configuration file in each of the Docker images we used in <a href="#set_up_a_lightning_node">[set_up_a_lightning_node]</a>. For example, the file <em>code/docker/bitcoind/bitcoind/bitcoin.conf</em>:</p>
+</div>
+<div class="listingblock">
+<div class="title">Configuration file for docker bitcoind (code/docker/bitcoind/bitcoind/bitcoin.conf)</div>
+<div class="content">
+<pre>regtest=1
+server=1
+debuglogfile=debug.log
+debug=1
+txindex=1
+printtoconsole=0
+
+[regtest]
+fallbackfee=0.000001
+port=18444
+noconnect=1
+dnsseed=0
+dns=0
+upnp=0
+onlynet=ipv4
+rpcport=18443
+rpcbind=0.0.0.0
+rpcallowip=0.0.0.0/0
+rpcuser=regtest
+rpcpassword=regtest
+zmqpubrawblock=tcp://0.0.0.0:12005
+zmqpubrawtx=tcp://0.0.0.0:12006</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That particular configuration file configures Bitcoin Core for operation as a regtest node and provides a weak username and password for remote access, so you shouldn&#8217;t use it for your node configuration. However, it serves to illustrate the syntax of a configuration file and you can make adjustments to it in the Docker container to experiment with different options. See if you can use the bitcoind -help command to understand what each of the options does in the context of the Docker network we built in <a href="#set_up_a_lightning_node">[set_up_a_lightning_node]</a>.</p>
+</div>
+<div class="paragraph">
+<p>Often, the defaults suffice, and with a few modifications your node software can be configured quickly. To get a Bitcoin Core node running with minimal customization, you only need four lines of configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>server=1
+daemon=1
+txindex=1
+rpcuser=<em>USERNAME</em>
+rpcpassword=<em>PASSWORD</em></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Even the txindex option is not strictly necessary, though it will ensure your Bitcoin node creates an index of all transactions, which is required for some applications. The txindex option is not required to run a Lightning node.</p>
+</div>
+<div class="paragraph">
+<p>A <code>c-lightning</code> Lightning node running on the same server also requires only a few lines in the configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>network=mainnet
+bitcoin-rpcuser=<em>USERNAME</em>
+bitcoin-rpcpassword=<em>PASSWORD</em></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In general, it is a good idea to minimize the amount of customization of these systems. The default configuration is carefully designed to support the most common deployments. If you modify a default value, it may cause problems later on or reduce the performance of your node. In short, modify only when necessary!</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_network_configuration">Network Configuration</h4>
+<div class="paragraph">
+<p>Network configuration is normally not an issue when configuring a new application. However, peer-to-peer networks like Bitcoin and the Lightning Network present some unique challenges for network configuration.</p>
+</div>
+<div class="paragraph">
+<p>In a centralized service, your computer connects to the "big servers" of some corporation, and not vice versa. Your home internet connection is actually configured on the assumption that you are simply a consumer of services provided by others. But in a peer-to-peer system, every peer both consumes from and provides services to other nodes. If you&#8217;re running a Bitcoin or Lightning node at your home, you&#8217;re providing a service to other computers on the internet. Your internet service by default is not configured to allow you to run servers and may need some additional configuration to enable others to reach your node.</p>
+</div>
+<div class="paragraph">
+<p>If you want to run a Bitcoin or Lightning node, you need to make it possible for other nodes on the internet to connect to you. That means enabling incoming TCP connections to the Bitcoin port (port 8333 by default) or Lightning port (port 9735 by default). While you can run a Bitcoin node without incoming connectivity, you can&#8217;t do that with a Lightning node. A Lightning node must be accessible to others from outside your network.</p>
+</div>
+<div class="paragraph">
+<p>By default, your home internet router does not expect incoming connections from the outside, and in fact incoming connections are blocked. Your internet router IP address is the only externally accessible IP address, and all the computers you run inside your home network share that single IP address. This is achieved by a mechanism called <em>Network Address Translation</em> (<em>NAT</em>), which allows your internet router to act as an intermediary for all outbound connections. If you want to allow an inbound connection, you have to set up <em>port forwarding</em>, which tells your internet router that incoming connections on specific ports should be forwarded to specific computers inside the network. You can do this manually by changing your internet router configuration or,  if your router supports it, through an automatic port forwarding mechanism called <em>Universal Plug and Play</em> (<em>UPnP</em>).</p>
+</div>
+<div class="paragraph">
+<p>An alternative mechanism to port forwarding is to enable The Onion Router (Tor), which provides a kind of virtual private network overlay that allows incoming connections to an <em>onion address</em>. If you run Tor, you don&#8217;t need to do port forwarding or enable incoming connections to Bitcoin or Lightning ports. If you run your nodes using Tor, all traffic goes through Tor and no other ports are used.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s look at different ways you can make it possible for others to connect to your node. We&#8217;ll look at these alternatives in order, from easiest to most difficult.</p>
+</div>
+<div class="sect4">
+<h5 id="_it_just_works">It just works!</h5>
+<div class="paragraph">
+<p>There is a possibility that your internet service provider or router is configured to support UPnP by default and everything just works automatically. Let&#8217;s try this approach first, just in case we are lucky.</p>
+</div>
+<div class="paragraph">
+<p>Assuming you already have a Bitcoin or Lightning node running, we will try and see if they are accessible from the outside.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For this test to work, you have to have either a Bitcoin or Lightning node (or both) up and running on your home network. If your router supports UPnP, the incoming traffic will automatically be forwarded to the corresponding ports on the computer running the node.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can use some very popular and useful websites to find out what is your external IP address and whether it allows and forwards incoming connections to a known port. Here are two that are reliable:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://canyouseeme.org" class="bare">https://canyouseeme.org</a></p>
+</li>
+<li>
+<p><a href="https://www.whatismyip.com/port-scanner" class="bare">https://www.whatismyip.com/port-scanner</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>By default, these services only allow you to check incoming connections to the IP address from which you are connecting. This is done to prevent you from using the service to scan other people&#8217;s networks and computers. You will see your router&#8217;s external IP address and a field for entering a port number. If you haven&#8217;t changed the default ports in your node configuration, try port 8333 (Bitcoin) and/or 9735 (Lightning).</p>
+</div>
+<div class="paragraph">
+<p>In <a href="#ln_port_check">Checking for incoming port 9735</a> you can see the result of checking port 9735 on a server running Lightning, using the <em>whatismyip.com</em> port scanner tool. It shows that the server is accepting incoming connections to the Lightning port. If you see a result like this, you are all set!</p>
+</div>
+<div id="ln_port_check" class="imageblock">
+<div class="content">
+<img src="images/mtln_0503.png" alt="mtln 0503">
+</div>
+<div class="title">Figure 3. Checking for incoming port 9735</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_automatic_port_forwarding_using_upnp">Automatic port forwarding using UPnP</h5>
+<div class="paragraph">
+<p>Sometimes, even if your internet router supports UPnP, it may be turned off by default. In that case you need to change your internet router configuration from its web administration interface:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Connect to your internet router&#8217;s configuration website. Usually this can be done by connecting to the <em>gateway address</em> of your home network using a web browser. You can find the gateway address by looking at the IP configuration of any computer on your home network. It is often the first address in one of the nonroutable networks, like 192.168.0.1 or 10.0.0.1. Check all stickers on your router as well for the <em>gateway address</em>. Once found, open a browser and enter the IP address into the browser URL/Search box, e.g., "192.168.0.1" or "http://192.168.0.1."</p>
+</li>
+<li>
+<p>Find the administrator username and password for the web configuration panel of the router. This is often written on a sticker on the router itself and may be as simple as "admin" and "password." A quick web search for your ISP and router model can also help you find this information.</p>
+</li>
+<li>
+<p>Find a setting for UPnP and turn it on.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Restart your Bitcoin and/or Lightning node and repeat the open port test with one of the websites we used in the previous section.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_using_tor_for_incoming_connections">Using Tor for incoming connections</h5>
+<div class="paragraph">
+<p><em>The Onion Router</em> (<em>Tor</em>) is a VPN with the special property that it encrypts communications between hops, such that any intermediary node cannot determine the origin or destination of a packet. Both Bitcoin and Lightning nodes support operation over Tor, which enables you to operate a node without revealing your IP address or location. Hence, it provides a high level of privacy to your network traffic. An added benefit of running Tor is that, because it operates as a VPN, it resolves the problem of port forwarding from your internet router. Incoming connections are received over the Tor tunnel, and your node can be found through an ad hoc generated <em>onion address</em> instead of an IP address.</p>
+</div>
+<div class="paragraph">
+<p>Enabling Tor requires two steps. First, you must install the Tor router and proxy on your computer. Second, you must enable the use of the Tor proxy in your Bitcoin or Lightning configuration.</p>
+</div>
+<div class="paragraph">
+<p>To install Tor on an Ubuntu Linux system that uses the apt package manager, run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sudo apt install tor</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next, we configure our Lightning node to use Tor for its external connectivity. Here is an example configuration for LND:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[Tor]
+tor.active=true
+tor.v3=true
+tor.streamisolation=true
+listen=localhost</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will enable Tor (tor.active), establish a v3 onion service (tor.v3=true), use a different onion stream for each connection (tor.streamisolation), and restrict listening for connections to the local host only, to avoid leaking your IP address (<code>l&#x2060;i&#x2060;s&#x2060;t&#x2060;e&#x2060;n&#x200b;=&#x2060;l&#x2060;o&#x2060;c&#x2060;a&#x2060;l&#x2060;h&#x2060;o&#x2060;s&#x2060;t</code>).</p>
+</div>
+<div class="paragraph">
+<p>You can check if Tor is correctly installed and working by running a simple one-line command. This command should work on most flavors of Linux:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>curl --socks5 localhost:9050 --socks5-hostname localhost:9050 -s https://check.torproject.org/ | cat | grep -m 1 Congratulations | xargs</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If everything is working properly, the response of this command should be "Congratulations. This browser is configured to use Tor."</p>
+</div>
+<div class="paragraph">
+<p>Due to the nature of Tor, you can&#8217;t easily use an external service to check if your node is reachable via an onion address. Nonetheless, you should see your Tor onion address in the logs of your Lightning node. It is a long string of letters and numbers followed by the suffix .onion. Your node should now be reachable from the internet, with the added bonus of privacy!</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_manual_port_forwarding">Manual port forwarding</h5>
+<div class="paragraph">
+<p>This is the most complex process and requires quite a bit of technical skill. The details depend on the type of internet router you have, your service provider settings and policies, and a lot of other context. Try UPnP or Tor first, before you try this much more difficult mechanism.</p>
+</div>
+<div class="paragraph">
+<p>The basic steps are as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Find the IP address of the computer your node is on. This is usually dynamically allocated by the Dynamic Host Configuration Protocol (DHCP) and is often somewhere in the 192.168.x.x or 10.x.x.x range.</p>
+</li>
+<li>
+<p>Find the media access control (MAC) address of your node&#8217;s network interface. This can be found in the internet settings of that computer.</p>
+</li>
+<li>
+<p>Assign a static IP address for your node so that it is always the same one. You can use the IP address it currently has. On your internet router, look for "Static Leases" under the DHCP configuration. Map the MAC address to the IP address you selected. Now your node will always have that IP address allocated to it. Alternatively, you can look at your router&#8217;s DHCP configuration and find out what its DHCP address range is. Select an unused address <em>outside</em> of the DHCP address range. Then, on the server, configure the network to stop using DHCP and hardcode the selected non-DHCP IP address into the operating system network configuration.</p>
+</li>
+<li>
+<p>Finally, set up "Port Forwarding" on your internet router to route incoming traffic on specific ports to the selected IP address of your server.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Once done reconfiguring, repeat the port check using one of the websites from the previous sections.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_security_of_your_node">Security of Your Node</h3>
+<div class="paragraph">
+<p>A Lightning node is, by definition, a <em>hot wallet</em>. That means that the funds (both on-chain and off-chain) controlled by a Lightning node are directly controlled by keys that are loaded in the node&#8217;s memory or stored on the node&#8217;s hard disk. If a Lightning node is compromised, it is trivial to create on-chain or off-chain transactions to drain its funds. It is therefore critically important that you protect it from unauthorized access.</p>
+</div>
+<div class="paragraph">
+<p>Security is a holistic effort, meaning that you have to secure every layer of a system. As the saying goes: the chain is only as strong as the weakest link. This is an important concept in information security, and we will apply it to our node.</p>
+</div>
+<div class="paragraph">
+<p>Despite all the security measures you will take, remember that the Lightning Network is an early-stage experimental technology and there are likely to be exploitable bugs in the code of any project you use. <em>Do not put more money than you are willing to risk losing on the Lightning Network.</em></p>
+</div>
+<div class="sect3">
+<h4 id="_operating_system_security">Operating System Security</h4>
+<div class="paragraph">
+<p>Securing an operating system is a vast topic that is beyond the scope of this book. However, we can establish some basic principles.</p>
+</div>
+<div class="paragraph">
+<p>To secure your operating system, here are some of the top items to consider:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Provenance</dt>
+<dd>
+<p>Start by ensuring that you are downloading the correct operating system image, and verify any signatures or checksums before installing it. Extend this to any software that you install. Double-check any source or URL from where you download. Verify the integrity and correctness of the downloaded software via signature and checksum verification.</p>
+</dd>
+<dt class="hdlist1">Maintenance</dt>
+<dd>
+<p>Make sure that you keep your operating system up to date. Enable automated daily or weekly installation of security updates.
+Least privilege: set up users for specific processes and give them the least access needed to run a service. Do not run processes with admin privileges (e.g., root).</p>
+</dd>
+<dt class="hdlist1">Process isolation</dt>
+<dd>
+<p>Use the operating system features to isolate processes from each other.</p>
+</dd>
+<dt class="hdlist1">Filesystem permissions</dt>
+<dd>
+<p>Configure the filesystem carefully, on the least-privilege principle. Do not make files readable or writable by everyone.</p>
+</dd>
+<dt class="hdlist1">Strong authentication</dt>
+<dd>
+<p>Use strong randomly generated passwords or, whenever possible, public-key authentication. For example, it is safer to use Secure Shell (SSH) with a cryptographic key pair instead of a password.</p>
+</dd>
+<dt class="hdlist1">Two-factor authentication (2FA)</dt>
+<dd>
+<p>Use two-factor authentication wherever possible, including Universal 2nd Factor (U2F) with hardware security keys. This applies to all external services you might be using, such as your cloud service provider. You can apply this also to your own setup, such as your own SSH configuration. Use 2FA also for indirect services. For example, say you are using a cloud service. You gave your cloud service provider an email address, so you should also protect your email address with 2FA.</p>
+</dd>
+<dt class="hdlist1">Backup</dt>
+<dd>
+<p>Make backups of your system, and make sure you protect the backups with encryption too. Perform these backups periodically. At least once, test if you can restore your backup and that your backup is complete and accessible. If possible, keep one copy of your backups on a different disk to avoid a single hard disk failure destroying <em>both</em> your active node as well as your backup copies.</p>
+</dd>
+<dt class="hdlist1">Vulnerability and exposure management</dt>
+<dd>
+<p>Use remote scanning to ensure you have minimized the attack surface of your system. Close any unnecessary services or ports. Install only software and packages that you really need and use. Uninstall packages that you no longer use. It is recommended that you do <em>not</em> use your node computer for non-node activities that you can perform on another of your computers. Especially, if you can, do <em>not</em> use your node computer for browsing, surfing the internet, or reading your email.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This is a list of the most basic security measures. It is by no means exhaustive.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_node_access">Node Access</h4>
+<div class="paragraph">
+<p>Your Lightning node will expose a remote procedure call (RPC) API. This means that your node can be controlled remotely by commands sent to a specific TCP port. Access control to that RPC API is achieved by some form of user authentication. Depending on the type of Lightning node you set up, this will either be done by <span class="keep-together">username/password</span> authentication or by a mechanism called an authentication <em>macaroon</em>. As the name implies, a macaroon is a more sophisticated type of cookie. Unlike a cookie, it is cryptographically signed and can express a set of access <span class="keep-together">capabilities</span>.</p>
+</div>
+<div class="paragraph">
+<p>For example, LND uses macaroons to grant access to the RPC API. By default, the LND software creates three macaroons with different levels of access, called admin, invoice, and readonly. Depending on which macaroon you copy and use in your RPC client, you either have <em>read-only</em> access, <em>invoice</em> access (which includes the read-only capabilities), or <em>admin</em> access, which gives you full control. There is also a macaroon bakery function in LND that can construct macaroons with any combination of capabilities with very fine-grained control.</p>
+</div>
+<div class="paragraph">
+<p>If you use a username/password authentication model, make sure you select a long and random password. You will not have to type this password often, because it will be stored in the configuration files. You should therefore pick one that cannot be guessed. Many of the examples you will see include poorly chosen passwords, and often people copy these into their own systems, providing easy access to anyone. Don&#8217;t do that! Use a password manager to generate a long random alphanumeric password. Since certain special characters such as $?/!*\&amp;%`"' can interfere with the command line, it is best to avoid these for passwords that will be used in a shell environment. To avoid problems, stick with long random alphanumeric passwords.</p>
+</div>
+<div class="paragraph">
+<p>A plain alphanumeric sequence that is longer than 12 characters and randomly generated is usually sufficient. If you plan to store large amounts of money on your Lightning node and are concerned about remote brute-force attacks, select a password length of more than 20 characters to make such attacks practically infeasible.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_node_and_channel_backups">Node and Channel Backups</h3>
+<div class="paragraph">
+<p>A very important consideration when running a Lightning node is the issue of backups. Unlike a Bitcoin wallet, where a BIP-39 mnemonic phrase can recover all the state of the wallet, in Lightning this is <em>not</em> the case.</p>
+</div>
+<div class="paragraph">
+<p>Lightning wallets do use a BIP-39 mnemonic phrase backup, but only for the on-chain wallet. However, due to the way channels are constructed, the mnemonic phrase is <em>not</em> sufficient to restore a Lightning node. An additional layer of backups is needed, which is called the <em>static channel backup</em> (<em>SCB</em>). Without an SCB, a Lightning node operator may lose <em>all</em> the funds that are in channels if they lose the Lightning node data store.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Do <em>not</em> fund channels until you have put a system in place to continuously back up your channel state. Your backups should be moved "offsite" to a different system and location from your node, so that they can survive a variety of system failures (power loss, data corruption, etc.) or natural disasters (flood, fire, etc.).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>SCBs are not a panacea. First, the state of each channel needs to be backed up every time there is a new commitment transaction. Second, restoring from a channel backup is dangerous. If you do not have the <em>last</em> commitment transaction and you accidentally broadcast an old (revoked) commitment, your channel peer will assume you are trying to cheat and claim the entire channel balance with a penalty transaction. To make sure you are closing the channel, you need to do a <em>cooperative close</em>. But a malicious peer could mislead your node into broadcasting an old, revoked commitment during that cooperative close, thereby cheating you by making your node inadvertently try to cheat.</p>
+</div>
+<div class="paragraph">
+<p>Furthermore, the backups of your channels need to be encrypted to maintain your privacy and your channel security. Otherwise, anyone who finds the backups can not only see all your channels but also could use the backups to close all your channels in a way that hands over the balance to your channel peers. In other words, a malicious person that gets access to your backups can cause you to lose all your channel funds.</p>
+</div>
+<div class="paragraph">
+<p>You can see that SCBs are not a foolproof safeguard. They are a weak compromise because they swap one type of risk (data corruption or loss) for another type of risk (malicious peer). To restore from an SCB, you have to interact with your channel peers and hope they don&#8217;t try to cheat you by either giving you an old commitment or by fooling your node into broadcasting a revoked commitment so they can penalize you. Despite the weaknesses of SCB, SCBs do make sense and you should perform them. If you do not perform SCBs and you lose your node data, you will lose your channel funds forever. Guaranteed! However, if you <em>do</em> perform SCBs and you lose your node data, then you have a reasonable chance that some of your peers are honest and that you can recover some of your channel funds. If you are lucky, you might recover all your funds. In conclusion, it is best for you to perform continuous SCBs to a disk other than the primary node hard disk.</p>
+</div>
+<div class="paragraph">
+<p>Channel backup mechanisms are still a work in progress and a weakness in most Lightning implementations.</p>
+</div>
+<div class="paragraph">
+<p>At the time of writing this book, only LND offers a built-in mechanism for SCBs. Eclair has a similar mechanism deployed for server-side deployments, although Eclair Mobile does offer optional backup to a Google Drive. <code>c-lightning</code> recently merged the necessary interfaces for a plug-in to implement channel backups. Unfortunately, there is no consistent, agreed upon backup mechanism across different node <span class="keep-together">implementations</span>.</p>
+</div>
+<div class="paragraph">
+<p>File-based backups of the Lightning node databases are at best a partial solution because you run the risk of backing up an inconsistent database state. In addition, you may not reliably catch the latest state commitments. It is much better to have a backup mechanism that is triggered every time there is a state change in a channel, thereby ensuring data consistency.</p>
+</div>
+<div class="paragraph">
+<p>To set up SCBs in LND, set the backupfilepath parameter either on the command line or in the configuration file. LND will then save an SCB file in that directory path. Of course, that&#8217;s only the first step of the solution. Now, you have to set up a mechanism that monitors this file for changes. Each time the file changes, <span class="keep-together">the backup</span> mechanism must copy this file to another, preferably off-site disk. Such backup mechanisms are beyond the scope of this book. Nonetheless, any sophisticated backup solution should be able to handle this scenario. Recall, the backup files should be encrypted too.</p>
+</div>
+<div class="sect3">
+<h4 id="_hot_wallet_risk">Hot Wallet Risk</h4>
+<div class="paragraph">
+<p>As we&#8217;ve discussed previously, the Lightning Network consists of a network of <em>hot wallets</em>. The funds you store in a Lightning wallet are online all the time. This makes them vulnerable. Hence, you should not store large amounts in a Lightning wallet. Large amounts should be kept in a <em>cold</em> wallet that is <em>not</em> online and which can transact only on-chain.</p>
+</div>
+<div class="paragraph">
+<p>Even if you start small, as time passes you may still find you have a significant amount of money in a Lightning wallet. This is a typical scenario for store owners. If you use a Lightning node for an ecommerce operation, your wallet will likely receive funds often, but send funds rarely. You will therefore end up having two problems simultaneously. First, your channels will be imbalanced, with large local balances outweighing small remote balances. Secondly, you will have too much money in the wallet. Fortunately, you can also solve both of these problems simultaneously.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s look at some of the solutions you can use to reduce the funds exposed in a hot wallet.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_sweeping_funds">Sweeping Funds</h4>
+<div class="paragraph">
+<p>If your Lightning wallet balance becomes too large for your risk tolerance, you will need to "sweep" funds out of the wallet. You can do so in three ways: on-chain, off-chain, and Loop Out. Let&#8217;s look at each of these options in the next few sections.</p>
+</div>
+<div class="sect4">
+<h5 id="_on_chain_sweep">On-chain sweep</h5>
+<div class="paragraph">
+<p>Sweeping funds on-chain is accomplished by moving the funds from the Lightning wallet to a Bitcoin wallet. You do that by closing channels. When you close a channel, all funds from your local balance are "swept" to a Bitcoin address. The Bitcoin address for on-chain funds is usually generated by your Lightning wallet, so it is still a hot wallet. You may need to do an additional on-chain transaction to move the funds to a more secure address, such as one generated on your hardware wallet.</p>
+</div>
+<div class="paragraph">
+<p>Closing channels will incur an on-chain fee and will reduce your Lightning node&#8217;s capacity and connectivity. However, if you run a popular ecommerce node, you will not lack incoming capacity and can strategically close channels with large local balances, essentially "bundling" your funds for movement on-chain. You may need to use some channel rebalancing techniques (see <a href="#channel_rebalancing">Rebalancing Channels</a>) before you close channels to maximize the benefits of this strategy.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_off_chain_sweep">Off-chain sweep</h5>
+<div class="paragraph">
+<p>Another technique you can use involves running a second Lightning node that is not advertised on the network. You can establish large capacity channels from your public node (e.g., the one running your shop) to your unadvertised (hidden) node. On a regular basis, "sweep" funds by making a Lightning payment to your hidden node.</p>
+</div>
+<div class="paragraph">
+<p>The advantage of this technique lies in the fact that the Lightning node that receives payments for your shop will be publicly known. This makes it a target for hackers, as any Lightning node associated with a shop would be assumed to have a large balance. A second node that is not associated with your shop will not easily be identified as a valuable target.</p>
+</div>
+<div class="paragraph">
+<p>As an additional measure of security, you can make your second node a hidden Tor service so that its IP address is not known. That further reduces the opportunity for attacks and increases your privacy.</p>
+</div>
+<div class="paragraph">
+<p>You will need to set up a script that runs at regular intervals. The purpose of this script is to create an invoice on your hidden node and to pay that invoice from your shop&#8217;s node, thereby shifting funds over to your hidden node.</p>
+</div>
+<div class="paragraph">
+<p>Keep in mind that this technique does not move funds into cold storage. Both Lightning nodes are hot wallets. The objective of this sweep is to move funds from a very well-known hot wallet to an obscure hot wallet.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_submarine_swap_sweep">Submarine swap sweep</h5>
+<div class="paragraph">
+<p>Another way to reduce your Lightning hot-wallet balance is to use a technique called a <em>submarine swap</em>. Submarine swaps, conceptualized by coauthor Olaoluwa Osuntokun and Alex Bosworth, allow the exchange of on-chain bitcoin for Lightning payments and vice versa. Essentially, submarine swaps are atomic swaps between Lightning off-chain funds and Bitcoin on-chain funds.</p>
+</div>
+<div class="paragraph">
+<p>A node operator can initiate a submarine swap and send all available channel balances to the other party, who will send them on-chain bitcoin in exchange.</p>
+</div>
+<div class="paragraph">
+<p>In the future, this could be a paid service offered by nodes on the Lightning Network who advertise exchange rates or charge a flat fee for the conversion.</p>
+</div>
+<div class="paragraph">
+<p>The advantage of a submarine swap for sweeping funds is that no channel needs to be closed. That means that we preserve our channels, only rebalancing our channels through this operation. As we send a Lightning payment out, we shift some balance from local to remote on one or more of our channels. Not only does that reduce the balance exposed in our node&#8217;s hot wallet, it also increases the balance available for future incoming payments.</p>
+</div>
+<div class="paragraph">
+<p>You could do this by trusting an intermediary to act as a gateway, but this risks your coins being stolen. However, in the case of a submarine swap, the operation does not require trust. Submarine swaps are noncustodial <em>atomic</em> operations. That means that the counterparty in your submarine swap cannot steal your funds because the on-chain payment depends on the completion of the off-chain payment and vice versa.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_submarine_swaps_with_loop">Submarine swaps with Loop</h5>
+<div class="paragraph">
+<p>One example of a submarine swap service is <em>Loop</em> by Lightning Labs, the same company that builds LND. Loop comes in two variations: Loop In and Loop Out. <em>Loop In</em> accepts a Bitcoin on-chain payment and converts it into a Lightning off-chain payment. <em>Loop Out</em> converts a Lightning payment into a Bitcoin payment.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To use the Loop service, you must be running an LND Lightning node.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For the purpose of reducing the balance of your Lightning hot wallet, you would use the Loop Out service. To use the Loop service, you need to install some additional software on your node. The Loop software runs alongside your LND node and provides some command-line tools to execute submarine swaps. You can find the Loop software and installation instructions on <a href="https://github.com/lightninglabs/loop">GitHub</a>.</p>
+</div>
+<div class="paragraph">
+<p>Once you have the software installed and running, a Loop Out operation is as simple as running a single command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>loop out --amt 501000 --conf_target 400
+Max swap fees for 501000 sat Loop Out: 25716 sat
+Regular swap speed requested, it might take up to 30m0s for the swap to be executed.
+CONTINUE SWAP? (y/n), expand fee detail (x): x
+
+Estimated on-chain sweep fee:        149 sat
+Max on-chain sweep fee:              14900 sat
+Max off-chain swap routing fee:      10030 sat
+Max no show penalty (prepay):        1337 sat
+Max off-chain prepay routing fee:    36 sat
+Max swap fee:                        750 sat
+CONTINUE SWAP? (y/n): y
+Swap initiated
+
+Run `loop monitor` to monitor progress.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that your maximum fee, which represents a worst-case scenario, will depend on the confirmation target that you select.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_lightning_node_uptime_and_availability">Lightning Node Uptime and Availability</h3>
+<div class="paragraph">
+<p>Unlike Bitcoin, Lightning nodes need to be online almost continuously. Your node needs to be online to receive payments, open channels, close channels (cooperatively), and monitor protocol violations. Node availability is such an important requirement in the Lightning Network that it is a metric used by various automatic channel management tools (e.g., autopilot) to decide which nodes to open channels with. You can also see "availability" as a node metric on popular node explorers (see <a href="#ln_explorer">[ln_explorer]</a>) such as <a href="https://1ml.com">1ML</a>.</p>
+</div>
+<div class="paragraph">
+<p>Node availability is especially important to mitigate and resolve potential protocol violations (i.e., revoked commitments). While you can afford short interruptions from an hour up to one or two days, you cannot have your node offline for longer periods of time without risking loss of funds.</p>
+</div>
+<div class="paragraph">
+<p>Keeping a node online continuously is not easy, as various bugs and resource limitations can and will occasionally cause downtime. Especially if you run a busy and popular node, you will run into limitations of memory, swap space, number of open files, disk space, and so forth. A whole host of different problems will cause your node or your server to crash.</p>
+</div>
+<div class="sect3">
+<h4 id="_tolerate_faults_and_automate">Tolerate Faults and Automate</h4>
+<div class="paragraph">
+<p>If you have the time and skills, you should test some basic fault scenarios on the Lightning testnet. On the testnet you will learn valuable lessons without risking any funds. Any step you perform to automate your system will improve your availability:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Automatic computer server restart</dt>
+<dd>
+<p>What happens when your server or the operating system crashes? What happens when there is a power outage? Simulate this fault by pressing the "reset" button on your PC or by unplugging the power cable. After a crash, reset, or power failure, the computer should automatically restart itself. Some computers have a setting in their BIOS to specify how the computer should react on power failures. Test it to make sure the computer really restarts automatically on power failure without human intervention.</p>
+</dd>
+<dt class="hdlist1">Automatic node restart</dt>
+<dd>
+<p>What happens when your node or one of your nodes crashes? Simulate this fault by killing the corresponding node processes. If a node crashes, it should automatically restart itself. Test it to make sure the node or nodes really restart automatically on failure without human intervention. If this is not the case, most likely your node is not set up correctly as an operating system service.</p>
+</dd>
+<dt class="hdlist1">Automatic network reconnection</dt>
+<dd>
+<p>What happens if your network goes down? What happens when your ISP goes down temporarily? What happens when your ISP assigns a new IP address to your router or your computer? When the network comes back, do the nodes you are running automatically reconnect to the network? Simulate this fault by unplugging and later replugging the Ethernet cable from the device hosting your nodes. The nodes should automatically reconnect and continue operation without human intervention.</p>
+</dd>
+<dt class="hdlist1">Configure your logfiles</dt>
+<dd>
+<p>All of the preceding failures should leave textual entries behind in the corresponding logfiles. Turn up the verbosity of logging if needed. Find these error entries in the logfiles and use them for monitoring.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_monitoring_node_availability">Monitoring Node Availability</h4>
+<div class="paragraph">
+<p>Monitoring your node is an important part of keeping it running. You need to monitor not only the availability of the computer itself, but also the availability and correct operation of the Lightning node software.</p>
+</div>
+<div class="paragraph">
+<p>There are a number of ways to do this, but most require some customization. You can use generic infrastructure monitoring or application monitoring tools, but you have to customize them specifically to query the Lightning node API to ensure the node is running, synchronized to the blockchain, and connected to channel peers.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://lightning.watch">Lightning.watch</a> provides a specialized service that offers Lightning node monitoring. It uses a Telegram bot to notify you of any interruptions in service. This is a free service, though you can pay (over Lightning, of course) to get faster alerts.</p>
+</div>
+<div class="paragraph">
+<p>Over time, we expect more third-party services to provide specialized Lightning node monitoring payable via micropayments. Perhaps such services and their APIs will become standardized and will one day be directly supported by Lightning node software.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="watchtowers">Watchtowers</h4>
+<div class="paragraph">
+<p><em>Watchtowers</em> are a mechanism for outsourcing the monitoring and penalty resolution of Lightning protocol violations.</p>
+</div>
+<div class="paragraph">
+<p>As we mentioned in previous chapters, the Lightning protocol maintains security through a penalty mechanism. If one of your channel partners broadcasts an old commitment transaction, your node will need to exercise the revocation clause and broadcast a penalty transaction to avoid losing money. But if your node is down during the protocol violation, you might lose money.</p>
+</div>
+<div class="paragraph">
+<p>To solve this problem, we can use one or more watchtowers to outsource the job of monitoring protocol violations and issuing penalty transactions. There are two parts to a watchtower setup: a watchtower server (or simply watchtower) that monitors the blockchain and a watchtower client that asks the watchtower server for this monitoring service.</p>
+</div>
+<div class="paragraph">
+<p>Watchtower technology is still in the early stages of development and is not widely supported. However, in the following passage we list some experimental implementations that you can try.</p>
+</div>
+<div class="paragraph">
+<p>LND software includes both a watchtower server and a watchtower client. You can activate the watchtower server by adding the following configuration options:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>[watchtower]
+watchtower.active=1
+watchtower.towerdir=<em>/path_to_watchtower_data_directory</em></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can use LND&#8217;s watchtower client by activating it in the configuration and then using the command line to connect it to a watchtower server. The configuration is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[wtclient]
+wtclient.active=1</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>LND&#8217;s command-line client lncli shows the following options for managing the watchtower client:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ lncli wtclient
+
+NAME:
+   lncli wtclient - Interact with the watchtower client.
+
+USAGE:
+   lncli wtclient command [command options] [arguments...]
+
+COMMANDS:
+     add     Register a watchtower to use for future sessions/backups.
+     remove  Remove a watchtower to prevent its use for future sessions/backups.
+     towers  Display information about all registered watchtowers.
+     tower   Display information about a specific registered watchtower.
+     stats   Display the session stats of the watchtower client.
+     policy  Display the active watchtower client policy configuration.
+
+OPTIONS:
+   --help, -h  show help</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>c-lightning</code> has the API hooks necessary for a watchtower client plug-in, though no such plug-in has been implemented yet.</p>
+</div>
+<div class="paragraph">
+<p>Finally, a popular standalone watchtower server is <em>The Eye of Satoshi</em> (TEOS). It can be found on <a href="https://github.com/talaia-labs/python-teos">GitHub</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_channel_management">Channel Management</h3>
+<div class="paragraph">
+<p>As a Lightning node operator, one of the recurring tasks you will need to perform is management of your channels. This means opening outbound channels from your node to other nodes, as well as getting other nodes to open inbound channels to your node. In the future, cooperative channel construction may be possible, so you can open symmetric channels that have funds committed on both ends on creation. For now, however, new channels only have funds on one end, on the originator&#8217;s side. Hence, to make your node <em>balanced</em> with both inbound and outbound capacity, you need to open channels to others and entice others to open channels to your node.</p>
+</div>
+<div class="sect3">
+<h4 id="_opening_outbound_channels">Opening Outbound Channels</h4>
+<div class="paragraph">
+<p>As soon as you get your Lightning node up and running, you can fund its Bitcoin wallet and then start opening channels with those funds.</p>
+</div>
+<div class="paragraph">
+<p>You must choose channel partners carefully because your node&#8217;s ability to send payments depends on who your channel partners are and how well connected they are to the rest of the Lightning Network. You also want to have more than one channel to avoid being susceptible to a single point of failure. Since Lightning now supports multipart payments, you can split your initial funds into several channels and route bigger payments by combining their capacity. At the same time, avoid making your channels too small. Since you need to pay Bitcoin transaction fees to open and close a channel, the channel balance should not be so small that the on-chain fees consume a significant portion. It&#8217;s all about balance!</p>
+</div>
+<div class="paragraph">
+<p>To summarize:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Connect to a few well-connected nodes</p>
+</li>
+<li>
+<p>Open more than one channel</p>
+</li>
+<li>
+<p>Don&#8217;t open too many channels</p>
+</li>
+<li>
+<p>Don&#8217;t make the channels too small</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>One way to find well-connected nodes is to open a channel to a popular merchant selling products on the Lightning Network. These nodes tend to be well funded and well connected. So, when you are ready to buy something online via Lightning, you can open a channel directly to the merchant&#8217;s node. The merchant&#8217;s node ID will be in the invoice you will receive when you try to buy something. That makes it easy.</p>
+</div>
+<div class="paragraph">
+<p>Another way to find well-connected nodes is to use a Lightning Explorer (see <a href="#ln_explorer">[ln_explorer]</a>) such as <a href="https://1ml.com">1ML</a> and browse the list of nodes sorted by channel capacity and number of channels. Don&#8217;t go for the biggest nodes, because that encourages centralization. Go for a node in the middle of the list so that you can help them grow. Another factor to consider might be the time span a node has been in operation. Nodes established for more than a year are likely to be more reputable and less risky than nodes that started operation a week ago.</p>
+</div>
+<div class="sect4">
+<h5 id="autopilot">Autopilot</h5>
+<div class="paragraph">
+<p>The task of opening channels can be partially automated with the use of an <em>autopilot</em>, which is software that opens channels automatically based on some heuristic rules. Autopilot software is still relatively new, and it doesn&#8217;t always select the best channel partners for you. Especially in the beginning, it might be better to open channels manually.
+Autopilots currently exist in three forms:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>lnd incorporates an autopilot that is fully integrated with lnd and runs constantly in the background while turned on.</p>
+</li>
+<li>
+<p>lib_autopilot.py can offer autopilot computations for any node implementation based on the gossip and channel data.</p>
+</li>
+<li>
+<p>A c-lightning plug-in based on lib_autopilot.py exists that provides an easy-to-use interface for c-lightning users.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Be aware that the lnd autopilot will start running in the background as soon as it is turned on via the config file. As a result it will start opening channels immediately if you have on-chain outputs in your lnd wallet.
+If you want to have full control over the bitcoin transactions that you make and the channels that you open, make sure to turn the autopilot off <em>before</em> you load your lnd wallet with bitcoin funds.
+If the autopilot was previously turned on, you might have to restart your lnd before you top up your wallet with an on-chain transaction or before you close channels, which effectively gives you on-chain funds again.
+It is crucial that you set key configuration values if you want to run the autopilot.
+Have a look at this example configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[lnd-autopilot]
+autopilot.active=1
+autopilot.maxchannels=40
+autopilot.allocation=0.70
+autopilot.minchansize=500000
+autopilot.maxchansize=5000000
+autopilot.heuristic=top_centrality:1.0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This configuration file would activate the autopilot.
+It would open channels as long as the following two conditions are met:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Your node currently has less than 40 channels open.</p>
+</li>
+<li>
+<p>Less than 70% of your total funds are off-chain in payment channels.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The numbers 40 and 0.7 are chosen completely arbitrarily here because we cannot make any recommendations that are valid for everyone about how many channels you should have open and what percentage of your funds should be off-chain.
+The autopilot in lnd will not take into account on-chain fees. In other words, it will not delay opening channels to a time period when fees are low.
+To reduce fees, you can manually open channels during a time period when fees are low, e.g., during the weekend.
+The autopilot will make channel recommendations whenever the conditions are met and will immediately try to open a channel by using the appropriate current fees.
+According to the preceding configuration file, the channels will be between 5 mBTC (<code>minchansize</code> = 500,000 satoshi) and 50 mBTC (<code>maxchansize</code> = 5,000,000 satoshi) in size.
+As is common, the amounts in the configuration file are enumerated in satoshi.
+Currently, channels below 1 mBTC are not very useful, and we do not recommend you open channels that are too small and below this amount.
+With the wider adoption of multipart payments, smaller channels are less of a burden. But for the time being, this is our recommendation.</p>
+</div>
+<div class="paragraph">
+<p>The c-lightning plug-in, which was originally written by René Pickhardt (a coauthor of this book), works very differently in comparison with the lnd autopilot.
+First, it differs in the algorithms used to make the recommendations. We will not cover this here. Secondly, it differs in its user interface.
+You will need to download the <em>autopilot plug-in</em> from the c-lightning plug-in <a href="https://github.com/lightningd/plugins/tree/master/autopilot">repository</a> and activate it.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To activate a plug-in in c-lightning, place it into the <em>~/.lightning/plugins</em> directory, ensure that it&#8217;s executable (e.g., <code>chmod +x ~/.lightning/plugins/autopilot.py</code>), then restart lightningd.</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, if you don&#8217;t want a plug-in to automatically activate when you start lightningd, you can place it in a different directory and manually activate it with the plugin argument to lightningd:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>   lightningd --plugin=~/lightning-plugins/autopilot.py</pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The autopilot in c-lightning is controlled via three configuration values that can be set in the config file or as command-line arguments when you start lightningd:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[c-lightning-autopilot]
+autopilot-percent=75
+autopilot-num-channels=10
+autopilot-min-channel-size-msat=100000000msat</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These values are the actual default config, and you do not need to set them at all.</p>
+</div>
+<div class="paragraph">
+<p>The autopilot will not automatically run in the background like in lnd.
+Instead, you have to start a run specifically with <code>lightning-cli autopilot-run-once</code> if you want the autopilot to open the recommended channels.
+But if you want it to just provide you with recommendations, from which you can handpick the nodes, you can append the optional <code>dryrun</code> argument.</p>
+</div>
+<div class="paragraph">
+<p>A key difference between the lnd and the c-lightning autopilots is that the c-lightning autopilot will also make a recommendation for the channel size.
+For example, if the autopilot recommends opening a channel with a small node that only has small channels, it will not recommend opening a large channel.
+However, if it opens a channel with a well-connected node that also has many large channels, it will probably recommend a larger channel size.</p>
+</div>
+<div class="paragraph">
+<p>As you can see, the c-lightning autopilot is not as automatic as lnd's, but it gives you a little bit more control.
+These differences reflect personal preferences and could actually be the deciding factor for you to choose one implementation over the other.</p>
+</div>
+<div class="paragraph">
+<p>Keep in mind that current autopilots will primarily use public information from the gossip protocol about the current topology of the Lightning Network.
+It is obvious that your personal requirements for channels can only be reflected to a certain degree.
+More advanced autopilots would use historical and usage information that your node has gathered when running in the past, including information about routing successes, who you have paid in the past, and who paid you.
+In the future, such improved autopilots might also use this collected data to make recommendations on closing channels and reallocating funds.</p>
+</div>
+<div class="paragraph">
+<p>Overall, at the time of writing of this book, be cautious not to depend or rely too heavily on autopilots.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_getting_inbound_liquidity">Getting Inbound Liquidity</h4>
+<div class="paragraph">
+<p>In the current design of the Lightning Network, it is more typical for users to obtain outbound liquidity <em>before</em> obtaining inbound liquidity.
+They will do so by opening a channel with another node, and more often they&#8217;ll be able to spend bitcoin before they can receive it.
+There are three typical ways of getting inbound liquidity:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Open a channel with outbound liquidity and then spend some of those funds. Now the balance is on the other end of the channel, which means that you can receive payments.</p>
+</li>
+<li>
+<p>Ask someone to open a channel to your node. Offer to reciprocate, so that both of your nodes become better connected and balanced.</p>
+</li>
+<li>
+<p>Use a submarine swap (e.g., Loop In) to exchange on-chain BTC for an inbound channel to your node.</p>
+</li>
+<li>
+<p>Pay a third-party service to open a channel with you. Several such services exist. Some charge a fee to provide liquidity, some are free.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph pagebreak-before">
+<p>Here is a list of currently available liquidity providers that will open a channel to your node for a fee:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.bitrefill.com/thor-lightning-network-channels">Bitrefill&#8217;s Thor service</a></p>
+</li>
+<li>
+<p><a href="https://lightningto.me">Lightning To Me</a></p>
+</li>
+<li>
+<p><a href="https://lnbig.com">LNBig</a></p>
+</li>
+<li>
+<p><a href="https://lightningconductor.net/channels">Lightning Conductor</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Creating inbound liquidity is challenging from both practical and user experience perspectives. Inbound liquidity does not happen automatically, so you have to find ways to build it for your node. This asymmetry of payment channels is also not intuitive. In most other payment systems, you get paid first (inbound) before you pay others (outbound).</p>
+</div>
+<div class="paragraph">
+<p>The challenge of creating inbound liquidity is most noticeable if you are a merchant or sell your services for Lightning payments. In that case, you need to be vigilant to ensure that you have enough inbound liquidity to be able to continue to receive payments. What if there is a surge of buyers on your store, but they can&#8217;t actually pay you because there is no more inbound capacity?</p>
+</div>
+<div class="paragraph">
+<p>In the future, these challenges can be partially mitigated by the implementation of dual-funded channels, which are funded from both sides and offer balanced inbound and outbound capacity. The burden could also be mitigated by more sophisticated autopilot software, which could request and pay for inbound capacity as needed.</p>
+</div>
+<div class="paragraph">
+<p>Ultimately, Lightning users need to be strategic and proactive about channel management to ensure that sufficient inbound capacity is available to meet their needs.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_closing_channels">Closing Channels</h4>
+<div class="paragraph">
+<p>As discussed earlier in the book, a <em>mutual close</em> is the preferred way of closing a channel. However, there are instances where a <em>force close</em> is necessary.</p>
+</div>
+<div class="paragraph">
+<p>Some examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Your channel partner is offline and cannot be contacted to initiate a mutual close.</p>
+</li>
+<li>
+<p>Your channel partner is online, but is not responding to requests to initiate a mutual close.</p>
+</li>
+<li>
+<p>Your channel partner is online and your nodes are negotiating a mutual close, but they become stuck and cannot reach a resolution.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="channel_rebalancing">Rebalancing Channels</h4>
+<div class="paragraph">
+<p>In the course of transacting and routing payments on Lightning, the combination of inbound and outbound capacities can become unbalanced.</p>
+</div>
+<div class="paragraph">
+<p>For example, if one of your channel partners is frequently routing payments through your node, you will exhaust the inbound capacity on that channel, while also exhausting the outbound capacity on the outgoing channels. Once that happens, you can no longer route payments through that route.</p>
+</div>
+<div class="paragraph">
+<p>There are many ways to rebalance channels, each with different advantages and disadvantages. One way is to use a submarine swap (e.g., Loop Out), as described previously in this chapter. Another way to rebalance is to simply wait for routed payments that flow in the opposite direction. If your node is well connected, when a specific route becomes exhausted in one direction, the same route becomes available in the opposite direction. Other nodes may "discover" that route in the opposite direction and start using it as part of their payment path, thereby rebalancing the funds again.</p>
+</div>
+<div class="paragraph">
+<p>A third way to rebalance channels is to purposefully create a <em>circular route</em> that sends a payment from your node back to your node, via the Lightning Network. By sending a payment out on a channel with large local capacity and arranging the path so that it returns to your node on a channel with large remote capacity, both of those channels will become more balanced. An example of a circular route rebalancing strategy can be seen in <a href="#circular_rebalancing">Circular route rebalancing</a>.</p>
+</div>
+<div id="circular_rebalancing" class="imageblock">
+<div class="content">
+<img src="images/mtln_0504.png" alt="mtln 0504">
+</div>
+<div class="title">Figure 4. Circular route rebalancing</div>
+</div>
+<div class="paragraph">
+<p>Circular rebalancing is supported by most Lightning node implementations and can be done on the command line or via one of the web management interfaces such as Ride The Lightning (see <a href="#rtl">Ride The Lightning</a>).</p>
+</div>
+<div class="paragraph">
+<p>Channel rebalancing is a complex issue that is the subject of active research and covered in more detail in <a href="#channel_rebalancing">Rebalancing Channels</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_routing_fees">Routing Fees</h3>
+<div class="paragraph">
+<p>Running a Lightning node allows you to earn fees by routing payments across your channels. Routing fees are generally not a significant source of income and dwarfed by the cost of operating a node. For example, on a relatively busy node that routes a dozen payments a day, the fees amount to no more than 2,000 satoshis.</p>
+</div>
+<div class="paragraph">
+<p>Nodes compete for routing fees by setting their desired fee rate on each channel. Routing fees are set by two parameters on each channel: a fixed <em>base fee</em> that is charged for any payment and an additional variable <em>fee rate</em> that is proportional to the payment amount.</p>
+</div>
+<div class="paragraph">
+<p>When sending a Lightning payment, a node will select a path so as to minimize fees, minimize hops, or both. As a result, a routing fee market emerges from these interactions. There are currently many nodes that charge very low or no fees for routing, creating downward pressure on the routing fee market.</p>
+</div>
+<div class="paragraph">
+<p>If you make no choices, your Lightning node will set a default base fee and fee rate for each new channel. The default values depend on the node implementation you use.
+The base fee is set in the unit of <em>millisatoshi</em> (thousandths of a satoshi). The proportional fee rate is set in the unit of <em>millionths</em> and is applied to the payment amount.
+The unit of millionths is often abbreviated with <em>ppm</em> (parts per million).
+For example, a base fee of 1,000 (millisatoshi) and a fee rate of 1,000 ppm (millionths) would result in the following charges for a 100,000 satoshi payment:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{equation}
+\begin{aligned}
+P &amp;= 100,000 \text{ satoshi} \\
+F_{base} &amp;= 1,000 \text{ millisatoshi} = 1 \text{ satoshi} \\
+F_{rate} &amp;= 1,000 \text{ ppm} = 1,000/1,000,000 = 1/1,000 = \text{0.001} = 0.1\% \\
+F_{total} &amp;= F_{base} + ( P * F_{rate} ) \\
+ \Rightarrow  F_{total} &amp;= 1 \text{ satoshi} + ( 100,000/1,000 ) \text{ satoshi} \\
+ \Rightarrow  F_{total} &amp;= 1 \text{ satoshi} + 100 \text{ satoshi} = 101 \text{ satoshi} \\
+\end{aligned}
+\end{equation}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Broadly speaking, you can take one of two approaches to routing fees. You can route lots of payments with low fees, making up for low fees by high volume. Alternatively, you can choose to charge higher fees. If you choose to set higher fees, your node will be selected only when other cheaper routes don&#8217;t exist. Therefore, you will route less frequently but earn more per successful routing.</p>
+</div>
+<div class="paragraph">
+<p>For most nodes, it is usually best to use the default routing fee values. This way, your node is competing on a mostly level playing field with other nodes that use the default values.</p>
+</div>
+<div class="paragraph">
+<p>You can also use the routing fee settings to rebalance channels. If most of your channels have the default fees but you want to rebalance a particular channel, just decrease the fees on that specific channel to zero or to very low rates. Then sit back and wait for someone to route a payment over your "cheap" route and rebalance your channels for you as a side effect.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_node_management">Node Management</h3>
+<div class="paragraph">
+<p>Managing your Lightning node on the command line is obviously not easy. It gives you the full flexibility of the node&#8217;s API and the ability to write your own custom scripts to satisfy your personal requirements. But if you don&#8217;t want to deal with the complexity of the command line and only need some basic node management capabilities, you should consider installing a web-based user interface that makes node management easier.</p>
+</div>
+<div class="paragraph">
+<p>There are a number of competing projects that offer web-based Lightning node management. Some of the most popular ones are described in the following section.</p>
+</div>
+<div class="sect3">
+<h4 id="rtl">Ride The Lightning</h4>
+<div class="paragraph">
+<p>Ride The Lightning (RTL) is a graphical web user interface to help users manage Lightning node operations for the three main Lightning node implementations (LND, <code>c-lightning</code>, and Eclair). RTL is an open source project developed by Shahana Farooqui and many other contributors. You can find the RTL software on <a href="https://github.com/Ride-The-Lightning/RTL">GitHub</a>.</p>
+</div>
+<div class="paragraph">
+<p><a href="#rtl-web-interface">Example RTL web interface</a> shows an example screenshot of RTL&#8217;s web interface, as provided on the project repository.</p>
+</div>
+<div id="rtl-web-interface" class="imageblock">
+<div class="content">
+<img src="images/mtln_0505.png" alt="mtln 0505">
+</div>
+<div class="title">Figure 5. Example RTL web interface</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_lndmon">lndmon</h4>
+<div class="paragraph">
+<p>Lightning Labs, the makers of LND, provide a web-based graphical user interface called lndmon to monitor the various metrics of an LND Lightning node. lndmon only works with LND nodes. It is a read-only interface for monitoring and as such does not allow you to actively manage the node. It cannot open channels or make payments. Find lndmon on <a href="https://github.com/lightninglabs/lndmon">GitHub</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_thunderhub">ThunderHub</h4>
+<div class="paragraph">
+<p><a href="https://thunderhub.io">ThunderHub</a> is a very aesthetically pleasing web-based graphical user interface similar to RTL but exclusive to LND. It can be used to make payments, rebalance channels, and manage the node through a variety of features.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_conclusion">Conclusion</h3>
+<div class="paragraph">
+<p>As you maintain your node and gain experiences, you will learn a lot about the Lightning Network. Being a node operator is a challenging but rewarding task. Mastering these skills will allow you to contribute to the growth and development of this technology and the Lightning Network itself. You will furthermore gain the ability to send and receive Lightning payments with the greatest degree of control and ease. You will play a central role in the network&#8217;s infrastructure and not just be a participant on the edges.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2022-05-24 14:14:00 -0400
+</div>
+</div>
+</body>
+</html>

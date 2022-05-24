@@ -1,0 +1,53 @@
+[appendix]
+[[sources_licenses]]
+== Sources and License Notices
+
+This appendix contains attribution and license notices for material included by permission granted via open licenses.
+
+=== Sources
+
+Material was sourced from various public and open-licensed sources:
+
+* https://wiki.ion.radar.tech[ION Lightning Network Wiki]
+* https://medium.com/suredbits/lightning-101-what-is-a-lightning-invoice-d527db1a77e6["Lightning 101: What Is a Lightning Invoice?" by Suredbits]
+* https://github.com/lightningnetwork/lightning-rfc[Lightning Network In-Progress Specifications GitHub]; Creative Commons Attribution (CC-BY 4.0)
+* https://w.wiki/4QCL[Wikipedia page, "Elliptic-curve Diffie–Hellman"]
+* https://w.wiki/4QCX[Wikipedia page, "Digital signature"]
+* https://w.wiki/4QCb[Wikipedia page, "Cryptographic hash function"]
+* https://w.wiki/4QCc[Wikipedia page, "Onion routing"]
+* https://w.wiki/4QCd[Wikimedia Commons, "Lightning Network Protocol Suite"]
+* https://w.wiki/4QCf[Wikimedia Commons, "Introduction to the Lightning Network Protocol and the Basics of Lightning Technology"]
+
+[role="pagebreak-before less_space"]
+=== BTCPay Server
+
+BTCPay Server https://github.com/btcpayserver/btcpayserver-media[logo, screenshots, and other images] used with permission under the https://github.com/btcpayserver/btcpayserver-media/blob/master/LICENSE[MIT License]:
+
+[quote]
+____
+MIT License
+
+Copyright (c) 2018 BTCPay Server
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+____
+
+=== Lamassu Industries AG
+
+Images of the https://lamassu.is/product/gaia[_Gaia_ Bitcoin ATM] seen in <<bitcoin-atm>> are used with permission of Lamassu Industries AG. The use of these images is not an endorsement of the product or company, but are provided as a visual example of a Bitcoin ATM.
