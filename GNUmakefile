@@ -250,25 +250,42 @@ report:
 #######################
 
 .PHONY: docs
-docs: init
+docs: init build
 	@echo "Use 'make docs nocache=true' to force docs rebuild..."
 
-	cat sources/HEADER.md > README.md
+	mkdir -p docs
 
-	echo "## MAKE COMMAND" >> MAKE.md
+	apt install pandoc || brew install pandoc
+
+	cat sources/HEADER.md > README.md
 	echo '```' >> README.md
 	make >> README.md
 	echo '```' >> README.md
 	bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
-	bash -c 'pandoc -s timechain.academy.md -o index.html  --metadata title="" '
+	bash -c 'pandoc -s README.md -o index.html  --metadata title="" '
+
+	apt install asciidoctor || brew install asciidoctor
+
+	pushd sources/bitcoinbook > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "."
+	pushd sources/bitcoinbook > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
+	pushd sources/bitcoinbook > /dev/null; for string in *.asciidoc; do asciidoctor $$string; done; popd || echo "..."
+
+	pushd sources/lnbook      > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "...."
+	pushd sources/lnbook      > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
+	pushd sources/lnbook      > /dev/null; for string in *.asciidoc; do asciidoctor $$string; done; popd || echo "......"
+
 
 init:
-	git clone git@github.com:timechain-academy/playground.git sources/playground   || git pull -f git@github.com:timechain-academy/playground.git        sources/playground || true
-	git clone https://github.com/jlord/git-it-electron.git    sources/git          || git pull -f https://github.com/jlord/git-it-electron.git           sources/git || true
-	git clone https://github.com/siminchen/bitcoinIDE.git     sources/ide          || git pull -f https://github.com/siminchen/bitcoinIDE.git            sources/ide || true
-	git clone https://github.com/bitcoinbook/bitcoinbook.git  sources/bitcoinbook  || git pull -f https://github.com/bitcoinbook/bitcoinbook.git         sources/bitcoinbook || true
-	git clone https://github.com/lnbook/lnbook.git            sources/lnbook       || git pull -f https://github.com/lnbook/lnbook.git                   sources/lnbook || true
-https://github.com/bitcoinbook/bitcoinbook.git
+	rm -rf sources/playground
+	rm -rf sources/git
+	rm -rf sources/ide
+	rm -rf sources/bitcoinbook
+	rm -rf sources/lnbook
+	git clone --depth 1 git@github.com:timechain-academy/playground.git sources/playground   || git pull -f git@github.com:timechain-academy/playground.git        sources/playground || true
+	git clone --depth 1 https://github.com/jlord/git-it-electron.git    sources/git          || git pull -f https://github.com/jlord/git-it-electron.git           sources/git || true
+	git clone --depth 1 https://github.com/siminchen/bitcoinIDE.git     sources/ide          || git pull -f https://github.com/siminchen/bitcoinIDE.git            sources/ide || true
+	git clone --depth 1 https://github.com/bitcoinbook/bitcoinbook.git  sources/bitcoinbook  || git pull -f https://github.com/bitcoinbook/bitcoinbook.git         sources/bitcoinbook || true
+	git clone https://github.com/lnbook/lnbook.git                      sources/lnbook       || git pull -f https://github.com/lnbook/lnbook.git                   sources/lnbook || true
 	python3 -m pip install -r requirements.txt
 build:
 	mkdocs build
@@ -310,9 +327,9 @@ push:
 	#bash -c "git commit         --no-edit --allow-empty -m '$(GIT_PREVIOUS_HASH)' || echo failed to commit --amend --no-edit"
 	bash -c "git push -f --all git@github.com:$(GIT_PROFILE)/$(PROJECT_NAME).git || echo failed to push docs"
 
-push-to-master:
+push-to-master: docs
 	git push -f  $(GIT_REPO_ORIGIN) $(GIT_BRANCH):master || echo failed to push docs
-push-to-main:
+push-to-main: docs
 	git push -f  $(GIT_REPO_ORIGIN) $(GIT_BRANCH):main || echo failed to push docs
 
 

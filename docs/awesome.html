@@ -1,0 +1,2466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.17">
+<title>Platforms</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_platforms">Platforms</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Node.js](<a href="https://github.com/sindresorhus/awesome-nodejs#readme" class="bare">https://github.com/sindresorhus/awesome-nodejs#readme</a>) - Async non-blocking event-driven JavaScript runtime built on Chrome&#8217;s V8 JavaScript engine.</p>
+</li>
+<li>
+<p>[Cross-Platform](<a href="https://github.com/bcoe/awesome-cross-platform-nodejs#readme" class="bare">https://github.com/bcoe/awesome-cross-platform-nodejs#readme</a>) - Writing cross-platform code on Node.js.</p>
+</li>
+<li>
+<p>[Frontend Development](<a href="https://github.com/dypsilon/frontend-dev-bookmarks#readme" class="bare">https://github.com/dypsilon/frontend-dev-bookmarks#readme</a>)</p>
+</li>
+<li>
+<p>[iOS](<a href="https://github.com/vsouza/awesome-ios#readme" class="bare">https://github.com/vsouza/awesome-ios#readme</a>) - Mobile operating system for Apple phones and tablets.</p>
+</li>
+<li>
+<p>[Android](<a href="https://github.com/JStumpp/awesome-android#readme" class="bare">https://github.com/JStumpp/awesome-android#readme</a>) - Mobile operating system developed by Google.</p>
+</li>
+<li>
+<p>[IoT &amp; Hybrid Apps](<a href="https://github.com/weblancaster/awesome-IoT-hybrid#readme" class="bare">https://github.com/weblancaster/awesome-IoT-hybrid#readme</a>)</p>
+</li>
+<li>
+<p>[Electron](<a href="https://github.com/sindresorhus/awesome-electron#readme" class="bare">https://github.com/sindresorhus/awesome-electron#readme</a>) - Cross-platform native desktop apps using JavaScript/HTML/CSS.</p>
+</li>
+<li>
+<p>[Cordova](<a href="https://github.com/busterc/awesome-cordova#readme" class="bare">https://github.com/busterc/awesome-cordova#readme</a>) - JavaScript API for hybrid apps.</p>
+</li>
+<li>
+<p>[React Native](<a href="https://github.com/jondot/awesome-react-native#readme" class="bare">https://github.com/jondot/awesome-react-native#readme</a>) - JavaScript framework for writing natively rendering mobile apps for iOS and Android.</p>
+</li>
+<li>
+<p>[Xamarin](<a href="https://github.com/XamSome/awesome-xamarin#readme" class="bare">https://github.com/XamSome/awesome-xamarin#readme</a>) - Mobile app development IDE, testing, and distribution.</p>
+</li>
+<li>
+<p>[Linux](<a href="https://github.com/inputsh/awesome-linux#readme" class="bare">https://github.com/inputsh/awesome-linux#readme</a>)</p>
+</li>
+<li>
+<p>[Containers](<a href="https://github.com/Friz-zy/awesome-linux-containers#readme" class="bare">https://github.com/Friz-zy/awesome-linux-containers#readme</a>)</p>
+</li>
+<li>
+<p>[eBPF](<a href="https://github.com/zoidbergwill/awesome-ebpf#readme" class="bare">https://github.com/zoidbergwill/awesome-ebpf#readme</a>) - Virtual machine that allows you to write more efficient and powerful tracing and monitoring for Linux systems.</p>
+</li>
+<li>
+<p>[Arch-based Projects](<a href="https://github.com/PandaFoss/Awesome-Arch#readme" class="bare">https://github.com/PandaFoss/Awesome-Arch#readme</a>) - Linux distributions and projects based on Arch Linux.</p>
+</li>
+<li>
+<p>[macOS](<a href="https://github.com/iCHAIT/awesome-macOS#readme" class="bare">https://github.com/iCHAIT/awesome-macOS#readme</a>) - Operating system for Apple&#8217;s Mac computers.</p>
+</li>
+<li>
+<p>[Command-Line](<a href="https://github.com/herrbischoff/awesome-macos-command-line#readme" class="bare">https://github.com/herrbischoff/awesome-macos-command-line#readme</a>)</p>
+</li>
+<li>
+<p>[Screensavers](<a href="https://github.com/agarrharr/awesome-macos-screensavers#readme" class="bare">https://github.com/agarrharr/awesome-macos-screensavers#readme</a>)</p>
+</li>
+<li>
+<p>[Apps](<a href="https://github.com/jaywcjlove/awesome-mac#readme" class="bare">https://github.com/jaywcjlove/awesome-mac#readme</a>)</p>
+</li>
+<li>
+<p>[Open Source Apps](<a href="https://github.com/serhii-londar/open-source-mac-os-apps#readme" class="bare">https://github.com/serhii-londar/open-source-mac-os-apps#readme</a>)</p>
+</li>
+<li>
+<p>[watchOS](<a href="https://github.com/yenchenlin/awesome-watchos#readme" class="bare">https://github.com/yenchenlin/awesome-watchos#readme</a>) - Operating system for the Apple Watch.</p>
+</li>
+<li>
+<p>[JVM](<a href="https://github.com/deephacks/awesome-jvm#readme" class="bare">https://github.com/deephacks/awesome-jvm#readme</a>)</p>
+</li>
+<li>
+<p>[Salesforce](<a href="https://github.com/mailtoharshit/awesome-salesforce#readme" class="bare">https://github.com/mailtoharshit/awesome-salesforce#readme</a>)</p>
+</li>
+<li>
+<p>[Amazon Web Services](<a href="https://github.com/donnemartin/awesome-aws#readme" class="bare">https://github.com/donnemartin/awesome-aws#readme</a>)</p>
+</li>
+<li>
+<p>[Windows](<a href="https://github.com/Awesome-Windows/Awesome#readme" class="bare">https://github.com/Awesome-Windows/Awesome#readme</a>)</p>
+</li>
+<li>
+<p>[IPFS](<a href="https://github.com/ipfs/awesome-ipfs#readme" class="bare">https://github.com/ipfs/awesome-ipfs#readme</a>) - P2P hypermedia protocol.</p>
+</li>
+<li>
+<p>[Fuse](<a href="https://github.com/fuse-compound/awesome-fuse#readme" class="bare">https://github.com/fuse-compound/awesome-fuse#readme</a>) - Mobile development tools.</p>
+</li>
+<li>
+<p>[Heroku](<a href="https://github.com/ianstormtaylor/awesome-heroku#readme" class="bare">https://github.com/ianstormtaylor/awesome-heroku#readme</a>) - Cloud platform as a service.</p>
+</li>
+<li>
+<p>[Raspberry Pi](<a href="https://github.com/thibmaek/awesome-raspberry-pi#readme" class="bare">https://github.com/thibmaek/awesome-raspberry-pi#readme</a>) - Credit card-sized computer aimed at teaching kids programming, but capable of a lot more.</p>
+</li>
+<li>
+<p>[Qt](<a href="https://github.com/JesseTG/awesome-qt#readme" class="bare">https://github.com/JesseTG/awesome-qt#readme</a>) - Cross-platform GUI app framework.</p>
+</li>
+<li>
+<p>[WebExtensions](<a href="https://github.com/fregante/Awesome-WebExtensions#readme" class="bare">https://github.com/fregante/Awesome-WebExtensions#readme</a>) - Cross-browser extension system.</p>
+</li>
+<li>
+<p>[RubyMotion](<a href="https://github.com/motion-open-source/awesome-rubymotion#readme" class="bare">https://github.com/motion-open-source/awesome-rubymotion#readme</a>) - Write cross-platform native apps for iOS, Android, macOS, tvOS, and watchOS in Ruby.</p>
+</li>
+<li>
+<p>[Smart TV](<a href="https://github.com/vitalets/awesome-smart-tv#readme" class="bare">https://github.com/vitalets/awesome-smart-tv#readme</a>) - Create apps for different TV platforms.</p>
+</li>
+<li>
+<p>[GNOME](<a href="https://github.com/Kazhnuz/awesome-gnome#readme" class="bare">https://github.com/Kazhnuz/awesome-gnome#readme</a>) - Simple and distraction-free desktop environment for Linux.</p>
+</li>
+<li>
+<p>[KDE](<a href="https://github.com/francoism90/awesome-kde#readme" class="bare">https://github.com/francoism90/awesome-kde#readme</a>) - A free software community dedicated to creating an open and user-friendly computing experience.</p>
+</li>
+<li>
+<p>[.NET](<a href="https://github.com/quozd/awesome-dotnet#readme" class="bare">https://github.com/quozd/awesome-dotnet#readme</a>)</p>
+</li>
+<li>
+<p>[Core](<a href="https://github.com/thangchung/awesome-dotnet-core#readme" class="bare">https://github.com/thangchung/awesome-dotnet-core#readme</a>)</p>
+</li>
+<li>
+<p>[Roslyn](<a href="https://github.com/ironcev/awesome-roslyn#readme" class="bare">https://github.com/ironcev/awesome-roslyn#readme</a>) - Open-source compilers and code analysis APIs for C# and VB.NET languages.</p>
+</li>
+<li>
+<p>[Amazon Alexa](<a href="https://github.com/miguelmota/awesome-amazon-alexa#readme" class="bare">https://github.com/miguelmota/awesome-amazon-alexa#readme</a>) - Virtual home assistant.</p>
+</li>
+<li>
+<p>[DigitalOcean](<a href="https://github.com/jonleibowitz/awesome-digitalocean#readme" class="bare">https://github.com/jonleibowitz/awesome-digitalocean#readme</a>) - Cloud computing platform designed for developers.</p>
+</li>
+<li>
+<p>[Flutter](<a href="https://github.com/Solido/awesome-flutter#readme" class="bare">https://github.com/Solido/awesome-flutter#readme</a>) - Google&#8217;s mobile SDK for building native iOS and Android apps from a single codebase written in Dart.</p>
+</li>
+<li>
+<p>[Home Assistant](<a href="https://github.com/frenck/awesome-home-assistant#readme" class="bare">https://github.com/frenck/awesome-home-assistant#readme</a>) - Open source home automation that puts local control and privacy first.</p>
+</li>
+<li>
+<p>[IBM Cloud](<a href="https://github.com/victorshinya/awesome-ibmcloud#readme" class="bare">https://github.com/victorshinya/awesome-ibmcloud#readme</a>) - Cloud platform for developers and companies.</p>
+</li>
+<li>
+<p>[Firebase](<a href="https://github.com/jthegedus/awesome-firebase#readme" class="bare">https://github.com/jthegedus/awesome-firebase#readme</a>) - App development platform built on Google Cloud Platform.</p>
+</li>
+<li>
+<p>[Robot Operating System 2.0](<a href="https://github.com/fkromer/awesome-ros2#readme" class="bare">https://github.com/fkromer/awesome-ros2#readme</a>) - Set of software libraries and tools that help you build robot apps.</p>
+</li>
+<li>
+<p>[Adafruit IO](<a href="https://github.com/adafruit/awesome-adafruitio#readme" class="bare">https://github.com/adafruit/awesome-adafruitio#readme</a>) - Visualize and store data from any device.</p>
+</li>
+<li>
+<p>[Cloudflare](<a href="https://github.com/irazasyed/awesome-cloudflare#readme" class="bare">https://github.com/irazasyed/awesome-cloudflare#readme</a>) - CDN, DNS, DDoS protection, and security for your site.</p>
+</li>
+<li>
+<p>[Actions on Google](<a href="https://github.com/ravirupareliya/awesome-actions-on-google#readme" class="bare">https://github.com/ravirupareliya/awesome-actions-on-google#readme</a>) - Developer platform for Google Assistant.</p>
+</li>
+<li>
+<p>[ESP](<a href="https://github.com/agucova/awesome-esp#readme" class="bare">https://github.com/agucova/awesome-esp#readme</a>) - Low-cost microcontrollers with WiFi and broad IoT applications.</p>
+</li>
+<li>
+<p>[Deno](<a href="https://github.com/denolib/awesome-deno#readme" class="bare">https://github.com/denolib/awesome-deno#readme</a>) - A secure runtime for JavaScript and TypeScript that uses V8 and is built in Rust.</p>
+</li>
+<li>
+<p>[DOS](<a href="https://github.com/balintkissdev/awesome-dos#readme" class="bare">https://github.com/balintkissdev/awesome-dos#readme</a>) - Operating system for x86-based personal computers that was popular during the 1980s and early 1990s.</p>
+</li>
+<li>
+<p>[Nix](<a href="https://github.com/nix-community/awesome-nix#readme" class="bare">https://github.com/nix-community/awesome-nix#readme</a>) - Package manager for Linux and other Unix systems that makes package management reliable and reproducible.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_programming_languages">Programming Languages</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[JavaScript](<a href="https://github.com/sorrycc/awesome-javascript#readme" class="bare">https://github.com/sorrycc/awesome-javascript#readme</a>)</p>
+</li>
+<li>
+<p>[Promises](<a href="https://github.com/wbinnssmith/awesome-promises#readme" class="bare">https://github.com/wbinnssmith/awesome-promises#readme</a>)</p>
+</li>
+<li>
+<p>[Standard Style](<a href="https://github.com/standard/awesome-standard#readme" class="bare">https://github.com/standard/awesome-standard#readme</a>) - Style guide and linter.</p>
+</li>
+<li>
+<p>[Must Watch Talks](<a href="https://github.com/bolshchikov/js-must-watch#readme" class="bare">https://github.com/bolshchikov/js-must-watch#readme</a>)</p>
+</li>
+<li>
+<p>[Tips](<a href="https://github.com/loverajoel/jstips#readme" class="bare">https://github.com/loverajoel/jstips#readme</a>)</p>
+</li>
+<li>
+<p>[Network Layer](<a href="https://github.com/Kikobeats/awesome-network-js#readme" class="bare">https://github.com/Kikobeats/awesome-network-js#readme</a>)</p>
+</li>
+<li>
+<p>[Micro npm Packages](<a href="https://github.com/parro-it/awesome-micro-npm-packages#readme" class="bare">https://github.com/parro-it/awesome-micro-npm-packages#readme</a>)</p>
+</li>
+<li>
+<p>[Mad Science npm Packages](<a href="https://github.com/feross/awesome-mad-science#readme" class="bare">https://github.com/feross/awesome-mad-science#readme</a>) - Impossible sounding projects that exist.</p>
+</li>
+<li>
+<p>[Maintenance Modules](<a href="https://github.com/maxogden/maintenance-modules#readme" class="bare">https://github.com/maxogden/maintenance-modules#readme</a>) - For npm packages.</p>
+</li>
+<li>
+<p>[npm](<a href="https://github.com/sindresorhus/awesome-npm#readme" class="bare">https://github.com/sindresorhus/awesome-npm#readme</a>) - Package manager.</p>
+</li>
+<li>
+<p>[AVA](<a href="https://github.com/avajs/awesome-ava#readme" class="bare">https://github.com/avajs/awesome-ava#readme</a>) - Test runner.</p>
+</li>
+<li>
+<p>[ESLint](<a href="https://github.com/dustinspecker/awesome-eslint#readme" class="bare">https://github.com/dustinspecker/awesome-eslint#readme</a>) - Linter.</p>
+</li>
+<li>
+<p>[Functional Programming](<a href="https://github.com/stoeffel/awesome-fp-js#readme" class="bare">https://github.com/stoeffel/awesome-fp-js#readme</a>)</p>
+</li>
+<li>
+<p>[Observables](<a href="https://github.com/sindresorhus/awesome-observables#readme" class="bare">https://github.com/sindresorhus/awesome-observables#readme</a>)</p>
+</li>
+<li>
+<p>[npm scripts](<a href="https://github.com/RyanZim/awesome-npm-scripts#readme" class="bare">https://github.com/RyanZim/awesome-npm-scripts#readme</a>) - Task runner.</p>
+</li>
+<li>
+<p>[30 Seconds of Code](<a href="https://github.com/30-seconds/30-seconds-of-code#readme" class="bare">https://github.com/30-seconds/30-seconds-of-code#readme</a>) - Code snippets you can understand in 30 seconds.</p>
+</li>
+<li>
+<p>[Ponyfills](<a href="https://github.com/Richienb/awesome-ponyfills#readme" class="bare">https://github.com/Richienb/awesome-ponyfills#readme</a>) - Like polyfills but without overriding native APIs.</p>
+</li>
+<li>
+<p>[Swift](<a href="https://github.com/matteocrippa/awesome-swift#readme" class="bare">https://github.com/matteocrippa/awesome-swift#readme</a>) - Apple&#8217;s compiled programming language that is secure, modern, programmer-friendly, and fast.</p>
+</li>
+<li>
+<p>[Education](<a href="https://github.com/hsavit1/Awesome-Swift-Education#readme" class="bare">https://github.com/hsavit1/Awesome-Swift-Education#readme</a>)</p>
+</li>
+<li>
+<p>[Playgrounds](<a href="https://github.com/uraimo/Awesome-Swift-Playgrounds#readme" class="bare">https://github.com/uraimo/Awesome-Swift-Playgrounds#readme</a>)</p>
+</li>
+<li>
+<p>[Python](<a href="https://github.com/vinta/awesome-python#readme" class="bare">https://github.com/vinta/awesome-python#readme</a>) - General-purpose programming language designed for readability.</p>
+</li>
+<li>
+<p>[Asyncio](<a href="https://github.com/timofurrer/awesome-asyncio#readme" class="bare">https://github.com/timofurrer/awesome-asyncio#readme</a>) - Asynchronous I/O in Python 3.</p>
+</li>
+<li>
+<p>[Scientific Audio](<a href="https://github.com/faroit/awesome-python-scientific-audio#readme" class="bare">https://github.com/faroit/awesome-python-scientific-audio#readme</a>) - Scientific research in audio/music.</p>
+</li>
+<li>
+<p>[CircuitPython](<a href="https://github.com/adafruit/awesome-circuitpython#readme" class="bare">https://github.com/adafruit/awesome-circuitpython#readme</a>) - A version of Python for microcontrollers.</p>
+</li>
+<li>
+<p>[Data Science](<a href="https://github.com/krzjoa/awesome-python-data-science#readme" class="bare">https://github.com/krzjoa/awesome-python-data-science#readme</a>) - Data analysis and machine learning.</p>
+</li>
+<li>
+<p>[Typing](<a href="https://github.com/typeddjango/awesome-python-typing#readme" class="bare">https://github.com/typeddjango/awesome-python-typing#readme</a>) - Optional static typing for Python.</p>
+</li>
+<li>
+<p>[MicroPython](<a href="https://github.com/mcauser/awesome-micropython#readme" class="bare">https://github.com/mcauser/awesome-micropython#readme</a>) - A lean and efficient implementation of Python 3 for microcontrollers.</p>
+</li>
+<li>
+<p>[Rust](<a href="https://github.com/rust-unofficial/awesome-rust#readme" class="bare">https://github.com/rust-unofficial/awesome-rust#readme</a>)</p>
+</li>
+<li>
+<p>[Haskell](<a href="https://github.com/krispo/awesome-haskell#readme" class="bare">https://github.com/krispo/awesome-haskell#readme</a>)</p>
+</li>
+<li>
+<p>[PureScript](<a href="https://github.com/passy/awesome-purescript#readme" class="bare">https://github.com/passy/awesome-purescript#readme</a>)</p>
+</li>
+<li>
+<p>[Go](<a href="https://github.com/avelino/awesome-go#readme" class="bare">https://github.com/avelino/awesome-go#readme</a>)</p>
+</li>
+<li>
+<p>[Scala](<a href="https://github.com/lauris/awesome-scala#readme" class="bare">https://github.com/lauris/awesome-scala#readme</a>)</p>
+</li>
+<li>
+<p>[Scala Native](<a href="https://github.com/tindzk/awesome-scala-native#readme" class="bare">https://github.com/tindzk/awesome-scala-native#readme</a>) - Optimizing ahead-of-time compiler for Scala based on LLVM.</p>
+</li>
+<li>
+<p>[Ruby](<a href="https://github.com/markets/awesome-ruby#readme" class="bare">https://github.com/markets/awesome-ruby#readme</a>)</p>
+</li>
+<li>
+<p>[Clojure](<a href="https://github.com/razum2um/awesome-clojure#readme" class="bare">https://github.com/razum2um/awesome-clojure#readme</a>)</p>
+</li>
+<li>
+<p>[ClojureScript](<a href="https://github.com/hantuzun/awesome-clojurescript#readme" class="bare">https://github.com/hantuzun/awesome-clojurescript#readme</a>)</p>
+</li>
+<li>
+<p>[Elixir](<a href="https://github.com/h4cc/awesome-elixir#readme" class="bare">https://github.com/h4cc/awesome-elixir#readme</a>)</p>
+</li>
+<li>
+<p>[Elm](<a href="https://github.com/sporto/awesome-elm#readme" class="bare">https://github.com/sporto/awesome-elm#readme</a>)</p>
+</li>
+<li>
+<p>[Erlang](<a href="https://github.com/drobakowski/awesome-erlang#readme" class="bare">https://github.com/drobakowski/awesome-erlang#readme</a>)</p>
+</li>
+<li>
+<p>[Julia](<a href="https://github.com/svaksha/Julia.jl#readme" class="bare">https://github.com/svaksha/Julia.jl#readme</a>) - High-level dynamic programming language designed to address the needs of high-performance numerical analysis and computational science.</p>
+</li>
+<li>
+<p>[Lua](<a href="https://github.com/LewisJEllis/awesome-lua#readme" class="bare">https://github.com/LewisJEllis/awesome-lua#readme</a>)</p>
+</li>
+<li>
+<p>[C](<a href="https://github.com/inputsh/awesome-c#readme" class="bare">https://github.com/inputsh/awesome-c#readme</a>)</p>
+</li>
+<li>
+<p>[C/C++](<a href="https://github.com/fffaraz/awesome-cpp#readme" class="bare">https://github.com/fffaraz/awesome-cpp#readme</a>) - General-purpose language with a bias toward system programming and embedded, resource-constrained software.</p>
+</li>
+<li>
+<p>[R](<a href="https://github.com/qinwf/awesome-R#readme" class="bare">https://github.com/qinwf/awesome-R#readme</a>) - Functional programming language and environment for statistical computing and graphics.</p>
+</li>
+<li>
+<p>[Learning](<a href="https://github.com/iamericfletcher/awesome-r-learning-resources#readme" class="bare">https://github.com/iamericfletcher/awesome-r-learning-resources#readme</a>)</p>
+</li>
+<li>
+<p>[D](<a href="https://github.com/dlang-community/awesome-d#readme" class="bare">https://github.com/dlang-community/awesome-d#readme</a>)</p>
+</li>
+<li>
+<p>[Common Lisp](<a href="https://github.com/CodyReichert/awesome-cl#readme" class="bare">https://github.com/CodyReichert/awesome-cl#readme</a>) - Powerful dynamic multiparadigm language that facilitates iterative and interactive development.</p>
+</li>
+<li>
+<p>[Learning](<a href="https://github.com/GustavBertram/awesome-common-lisp-learning#readme" class="bare">https://github.com/GustavBertram/awesome-common-lisp-learning#readme</a>)</p>
+</li>
+<li>
+<p>[Perl](<a href="https://github.com/hachiojipm/awesome-perl#readme" class="bare">https://github.com/hachiojipm/awesome-perl#readme</a>)</p>
+</li>
+<li>
+<p>[Groovy](<a href="https://github.com/kdabir/awesome-groovy#readme" class="bare">https://github.com/kdabir/awesome-groovy#readme</a>)</p>
+</li>
+<li>
+<p>[Dart](<a href="https://github.com/yissachar/awesome-dart#readme" class="bare">https://github.com/yissachar/awesome-dart#readme</a>)</p>
+</li>
+<li>
+<p>[Java](<a href="https://github.com/akullpp/awesome-java#readme" class="bare">https://github.com/akullpp/awesome-java#readme</a>) - Popular secure object-oriented language designed for flexibility to "write once, run anywhere".</p>
+</li>
+<li>
+<p>[RxJava](<a href="https://github.com/eleventigers/awesome-rxjava#readme" class="bare">https://github.com/eleventigers/awesome-rxjava#readme</a>)</p>
+</li>
+<li>
+<p>[Kotlin](<a href="https://github.com/KotlinBy/awesome-kotlin#readme" class="bare">https://github.com/KotlinBy/awesome-kotlin#readme</a>)</p>
+</li>
+<li>
+<p>[OCaml](<a href="https://github.com/ocaml-community/awesome-ocaml#readme" class="bare">https://github.com/ocaml-community/awesome-ocaml#readme</a>)</p>
+</li>
+<li>
+<p>[ColdFusion](<a href="https://github.com/seancoyne/awesome-coldfusion#readme" class="bare">https://github.com/seancoyne/awesome-coldfusion#readme</a>)</p>
+</li>
+<li>
+<p>[Fortran](<a href="https://github.com/rabbiabram/awesome-fortran#readme" class="bare">https://github.com/rabbiabram/awesome-fortran#readme</a>)</p>
+</li>
+<li>
+<p>[PHP](<a href="https://github.com/ziadoz/awesome-php#readme" class="bare">https://github.com/ziadoz/awesome-php#readme</a>) - Server-side scripting language.</p>
+</li>
+<li>
+<p>[Composer](<a href="https://github.com/jakoch/awesome-composer#readme" class="bare">https://github.com/jakoch/awesome-composer#readme</a>) - Package manager.</p>
+</li>
+<li>
+<p>[Pascal](<a href="https://github.com/Fr0sT-Brutal/awesome-pascal#readme" class="bare">https://github.com/Fr0sT-Brutal/awesome-pascal#readme</a>)</p>
+</li>
+<li>
+<p>[AutoHotkey](<a href="https://github.com/ahkscript/awesome-AutoHotkey#readme" class="bare">https://github.com/ahkscript/awesome-AutoHotkey#readme</a>)</p>
+</li>
+<li>
+<p>[AutoIt](<a href="https://github.com/J2TeaM/awesome-AutoIt#readme" class="bare">https://github.com/J2TeaM/awesome-AutoIt#readme</a>)</p>
+</li>
+<li>
+<p>[Crystal](<a href="https://github.com/veelenga/awesome-crystal#readme" class="bare">https://github.com/veelenga/awesome-crystal#readme</a>)</p>
+</li>
+<li>
+<p>[Frege](<a href="https://github.com/sfischer13/awesome-frege#readme" class="bare">https://github.com/sfischer13/awesome-frege#readme</a>) - Haskell for the JVM.</p>
+</li>
+<li>
+<p>[CMake](<a href="https://github.com/onqtam/awesome-cmake#readme" class="bare">https://github.com/onqtam/awesome-cmake#readme</a>) - Build, test, and package software.</p>
+</li>
+<li>
+<p>[ActionScript 3](<a href="https://github.com/robinrodricks/awesome-actionscript3#readme" class="bare">https://github.com/robinrodricks/awesome-actionscript3#readme</a>) - Object-oriented language targeting Adobe AIR.</p>
+</li>
+<li>
+<p>[Eta](<a href="https://github.com/sfischer13/awesome-eta#readme" class="bare">https://github.com/sfischer13/awesome-eta#readme</a>) - Functional programming language for the JVM.</p>
+</li>
+<li>
+<p>[Idris](<a href="https://github.com/joaomilho/awesome-idris#readme" class="bare">https://github.com/joaomilho/awesome-idris#readme</a>) - General purpose pure functional programming language with dependent types influenced by Haskell and ML.</p>
+</li>
+<li>
+<p>[Ada/SPARK](<a href="https://github.com/ohenley/awesome-ada#readme" class="bare">https://github.com/ohenley/awesome-ada#readme</a>) - Modern programming language designed for large, long-lived apps where reliability and efficiency are essential.</p>
+</li>
+<li>
+<p>[Q#](<a href="https://github.com/ebraminio/awesome-qsharp#readme" class="bare">https://github.com/ebraminio/awesome-qsharp#readme</a>) - Domain-specific programming language used for expressing quantum algorithms.</p>
+</li>
+<li>
+<p>[Imba](<a href="https://github.com/koolamusic/awesome-imba#readme" class="bare">https://github.com/koolamusic/awesome-imba#readme</a>) - Programming language inspired by Ruby and Python and compiles to performant JavaScript.</p>
+</li>
+<li>
+<p>[Vala](<a href="https://github.com/desiderantes/awesome-vala#readme" class="bare">https://github.com/desiderantes/awesome-vala#readme</a>) - Programming language designed to take full advantage of the GLib and GNOME ecosystems, while preserving the speed of C code.</p>
+</li>
+<li>
+<p>[Coq](<a href="https://github.com/coq-community/awesome-coq#readme" class="bare">https://github.com/coq-community/awesome-coq#readme</a>) - Formal language and environment for programming and specification which facilitates interactive development of machine-checked proofs.</p>
+</li>
+<li>
+<p>[V](<a href="https://github.com/vlang/awesome-v#readme" class="bare">https://github.com/vlang/awesome-v#readme</a>) - Simple, fast, safe, compiled language for developing maintainable software.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_front_end_development">Front-End Development</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[ES6 Tools](<a href="https://github.com/addyosmani/es6-tools#readme" class="bare">https://github.com/addyosmani/es6-tools#readme</a>)</p>
+</li>
+<li>
+<p>[Web Performance Optimization](<a href="https://github.com/davidsonfellipe/awesome-wpo#readme" class="bare">https://github.com/davidsonfellipe/awesome-wpo#readme</a>)</p>
+</li>
+<li>
+<p>[Web Tools](<a href="https://github.com/lvwzhen/tools#readme" class="bare">https://github.com/lvwzhen/tools#readme</a>)</p>
+</li>
+<li>
+<p>[CSS](<a href="https://github.com/awesome-css-group/awesome-css#readme" class="bare">https://github.com/awesome-css-group/awesome-css#readme</a>) - Style sheet language that specifies how HTML elements are displayed on screen.</p>
+</li>
+<li>
+<p>[Critical-Path Tools](<a href="https://github.com/addyosmani/critical-path-css-tools#readme" class="bare">https://github.com/addyosmani/critical-path-css-tools#readme</a>)</p>
+</li>
+<li>
+<p>[Scalability](<a href="https://github.com/davidtheclark/scalable-css-reading-list#readme" class="bare">https://github.com/davidtheclark/scalable-css-reading-list#readme</a>)</p>
+</li>
+<li>
+<p>[Must-Watch Talks](<a href="https://github.com/AllThingsSmitty/must-watch-css#readme" class="bare">https://github.com/AllThingsSmitty/must-watch-css#readme</a>)</p>
+</li>
+<li>
+<p>[Protips](<a href="https://github.com/AllThingsSmitty/css-protips#readme" class="bare">https://github.com/AllThingsSmitty/css-protips#readme</a>)</p>
+</li>
+<li>
+<p>[Frameworks](<a href="https://github.com/troxler/awesome-css-frameworks#readme" class="bare">https://github.com/troxler/awesome-css-frameworks#readme</a>)</p>
+</li>
+<li>
+<p>[React](<a href="https://github.com/enaqx/awesome-react#readme" class="bare">https://github.com/enaqx/awesome-react#readme</a>) - App framework.</p>
+</li>
+<li>
+<p>[Relay](<a href="https://github.com/expede/awesome-relay#readme" class="bare">https://github.com/expede/awesome-relay#readme</a>) - Framework for building data-driven React apps.</p>
+</li>
+<li>
+<p>[React Hooks](<a href="https://github.com/glauberfc/awesome-react-hooks#readme" class="bare">https://github.com/glauberfc/awesome-react-hooks#readme</a>) - A new feature that lets you use state and other React features without writing a class.</p>
+</li>
+<li>
+<p>[Web Components](<a href="https://github.com/mateusortiz/webcomponents-the-right-way#readme" class="bare">https://github.com/mateusortiz/webcomponents-the-right-way#readme</a>)</p>
+</li>
+<li>
+<p>[Polymer](<a href="https://github.com/Granze/awesome-polymer#readme" class="bare">https://github.com/Granze/awesome-polymer#readme</a>) - JavaScript library to develop Web Components.</p>
+</li>
+<li>
+<p>[Angular](<a href="https://github.com/PatrickJS/awesome-angular#readme" class="bare">https://github.com/PatrickJS/awesome-angular#readme</a>) - App framework.</p>
+</li>
+<li>
+<p>[Backbone](<a href="https://github.com/sadcitizen/awesome-backbone#readme" class="bare">https://github.com/sadcitizen/awesome-backbone#readme</a>) - App framework.</p>
+</li>
+<li>
+<p>[HTML5](<a href="https://github.com/diegocard/awesome-html5#readme" class="bare">https://github.com/diegocard/awesome-html5#readme</a>) - Markup language used for websites &amp; web apps.</p>
+</li>
+<li>
+<p>[SVG](<a href="https://github.com/willianjusten/awesome-svg#readme" class="bare">https://github.com/willianjusten/awesome-svg#readme</a>) - XML-based vector image format.</p>
+</li>
+<li>
+<p>[Canvas](<a href="https://github.com/raphamorim/awesome-canvas#readme" class="bare">https://github.com/raphamorim/awesome-canvas#readme</a>)</p>
+</li>
+<li>
+<p>[KnockoutJS](<a href="https://github.com/dnbard/awesome-knockout#readme" class="bare">https://github.com/dnbard/awesome-knockout#readme</a>) - JavaScript library.</p>
+</li>
+<li>
+<p>[Dojo Toolkit](<a href="https://github.com/petk/awesome-dojo#readme" class="bare">https://github.com/petk/awesome-dojo#readme</a>) - JavaScript toolkit.</p>
+</li>
+<li>
+<p>[Inspiration](<a href="https://github.com/NoahBuscher/Inspire#readme" class="bare">https://github.com/NoahBuscher/Inspire#readme</a>)</p>
+</li>
+<li>
+<p>[Ember](<a href="https://github.com/ember-community-russia/awesome-ember#readme" class="bare">https://github.com/ember-community-russia/awesome-ember#readme</a>) - App framework.</p>
+</li>
+<li>
+<p>[Android UI](<a href="https://github.com/wasabeef/awesome-android-ui#readme" class="bare">https://github.com/wasabeef/awesome-android-ui#readme</a>)</p>
+</li>
+<li>
+<p>[iOS UI](<a href="https://github.com/cjwirth/awesome-ios-ui#readme" class="bare">https://github.com/cjwirth/awesome-ios-ui#readme</a>)</p>
+</li>
+<li>
+<p>[Meteor](<a href="https://github.com/Urigo/awesome-meteor#readme" class="bare">https://github.com/Urigo/awesome-meteor#readme</a>)</p>
+</li>
+<li>
+<p>[BEM](<a href="https://github.com/sturobson/BEM-resources#readme" class="bare">https://github.com/sturobson/BEM-resources#readme</a>)</p>
+</li>
+<li>
+<p>[Flexbox](<a href="https://github.com/afonsopacifer/awesome-flexbox#readme" class="bare">https://github.com/afonsopacifer/awesome-flexbox#readme</a>)</p>
+</li>
+<li>
+<p>[Web Typography](<a href="https://github.com/deanhume/typography#readme" class="bare">https://github.com/deanhume/typography#readme</a>)</p>
+</li>
+<li>
+<p>[Web Accessibility](<a href="https://github.com/brunopulis/awesome-a11y#readme" class="bare">https://github.com/brunopulis/awesome-a11y#readme</a>)</p>
+</li>
+<li>
+<p>[Material Design](<a href="https://github.com/sachin1092/awesome-material#readme" class="bare">https://github.com/sachin1092/awesome-material#readme</a>)</p>
+</li>
+<li>
+<p>[D3](<a href="https://github.com/wbkd/awesome-d3#readme" class="bare">https://github.com/wbkd/awesome-d3#readme</a>) - Library for producing dynamic, interactive data visualizations.</p>
+</li>
+<li>
+<p>[Emails](<a href="https://github.com/jonathandion/awesome-emails#readme" class="bare">https://github.com/jonathandion/awesome-emails#readme</a>)</p>
+</li>
+<li>
+<p>[jQuery](<a href="https://github.com/petk/awesome-jquery#readme" class="bare">https://github.com/petk/awesome-jquery#readme</a>) - Easy to use JavaScript library for DOM manipulation.</p>
+</li>
+<li>
+<p>[Tips](<a href="https://github.com/AllThingsSmitty/jquery-tips-everyone-should-know#readme" class="bare">https://github.com/AllThingsSmitty/jquery-tips-everyone-should-know#readme</a>)</p>
+</li>
+<li>
+<p>[Web Audio](<a href="https://github.com/notthetup/awesome-webaudio#readme" class="bare">https://github.com/notthetup/awesome-webaudio#readme</a>)</p>
+</li>
+<li>
+<p>[Offline-First](<a href="https://github.com/pazguille/offline-first#readme" class="bare">https://github.com/pazguille/offline-first#readme</a>)</p>
+</li>
+<li>
+<p>[Static Website Services](<a href="https://github.com/agarrharr/awesome-static-website-services#readme" class="bare">https://github.com/agarrharr/awesome-static-website-services#readme</a>)</p>
+</li>
+<li>
+<p>[Cycle.js](<a href="https://github.com/cyclejs-community/awesome-cyclejs#readme" class="bare">https://github.com/cyclejs-community/awesome-cyclejs#readme</a>) - Functional and reactive JavaScript framework.</p>
+</li>
+<li>
+<p>[Text Editing](<a href="https://github.com/dok/awesome-text-editing#readme" class="bare">https://github.com/dok/awesome-text-editing#readme</a>)</p>
+</li>
+<li>
+<p>[Motion UI Design](<a href="https://github.com/fliptheweb/motion-ui-design#readme" class="bare">https://github.com/fliptheweb/motion-ui-design#readme</a>)</p>
+</li>
+<li>
+<p>[Vue.js](<a href="https://github.com/vuejs/awesome-vue#readme" class="bare">https://github.com/vuejs/awesome-vue#readme</a>) - App framework.</p>
+</li>
+<li>
+<p>[Marionette.js](<a href="https://github.com/sadcitizen/awesome-marionette#readme" class="bare">https://github.com/sadcitizen/awesome-marionette#readme</a>) - App framework.</p>
+</li>
+<li>
+<p>[Aurelia](<a href="https://github.com/aurelia-contrib/awesome-aurelia#readme" class="bare">https://github.com/aurelia-contrib/awesome-aurelia#readme</a>) - App framework.</p>
+</li>
+<li>
+<p>[Charting](<a href="https://github.com/zingchart/awesome-charting#readme" class="bare">https://github.com/zingchart/awesome-charting#readme</a>)</p>
+</li>
+<li>
+<p>[Ionic Framework 2](<a href="https://github.com/candelibas/awesome-ionic#readme" class="bare">https://github.com/candelibas/awesome-ionic#readme</a>)</p>
+</li>
+<li>
+<p>[Chrome DevTools](<a href="https://github.com/ChromeDevTools/awesome-chrome-devtools#readme" class="bare">https://github.com/ChromeDevTools/awesome-chrome-devtools#readme</a>)</p>
+</li>
+<li>
+<p>[PostCSS](<a href="https://github.com/jdrgomes/awesome-postcss#readme" class="bare">https://github.com/jdrgomes/awesome-postcss#readme</a>) - CSS tool.</p>
+</li>
+<li>
+<p>[Draft.js](<a href="https://github.com/nikgraf/awesome-draft-js#readme" class="bare">https://github.com/nikgraf/awesome-draft-js#readme</a>) - Rich text editor framework for React.</p>
+</li>
+<li>
+<p>[Service Workers](<a href="https://github.com/TalAter/awesome-service-workers#readme" class="bare">https://github.com/TalAter/awesome-service-workers#readme</a>)</p>
+</li>
+<li>
+<p>[Progressive Web Apps](<a href="https://github.com/TalAter/awesome-progressive-web-apps#readme" class="bare">https://github.com/TalAter/awesome-progressive-web-apps#readme</a>)</p>
+</li>
+<li>
+<p>[choo](<a href="https://github.com/choojs/awesome-choo#readme" class="bare">https://github.com/choojs/awesome-choo#readme</a>) - App framework.</p>
+</li>
+<li>
+<p>[Redux](<a href="https://github.com/brillout/awesome-redux#readme" class="bare">https://github.com/brillout/awesome-redux#readme</a>) - State container for JavaScript apps.</p>
+</li>
+<li>
+<p>[webpack](<a href="https://github.com/webpack-contrib/awesome-webpack#readme" class="bare">https://github.com/webpack-contrib/awesome-webpack#readme</a>) - Module bundler.</p>
+</li>
+<li>
+<p>[Browserify](<a href="https://github.com/browserify/awesome-browserify#readme" class="bare">https://github.com/browserify/awesome-browserify#readme</a>) - Module bundler.</p>
+</li>
+<li>
+<p>[Sass](<a href="https://github.com/Famolus/awesome-sass#readme" class="bare">https://github.com/Famolus/awesome-sass#readme</a>) - CSS preprocessor.</p>
+</li>
+<li>
+<p>[Ant Design](<a href="https://github.com/websemantics/awesome-ant-design#readme" class="bare">https://github.com/websemantics/awesome-ant-design#readme</a>) - Enterprise-class UI design language.</p>
+</li>
+<li>
+<p>[Less](<a href="https://github.com/LucasBassetti/awesome-less#readme" class="bare">https://github.com/LucasBassetti/awesome-less#readme</a>) - CSS preprocessor.</p>
+</li>
+<li>
+<p>[WebGL](<a href="https://github.com/sjfricke/awesome-webgl#readme" class="bare">https://github.com/sjfricke/awesome-webgl#readme</a>) - JavaScript API for rendering 3D graphics.</p>
+</li>
+<li>
+<p>[Preact](<a href="https://github.com/preactjs/awesome-preact#readme" class="bare">https://github.com/preactjs/awesome-preact#readme</a>) - App framework.</p>
+</li>
+<li>
+<p>[Progressive Enhancement](<a href="https://github.com/jbmoelker/progressive-enhancement-resources#readme" class="bare">https://github.com/jbmoelker/progressive-enhancement-resources#readme</a>)</p>
+</li>
+<li>
+<p>[Next.js](<a href="https://github.com/unicodeveloper/awesome-nextjs#readme" class="bare">https://github.com/unicodeveloper/awesome-nextjs#readme</a>) - Framework for server-rendered React apps.</p>
+</li>
+<li>
+<p>[lit-html](<a href="https://github.com/web-padawan/awesome-lit-html#readme" class="bare">https://github.com/web-padawan/awesome-lit-html#readme</a>) - HTML templating library for JavaScript.</p>
+</li>
+<li>
+<p>[JAMstack](<a href="https://github.com/automata/awesome-jamstack#readme" class="bare">https://github.com/automata/awesome-jamstack#readme</a>) - Modern web development architecture based on client-side JavaScript, reusable APIs, and prebuilt markup.</p>
+</li>
+<li>
+<p>[WordPress-Gatsby](<a href="https://github.com/henrikwirth/awesome-wordpress-gatsby#readme" class="bare">https://github.com/henrikwirth/awesome-wordpress-gatsby#readme</a>) - Web development technology stack with WordPress as a back end and Gatsby as a front end.</p>
+</li>
+<li>
+<p>[Mobile Web Development](<a href="https://github.com/myshov/awesome-mobile-web-development#readme" class="bare">https://github.com/myshov/awesome-mobile-web-development#readme</a>) - Creating a great mobile web experience.</p>
+</li>
+<li>
+<p>[Storybook](<a href="https://github.com/lauthieb/awesome-storybook#readme" class="bare">https://github.com/lauthieb/awesome-storybook#readme</a>) - Development environment for UI components.</p>
+</li>
+<li>
+<p>[Blazor](<a href="https://github.com/AdrienTorris/awesome-blazor#readme" class="bare">https://github.com/AdrienTorris/awesome-blazor#readme</a>) - .NET web framework using C#/Razor and HTML that runs in the browser with WebAssembly.</p>
+</li>
+<li>
+<p>[PageSpeed Metrics](<a href="https://github.com/csabapalfi/awesome-pagespeed-metrics#readme" class="bare">https://github.com/csabapalfi/awesome-pagespeed-metrics#readme</a>) - Metrics to help understand page speed and user experience.</p>
+</li>
+<li>
+<p>[Tailwind CSS](<a href="https://github.com/aniftyco/awesome-tailwindcss#readme" class="bare">https://github.com/aniftyco/awesome-tailwindcss#readme</a>) - Utility-first CSS framework for rapid UI development.</p>
+</li>
+<li>
+<p>[Seed](<a href="https://github.com/seed-rs/awesome-seed-rs#readme" class="bare">https://github.com/seed-rs/awesome-seed-rs#readme</a>) - Rust framework for creating web apps running in WebAssembly.</p>
+</li>
+<li>
+<p>[Web Performance Budget](<a href="https://github.com/pajaydev/awesome-web-performance-budget#readme" class="bare">https://github.com/pajaydev/awesome-web-performance-budget#readme</a>) - Techniques to ensure certain performance metrics for a website.</p>
+</li>
+<li>
+<p>[Web Animation](<a href="https://github.com/sergey-pimenov/awesome-web-animation#readme" class="bare">https://github.com/sergey-pimenov/awesome-web-animation#readme</a>) - Animations in the browser with JavaScript, CSS, SVG, etc.</p>
+</li>
+<li>
+<p>[Yew](<a href="https://github.com/jetli/awesome-yew#readme" class="bare">https://github.com/jetli/awesome-yew#readme</a>) - Rust framework inspired by Elm and React for creating multi-threaded frontend web apps with WebAssembly.</p>
+</li>
+<li>
+<p>[Material-UI](<a href="https://github.com/nadunindunil/awesome-material-ui#readme" class="bare">https://github.com/nadunindunil/awesome-material-ui#readme</a>) - Material Design React components for faster and easier web development.</p>
+</li>
+<li>
+<p>[Building Blocks for Web Apps](<a href="https://github.com/componently-com/awesome-building-blocks-for-web-apps#readme" class="bare">https://github.com/componently-com/awesome-building-blocks-for-web-apps#readme</a>) - Standalone features to be integrated into web apps.</p>
+</li>
+<li>
+<p>[Svelte](<a href="https://github.com/TheComputerM/awesome-svelte#readme" class="bare">https://github.com/TheComputerM/awesome-svelte#readme</a>) - App framework.</p>
+</li>
+<li>
+<p>[Design systems](<a href="https://github.com/klaufel/awesome-design-systems#readme" class="bare">https://github.com/klaufel/awesome-design-systems#readme</a>) - Collection of reusable components, guided by rules that ensure consistency and speed.</p>
+</li>
+<li>
+<p>[Inertia.js](<a href="https://github.com/innocenzi/awesome-inertiajs#readme" class="bare">https://github.com/innocenzi/awesome-inertiajs#readme</a>) - Make single-page apps without building an API.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_back_end_development">Back-End Development</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Flask](<a href="https://github.com/mjhea0/awesome-flask#readme" class="bare">https://github.com/mjhea0/awesome-flask#readme</a>) - Python framework.</p>
+</li>
+<li>
+<p>[Docker](<a href="https://github.com/veggiemonk/awesome-docker#readme" class="bare">https://github.com/veggiemonk/awesome-docker#readme</a>)</p>
+</li>
+<li>
+<p>[Vagrant](<a href="https://github.com/iJackUA/awesome-vagrant#readme" class="bare">https://github.com/iJackUA/awesome-vagrant#readme</a>) - Automation virtual machine environment.</p>
+</li>
+<li>
+<p>[Pyramid](<a href="https://github.com/uralbash/awesome-pyramid#readme" class="bare">https://github.com/uralbash/awesome-pyramid#readme</a>) - Python framework.</p>
+</li>
+<li>
+<p>[Play1 Framework](<a href="https://github.com/PerfectCarl/awesome-play1#readme" class="bare">https://github.com/PerfectCarl/awesome-play1#readme</a>)</p>
+</li>
+<li>
+<p>[CakePHP](<a href="https://github.com/friendsofcake/awesome-cakephp#readme" class="bare">https://github.com/friendsofcake/awesome-cakephp#readme</a>) - PHP framework.</p>
+</li>
+<li>
+<p>[Symfony](<a href="https://github.com/sitepoint-editors/awesome-symfony#readme" class="bare">https://github.com/sitepoint-editors/awesome-symfony#readme</a>) - PHP framework.</p>
+</li>
+<li>
+<p>[Education](<a href="https://github.com/pehapkari/awesome-symfony-education#readme" class="bare">https://github.com/pehapkari/awesome-symfony-education#readme</a>)</p>
+</li>
+<li>
+<p>[Laravel](<a href="https://github.com/chiraggude/awesome-laravel#readme" class="bare">https://github.com/chiraggude/awesome-laravel#readme</a>) - PHP framework.</p>
+</li>
+<li>
+<p>[Education](<a href="https://github.com/fukuball/Awesome-Laravel-Education#readme" class="bare">https://github.com/fukuball/Awesome-Laravel-Education#readme</a>)</p>
+</li>
+<li>
+<p>[TALL Stack](<a href="https://github.com/blade-ui-kit/awesome-tall-stack#readme" class="bare">https://github.com/blade-ui-kit/awesome-tall-stack#readme</a>) - Full-stack development solution featuring libraries built by the Laravel community.</p>
+</li>
+<li>
+<p>[Rails](<a href="https://github.com/gramantin/awesome-rails#readme" class="bare">https://github.com/gramantin/awesome-rails#readme</a>) - Web app framework for Ruby.</p>
+</li>
+<li>
+<p>[Gems](<a href="https://github.com/hothero/awesome-rails-gem#readme" class="bare">https://github.com/hothero/awesome-rails-gem#readme</a>) - Packages.</p>
+</li>
+<li>
+<p>[Phalcon](<a href="https://github.com/phalcon/awesome-phalcon#readme" class="bare">https://github.com/phalcon/awesome-phalcon#readme</a>) - PHP framework.</p>
+</li>
+<li>
+<p>[Useful <code>.htaccess</code> Snippets](<a href="https://github.com/phanan/htaccess#readme" class="bare">https://github.com/phanan/htaccess#readme</a>)</p>
+</li>
+<li>
+<p>[nginx](<a href="https://github.com/fcambus/nginx-resources#readme" class="bare">https://github.com/fcambus/nginx-resources#readme</a>) - Web server.</p>
+</li>
+<li>
+<p>[Dropwizard](<a href="https://github.com/stve/awesome-dropwizard#readme" class="bare">https://github.com/stve/awesome-dropwizard#readme</a>) - Java framework.</p>
+</li>
+<li>
+<p>[Kubernetes](<a href="https://github.com/ramitsurana/awesome-kubernetes#readme" class="bare">https://github.com/ramitsurana/awesome-kubernetes#readme</a>) - Open-source platform that automates Linux container operations.</p>
+</li>
+<li>
+<p>[Lumen](<a href="https://github.com/unicodeveloper/awesome-lumen#readme" class="bare">https://github.com/unicodeveloper/awesome-lumen#readme</a>) - PHP micro-framework.</p>
+</li>
+<li>
+<p>[Serverless Framework](<a href="https://github.com/pmuens/awesome-serverless#readme" class="bare">https://github.com/pmuens/awesome-serverless#readme</a>) - Serverless computing and serverless architectures.</p>
+</li>
+<li>
+<p>[Apache Wicket](<a href="https://github.com/PhantomYdn/awesome-wicket#readme" class="bare">https://github.com/PhantomYdn/awesome-wicket#readme</a>) - Java web app framework.</p>
+</li>
+<li>
+<p>[Vert.x](<a href="https://github.com/vert-x3/vertx-awesome#readme" class="bare">https://github.com/vert-x3/vertx-awesome#readme</a>) - Toolkit for building reactive apps on the JVM.</p>
+</li>
+<li>
+<p>[Terraform](<a href="https://github.com/shuaibiyy/awesome-terraform#readme" class="bare">https://github.com/shuaibiyy/awesome-terraform#readme</a>) - Tool for building, changing, and versioning infrastructure.</p>
+</li>
+<li>
+<p>[Vapor](<a href="https://github.com/Cellane/awesome-vapor#readme" class="bare">https://github.com/Cellane/awesome-vapor#readme</a>) - Server-side development in Swift.</p>
+</li>
+<li>
+<p>[Dash](<a href="https://github.com/ucg8j/awesome-dash#readme" class="bare">https://github.com/ucg8j/awesome-dash#readme</a>) - Python web app framework.</p>
+</li>
+<li>
+<p>[FastAPI](<a href="https://github.com/mjhea0/awesome-fastapi#readme" class="bare">https://github.com/mjhea0/awesome-fastapi#readme</a>) - Python web app framework.</p>
+</li>
+<li>
+<p>[CDK](<a href="https://github.com/kolomied/awesome-cdk#readme" class="bare">https://github.com/kolomied/awesome-cdk#readme</a>) - Open-source software development framework for defining cloud infrastructure in code.</p>
+</li>
+<li>
+<p>[IAM](<a href="https://github.com/kdeldycke/awesome-iam#readme" class="bare">https://github.com/kdeldycke/awesome-iam#readme</a>) - User accounts, authentication and authorization.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_computer_science">Computer Science</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[University Courses](<a href="https://github.com/prakhar1989/awesome-courses#readme" class="bare">https://github.com/prakhar1989/awesome-courses#readme</a>)</p>
+</li>
+<li>
+<p>[Data Science](<a href="https://github.com/academic/awesome-datascience#readme" class="bare">https://github.com/academic/awesome-datascience#readme</a>)</p>
+</li>
+<li>
+<p>[Tutorials](<a href="https://github.com/siboehm/awesome-learn-datascience#readme" class="bare">https://github.com/siboehm/awesome-learn-datascience#readme</a>)</p>
+</li>
+<li>
+<p>[Machine Learning](<a href="https://github.com/josephmisiti/awesome-machine-learning#readme" class="bare">https://github.com/josephmisiti/awesome-machine-learning#readme</a>)</p>
+</li>
+<li>
+<p>[Tutorials](<a href="https://github.com/ujjwalkarn/Machine-Learning-Tutorials#readme" class="bare">https://github.com/ujjwalkarn/Machine-Learning-Tutorials#readme</a>)</p>
+</li>
+<li>
+<p>[ML with Ruby](<a href="https://github.com/arbox/machine-learning-with-ruby#readme" class="bare">https://github.com/arbox/machine-learning-with-ruby#readme</a>) - Learning, implementing, and applying Machine Learning using Ruby.</p>
+</li>
+<li>
+<p>[Core ML Models](<a href="https://github.com/likedan/Awesome-CoreML-Models#readme" class="bare">https://github.com/likedan/Awesome-CoreML-Models#readme</a>) - Models for Apple&#8217;s machine learning framework.</p>
+</li>
+<li>
+<p>[H2O](<a href="https://github.com/h2oai/awesome-h2o#readme" class="bare">https://github.com/h2oai/awesome-h2o#readme</a>) - Open source distributed machine learning platform written in Java with APIs in R, Python, and Scala.</p>
+</li>
+<li>
+<p>[Software Engineering for Machine Learning](<a href="https://github.com/SE-ML/awesome-seml#readme" class="bare">https://github.com/SE-ML/awesome-seml#readme</a>) - From experiment to production-level machine learning.</p>
+</li>
+<li>
+<p>[AI in Finance](<a href="https://github.com/georgezouq/awesome-ai-in-finance#readme" class="bare">https://github.com/georgezouq/awesome-ai-in-finance#readme</a>) - Solving problems in finance with machine learning.</p>
+</li>
+<li>
+<p>[JAX](<a href="https://github.com/n2cholas/awesome-jax#readme" class="bare">https://github.com/n2cholas/awesome-jax#readme</a>) - Automatic differentiation and XLA compilation brought together for high-performance machine learning research.</p>
+</li>
+<li>
+<p>[XAI](<a href="https://github.com/altamiracorp/awesome-xai#readme" class="bare">https://github.com/altamiracorp/awesome-xai#readme</a>) - Providing insight, explanations, and interpretability to machine learning methods.</p>
+</li>
+<li>
+<p>[Speech and Natural Language Processing](<a href="https://github.com/edobashira/speech-language-processing#readme" class="bare">https://github.com/edobashira/speech-language-processing#readme</a>)</p>
+</li>
+<li>
+<p>[Spanish](<a href="https://github.com/dav009/awesome-spanish-nlp#readme" class="bare">https://github.com/dav009/awesome-spanish-nlp#readme</a>)</p>
+</li>
+<li>
+<p>[NLP with Ruby](<a href="https://github.com/arbox/nlp-with-ruby#readme" class="bare">https://github.com/arbox/nlp-with-ruby#readme</a>)</p>
+</li>
+<li>
+<p>[Question Answering](<a href="https://github.com/seriousran/awesome-qa#readme" class="bare">https://github.com/seriousran/awesome-qa#readme</a>) - The science of asking and answering in natural language with a machine.</p>
+</li>
+<li>
+<p>[Natural Language Generation](<a href="https://github.com/tokenmill/awesome-nlg#readme" class="bare">https://github.com/tokenmill/awesome-nlg#readme</a>) - Generation of text used in data to text, conversational agents, and narrative generation applications.</p>
+</li>
+<li>
+<p>[Linguistics](<a href="https://github.com/theimpossibleastronaut/awesome-linguistics#readme" class="bare">https://github.com/theimpossibleastronaut/awesome-linguistics#readme</a>)</p>
+</li>
+<li>
+<p>[Cryptography](<a href="https://github.com/sobolevn/awesome-cryptography#readme" class="bare">https://github.com/sobolevn/awesome-cryptography#readme</a>)</p>
+</li>
+<li>
+<p>[Papers](<a href="https://github.com/pFarb/awesome-crypto-papers#readme" class="bare">https://github.com/pFarb/awesome-crypto-papers#readme</a>) - Theory basics for using cryptography by non-cryptographers.</p>
+</li>
+<li>
+<p>[Computer Vision](<a href="https://github.com/jbhuang0604/awesome-computer-vision#readme" class="bare">https://github.com/jbhuang0604/awesome-computer-vision#readme</a>)</p>
+</li>
+<li>
+<p>[Deep Learning](<a href="https://github.com/ChristosChristofidis/awesome-deep-learning#readme" class="bare">https://github.com/ChristosChristofidis/awesome-deep-learning#readme</a>) - Neural networks.</p>
+</li>
+<li>
+<p>[TensorFlow](<a href="https://github.com/jtoy/awesome-tensorflow#readme" class="bare">https://github.com/jtoy/awesome-tensorflow#readme</a>) - Library for machine intelligence.</p>
+</li>
+<li>
+<p>[TensorFlow.js](<a href="https://github.com/aaronhma/awesome-tensorflow-js#readme" class="bare">https://github.com/aaronhma/awesome-tensorflow-js#readme</a>) - WebGL-accelerated machine learning JavaScript library for training and deploying models.</p>
+</li>
+<li>
+<p>[TensorFlow Lite](<a href="https://github.com/margaretmz/awesome-tensorflow-lite#readme" class="bare">https://github.com/margaretmz/awesome-tensorflow-lite#readme</a>) - Framework that optimizes TensorFlow models for on-device machine learning.</p>
+</li>
+<li>
+<p>[Papers](<a href="https://github.com/terryum/awesome-deep-learning-papers#readme" class="bare">https://github.com/terryum/awesome-deep-learning-papers#readme</a>) - The most cited deep learning papers.</p>
+</li>
+<li>
+<p>[Education](<a href="https://github.com/guillaume-chevalier/awesome-deep-learning-resources#readme" class="bare">https://github.com/guillaume-chevalier/awesome-deep-learning-resources#readme</a>)</p>
+</li>
+<li>
+<p>[Deep Vision](<a href="https://github.com/kjw0612/awesome-deep-vision#readme" class="bare">https://github.com/kjw0612/awesome-deep-vision#readme</a>)</p>
+</li>
+<li>
+<p>[Open Source Society University](<a href="https://github.com/ossu/computer-science#readme" class="bare">https://github.com/ossu/computer-science#readme</a>)</p>
+</li>
+<li>
+<p>[Functional Programming](<a href="https://github.com/lucasviola/awesome-functional-programming#readme" class="bare">https://github.com/lucasviola/awesome-functional-programming#readme</a>)</p>
+</li>
+<li>
+<p>[Empirical Software Engineering](<a href="https://github.com/dspinellis/awesome-msr#readme" class="bare">https://github.com/dspinellis/awesome-msr#readme</a>) - Evidence-based research on software systems.</p>
+</li>
+<li>
+<p>[Static Analysis &amp; Code Quality](<a href="https://github.com/analysis-tools-dev/static-analysis#readme" class="bare">https://github.com/analysis-tools-dev/static-analysis#readme</a>)</p>
+</li>
+<li>
+<p>[Information Retrieval](<a href="https://github.com/harpribot/awesome-information-retrieval#readme" class="bare">https://github.com/harpribot/awesome-information-retrieval#readme</a>) - Learn to develop your own search engine.</p>
+</li>
+<li>
+<p>[Quantum Computing](<a href="https://github.com/desireevl/awesome-quantum-computing#readme" class="bare">https://github.com/desireevl/awesome-quantum-computing#readme</a>) - Computing which utilizes quantum mechanics and qubits on quantum computers.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_big_data">Big Data</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Big Data](<a href="https://github.com/onurakpolat/awesome-bigdata#readme" class="bare">https://github.com/onurakpolat/awesome-bigdata#readme</a>)</p>
+</li>
+<li>
+<p>[Public Datasets](<a href="https://github.com/awesomedata/awesome-public-datasets#readme" class="bare">https://github.com/awesomedata/awesome-public-datasets#readme</a>)</p>
+</li>
+<li>
+<p>[Hadoop](<a href="https://github.com/youngwookim/awesome-hadoop#readme" class="bare">https://github.com/youngwookim/awesome-hadoop#readme</a>) - Framework for distributed storage and processing of very large data sets.</p>
+</li>
+<li>
+<p>[Data Engineering](<a href="https://github.com/igorbarinov/awesome-data-engineering#readme" class="bare">https://github.com/igorbarinov/awesome-data-engineering#readme</a>)</p>
+</li>
+<li>
+<p>[Streaming](<a href="https://github.com/manuzhang/awesome-streaming#readme" class="bare">https://github.com/manuzhang/awesome-streaming#readme</a>)</p>
+</li>
+<li>
+<p>[Apache Spark](<a href="https://github.com/awesome-spark/awesome-spark#readme" class="bare">https://github.com/awesome-spark/awesome-spark#readme</a>) - Unified engine for large-scale data processing.</p>
+</li>
+<li>
+<p>[Qlik](<a href="https://github.com/ambster-public/awesome-qlik#readme" class="bare">https://github.com/ambster-public/awesome-qlik#readme</a>) - Business intelligence platform for data visualization, analytics, and reporting apps.</p>
+</li>
+<li>
+<p>[Splunk](<a href="https://github.com/sduff/awesome-splunk#readme" class="bare">https://github.com/sduff/awesome-splunk#readme</a>) - Platform for searching, monitoring, and analyzing structured and unstructured machine-generated big data in real-time.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_theory">Theory</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Papers We Love](<a href="https://github.com/papers-we-love/papers-we-love#readme" class="bare">https://github.com/papers-we-love/papers-we-love#readme</a>)</p>
+</li>
+<li>
+<p>[Talks](<a href="https://github.com/JanVanRyswyck/awesome-talks#readme" class="bare">https://github.com/JanVanRyswyck/awesome-talks#readme</a>)</p>
+</li>
+<li>
+<p>[Algorithms](<a href="https://github.com/tayllan/awesome-algorithms#readme" class="bare">https://github.com/tayllan/awesome-algorithms#readme</a>)</p>
+</li>
+<li>
+<p>[Education](<a href="https://github.com/gaerae/awesome-algorithms-education#readme" class="bare">https://github.com/gaerae/awesome-algorithms-education#readme</a>) - Learning and practicing.</p>
+</li>
+<li>
+<p>[Algorithm Visualizations](<a href="https://github.com/enjalot/algovis#readme" class="bare">https://github.com/enjalot/algovis#readme</a>)</p>
+</li>
+<li>
+<p>[Artificial Intelligence](<a href="https://github.com/owainlewis/awesome-artificial-intelligence#readme" class="bare">https://github.com/owainlewis/awesome-artificial-intelligence#readme</a>)</p>
+</li>
+<li>
+<p>[Search Engine Optimization](<a href="https://github.com/marcobiedermann/search-engine-optimization#readme" class="bare">https://github.com/marcobiedermann/search-engine-optimization#readme</a>)</p>
+</li>
+<li>
+<p>[Competitive Programming](<a href="https://github.com/lnishan/awesome-competitive-programming#readme" class="bare">https://github.com/lnishan/awesome-competitive-programming#readme</a>)</p>
+</li>
+<li>
+<p>[Math](<a href="https://github.com/rossant/awesome-math#readme" class="bare">https://github.com/rossant/awesome-math#readme</a>)</p>
+</li>
+<li>
+<p>[Recursion Schemes](<a href="https://github.com/passy/awesome-recursion-schemes#readme" class="bare">https://github.com/passy/awesome-recursion-schemes#readme</a>) - Traversing nested data structures.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_books">Books</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Free Programming Books](<a href="https://github.com/EbookFoundation/free-programming-books#readme" class="bare">https://github.com/EbookFoundation/free-programming-books#readme</a>)</p>
+</li>
+<li>
+<p>[Go Books](<a href="https://github.com/dariubs/GoBooks#readme" class="bare">https://github.com/dariubs/GoBooks#readme</a>)</p>
+</li>
+<li>
+<p>[R Books](<a href="https://github.com/RomanTsegelskyi/rbooks#readme" class="bare">https://github.com/RomanTsegelskyi/rbooks#readme</a>)</p>
+</li>
+<li>
+<p>[Mind Expanding Books](<a href="https://github.com/hackerkid/Mind-Expanding-Books#readme" class="bare">https://github.com/hackerkid/Mind-Expanding-Books#readme</a>)</p>
+</li>
+<li>
+<p>[Book Authoring](<a href="https://github.com/TalAter/awesome-book-authoring#readme" class="bare">https://github.com/TalAter/awesome-book-authoring#readme</a>)</p>
+</li>
+<li>
+<p>[Elixir Books](<a href="https://github.com/sger/ElixirBooks#readme" class="bare">https://github.com/sger/ElixirBooks#readme</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_editors">Editors</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Sublime Text](<a href="https://github.com/dreikanter/sublime-bookmarks#readme" class="bare">https://github.com/dreikanter/sublime-bookmarks#readme</a>)</p>
+</li>
+<li>
+<p>[Vim](<a href="https://github.com/mhinz/vim-galore#readme" class="bare">https://github.com/mhinz/vim-galore#readme</a>)</p>
+</li>
+<li>
+<p>[Emacs](<a href="https://github.com/emacs-tw/awesome-emacs#readme" class="bare">https://github.com/emacs-tw/awesome-emacs#readme</a>)</p>
+</li>
+<li>
+<p>[Atom](<a href="https://github.com/mehcode/awesome-atom#readme" class="bare">https://github.com/mehcode/awesome-atom#readme</a>) - Open-source and hackable text editor.</p>
+</li>
+<li>
+<p>[Visual Studio Code](<a href="https://github.com/viatsko/awesome-vscode#readme" class="bare">https://github.com/viatsko/awesome-vscode#readme</a>) - Cross-platform open-source text editor.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gaming">Gaming</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Game Development](<a href="https://github.com/ellisonleao/magictools#readme" class="bare">https://github.com/ellisonleao/magictools#readme</a>)</p>
+</li>
+<li>
+<p>[Game Talks](<a href="https://github.com/hzoo/awesome-gametalks#readme" class="bare">https://github.com/hzoo/awesome-gametalks#readme</a>)</p>
+</li>
+<li>
+<p>[Godot](<a href="https://github.com/Calinou/awesome-godot#readme" class="bare">https://github.com/Calinou/awesome-godot#readme</a>) - Game engine.</p>
+</li>
+<li>
+<p>[Open Source Games](<a href="https://github.com/leereilly/games#readme" class="bare">https://github.com/leereilly/games#readme</a>)</p>
+</li>
+<li>
+<p>[Unity](<a href="https://github.com/RyanNielson/awesome-unity#readme" class="bare">https://github.com/RyanNielson/awesome-unity#readme</a>) - Game engine.</p>
+</li>
+<li>
+<p>[Chess](<a href="https://github.com/hkirat/awesome-chess#readme" class="bare">https://github.com/hkirat/awesome-chess#readme</a>)</p>
+</li>
+<li>
+<p>[LÖVE](<a href="https://github.com/love2d-community/awesome-love2d#readme" class="bare">https://github.com/love2d-community/awesome-love2d#readme</a>) - Game engine.</p>
+</li>
+<li>
+<p>[PICO-8](<a href="https://github.com/pico-8/awesome-PICO-8#readme" class="bare">https://github.com/pico-8/awesome-PICO-8#readme</a>) - Fantasy console.</p>
+</li>
+<li>
+<p>[Game Boy Development](<a href="https://github.com/gbdev/awesome-gbdev#readme" class="bare">https://github.com/gbdev/awesome-gbdev#readme</a>)</p>
+</li>
+<li>
+<p>[Construct 2](<a href="https://github.com/WebCreationClub/awesome-construct#readme" class="bare">https://github.com/WebCreationClub/awesome-construct#readme</a>) - Game engine.</p>
+</li>
+<li>
+<p>[Gideros](<a href="https://github.com/stetso/awesome-gideros#readme" class="bare">https://github.com/stetso/awesome-gideros#readme</a>) - Game engine.</p>
+</li>
+<li>
+<p>[Minecraft](<a href="https://github.com/bs-community/awesome-minecraft#readme" class="bare">https://github.com/bs-community/awesome-minecraft#readme</a>) - Sandbox video game.</p>
+</li>
+<li>
+<p>[Game Datasets](<a href="https://github.com/leomaurodesenv/game-datasets#readme" class="bare">https://github.com/leomaurodesenv/game-datasets#readme</a>) - Materials and datasets for Artificial Intelligence in games.</p>
+</li>
+<li>
+<p>[Haxe Game Development](<a href="https://github.com/Dvergar/awesome-haxe-gamedev#readme" class="bare">https://github.com/Dvergar/awesome-haxe-gamedev#readme</a>) - A high-level strongly typed programming language used to produce cross-platform native code.</p>
+</li>
+<li>
+<p>[libGDX](<a href="https://github.com/rafaskb/awesome-libgdx#readme" class="bare">https://github.com/rafaskb/awesome-libgdx#readme</a>) - Java game framework.</p>
+</li>
+<li>
+<p>[PlayCanvas](<a href="https://github.com/playcanvas/awesome-playcanvas#readme" class="bare">https://github.com/playcanvas/awesome-playcanvas#readme</a>) - Game engine.</p>
+</li>
+<li>
+<p>[Game Remakes](<a href="https://github.com/radek-sprta/awesome-game-remakes#readme" class="bare">https://github.com/radek-sprta/awesome-game-remakes#readme</a>) - Actively maintained open-source game remakes.</p>
+</li>
+<li>
+<p>[Flame](<a href="https://github.com/flame-engine/awesome-flame#readme" class="bare">https://github.com/flame-engine/awesome-flame#readme</a>) - Game engine for Flutter.</p>
+</li>
+<li>
+<p>[Discord Communities](<a href="https://github.com/mhxion/awesome-discord-communities#readme" class="bare">https://github.com/mhxion/awesome-discord-communities#readme</a>) - Chat with friends and communities.</p>
+</li>
+<li>
+<p>[CHIP-8](<a href="https://github.com/tobiasvl/awesome-chip-8#readme" class="bare">https://github.com/tobiasvl/awesome-chip-8#readme</a>) - Virtual computer game machine from the 70s.</p>
+</li>
+<li>
+<p>[Games of Coding](<a href="https://github.com/michelpereira/awesome-games-of-coding#readme" class="bare">https://github.com/michelpereira/awesome-games-of-coding#readme</a>) - Learn a programming language by making games.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_development_environment">Development Environment</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Quick Look Plugins](<a href="https://github.com/sindresorhus/quick-look-plugins#readme" class="bare">https://github.com/sindresorhus/quick-look-plugins#readme</a>) - For macOS.</p>
+</li>
+<li>
+<p>[Dev Env](<a href="https://github.com/jondot/awesome-devenv#readme" class="bare">https://github.com/jondot/awesome-devenv#readme</a>)</p>
+</li>
+<li>
+<p>[Dotfiles](<a href="https://github.com/webpro/awesome-dotfiles#readme" class="bare">https://github.com/webpro/awesome-dotfiles#readme</a>)</p>
+</li>
+<li>
+<p>[Shell](<a href="https://github.com/alebcay/awesome-shell#readme" class="bare">https://github.com/alebcay/awesome-shell#readme</a>)</p>
+</li>
+<li>
+<p>[Fish](<a href="https://github.com/jorgebucaran/awsm.fish#readme" class="bare">https://github.com/jorgebucaran/awsm.fish#readme</a>) - User-friendly shell.</p>
+</li>
+<li>
+<p>[Command-Line Apps](<a href="https://github.com/agarrharr/awesome-cli-apps#readme" class="bare">https://github.com/agarrharr/awesome-cli-apps#readme</a>)</p>
+</li>
+<li>
+<p>[ZSH Plugins](<a href="https://github.com/unixorn/awesome-zsh-plugins#readme" class="bare">https://github.com/unixorn/awesome-zsh-plugins#readme</a>)</p>
+</li>
+<li>
+<p>[GitHub](<a href="https://github.com/phillipadsmith/awesome-github#readme" class="bare">https://github.com/phillipadsmith/awesome-github#readme</a>) - Hosting service for Git repositories.</p>
+</li>
+<li>
+<p>[Browser Extensions](<a href="https://github.com/stefanbuck/awesome-browser-extensions-for-github#readme" class="bare">https://github.com/stefanbuck/awesome-browser-extensions-for-github#readme</a>)</p>
+</li>
+<li>
+<p>[Cheat Sheet](<a href="https://github.com/tiimgreen/github-cheat-sheet#readme" class="bare">https://github.com/tiimgreen/github-cheat-sheet#readme</a>)</p>
+</li>
+<li>
+<p>[Pinned Gists](<a href="https://github.com/matchai/awesome-pinned-gists#readme" class="bare">https://github.com/matchai/awesome-pinned-gists#readme</a>) - Dynamic pinned gists for your GitHub profile.</p>
+</li>
+<li>
+<p>[Git Cheat Sheet &amp; Git Flow](<a href="https://github.com/arslanbilal/git-cheat-sheet#readme" class="bare">https://github.com/arslanbilal/git-cheat-sheet#readme</a>)</p>
+</li>
+<li>
+<p>[Git Tips](<a href="https://github.com/git-tips/tips#readme" class="bare">https://github.com/git-tips/tips#readme</a>)</p>
+</li>
+<li>
+<p>[Git Add-ons](<a href="https://github.com/stevemao/awesome-git-addons#readme" class="bare">https://github.com/stevemao/awesome-git-addons#readme</a>) - Enhance the <code>git</code> CLI.</p>
+</li>
+<li>
+<p>[Git Hooks](<a href="https://github.com/compscilauren/awesome-git-hooks#readme" class="bare">https://github.com/compscilauren/awesome-git-hooks#readme</a>) - Scripts for automating tasks during <code>git</code> workflows.</p>
+</li>
+<li>
+<p>[SSH](<a href="https://github.com/moul/awesome-ssh#readme" class="bare">https://github.com/moul/awesome-ssh#readme</a>)</p>
+</li>
+<li>
+<p>[FOSS for Developers](<a href="https://github.com/tvvocold/FOSS-for-Dev#readme" class="bare">https://github.com/tvvocold/FOSS-for-Dev#readme</a>)</p>
+</li>
+<li>
+<p>[Hyper](<a href="https://github.com/bnb/awesome-hyper#readme" class="bare">https://github.com/bnb/awesome-hyper#readme</a>) - Cross-platform terminal app built on web technologies.</p>
+</li>
+<li>
+<p>[PowerShell](<a href="https://github.com/janikvonrotz/awesome-powershell#readme" class="bare">https://github.com/janikvonrotz/awesome-powershell#readme</a>) - Cross-platform object-oriented shell.</p>
+</li>
+<li>
+<p>[Alfred Workflows](<a href="https://github.com/alfred-workflows/awesome-alfred-workflows#readme" class="bare">https://github.com/alfred-workflows/awesome-alfred-workflows#readme</a>) - Productivity app for macOS.</p>
+</li>
+<li>
+<p>[Terminals Are Sexy](<a href="https://github.com/k4m4/terminals-are-sexy#readme" class="bare">https://github.com/k4m4/terminals-are-sexy#readme</a>)</p>
+</li>
+<li>
+<p>[GitHub Actions](<a href="https://github.com/sdras/awesome-actions#readme" class="bare">https://github.com/sdras/awesome-actions#readme</a>) - Create tasks to automate your workflow and share them with others on GitHub.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_entertainment">Entertainment</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Science Fiction](<a href="https://github.com/sindresorhus/awesome-scifi#readme" class="bare">https://github.com/sindresorhus/awesome-scifi#readme</a>) - Scifi.</p>
+</li>
+<li>
+<p>[Fantasy](<a href="https://github.com/RichardLitt/awesome-fantasy#readme" class="bare">https://github.com/RichardLitt/awesome-fantasy#readme</a>)</p>
+</li>
+<li>
+<p>[Podcasts](<a href="https://github.com/ayr-ton/awesome-geek-podcasts#readme" class="bare">https://github.com/ayr-ton/awesome-geek-podcasts#readme</a>)</p>
+</li>
+<li>
+<p>[Email Newsletters](<a href="https://github.com/zudochkin/awesome-newsletters#readme" class="bare">https://github.com/zudochkin/awesome-newsletters#readme</a>)</p>
+</li>
+<li>
+<p>[IT Quotes](<a href="https://github.com/victorlaerte/awesome-it-quotes#readme" class="bare">https://github.com/victorlaerte/awesome-it-quotes#readme</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_databases">Databases</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Database](<a href="https://github.com/numetriclabz/awesome-db#readme" class="bare">https://github.com/numetriclabz/awesome-db#readme</a>)</p>
+</li>
+<li>
+<p>[MySQL](<a href="https://github.com/shlomi-noach/awesome-mysql#readme" class="bare">https://github.com/shlomi-noach/awesome-mysql#readme</a>)</p>
+</li>
+<li>
+<p>[SQLAlchemy](<a href="https://github.com/dahlia/awesome-sqlalchemy#readme" class="bare">https://github.com/dahlia/awesome-sqlalchemy#readme</a>)</p>
+</li>
+<li>
+<p>[InfluxDB](<a href="https://github.com/mark-rushakoff/awesome-influxdb#readme" class="bare">https://github.com/mark-rushakoff/awesome-influxdb#readme</a>)</p>
+</li>
+<li>
+<p>[Neo4j](<a href="https://github.com/neueda/awesome-neo4j#readme" class="bare">https://github.com/neueda/awesome-neo4j#readme</a>)</p>
+</li>
+<li>
+<p>[MongoDB](<a href="https://github.com/ramnes/awesome-mongodb#readme" class="bare">https://github.com/ramnes/awesome-mongodb#readme</a>) - NoSQL database.</p>
+</li>
+<li>
+<p>[RethinkDB](<a href="https://github.com/d3viant0ne/awesome-rethinkdb#readme" class="bare">https://github.com/d3viant0ne/awesome-rethinkdb#readme</a>)</p>
+</li>
+<li>
+<p>[TinkerPop](<a href="https://github.com/mohataher/awesome-tinkerpop#readme" class="bare">https://github.com/mohataher/awesome-tinkerpop#readme</a>) - Graph computing framework.</p>
+</li>
+<li>
+<p>[PostgreSQL](<a href="https://github.com/dhamaniasad/awesome-postgres#readme" class="bare">https://github.com/dhamaniasad/awesome-postgres#readme</a>) - Object-relational database.</p>
+</li>
+<li>
+<p>[CouchDB](<a href="https://github.com/quangv/awesome-couchdb#readme" class="bare">https://github.com/quangv/awesome-couchdb#readme</a>) - Document-oriented NoSQL database.</p>
+</li>
+<li>
+<p>[HBase](<a href="https://github.com/rayokota/awesome-hbase#readme" class="bare">https://github.com/rayokota/awesome-hbase#readme</a>) - Distributed, scalable, big data store.</p>
+</li>
+<li>
+<p>[NoSQL Guides](<a href="https://github.com/erictleung/awesome-nosql-guides#readme" class="bare">https://github.com/erictleung/awesome-nosql-guides#readme</a>) - Help on using non-relational, distributed, open-source, and horizontally scalable databases.</p>
+</li>
+<li>
+<p>[Contexture](<a href="https://github.com/chrislatorres/awesome-contexture#readme" class="bare">https://github.com/chrislatorres/awesome-contexture#readme</a>) - Abstracts queries/filters and results/aggregations from different backing data stores like ElasticSearch and MongoDB.</p>
+</li>
+<li>
+<p>[Database Tools](<a href="https://github.com/mgramin/awesome-db-tools#readme" class="bare">https://github.com/mgramin/awesome-db-tools#readme</a>) - Everything that makes working with databases easier.</p>
+</li>
+<li>
+<p>[Grakn](<a href="https://github.com/graknlabs/awesome#readme" class="bare">https://github.com/graknlabs/awesome#readme</a>) - Logical database to organize large and complex networks of data as one body of knowledge.</p>
+</li>
+<li>
+<p>[Cassandra](<a href="https://github.com/Anant/awesome-cassandra#readme" class="bare">https://github.com/Anant/awesome-cassandra#readme</a>) - Open-source, distributed, wide column store, NoSQL database management system.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_media">Media</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Creative Commons Media](<a href="https://github.com/shime/creative-commons-media#readme" class="bare">https://github.com/shime/creative-commons-media#readme</a>)</p>
+</li>
+<li>
+<p>[Fonts](<a href="https://github.com/brabadu/awesome-fonts#readme" class="bare">https://github.com/brabadu/awesome-fonts#readme</a>)</p>
+</li>
+<li>
+<p>[Codeface](<a href="https://github.com/chrissimpkins/codeface#readme" class="bare">https://github.com/chrissimpkins/codeface#readme</a>) - Text editor fonts.</p>
+</li>
+<li>
+<p>[Stock Resources](<a href="https://github.com/neutraltone/awesome-stock-resources#readme" class="bare">https://github.com/neutraltone/awesome-stock-resources#readme</a>)</p>
+</li>
+<li>
+<p>[GIF](<a href="https://github.com/davisonio/awesome-gif#readme" class="bare">https://github.com/davisonio/awesome-gif#readme</a>) - Image format known for animated images.</p>
+</li>
+<li>
+<p>[Music](<a href="https://github.com/ciconia/awesome-music#readme" class="bare">https://github.com/ciconia/awesome-music#readme</a>)</p>
+</li>
+<li>
+<p>[Open Source Documents](<a href="https://github.com/44bits/awesome-opensource-documents#readme" class="bare">https://github.com/44bits/awesome-opensource-documents#readme</a>)</p>
+</li>
+<li>
+<p>[Audio Visualization](<a href="https://github.com/willianjusten/awesome-audio-visualization#readme" class="bare">https://github.com/willianjusten/awesome-audio-visualization#readme</a>)</p>
+</li>
+<li>
+<p>[Broadcasting](<a href="https://github.com/ebu/awesome-broadcasting#readme" class="bare">https://github.com/ebu/awesome-broadcasting#readme</a>)</p>
+</li>
+<li>
+<p>[Pixel Art](<a href="https://github.com/Siilwyn/awesome-pixel-art#readme" class="bare">https://github.com/Siilwyn/awesome-pixel-art#readme</a>) - Pixel-level digital art.</p>
+</li>
+<li>
+<p>[FFmpeg](<a href="https://github.com/transitive-bullshit/awesome-ffmpeg#readme" class="bare">https://github.com/transitive-bullshit/awesome-ffmpeg#readme</a>) - Cross-platform solution to record, convert and stream audio and video.</p>
+</li>
+<li>
+<p>[Icons](<a href="https://github.com/notlmn/awesome-icons#readme" class="bare">https://github.com/notlmn/awesome-icons#readme</a>) - Downloadable SVG/PNG/font icon projects.</p>
+</li>
+<li>
+<p>[Audiovisual](<a href="https://github.com/stingalleman/awesome-audiovisual#readme" class="bare">https://github.com/stingalleman/awesome-audiovisual#readme</a>) - Lighting, audio and video in professional environments.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_learn">Learn</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[CLI Workshoppers](<a href="https://github.com/therebelrobot/awesome-workshopper#readme" class="bare">https://github.com/therebelrobot/awesome-workshopper#readme</a>) - Interactive tutorials.</p>
+</li>
+<li>
+<p>[Learn to Program](<a href="https://github.com/karlhorky/learn-to-program#readme" class="bare">https://github.com/karlhorky/learn-to-program#readme</a>)</p>
+</li>
+<li>
+<p>[Speaking](<a href="https://github.com/matteofigus/awesome-speaking#readme" class="bare">https://github.com/matteofigus/awesome-speaking#readme</a>)</p>
+</li>
+<li>
+<p>[Tech Videos](<a href="https://github.com/lucasviola/awesome-tech-videos#readme" class="bare">https://github.com/lucasviola/awesome-tech-videos#readme</a>)</p>
+</li>
+<li>
+<p>[Dive into Machine Learning](<a href="https://github.com/hangtwenty/dive-into-machine-learning#readme" class="bare">https://github.com/hangtwenty/dive-into-machine-learning#readme</a>)</p>
+</li>
+<li>
+<p>[Computer History](<a href="https://github.com/watson/awesome-computer-history#readme" class="bare">https://github.com/watson/awesome-computer-history#readme</a>)</p>
+</li>
+<li>
+<p>[Programming for Kids](<a href="https://github.com/HollyAdele/awesome-programming-for-kids#readme" class="bare">https://github.com/HollyAdele/awesome-programming-for-kids#readme</a>)</p>
+</li>
+<li>
+<p>[Educational Games](<a href="https://github.com/yrgo/awesome-educational-games#readme" class="bare">https://github.com/yrgo/awesome-educational-games#readme</a>) - Learn while playing.</p>
+</li>
+<li>
+<p>[JavaScript Learning](<a href="https://github.com/micromata/awesome-javascript-learning#readme" class="bare">https://github.com/micromata/awesome-javascript-learning#readme</a>)</p>
+</li>
+<li>
+<p>[CSS Learning](<a href="https://github.com/micromata/awesome-css-learning#readme" class="bare">https://github.com/micromata/awesome-css-learning#readme</a>) - Mainly about CSS – the language and the modules.</p>
+</li>
+<li>
+<p>[Product Management](<a href="https://github.com/dend/awesome-product-management#readme" class="bare">https://github.com/dend/awesome-product-management#readme</a>) - Learn how to be a better product manager.</p>
+</li>
+<li>
+<p>[Roadmaps](<a href="https://github.com/liuchong/awesome-roadmaps#readme" class="bare">https://github.com/liuchong/awesome-roadmaps#readme</a>) - Gives you a clear route to improve your knowledge and skills.</p>
+</li>
+<li>
+<p>[YouTubers](<a href="https://github.com/JoseDeFreitas/awesome-youtubers#readme" class="bare">https://github.com/JoseDeFreitas/awesome-youtubers#readme</a>) - Watch video tutorials from YouTubers that teach you about technology.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_security">Security</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Application Security](<a href="https://github.com/paragonie/awesome-appsec#readme" class="bare">https://github.com/paragonie/awesome-appsec#readme</a>)</p>
+</li>
+<li>
+<p>[Security](<a href="https://github.com/sbilly/awesome-security#readme" class="bare">https://github.com/sbilly/awesome-security#readme</a>)</p>
+</li>
+<li>
+<p>[CTF](<a href="https://github.com/apsdehal/awesome-ctf#readme" class="bare">https://github.com/apsdehal/awesome-ctf#readme</a>) - Capture The Flag.</p>
+</li>
+<li>
+<p>[Malware Analysis](<a href="https://github.com/rshipp/awesome-malware-analysis#readme" class="bare">https://github.com/rshipp/awesome-malware-analysis#readme</a>)</p>
+</li>
+<li>
+<p>[Android Security](<a href="https://github.com/ashishb/android-security-awesome#readme" class="bare">https://github.com/ashishb/android-security-awesome#readme</a>)</p>
+</li>
+<li>
+<p>[Hacking](<a href="https://github.com/carpedm20/awesome-hacking#readme" class="bare">https://github.com/carpedm20/awesome-hacking#readme</a>)</p>
+</li>
+<li>
+<p>[Honeypots](<a href="https://github.com/paralax/awesome-honeypots#readme" class="bare">https://github.com/paralax/awesome-honeypots#readme</a>) - Deception trap, designed to entice an attacker into attempting to compromise the information systems in an organization.</p>
+</li>
+<li>
+<p>[Incident Response](<a href="https://github.com/meirwah/awesome-incident-response#readme" class="bare">https://github.com/meirwah/awesome-incident-response#readme</a>)</p>
+</li>
+<li>
+<p>[Vehicle Security and Car Hacking](<a href="https://github.com/jaredthecoder/awesome-vehicle-security#readme" class="bare">https://github.com/jaredthecoder/awesome-vehicle-security#readme</a>)</p>
+</li>
+<li>
+<p>[Web Security](<a href="https://github.com/qazbnm456/awesome-web-security#readme" class="bare">https://github.com/qazbnm456/awesome-web-security#readme</a>) - Security of web apps &amp; services.</p>
+</li>
+<li>
+<p>[Lockpicking](<a href="https://github.com/fabacab/awesome-lockpicking#readme" class="bare">https://github.com/fabacab/awesome-lockpicking#readme</a>) - The art of unlocking a lock by manipulating its components without the key.</p>
+</li>
+<li>
+<p>[Cybersecurity Blue Team](<a href="https://github.com/fabacab/awesome-cybersecurity-blueteam#readme" class="bare">https://github.com/fabacab/awesome-cybersecurity-blueteam#readme</a>) - Groups of individuals who identify security flaws in information technology systems.</p>
+</li>
+<li>
+<p>[Fuzzing](<a href="https://github.com/cpuu/awesome-fuzzing#readme" class="bare">https://github.com/cpuu/awesome-fuzzing#readme</a>) - Automated software testing technique that involves feeding pseudo-randomly generated input data.</p>
+</li>
+<li>
+<p>[Embedded and IoT Security](<a href="https://github.com/fkie-cad/awesome-embedded-and-iot-security#readme" class="bare">https://github.com/fkie-cad/awesome-embedded-and-iot-security#readme</a>)</p>
+</li>
+<li>
+<p>[GDPR](<a href="https://github.com/bakke92/awesome-gdpr#readme" class="bare">https://github.com/bakke92/awesome-gdpr#readme</a>) - Regulation on data protection and privacy for all individuals within EU.</p>
+</li>
+<li>
+<p>[DevSecOps](<a href="https://github.com/TaptuIT/awesome-devsecops#readme" class="bare">https://github.com/TaptuIT/awesome-devsecops#readme</a>) - Integration of security practices into [DevOps](<a href="https://en.wikipedia.org/wiki/DevOps" class="bare">https://en.wikipedia.org/wiki/DevOps</a>).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_content_management_systems">Content Management Systems</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Umbraco](<a href="https://github.com/umbraco-community/awesome-umbraco#readme" class="bare">https://github.com/umbraco-community/awesome-umbraco#readme</a>)</p>
+</li>
+<li>
+<p>[Refinery CMS](<a href="https://github.com/refinerycms-contrib/awesome-refinerycms#readme" class="bare">https://github.com/refinerycms-contrib/awesome-refinerycms#readme</a>) - Ruby on Rails CMS.</p>
+</li>
+<li>
+<p>[Wagtail](<a href="https://github.com/springload/awesome-wagtail#readme" class="bare">https://github.com/springload/awesome-wagtail#readme</a>) - Django CMS focused on flexibility and user experience.</p>
+</li>
+<li>
+<p>[Textpattern](<a href="https://github.com/drmonkeyninja/awesome-textpattern#readme" class="bare">https://github.com/drmonkeyninja/awesome-textpattern#readme</a>) - Lightweight PHP-based CMS.</p>
+</li>
+<li>
+<p>[Drupal](<a href="https://github.com/nirgn975/awesome-drupal#readme" class="bare">https://github.com/nirgn975/awesome-drupal#readme</a>) - Extensible PHP-based CMS.</p>
+</li>
+<li>
+<p>[Craft CMS](<a href="https://github.com/craftcms/awesome#readme" class="bare">https://github.com/craftcms/awesome#readme</a>) - Content-first CMS.</p>
+</li>
+<li>
+<p>[Sitecore](<a href="https://github.com/MartinMiles/Awesome-Sitecore#readme" class="bare">https://github.com/MartinMiles/Awesome-Sitecore#readme</a>) - .NET digital marketing platform that combines CMS with tools for managing multiple websites.</p>
+</li>
+<li>
+<p>[Silverstripe CMS](<a href="https://github.com/wernerkrauss/awesome-silverstripe-cms#readme" class="bare">https://github.com/wernerkrauss/awesome-silverstripe-cms#readme</a>) - PHP MVC framework that serves as a classic or headless CMS.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hardware">Hardware</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Robotics](<a href="https://github.com/Kiloreux/awesome-robotics#readme" class="bare">https://github.com/Kiloreux/awesome-robotics#readme</a>)</p>
+</li>
+<li>
+<p>[Internet of Things](<a href="https://github.com/HQarroum/awesome-iot#readme" class="bare">https://github.com/HQarroum/awesome-iot#readme</a>)</p>
+</li>
+<li>
+<p>[Electronics](<a href="https://github.com/kitspace/awesome-electronics#readme" class="bare">https://github.com/kitspace/awesome-electronics#readme</a>) - For electronic engineers and hobbyists.</p>
+</li>
+<li>
+<p>[Bluetooth Beacons](<a href="https://github.com/rabschi/awesome-beacon#readme" class="bare">https://github.com/rabschi/awesome-beacon#readme</a>)</p>
+</li>
+<li>
+<p>[Electric Guitar Specifications](<a href="https://github.com/gitfrage/guitarspecs#readme" class="bare">https://github.com/gitfrage/guitarspecs#readme</a>) - Checklist for building your own electric guitar.</p>
+</li>
+<li>
+<p>[Plotters](<a href="https://github.com/beardicus/awesome-plotters#readme" class="bare">https://github.com/beardicus/awesome-plotters#readme</a>) - Computer-controlled drawing machines and other visual art robots.</p>
+</li>
+<li>
+<p>[Robotic Tooling](<a href="https://github.com/protontypes/awesome-robotic-tooling#readme" class="bare">https://github.com/protontypes/awesome-robotic-tooling#readme</a>) - Free and open tools for professional robotic development.</p>
+</li>
+<li>
+<p>[LIDAR](<a href="https://github.com/szenergy/awesome-lidar#readme" class="bare">https://github.com/szenergy/awesome-lidar#readme</a>) - Sensor for measuring distances by illuminating the target with laser light.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_business">Business</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Open Companies](<a href="https://github.com/opencompany/awesome-open-company#readme" class="bare">https://github.com/opencompany/awesome-open-company#readme</a>)</p>
+</li>
+<li>
+<p>[Places to Post Your Startup](<a href="https://github.com/mmccaff/PlacesToPostYourStartup#readme" class="bare">https://github.com/mmccaff/PlacesToPostYourStartup#readme</a>)</p>
+</li>
+<li>
+<p>[OKR Methodology](<a href="https://github.com/domenicosolazzo/awesome-okr#readme" class="bare">https://github.com/domenicosolazzo/awesome-okr#readme</a>) - Goal setting &amp; communication best practices.</p>
+</li>
+<li>
+<p>[Leading and Managing](<a href="https://github.com/LappleApple/awesome-leading-and-managing#readme" class="bare">https://github.com/LappleApple/awesome-leading-and-managing#readme</a>) - Leading people and being a manager in a technology company/environment.</p>
+</li>
+<li>
+<p>[Indie](<a href="https://github.com/mezod/awesome-indie#readme" class="bare">https://github.com/mezod/awesome-indie#readme</a>) - Independent developer businesses.</p>
+</li>
+<li>
+<p>[Tools of the Trade](<a href="https://github.com/cjbarber/ToolsOfTheTrade#readme" class="bare">https://github.com/cjbarber/ToolsOfTheTrade#readme</a>) - Tools used by companies on Hacker News.</p>
+</li>
+<li>
+<p>[Clean Tech](<a href="https://github.com/nglgzz/awesome-clean-tech#readme" class="bare">https://github.com/nglgzz/awesome-clean-tech#readme</a>) - Fighting climate change with technology.</p>
+</li>
+<li>
+<p>[Wardley Maps](<a href="https://github.com/wardley-maps-community/awesome-wardley-maps#readme" class="bare">https://github.com/wardley-maps-community/awesome-wardley-maps#readme</a>) - Provides high situational awareness to help improve strategic planning and decision making.</p>
+</li>
+<li>
+<p>[Social Enterprise](<a href="https://github.com/RayBB/awesome-social-enterprise#readme" class="bare">https://github.com/RayBB/awesome-social-enterprise#readme</a>) - Building an organization primarily focused on social impact that is at least partially self-funded.</p>
+</li>
+<li>
+<p>[Engineering Team Management](<a href="https://github.com/kdeldycke/awesome-engineering-team-management#readme" class="bare">https://github.com/kdeldycke/awesome-engineering-team-management#readme</a>) - How to transition from software development to engineering management.</p>
+</li>
+<li>
+<p>[Developer-First Products](<a href="https://github.com/agamm/awesome-developer-first#readme" class="bare">https://github.com/agamm/awesome-developer-first#readme</a>) - Products that target developers as the user.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_work">Work</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Slack](<a href="https://github.com/matiassingers/awesome-slack#readme" class="bare">https://github.com/matiassingers/awesome-slack#readme</a>) - Team collaboration.</p>
+</li>
+<li>
+<p>[Communities](<a href="https://github.com/filipelinhares/awesome-slack#readme" class="bare">https://github.com/filipelinhares/awesome-slack#readme</a>)</p>
+</li>
+<li>
+<p>[Remote Jobs](<a href="https://github.com/lukasz-madon/awesome-remote-job#readme" class="bare">https://github.com/lukasz-madon/awesome-remote-job#readme</a>)</p>
+</li>
+<li>
+<p>[Productivity](<a href="https://github.com/jyguyomarch/awesome-productivity#readme" class="bare">https://github.com/jyguyomarch/awesome-productivity#readme</a>)</p>
+</li>
+<li>
+<p>[Niche Job Boards](<a href="https://github.com/tramcar/awesome-job-boards#readme" class="bare">https://github.com/tramcar/awesome-job-boards#readme</a>)</p>
+</li>
+<li>
+<p>[Programming Interviews](<a href="https://github.com/DopplerHQ/awesome-interview-questions#readme" class="bare">https://github.com/DopplerHQ/awesome-interview-questions#readme</a>)</p>
+</li>
+<li>
+<p>[Code Review](<a href="https://github.com/joho/awesome-code-review#readme" class="bare">https://github.com/joho/awesome-code-review#readme</a>) - Reviewing code.</p>
+</li>
+<li>
+<p>[Creative Technology](<a href="https://github.com/j0hnm4r5/awesome-creative-technology#readme" class="bare">https://github.com/j0hnm4r5/awesome-creative-technology#readme</a>) - Businesses &amp; groups that specialize in combining computing, design, art, and user experience.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_networking">Networking</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Software-Defined Networking](<a href="https://github.com/sdnds-tw/awesome-sdn#readme" class="bare">https://github.com/sdnds-tw/awesome-sdn#readme</a>)</p>
+</li>
+<li>
+<p>[Network Analysis](<a href="https://github.com/briatte/awesome-network-analysis#readme" class="bare">https://github.com/briatte/awesome-network-analysis#readme</a>)</p>
+</li>
+<li>
+<p>[PCAPTools](<a href="https://github.com/caesar0301/awesome-pcaptools#readme" class="bare">https://github.com/caesar0301/awesome-pcaptools#readme</a>)</p>
+</li>
+<li>
+<p>[Real-Time Communications](<a href="https://github.com/rtckit/awesome-rtc#readme" class="bare">https://github.com/rtckit/awesome-rtc#readme</a>) - Network protocols for near simultaneous exchange of media and data.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_decentralized_systems">Decentralized Systems</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Bitcoin](<a href="https://github.com/igorbarinov/awesome-bitcoin#readme" class="bare">https://github.com/igorbarinov/awesome-bitcoin#readme</a>) - Bitcoin services and tools for software developers.</p>
+</li>
+<li>
+<p>[Ripple](<a href="https://github.com/vhpoet/awesome-ripple#readme" class="bare">https://github.com/vhpoet/awesome-ripple#readme</a>) - Open source distributed settlement network.</p>
+</li>
+<li>
+<p>[Non-Financial Blockchain](<a href="https://github.com/machinomy/awesome-non-financial-blockchain#readme" class="bare">https://github.com/machinomy/awesome-non-financial-blockchain#readme</a>) - Non-financial blockchain applications.</p>
+</li>
+<li>
+<p>[Mastodon](<a href="https://github.com/tleb/awesome-mastodon#readme" class="bare">https://github.com/tleb/awesome-mastodon#readme</a>) - Open source decentralized microblogging network.</p>
+</li>
+<li>
+<p>[Ethereum](<a href="https://github.com/ttumiel/Awesome-Ethereum#readme" class="bare">https://github.com/ttumiel/Awesome-Ethereum#readme</a>) - Distributed computing platform for smart contract development.</p>
+</li>
+<li>
+<p>[Blockchain AI](<a href="https://github.com/steven2358/awesome-blockchain-ai#readme" class="bare">https://github.com/steven2358/awesome-blockchain-ai#readme</a>) - Blockchain projects for artificial intelligence and machine learning.</p>
+</li>
+<li>
+<p>[EOSIO](<a href="https://github.com/DanailMinchev/awesome-eosio#readme" class="bare">https://github.com/DanailMinchev/awesome-eosio#readme</a>) - A decentralized operating system supporting industrial-scale apps.</p>
+</li>
+<li>
+<p>[Corda](<a href="https://github.com/chainstack/awesome-corda#readme" class="bare">https://github.com/chainstack/awesome-corda#readme</a>) - Open source blockchain platform designed for business.</p>
+</li>
+<li>
+<p>[Waves](<a href="https://github.com/msmolyakov/awesome-waves#readme" class="bare">https://github.com/msmolyakov/awesome-waves#readme</a>) - Open source blockchain platform and development toolset for Web 3.0 apps and decentralized solutions.</p>
+</li>
+<li>
+<p>[Substrate](<a href="https://github.com/substrate-developer-hub/awesome-substrate#readme" class="bare">https://github.com/substrate-developer-hub/awesome-substrate#readme</a>) - Framework for writing scalable, upgradeable blockchains in Rust.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_higher_education">Higher Education</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Computational Neuroscience](<a href="https://github.com/eselkin/awesome-computational-neuroscience#readme" class="bare">https://github.com/eselkin/awesome-computational-neuroscience#readme</a>) - A multidisciplinary science which uses computational approaches to study the nervous system.</p>
+</li>
+<li>
+<p>[Digital History](<a href="https://github.com/maehr/awesome-digital-history#readme" class="bare">https://github.com/maehr/awesome-digital-history#readme</a>) - Computer-aided scientific investigation of history.</p>
+</li>
+<li>
+<p>[Scientific Writing](<a href="https://github.com/writing-resources/awesome-scientific-writing#readme" class="bare">https://github.com/writing-resources/awesome-scientific-writing#readme</a>) - Distraction-free scientific writing with Markdown, reStructuredText and Jupyter notebooks.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_events">Events</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Creative Tech Events](<a href="https://github.com/danvoyce/awesome-creative-tech-events#readme" class="bare">https://github.com/danvoyce/awesome-creative-tech-events#readme</a>) - Events around the globe for creative coding, tech, design, music, arts and cool stuff.</p>
+</li>
+<li>
+<p>[Events in Italy](<a href="https://github.com/ildoc/awesome-italy-events#readme" class="bare">https://github.com/ildoc/awesome-italy-events#readme</a>) - Tech-related events in Italy.</p>
+</li>
+<li>
+<p>[Events in the Netherlands](<a href="https://github.com/awkward/awesome-netherlands-events#readme" class="bare">https://github.com/awkward/awesome-netherlands-events#readme</a>) - Tech-related events in the Netherlands.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_testing">Testing</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[Testing](<a href="https://github.com/TheJambo/awesome-testing#readme" class="bare">https://github.com/TheJambo/awesome-testing#readme</a>) - Software testing.</p>
+</li>
+<li>
+<p>[Visual Regression Testing](<a href="https://github.com/mojoaxel/awesome-regression-testing#readme" class="bare">https://github.com/mojoaxel/awesome-regression-testing#readme</a>) - Ensures changes did not break the functionality or style.</p>
+</li>
+<li>
+<p>[Selenium](<a href="https://github.com/christian-bromann/awesome-selenium#readme" class="bare">https://github.com/christian-bromann/awesome-selenium#readme</a>) - Open-source browser automation framework and ecosystem.</p>
+</li>
+<li>
+<p>[Appium](<a href="https://github.com/SrinivasanTarget/awesome-appium#readme" class="bare">https://github.com/SrinivasanTarget/awesome-appium#readme</a>) - Test automation tool for apps.</p>
+</li>
+<li>
+<p>[TAP](<a href="https://github.com/sindresorhus/awesome-tap#readme" class="bare">https://github.com/sindresorhus/awesome-tap#readme</a>) - Test Anything Protocol.</p>
+</li>
+<li>
+<p>[JMeter](<a href="https://github.com/aliesbelik/awesome-jmeter#readme" class="bare">https://github.com/aliesbelik/awesome-jmeter#readme</a>) - Load testing and performance measurement tool.</p>
+</li>
+<li>
+<p>[k6](<a href="https://github.com/k6io/awesome-k6#readme" class="bare">https://github.com/k6io/awesome-k6#readme</a>) - Open-source, developer-centric performance monitoring and load testing solution.</p>
+</li>
+<li>
+<p>[Playwright](<a href="https://github.com/mxschmitt/awesome-playwright#readme" class="bare">https://github.com/mxschmitt/awesome-playwright#readme</a>) - Node.js library to automate Chromium, Firefox and WebKit with a single API.</p>
+</li>
+<li>
+<p>[Quality Assurance Roadmap](<a href="https://github.com/fityanos/awesome-quality-assurance-roadmap#readme" class="bare">https://github.com/fityanos/awesome-quality-assurance-roadmap#readme</a>) - How to start &amp; build a career in software testing.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_miscellaneous">Miscellaneous</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[JSON](<a href="https://github.com/burningtree/awesome-json#readme" class="bare">https://github.com/burningtree/awesome-json#readme</a>) - Text based data interchange format.</p>
+</li>
+<li>
+<p>[GeoJSON](<a href="https://github.com/tmcw/awesome-geojson#readme" class="bare">https://github.com/tmcw/awesome-geojson#readme</a>)</p>
+</li>
+<li>
+<p>[Datasets](<a href="https://github.com/jdorfman/awesome-json-datasets#readme" class="bare">https://github.com/jdorfman/awesome-json-datasets#readme</a>)</p>
+</li>
+<li>
+<p>[CSV](<a href="https://github.com/secretGeek/awesomeCSV#readme" class="bare">https://github.com/secretGeek/awesomeCSV#readme</a>) - A text file format that stores tabular data and uses a comma to separate values.</p>
+</li>
+<li>
+<p>[Discounts for Student Developers](<a href="https://github.com/AchoArnold/discount-for-student-dev#readme" class="bare">https://github.com/AchoArnold/discount-for-student-dev#readme</a>)</p>
+</li>
+<li>
+<p>[Radio](<a href="https://github.com/kyleterry/awesome-radio#readme" class="bare">https://github.com/kyleterry/awesome-radio#readme</a>)</p>
+</li>
+<li>
+<p>[Awesome](<a href="https://github.com/sindresorhus/awesome#readme" class="bare">https://github.com/sindresorhus/awesome#readme</a>) - Recursion illustrated.</p>
+</li>
+<li>
+<p>[Analytics](<a href="https://github.com/onurakpolat/awesome-analytics#readme" class="bare">https://github.com/onurakpolat/awesome-analytics#readme</a>)</p>
+</li>
+<li>
+<p>[REST](<a href="https://github.com/marmelab/awesome-rest#readme" class="bare">https://github.com/marmelab/awesome-rest#readme</a>)</p>
+</li>
+<li>
+<p>[Continuous Integration and Continuous Delivery](<a href="https://github.com/cicdops/awesome-ciandcd#readme" class="bare">https://github.com/cicdops/awesome-ciandcd#readme</a>)</p>
+</li>
+<li>
+<p>[Services Engineering](<a href="https://github.com/mmcgrana/services-engineering#readme" class="bare">https://github.com/mmcgrana/services-engineering#readme</a>)</p>
+</li>
+<li>
+<p>[Free for Developers](<a href="https://github.com/ripienaar/free-for-dev#readme" class="bare">https://github.com/ripienaar/free-for-dev#readme</a>)</p>
+</li>
+<li>
+<p>[Answers](<a href="https://github.com/cyberglot/awesome-answers#readme" class="bare">https://github.com/cyberglot/awesome-answers#readme</a>) - Stack Overflow, Quora, etc.</p>
+</li>
+<li>
+<p>[Sketch](<a href="https://github.com/diessica/awesome-sketch#readme" class="bare">https://github.com/diessica/awesome-sketch#readme</a>) - Design app for macOS.</p>
+</li>
+<li>
+<p>[Boilerplate Projects](<a href="https://github.com/melvin0008/awesome-projects-boilerplates#readme" class="bare">https://github.com/melvin0008/awesome-projects-boilerplates#readme</a>)</p>
+</li>
+<li>
+<p>[Readme](<a href="https://github.com/matiassingers/awesome-readme#readme" class="bare">https://github.com/matiassingers/awesome-readme#readme</a>)</p>
+</li>
+<li>
+<p>[Design and Development Guides](<a href="https://github.com/NARKOZ/guides#readme" class="bare">https://github.com/NARKOZ/guides#readme</a>)</p>
+</li>
+<li>
+<p>[Software Engineering Blogs](<a href="https://github.com/kilimchoi/engineering-blogs#readme" class="bare">https://github.com/kilimchoi/engineering-blogs#readme</a>)</p>
+</li>
+<li>
+<p>[Self Hosted](<a href="https://github.com/awesome-selfhosted/awesome-selfhosted#readme" class="bare">https://github.com/awesome-selfhosted/awesome-selfhosted#readme</a>)</p>
+</li>
+<li>
+<p>[FOSS Production Apps](<a href="https://github.com/DataDaoDe/awesome-foss-apps#readme" class="bare">https://github.com/DataDaoDe/awesome-foss-apps#readme</a>)</p>
+</li>
+<li>
+<p>[Gulp](<a href="https://github.com/alferov/awesome-gulp#readme" class="bare">https://github.com/alferov/awesome-gulp#readme</a>) - Task runner.</p>
+</li>
+<li>
+<p>[AMA](<a href="https://github.com/sindresorhus/amas#readme" class="bare">https://github.com/sindresorhus/amas#readme</a>) - Ask Me Anything.</p>
+</li>
+<li>
+<p>[Answers](<a href="https://github.com/stoeffel/awesome-ama-answers#readme" class="bare">https://github.com/stoeffel/awesome-ama-answers#readme</a>)</p>
+</li>
+<li>
+<p>[Open Source Photography](<a href="https://github.com/ibaaj/awesome-OpenSourcePhotography#readme" class="bare">https://github.com/ibaaj/awesome-OpenSourcePhotography#readme</a>)</p>
+</li>
+<li>
+<p>[OpenGL](<a href="https://github.com/eug/awesome-opengl#readme" class="bare">https://github.com/eug/awesome-opengl#readme</a>) - Cross-platform API for rendering 2D and 3D graphics.</p>
+</li>
+<li>
+<p>[GraphQL](<a href="https://github.com/chentsulin/awesome-graphql#readme" class="bare">https://github.com/chentsulin/awesome-graphql#readme</a>)</p>
+</li>
+<li>
+<p>[Urban &amp; Regional Planning](<a href="https://github.com/APA-Technology-Division/urban-and-regional-planning-resources#readme" class="bare">https://github.com/APA-Technology-Division/urban-and-regional-planning-resources#readme</a>) - Concerning the built environment and communities.</p>
+</li>
+<li>
+<p>[Transit](<a href="https://github.com/CUTR-at-USF/awesome-transit#readme" class="bare">https://github.com/CUTR-at-USF/awesome-transit#readme</a>)</p>
+</li>
+<li>
+<p>[Research Tools](<a href="https://github.com/emptymalei/awesome-research#readme" class="bare">https://github.com/emptymalei/awesome-research#readme</a>)</p>
+</li>
+<li>
+<p>[Data Visualization](<a href="https://github.com/fasouto/awesome-dataviz#readme" class="bare">https://github.com/fasouto/awesome-dataviz#readme</a>)</p>
+</li>
+<li>
+<p>[Social Media Share Links](<a href="https://github.com/vinkla/shareable-links#readme" class="bare">https://github.com/vinkla/shareable-links#readme</a>)</p>
+</li>
+<li>
+<p>[Microservices](<a href="https://github.com/mfornos/awesome-microservices#readme" class="bare">https://github.com/mfornos/awesome-microservices#readme</a>)</p>
+</li>
+<li>
+<p>[Unicode](<a href="https://github.com/jagracey/Awesome-Unicode#readme" class="bare">https://github.com/jagracey/Awesome-Unicode#readme</a>) - Unicode standards, quirks, packages and resources.</p>
+</li>
+<li>
+<p>[Code Points](<a href="https://github.com/Codepoints/awesome-codepoints#readme" class="bare">https://github.com/Codepoints/awesome-codepoints#readme</a>)</p>
+</li>
+<li>
+<p>[Beginner-Friendly Projects](<a href="https://github.com/MunGell/awesome-for-beginners#readme" class="bare">https://github.com/MunGell/awesome-for-beginners#readme</a>)</p>
+</li>
+<li>
+<p>[Katas](<a href="https://github.com/gamontal/awesome-katas#readme" class="bare">https://github.com/gamontal/awesome-katas#readme</a>)</p>
+</li>
+<li>
+<p>[Tools for Activism](<a href="https://github.com/drewrwilson/toolsforactivism#readme" class="bare">https://github.com/drewrwilson/toolsforactivism#readme</a>)</p>
+</li>
+<li>
+<p>[Citizen Science](<a href="https://github.com/dylanrees/citizen-science#readme" class="bare">https://github.com/dylanrees/citizen-science#readme</a>) - For community-based and non-institutional scientists.</p>
+</li>
+<li>
+<p>[MQTT](<a href="https://github.com/hobbyquaker/awesome-mqtt#readme" class="bare">https://github.com/hobbyquaker/awesome-mqtt#readme</a>) - "Internet of Things" connectivity protocol.</p>
+</li>
+<li>
+<p>[Hacking Spots](<a href="https://github.com/daviddias/awesome-hacking-locations#readme" class="bare">https://github.com/daviddias/awesome-hacking-locations#readme</a>)</p>
+</li>
+<li>
+<p>[For Girls](<a href="https://github.com/cristianoliveira/awesome4girls#readme" class="bare">https://github.com/cristianoliveira/awesome4girls#readme</a>)</p>
+</li>
+<li>
+<p>[Vorpal](<a href="https://github.com/vorpaljs/awesome-vorpal#readme" class="bare">https://github.com/vorpaljs/awesome-vorpal#readme</a>) - Node.js CLI framework.</p>
+</li>
+<li>
+<p>[Vulkan](<a href="https://github.com/vinjn/awesome-vulkan#readme" class="bare">https://github.com/vinjn/awesome-vulkan#readme</a>) - Low-overhead, cross-platform 3D graphics and compute API.</p>
+</li>
+<li>
+<p>[LaTeX](<a href="https://github.com/egeerardyn/awesome-LaTeX#readme" class="bare">https://github.com/egeerardyn/awesome-LaTeX#readme</a>) - Typesetting language.</p>
+</li>
+<li>
+<p>[Economics](<a href="https://github.com/antontarasenko/awesome-economics#readme" class="bare">https://github.com/antontarasenko/awesome-economics#readme</a>) - An economist&#8217;s starter kit.</p>
+</li>
+<li>
+<p>[Funny Markov Chains](<a href="https://github.com/sublimino/awesome-funny-markov#readme" class="bare">https://github.com/sublimino/awesome-funny-markov#readme</a>)</p>
+</li>
+<li>
+<p>[Bioinformatics](<a href="https://github.com/danielecook/Awesome-Bioinformatics#readme" class="bare">https://github.com/danielecook/Awesome-Bioinformatics#readme</a>)</p>
+</li>
+<li>
+<p>[Cheminformatics](<a href="https://github.com/hsiaoyi0504/awesome-cheminformatics#readme" class="bare">https://github.com/hsiaoyi0504/awesome-cheminformatics#readme</a>) - Informatics techniques applied to problems in chemistry.</p>
+</li>
+<li>
+<p>[Colorful](<a href="https://github.com/Siddharth11/Colorful#readme" class="bare">https://github.com/Siddharth11/Colorful#readme</a>) - Choose your next color scheme.</p>
+</li>
+<li>
+<p>[Steam](<a href="https://github.com/scholtzm/awesome-steam#readme" class="bare">https://github.com/scholtzm/awesome-steam#readme</a>) - Digital distribution platform.</p>
+</li>
+<li>
+<p>[Bots](<a href="https://github.com/hackerkid/bots#readme" class="bare">https://github.com/hackerkid/bots#readme</a>) - Building bots.</p>
+</li>
+<li>
+<p>[Site Reliability Engineering](<a href="https://github.com/dastergon/awesome-sre#readme" class="bare">https://github.com/dastergon/awesome-sre#readme</a>)</p>
+</li>
+<li>
+<p>[Empathy in Engineering](<a href="https://github.com/KimberlyMunoz/empathy-in-engineering#readme" class="bare">https://github.com/KimberlyMunoz/empathy-in-engineering#readme</a>) - Building and promoting more compassionate engineering cultures.</p>
+</li>
+<li>
+<p>[DTrace](<a href="https://github.com/xen0l/awesome-dtrace#readme" class="bare">https://github.com/xen0l/awesome-dtrace#readme</a>) - Dynamic tracing framework.</p>
+</li>
+<li>
+<p>[Userscripts](<a href="https://github.com/bvolpato/awesome-userscripts#readme" class="bare">https://github.com/bvolpato/awesome-userscripts#readme</a>) - Enhance your browsing experience.</p>
+</li>
+<li>
+<p>[Pokémon](<a href="https://github.com/tobiasbueschel/awesome-pokemon#readme" class="bare">https://github.com/tobiasbueschel/awesome-pokemon#readme</a>) - Pokémon and Pokémon GO.</p>
+</li>
+<li>
+<p>[ChatOps](<a href="https://github.com/exAspArk/awesome-chatops#readme" class="bare">https://github.com/exAspArk/awesome-chatops#readme</a>) - Managing technical and business operations through a chat.</p>
+</li>
+<li>
+<p>[Falsehood](<a href="https://github.com/kdeldycke/awesome-falsehood#readme" class="bare">https://github.com/kdeldycke/awesome-falsehood#readme</a>) - Falsehoods programmers believe in.</p>
+</li>
+<li>
+<p>[Domain-Driven Design](<a href="https://github.com/heynickc/awesome-ddd#readme" class="bare">https://github.com/heynickc/awesome-ddd#readme</a>) - Software development approach for complex needs by connecting the implementation to an evolving model.</p>
+</li>
+<li>
+<p>[Quantified Self](<a href="https://github.com/woop/awesome-quantified-self#readme" class="bare">https://github.com/woop/awesome-quantified-self#readme</a>) - Self-tracking through technology.</p>
+</li>
+<li>
+<p>[SaltStack](<a href="https://github.com/hbokh/awesome-saltstack#readme" class="bare">https://github.com/hbokh/awesome-saltstack#readme</a>) - Python-based config management system.</p>
+</li>
+<li>
+<p>[Web Design](<a href="https://github.com/nicolesaidy/awesome-web-design#readme" class="bare">https://github.com/nicolesaidy/awesome-web-design#readme</a>) - For digital designers.</p>
+</li>
+<li>
+<p>[Creative Coding](<a href="https://github.com/terkelg/awesome-creative-coding#readme" class="bare">https://github.com/terkelg/awesome-creative-coding#readme</a>) - Programming something expressive instead of something functional.</p>
+</li>
+<li>
+<p>[No-Login Web Apps](<a href="https://github.com/aviaryan/awesome-no-login-web-apps#readme" class="bare">https://github.com/aviaryan/awesome-no-login-web-apps#readme</a>) - Web apps that work without login.</p>
+</li>
+<li>
+<p>[Free Software](<a href="https://github.com/johnjago/awesome-free-software#readme" class="bare">https://github.com/johnjago/awesome-free-software#readme</a>) - Free as in freedom.</p>
+</li>
+<li>
+<p>[Framer](<a href="https://github.com/podo/awesome-framer#readme" class="bare">https://github.com/podo/awesome-framer#readme</a>) - Prototyping interactive UI designs.</p>
+</li>
+<li>
+<p>[Markdown](<a href="https://github.com/BubuAnabelas/awesome-markdown#readme" class="bare">https://github.com/BubuAnabelas/awesome-markdown#readme</a>) - Markup language.</p>
+</li>
+<li>
+<p>[Dev Fun](<a href="https://github.com/mislavcimpersak/awesome-dev-fun#readme" class="bare">https://github.com/mislavcimpersak/awesome-dev-fun#readme</a>) - Funny developer projects.</p>
+</li>
+<li>
+<p>[Healthcare](<a href="https://github.com/kakoni/awesome-healthcare#readme" class="bare">https://github.com/kakoni/awesome-healthcare#readme</a>) - Open source healthcare software for facilities, providers, developers, policy experts, and researchers.</p>
+</li>
+<li>
+<p>[Magento 2](<a href="https://github.com/DavidLambauer/awesome-magento2#readme" class="bare">https://github.com/DavidLambauer/awesome-magento2#readme</a>) - Open Source eCommerce built with PHP.</p>
+</li>
+<li>
+<p>[TikZ](<a href="https://github.com/xiaohanyu/awesome-tikz#readme" class="bare">https://github.com/xiaohanyu/awesome-tikz#readme</a>) - Graph drawing packages for TeX/LaTeX/ConTeXt.</p>
+</li>
+<li>
+<p>[Neuroscience](<a href="https://github.com/analyticalmonk/awesome-neuroscience#readme" class="bare">https://github.com/analyticalmonk/awesome-neuroscience#readme</a>) - Study of the nervous system and brain.</p>
+</li>
+<li>
+<p>[Ad-Free](<a href="https://github.com/johnjago/awesome-ad-free#readme" class="bare">https://github.com/johnjago/awesome-ad-free#readme</a>) - Ad-free alternatives.</p>
+</li>
+<li>
+<p>[Esolangs](<a href="https://github.com/angrykoala/awesome-esolangs#readme" class="bare">https://github.com/angrykoala/awesome-esolangs#readme</a>) - Programming languages designed for experimentation or as jokes rather than actual use.</p>
+</li>
+<li>
+<p>[Prometheus](<a href="https://github.com/roaldnefs/awesome-prometheus#readme" class="bare">https://github.com/roaldnefs/awesome-prometheus#readme</a>) - Open-source monitoring system.</p>
+</li>
+<li>
+<p>[Homematic](<a href="https://github.com/homematic-community/awesome-homematic#readme" class="bare">https://github.com/homematic-community/awesome-homematic#readme</a>) - Smart home devices.</p>
+</li>
+<li>
+<p>[Ledger](<a href="https://github.com/sfischer13/awesome-ledger#readme" class="bare">https://github.com/sfischer13/awesome-ledger#readme</a>) - Double-entry accounting on the command-line.</p>
+</li>
+<li>
+<p>[Web Monetization](<a href="https://github.com/thomasbnt/awesome-web-monetization#readme" class="bare">https://github.com/thomasbnt/awesome-web-monetization#readme</a>) - A free open web standard service that allows you to send money directly in your browser.</p>
+</li>
+<li>
+<p>[Uncopyright](<a href="https://github.com/johnjago/awesome-uncopyright#readme" class="bare">https://github.com/johnjago/awesome-uncopyright#readme</a>) - Public domain works.</p>
+</li>
+<li>
+<p>[Crypto Currency Tools &amp; Algorithms](<a href="https://github.com/Zheaoli/awesome-coins#readme" class="bare">https://github.com/Zheaoli/awesome-coins#readme</a>) - Digital currency where encryption is used to regulate the generation of units and verify transfers.</p>
+</li>
+<li>
+<p>[Diversity](<a href="https://github.com/folkswhocode/awesome-diversity#readme" class="bare">https://github.com/folkswhocode/awesome-diversity#readme</a>) - Creating a more inclusive and diverse tech community.</p>
+</li>
+<li>
+<p>[Open Source Supporters](<a href="https://github.com/zachflower/awesome-open-source-supporters#readme" class="bare">https://github.com/zachflower/awesome-open-source-supporters#readme</a>) - Companies that offer their tools and services for free to open source projects.</p>
+</li>
+<li>
+<p>[Design Principles](<a href="https://github.com/robinstickel/awesome-design-principles#readme" class="bare">https://github.com/robinstickel/awesome-design-principles#readme</a>) - Create better and more consistent designs and experiences.</p>
+</li>
+<li>
+<p>[Theravada](<a href="https://github.com/johnjago/awesome-theravada#readme" class="bare">https://github.com/johnjago/awesome-theravada#readme</a>) - Teachings from the Theravada Buddhist tradition.</p>
+</li>
+<li>
+<p>[inspectIT](<a href="https://github.com/inspectit-labs/awesome-inspectit#readme" class="bare">https://github.com/inspectit-labs/awesome-inspectit#readme</a>) - Open source Java app performance management tool.</p>
+</li>
+<li>
+<p>[Open Source Maintainers](<a href="https://github.com/nayafia/awesome-maintainers#readme" class="bare">https://github.com/nayafia/awesome-maintainers#readme</a>) - The experience of being an open source maintainer.</p>
+</li>
+<li>
+<p>[Calculators](<a href="https://github.com/xxczaki/awesome-calculators#readme" class="bare">https://github.com/xxczaki/awesome-calculators#readme</a>) - Calculators for every platform.</p>
+</li>
+<li>
+<p>[Captcha](<a href="https://github.com/ZYSzys/awesome-captcha#readme" class="bare">https://github.com/ZYSzys/awesome-captcha#readme</a>) - A type of challenge–response test used in computing to determine whether or not the user is human.</p>
+</li>
+<li>
+<p>[Jupyter](<a href="https://github.com/markusschanta/awesome-jupyter#readme" class="bare">https://github.com/markusschanta/awesome-jupyter#readme</a>) - Create and share documents that contain code, equations, visualizations and narrative text.</p>
+</li>
+<li>
+<p>[FIRST Robotics Competition](<a href="https://github.com/andrewda/awesome-frc#readme" class="bare">https://github.com/andrewda/awesome-frc#readme</a>) - International high school robotics championship.</p>
+</li>
+<li>
+<p>[Humane Technology](<a href="https://github.com/humanetech-community/awesome-humane-tech#readme" class="bare">https://github.com/humanetech-community/awesome-humane-tech#readme</a>) - Open source projects that help improve society.</p>
+</li>
+<li>
+<p>[Speakers](<a href="https://github.com/karlhorky/awesome-speakers#readme" class="bare">https://github.com/karlhorky/awesome-speakers#readme</a>) - Conference and meetup speakers in the programming and design community.</p>
+</li>
+<li>
+<p>[Board Games](<a href="https://github.com/edm00se/awesome-board-games#readme" class="bare">https://github.com/edm00se/awesome-board-games#readme</a>) - Table-top gaming fun for all.</p>
+</li>
+<li>
+<p>[Software Patreons](<a href="https://github.com/uraimo/awesome-software-patreons#readme" class="bare">https://github.com/uraimo/awesome-software-patreons#readme</a>) - Fund individual programmers or the development of open source projects.</p>
+</li>
+<li>
+<p>[Parasite](<a href="https://github.com/ecohealthalliance/awesome-parasite#readme" class="bare">https://github.com/ecohealthalliance/awesome-parasite#readme</a>) - Parasites and host-pathogen interactions.</p>
+</li>
+<li>
+<p>[Food](<a href="https://github.com/jzarca01/awesome-food#readme" class="bare">https://github.com/jzarca01/awesome-food#readme</a>) - Food-related projects on GitHub.</p>
+</li>
+<li>
+<p>[Mental Health](<a href="https://github.com/dreamingechoes/awesome-mental-health#readme" class="bare">https://github.com/dreamingechoes/awesome-mental-health#readme</a>) - Mental health awareness and self-care in the software industry.</p>
+</li>
+<li>
+<p>[Bitcoin Payment Processors](<a href="https://github.com/alexk111/awesome-bitcoin-payment-processors#readme" class="bare">https://github.com/alexk111/awesome-bitcoin-payment-processors#readme</a>) - Start accepting Bitcoin.</p>
+</li>
+<li>
+<p>[Scientific Computing](<a href="https://github.com/nschloe/awesome-scientific-computing#readme" class="bare">https://github.com/nschloe/awesome-scientific-computing#readme</a>) - Solving complex scientific problems using computers.</p>
+</li>
+<li>
+<p>[Amazon Sellers](<a href="https://github.com/ScaleLeap/awesome-amazon-seller#readme" class="bare">https://github.com/ScaleLeap/awesome-amazon-seller#readme</a>)</p>
+</li>
+<li>
+<p>[Agriculture](<a href="https://github.com/brycejohnston/awesome-agriculture#readme" class="bare">https://github.com/brycejohnston/awesome-agriculture#readme</a>) - Open source technology for farming and gardening.</p>
+</li>
+<li>
+<p>[Product Design](<a href="https://github.com/matttga/awesome-product-design#readme" class="bare">https://github.com/matttga/awesome-product-design#readme</a>) - Design a product from the initial concept to production.</p>
+</li>
+<li>
+<p>[Prisma](<a href="https://github.com/catalinmiron/awesome-prisma#readme" class="bare">https://github.com/catalinmiron/awesome-prisma#readme</a>) - Turn your database into a GraphQL API.</p>
+</li>
+<li>
+<p>[Software Architecture](<a href="https://github.com/simskij/awesome-software-architecture#readme" class="bare">https://github.com/simskij/awesome-software-architecture#readme</a>) - The discipline of designing and building software.</p>
+</li>
+<li>
+<p>[Connectivity Data and Reports](<a href="https://github.com/stevesong/awesome-connectivity-info#readme" class="bare">https://github.com/stevesong/awesome-connectivity-info#readme</a>) - Better understand who has access to telecommunication and internet infrastructure and on what terms.</p>
+</li>
+<li>
+<p>[Stacks](<a href="https://github.com/stackshareio/awesome-stacks#readme" class="bare">https://github.com/stackshareio/awesome-stacks#readme</a>) - Tech stacks for building different apps and features.</p>
+</li>
+<li>
+<p>[Cytodata](<a href="https://github.com/cytodata/awesome-cytodata#readme" class="bare">https://github.com/cytodata/awesome-cytodata#readme</a>) - Image-based profiling of biological phenotypes for computational biologists.</p>
+</li>
+<li>
+<p>[IRC](<a href="https://github.com/davisonio/awesome-irc#readme" class="bare">https://github.com/davisonio/awesome-irc#readme</a>) - Open source messaging protocol.</p>
+</li>
+<li>
+<p>[Advertising](<a href="https://github.com/cenoura/awesome-ads#readme" class="bare">https://github.com/cenoura/awesome-ads#readme</a>) - Advertising and programmatic media for websites.</p>
+</li>
+<li>
+<p>[Earth](<a href="https://github.com/philsturgeon/awesome-earth#readme" class="bare">https://github.com/philsturgeon/awesome-earth#readme</a>) - Find ways to resolve the climate crisis.</p>
+</li>
+<li>
+<p>[Naming](<a href="https://github.com/gruhn/awesome-naming#readme" class="bare">https://github.com/gruhn/awesome-naming#readme</a>) - Naming things in computer science done right.</p>
+</li>
+<li>
+<p>[Biomedical Information Extraction](<a href="https://github.com/caufieldjh/awesome-bioie#readme" class="bare">https://github.com/caufieldjh/awesome-bioie#readme</a>) - How to extract information from unstructured biomedical data and text.</p>
+</li>
+<li>
+<p>[Web Archiving](<a href="https://github.com/iipc/awesome-web-archiving#readme" class="bare">https://github.com/iipc/awesome-web-archiving#readme</a>) - An effort to preserve the Web for future generations.</p>
+</li>
+<li>
+<p>[WP-CLI](<a href="https://github.com/schlessera/awesome-wp-cli#readme" class="bare">https://github.com/schlessera/awesome-wp-cli#readme</a>) - Command-line interface for WordPress.</p>
+</li>
+<li>
+<p>[Credit Modeling](<a href="https://github.com/mourarthur/awesome-credit-modeling#readme" class="bare">https://github.com/mourarthur/awesome-credit-modeling#readme</a>) - Methods for classifying credit applicants into risk classes.</p>
+</li>
+<li>
+<p>[Ansible](<a href="https://github.com/KeyboardInterrupt/awesome-ansible#readme" class="bare">https://github.com/KeyboardInterrupt/awesome-ansible#readme</a>) - A Python-based, open source IT configuration management and automation platform.</p>
+</li>
+<li>
+<p>[Biological Visualizations](<a href="https://github.com/keller-mark/awesome-biological-visualizations#readme" class="bare">https://github.com/keller-mark/awesome-biological-visualizations#readme</a>) - Interactive visualization of biological data on the web.</p>
+</li>
+<li>
+<p>[QR Code](<a href="https://github.com/aureooms/awesome-qr-code#readme" class="bare">https://github.com/aureooms/awesome-qr-code#readme</a>) - A type of matrix barcode that can be used to store and share a small amount of information.</p>
+</li>
+<li>
+<p>[Veganism](<a href="https://github.com/sdassow/awesome-veganism#readme" class="bare">https://github.com/sdassow/awesome-veganism#readme</a>) - Making the plant-based lifestyle easy and accessible.</p>
+</li>
+<li>
+<p>[Translations](<a href="https://github.com/mbiesiad/awesome-translations#readme" class="bare">https://github.com/mbiesiad/awesome-translations#readme</a>) - The transfer of the meaning of a text from one language to another.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_related">Related</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[All Awesome Lists](<a href="https://github.com/topics/awesome" class="bare">https://github.com/topics/awesome</a>) - All the Awesome lists on GitHub.</p>
+</li>
+<li>
+<p>[Awesome Indexed](<a href="https://awesome-indexed.mathew-davies.co.uk" class="bare">https://awesome-indexed.mathew-davies.co.uk</a>) - Search the Awesome dataset.</p>
+</li>
+<li>
+<p>[Awesome Search](<a href="https://awesomelists.top" class="bare">https://awesomelists.top</a>) - Quick search for Awesome lists.</p>
+</li>
+<li>
+<p>[StumbleUponAwesome](<a href="https://github.com/basharovV/StumbleUponAwesome" class="bare">https://github.com/basharovV/StumbleUponAwesome</a>) - Discover random pages from the Awesome dataset using a browser extension.</p>
+</li>
+<li>
+<p>[Awesome CLI](<a href="https://github.com/umutphp/awesome-cli" class="bare">https://github.com/umutphp/awesome-cli</a>) - A simple command-line tool to dive into Awesome lists.</p>
+</li>
+<li>
+<p>[Awesome Viewer](<a href="http://awesome.digitalbunker.dev" class="bare">http://awesome.digitalbunker.dev</a>) - A visualizer for all of the above Awesome lists.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2022-05-13 23:18:22 -0400
+</div>
+</div>
+</body>
+</html>

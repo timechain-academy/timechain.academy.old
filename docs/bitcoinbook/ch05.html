@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.17">
+<title>Wallets</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="ch05_wallets">Wallets</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The word "wallet" is used to describe a few different things in bitcoin.</p>
+</div>
+<div class="paragraph">
+<p>At a high level, a wallet is an application that serves as the primary user interface. The wallet controls access to a user&#8217;s money, managing keys and addresses, tracking the balance, and creating and signing transactions.</p>
+</div>
+<div class="paragraph">
+<p>More narrowly, from a programmer&#8217;s perspective, the word "wallet" refers to the data structure used to store and manage a user&#8217;s keys.</p>
+</div>
+<div class="paragraph">
+<p>In this chapter we will look at the second meaning, where wallets are containers for private keys, usually implemented as structured files or simple databases.</p>
+</div>
+<div class="sect2">
+<h3 id="_wallet_technology_overview">Wallet Technology Overview</h3>
+<div class="paragraph">
+<p>In this section we summarize the various technologies used to construct user-friendly, secure, and flexible bitcoin wallets.</p>
+</div>
+<div class="paragraph">
+<p>A common misconception about bitcoin is that bitcoin wallets contain bitcoin. In fact, the wallet contains only keys. The "coins" are recorded in the blockchain on the Bitcoin network. Users control the coins on the network by signing transactions with the keys in their wallets. In a sense, a bitcoin wallet is a <em>keychain</em>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Bitcoin wallets contain keys, not coins. Each user has a wallet containing keys. Wallets are really keychains containing pairs of private/public keys (see <a href="#private_public_keys">[private_public_keys]</a>). Users sign transactions with the keys, thereby proving they own the transaction outputs (their coins). The coins are stored on the blockchain in the form of transaction outputs (often noted as vout or txout).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>There are two primary types of wallets, distinguished by whether the keys they contain are related to each other or not.</p>
+</div>
+<div class="paragraph">
+<p>The first type is a <em>nondeterministic wallet</em>, where each key is independently generated from a random number. The keys are not related to each other. This type of wallet is also known as a JBOK wallet from the phrase "Just a Bunch Of Keys."</p>
+</div>
+<div class="paragraph">
+<p>The second type of wallet is a <em>deterministic wallet</em>, where all the keys are derived from a single master key, known as the <em>seed</em>. All the keys in this type of wallet are related to each other and can be generated again if one has the original seed. There are a number of different <em>key derivation</em> methods used in deterministic wallets. The most commonly used derivation method uses a tree-like structure and is known as a <em>hierarchical deterministic</em> or <em>HD</em> wallet.</p>
+</div>
+<div class="paragraph">
+<p>Deterministic wallets are initialized from a random sequence (entropy). To make these easier to use, random sequences are encoded as English words, also known as <em>mnemonic code words</em>.</p>
+</div>
+<div class="paragraph">
+<p>The next few sections introduce each of these technologies at a high level.</p>
+</div>
+<div class="sect3">
+<h4 id="random_wallet">Nondeterministic (Random) Wallets</h4>
+<div class="paragraph">
+<p>In the first bitcoin wallet (now called Bitcoin Core), wallets were collections of randomly generated private keys. For example, the original Bitcoin Core client pregenerates 100 random private keys when first started and generates more keys as needed, using each key only once.  Such wallets are being replaced with deterministic wallets because they are cumbersome to manage, back up, and import. The disadvantage of random keys is that if you generate many of them you must keep copies of all of them, meaning that the wallet must be backed up frequently. Each key must be backed up, or the funds it controls are irrevocably lost if the wallet becomes inaccessible. This conflicts directly with the principle of avoiding address reuse, by using each Bitcoin address for only one transaction. Address reuse reduces privacy by associating multiple transactions and addresses with each other. A Type-0 nondeterministic wallet is a poor choice of wallet, especially if you want to avoid address reuse because it means managing many keys, which creates the need for frequent backups. Although the Bitcoin Core client includes a Type-0 wallet, using this wallet is discouraged by developers of Bitcoin Core. <a href="#Type0_wallet">Type-0 nondeterministic (random) wallet: a collection of randomly generated keys</a> shows a nondeterministic wallet, containing a loose collection of random keys.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The use of nondeterministic wallets is discouraged for anything other than simple tests. They are simply too cumbersome to back up and use. Instead, use an industry-standard&#x2013;based <em>HD wallet</em> with a <em>mnemonic</em> random sequence (entropy, or "initial seed") for backup.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="Type0_wallet" class="imageblock smallersixty">
+<div class="content">
+<img src="images/mbc2_0501.png" alt="Non-Deterministic Wallet">
+</div>
+<div class="title">Figure 1. Type-0 nondeterministic (random) wallet: a collection of randomly generated keys</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_deterministic_seeded_wallets">Deterministic (Seeded) Wallets</h4>
+<div class="paragraph">
+<p>Deterministic, or "seeded," wallets are wallets that contain private keys that are all derived from a common seed, through the use of a one-way hash function. The seed is a randomly generated number that is combined with other data, such as an index number or "chain code" (see <a href="#hd_wallets">HD Wallets (BIP-32/BIP-44)</a>) to derive the private keys. In a deterministic wallet, the seed is sufficient to recover all the derived keys, and therefore a single backup at creation time is sufficient. The seed is also sufficient for a wallet export or import, allowing for easy migration of all the user&#8217;s keys between different wallet implementations. <a href="#Type1_wallet">Type-1 deterministic (seeded) wallet: a deterministic sequence of keys derived from a seed</a> shows a logical diagram of a deterministic wallet.</p>
+</div>
+<div id="Type1_wallet" class="imageblock smallersixty">
+<div class="content">
+<img src="images/mbc2_0502.png" alt="Deterministic Wallet">
+</div>
+<div class="title">Figure 2. Type-1 deterministic (seeded) wallet: a deterministic sequence of keys derived from a seed</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="hd_wallets">HD Wallets (BIP-32/BIP-44)</h4>
+<div class="paragraph">
+<p>Deterministic wallets were developed to make it easy to derive many keys from a single "seed". The most advanced form of deterministic wallets is the HD wallet defined by the BIP-32 standard. HD wallets contain keys derived in a tree structure, such that a parent key can derive a sequence of children keys, each of which can derive a sequence of grandchildren keys, and so on, to an infinite depth. This tree structure is illustrated in <a href="#Type2_wallet">Type-2 HD wallet: a tree of keys generated from a single seed</a>.</p>
+</div>
+<div id="Type2_wallet" class="imageblock">
+<div class="content">
+<img src="images/mbc2_0503.png" alt="HD wallet">
+</div>
+<div class="title">Figure 3. Type-2 HD wallet: a tree of keys generated from a single seed</div>
+</div>
+<div class="paragraph">
+<p>HD wallets offer two major advantages over random (nondeterministic) keys. First, the tree structure can be used to express additional organizational meaning, such as when a specific branch of subkeys is used to receive incoming payments and a different branch is used to receive change from outgoing payments. Branches of keys can also be used in corporate settings, allocating different branches to departments, subsidiaries, specific functions, or accounting categories.</p>
+</div>
+<div class="paragraph">
+<p>The second advantage of HD wallets is that users can create a sequence of public keys without having access to the corresponding private keys. This allows HD wallets to be used on an insecure server or in a receive-only capacity, issuing a different public key for each transaction. The public keys do not need to be preloaded or derived in advance, yet the server doesn&#8217;t have the private keys that can spend the funds.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_seeds_and_mnemonic_codes_bip_39">Seeds and Mnemonic Codes (BIP-39)</h4>
+<div class="paragraph">
+<p>HD wallets are a very powerful mechanism for managing many keys and addresses. They are even more useful if they are combined with a standardized way of creating seeds from a sequence of English words that are easy to transcribe, export, and import across wallets. This is known as a <em>mnemonic</em> and the standard is defined by BIP-39. Today, most bitcoin wallets (as well as wallets for other cryptocurrencies) use this standard and can import and export seeds for backup and recovery using interoperable mnemonics.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s look at this from a practical perspective. Which of the following seeds is easier to transcribe, record on paper, read without error, export, and import into another wallet?</p>
+</div>
+<div class="listingblock">
+<div class="title">A seed for a deterministic wallet, in hex</div>
+<div class="content">
+<pre>0C1E24E5917779D297E14D45F14E1A1A</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">A seed for a deterministic wallet, from a 12-word mnemonic</div>
+<div class="content">
+<pre>army van defense carry jealous true
+garbage claim echo media make crunch</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_wallet_best_practices">Wallet Best Practices</h4>
+<div class="paragraph">
+<p>As bitcoin wallet technology has matured, certain common industry standards have emerged that make bitcoin wallets broadly interoperable, easy to use, secure, and flexible. These common standards are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Mnemonic code words, based on BIP-39</p>
+</li>
+<li>
+<p>HD wallets, based on BIP-32</p>
+</li>
+<li>
+<p>Multipurpose HD wallet structure, based on BIP-43</p>
+</li>
+<li>
+<p>Multicurrency and multiaccount wallets, based on BIP-44</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These standards may change or may become obsolete by future developments, but for now they form a set of interlocking technologies that have become the de facto wallet standard for bitcoin.</p>
+</div>
+<div class="paragraph">
+<p>The standards have been adopted by a broad range of software and hardware bitcoin wallets, making all these wallets interoperable. A user can export a mnemonic generated on one of these wallets and import it in another wallet, recovering all transactions, keys, and addresses.</p>
+</div>
+<div class="paragraph">
+<p>Some example of software wallets supporting these standards include (listed alphabetically) Bluewallet, Breadwallet, Copay, and Multibit HD. Examples of hardware wallets supporting these standards include (listed alphabetically) KeepKey, Ledger, and Trezor.</p>
+</div>
+<div class="paragraph">
+<p>The following sections examine each of these technologies in detail.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you are implementing a bitcoin wallet, it should be built as a HD wallet, with a seed derived from, and encoded as, a mnemonic code for backup, following the BIP-32, BIP-39, BIP-43, and BIP-44 standards, as described in the following sections.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_using_a_bitcoin_wallet">Using a Bitcoin Wallet</h4>
+<div class="paragraph">
+<p>In <a href="#user-stories">[user-stories]</a> we introduced Gabriel, an enterprising young teenager in Rio de Janeiro, who is running a simple web store that sells bitcoin-branded t-shirts, coffee mugs, and stickers.</p>
+</div>
+<div class="paragraph">
+<p>Gabriel uses a Trezor bitcoin hardware wallet (<a href="#a_trezor_device">A Trezor device: a bitcoin HD wallet in hardware</a>) to securely manage his bitcoin. The Trezor is a simple USB device with two buttons that stores keys (in the form of an HD wallet) and signs transactions. Trezor wallets implement all the industry standards discussed in this chapter, so Gabriel is not reliant on any proprietary technology or single vendor solution.</p>
+</div>
+<div id="a_trezor_device" class="imageblock">
+<div class="content">
+<img src="images/mbc2_0504.png" alt="alt">
+</div>
+<div class="title">Figure 4. A Trezor device: a bitcoin HD wallet in hardware</div>
+</div>
+<div class="paragraph">
+<p>When Gabriel used the Trezor for the first time, the device generated a random sequence (entropy), the associated mnemonic and derived a seed from a built-in hardware random number generator. During this initialization phase, the wallet displayed a numbered sequence of words, one by one, on the screen (see <a href="#trezor_mnemonic_display">Trezor displaying one of the mnemonic words</a>).</p>
+</div>
+<div id="trezor_mnemonic_display" class="imageblock">
+<div class="content">
+<img src="images/mbc2_0505.png" alt="Trezor wallet display of mnemonic word">
+</div>
+<div class="title">Figure 5. Trezor displaying one of the mnemonic words</div>
+</div>
+<div class="paragraph">
+<p>By writing down this mnemonic, Gabriel created a backup (see <a href="#mnemonic_paper_backup">Gabriel&#8217;s paper backup of the mnemonic</a>) that can be used for recovery in the case of loss or damage to the Trezor device. This mnemonic can be used for recovery in a new Trezor or in any one of the many compatible software or hardware wallets. Note that the sequence of words is important, so mnemonic paper backups have numbered spaces for each word. Gabriel had to carefully record each word in the numbered space to preserve the correct sequence.</p>
+</div>
+<table id="mnemonic_paper_backup" class="tableblock frame-all grid-all" style="width: 80%;">
+<caption class="title">Table 1. Gabriel&#8217;s paper backup of the mnemonic</caption>
+<colgroup>
+<col style="width: 0.9803%;">
+<col style="width: 49.0196%;">
+<col style="width: 0.9803%;">
+<col style="width: 49.0198%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1.</strong></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><em>army</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>7.</strong></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><em>garbage</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2.</strong></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><em>van</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>8.</strong></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><em>claim</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>3.</strong></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><em>defense</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>9.</strong></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><em>echo</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>4.</strong></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><em>carry</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>10.</strong></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><em>media</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>5.</strong></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><em>jealous</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>11.</strong></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><em>make</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>6.</strong></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><em>true</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>12.</strong></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><em>crunch</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A 12-word mnemonic is shown in <a href="#mnemonic_paper_backup">Gabriel&#8217;s paper backup of the mnemonic</a>, for simplicity. In fact, most hardware wallets generate a more secure 24-word mnemonic. The mnemonic is used in exactly the same way, regardless of length.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For the first implementation of his web store, Gabriel uses a single Bitcoin address, generated on his Trezor device. This single address is used by all customers for all orders. As we will see, this approach has some drawbacks and can be improved upon with an HD wallet.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_wallet_technology_details">Wallet Technology Details</h3>
+<div class="paragraph">
+<p>Let&#8217;s now examine each of the important industry standards that are used by many bitcoin wallets in detail.</p>
+</div>
+<div class="sect3">
+<h4 id="mnemonic_code_words">Mnemonic Code Words (BIP-39)</h4>
+<div class="paragraph">
+<p>Mnemonic code words are word sequences that represent (encode) a random number used as a seed to derive a deterministic wallet. The sequence of words is sufficient to re-create the seed and from there re-create the wallet and all the derived keys. A wallet application that implements deterministic wallets with mnemonic words will show the user a sequence of 12 to 24 words when first creating a wallet. That sequence of words is the wallet backup and can be used to recover and re-create all the keys in the same or any compatible wallet application. Mnemonic words make it easier for users to back up wallets because they are easy to read and correctly transcribe, as compared to a random sequence of numbers.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Mnemonic words are often confused with "brainwallets." They are not the same. The primary difference is that a brainwallet consists of words chosen by the user, whereas mnemonic words are created randomly by the wallet and presented to the user. This important difference makes mnemonic words much more secure, because humans are very poor sources of randomness.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Mnemonic codes are defined in BIP-39 (see <a href="#appdxbitcoinimpproposals">[appdxbitcoinimpproposals]</a>). Note that BIP-39 is one implementation of a mnemonic code standard. There is a different standard, with a different set of words, used by the Electrum wallet and predating BIP-39. BIP-39 was proposed by the company behind the Trezor hardware wallet and is incompatible with Electrum&#8217;s implementation. However, BIP-39 has now achieved broad industry support across dozens of interoperable implementations and should be considered the de facto industry standard.</p>
+</div>
+<div class="paragraph">
+<p>BIP-39 defines the creation of a mnemonic code and seed, which we describe here in nine steps. For clarity, the process is split into two parts: steps 1 through 6 are shown in <a href="#generating_mnemonic_words">Generating mnemonic words</a> and steps 7 through 9 are shown in <a href="#mnemonic_to_seed">From mnemonic to seed</a>.</p>
+</div>
+<div class="sect4">
+<h5 id="generating_mnemonic_words">Generating mnemonic words</h5>
+<div class="paragraph">
+<p>Mnemonic words are generated automatically by the wallet using the standardized process defined in BIP-39. The wallet starts from a source of entropy, adds a checksum, and then maps the entropy to a word list:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a random sequence (entropy) of 128 to 256 bits.</p>
+</li>
+<li>
+<p>Create a checksum of the random sequence by taking the first (entropy-length/32) bits of its SHA256 hash.</p>
+</li>
+<li>
+<p>Add the checksum to the end of the random sequence.</p>
+</li>
+<li>
+<p>Split the result into 11-bit length segments.</p>
+</li>
+<li>
+<p>Map each 11-bit value to a word from the predefined dictionary of 2048 words.</p>
+</li>
+<li>
+<p>The mnemonic code is the sequence of words.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><a href="#generating_entropy_and_encoding">Generating entropy and encoding as mnemonic words</a> shows how entropy is used to generate mnemonic words.</p>
+</div>
+<div id="generating_entropy_and_encoding" class="imageblock smallerseventy">
+<div class="content">
+<img src="images/mbc2_0506.png" alt="Generating entropy and encoding as mnemonic words">
+</div>
+<div class="title">Figure 6. Generating entropy and encoding as mnemonic words</div>
+</div>
+<div class="paragraph">
+<p><a href="#table_4-5">Mnemonic codes: entropy and word length</a> shows the relationship between the size of the entropy data and the length of mnemonic codes in words.</p>
+</div>
+<table id="table_4-5" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Mnemonic codes: entropy and word length</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Entropy (bits)</th>
+<th class="tableblock halign-left valign-top">Checksum (bits)</th>
+<th class="tableblock halign-left valign-top">Entropy <strong>+</strong> checksum (bits)</th>
+<th class="tableblock halign-left valign-top">Mnemonic length (words)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">128</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">132</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">160</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">165</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">192</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">198</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">224</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">231</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">21</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">256</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">264</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">24</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="mnemonic_to_seed">From mnemonic to seed</h5>
+<div class="paragraph">
+<p>The mnemonic words represent entropy with a length of 128 to 256 bits. The entropy is then used to derive a longer (512-bit) seed through the use of the key-stretching function PBKDF2. The seed produced is then used to build a deterministic wallet and derive its keys.</p>
+</div>
+<div class="paragraph">
+<p>The key-stretching function takes two parameters: the mnemonic and a <em>salt</em>. The purpose of a salt in a key-stretching function is to make it difficult to build a lookup table enabling a brute-force attack. In the BIP-39 standard, the salt has another purpose&#x2014;it allows the introduction of a passphrase that serves as an additional security factor protecting the seed, as we will describe in more detail in <a href="#mnemonic_passphrase">Optional passphrase in BIP-39</a>.</p>
+</div>
+<div class="paragraph">
+<p>The process described in steps 7 through 9 continues from the process described previously in <a href="#generating_mnemonic_words">Generating mnemonic words</a>:</p>
+</div>
+<ol start="7">
+	<li>The first parameter to the PBKDF2 key-stretching function is the <em>mnemonic</em> produced from step 6.</li>
+	<li>The second parameter to the PBKDF2 key-stretching function is a <em>salt</em>. The salt is composed of the string constant "<code>mnemonic</code>" concatenated with an optional user-supplied passphrase string.</li>
+	<li>PBKDF2 stretches the mnemonic and salt parameters using 2048 rounds of hashing with the HMAC-SHA512 algorithm, producing a 512-bit value as its final output. That 512-bit value is the seed.</li>
+</ol>
+<div class="paragraph">
+<p><a href="#fig_5_7">From mnemonic to seed</a> shows how a mnemonic is used to generate a seed.</p>
+</div>
+<div id="fig_5_7" class="imageblock">
+<div class="content">
+<img src="images/mbc2_0507.png" alt="From mnemonic to seed">
+</div>
+<div class="title">Figure 7. From mnemonic to seed</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The key-stretching function, with its 2048 rounds of hashing, is a very effective protection against brute-force attacks against the mnemonic or the passphrase. It makes it extremely costly (in computation) to try more than a few thousand passphrase and mnemonic combinations, while the number of possible derived seeds is vast (2<sup>512</sup>).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Tables <a data-type="xref" href="#mnemonic_128_no_pass" data-xrefstyle="select: labelnumber">#mnemonic_128_no_pass</a>, <a data-type="xref" href="#mnemonic_128_w_pass" data-xrefstyle="select: labelnumber">#mnemonic_128_w_pass</a>, and <a data-type="xref" href="#mnemonic_256_no_pass" data-xrefstyle="select: labelnumber">#mnemonic_256_no_pass</a> show some examples of mnemonic codes and the seeds they produce (either with or without a passphrase).</p>
+</div>
+<table id="mnemonic_128_no_pass" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. 128-bit entropy mnemonic code, no passphrase, resulting seed</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><strong>Entropy input (128 bits)</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0c1e24e5917779d297e14d45f14e1a1a</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><strong>Mnemonic (12 words)</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">army van defense carry jealous true garbage claim echo media make crunch</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><strong>Passphrase</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(none)</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><strong>Seed  (512 bits)</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5b56c417303faa3fcba7e57400e120a0ca83ec5a4fc9ffba757fbe63fbd77a89a1a3be4c67196f57c39
+a88b76373733891bfaba16ed27a813ceed498804c0570</p></td>
+</tr>
+</tbody>
+</table>
+<table id="mnemonic_128_w_pass" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. 128-bit entropy mnemonic code, with passphrase, resulting seed</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><strong>Entropy input (128 bits)</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0c1e24e5917779d297e14d45f14e1a1a</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><strong>Mnemonic (12 words)</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">army van defense carry jealous true garbage claim echo media make crunch</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><strong>Passphrase</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SuperDuperSecret</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><strong>Seed  (512 bits)</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3b5df16df2157104cfdd22830162a5e170c0161653e3afe6c88defeefb0818c793dbb28ab3ab091897d0
+715861dc8a18358f80b79d49acf64142ae57037d1d54</p></td>
+</tr>
+</tbody>
+</table>
+<table id="mnemonic_256_no_pass" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. 256-bit entropy mnemonic code, no passphrase, resulting seed</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><strong>Entropy input (256 bits)</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2041546864449caff939d32d574753fe684d3c947c3346713dd8423e74abcf8c</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><strong>Mnemonic (24 words)</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cake apple borrow silk endorse fitness top denial coil riot stay wolf
+luggage oxygen faint major edit measure invite love trap field dilemma oblige</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><strong>Passphrase</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(none)</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><strong>Seed (512 bits)</strong></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3269bce2674acbd188d4f120072b13b088a0ecf87c6e4cae41657a0bb78f5315b33b3a04356e53d062e5
+5f1e0deaa082df8d487381379df848a6ad7e98798404</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Many wallets do not allow for the creation of wallets with more than a 12 word mnemonic phrase. You will notice from the tables above that despite the unique lengths of entropy input, the seed size remains the same (512 bits). From a security perspective, the amount of entropy actually used for the production of HD wallets is roughly 128 bits, which equals 12 words.  Providing more than 12 words produces additional entropy which is unnecessary, and this <em>unused</em> entropy is not used for the derivation of the seed in the way that one might initially suspect. From a usability perspective, 12 words is also easier to write down, back up, and store.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="mnemonic_passphrase">Optional passphrase in BIP-39</h5>
+<div class="paragraph">
+<p>The BIP-39 standard allows the use of an optional passphrase in the derivation of the seed. If no passphrase is used, the mnemonic is stretched with a salt consisting of the constant string "mnemonic", producing a specific 512-bit seed from any given mnemonic. If a passphrase is used, the stretching function produces a <em>different</em> seed from that same mnemonic. In fact, given a single mnemonic, every possible passphrase leads to a different seed. Essentially, there is no "wrong" passphrase. All passphrases are valid and they all lead to different seeds, forming a vast set of possible uninitialized wallets. The set of possible wallets is so large (2<sup>512</sup>) that there is no practical possibility of brute-forcing or accidentally guessing one that is in use.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>There are no "wrong" passphrases in BIP-39. Every passphrase leads to some wallet, which unless previously used will be empty.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The optional passphrase creates two important features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A second factor (something memorized) that makes a mnemonic useless on its own, protecting mnemonic backups from compromise by a thief.</p>
+</li>
+<li>
+<p>A form of plausible deniability or "duress wallet," where a chosen passphrase leads to a wallet with a small amount of funds used to distract an attacker from the "real" wallet that contains the majority of funds.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>However, it is important to note that the use of a passphrase also introduces the risk of loss:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If the wallet owner is incapacitated or dead and no one else knows the passphrase, the mnemonic code is useless and all the funds stored in the wallet are lost forever.</p>
+</li>
+<li>
+<p>Conversely, if the owner backs up the passphrase in the same place as the mnemonic code, it defeats the purpose of a second factor.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>While passphrases are very useful, they should only be used in combination with a carefully planned process for backup and recovery, considering the possibility of surviving the owner and allowing his or her family to recover the cryptocurrency estate.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_working_with_mnemonic_codes">Working with mnemonic codes</h5>
+<div class="paragraph">
+<p>BIP-39 is implemented as a library in many different programming languages:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="https://github.com/trezor/python-mnemonic">python-mnemonic</a></dt>
+<dd>
+<p>The reference implementation of the standard by the SatoshiLabs team that proposed BIP-39, in Python</p>
+</dd>
+<dt class="hdlist1"><a href="https://github.com/bitcoinjs/bip39">bitcoinjs/bip39</a></dt>
+<dd>
+<p>An implementation of BIP-39, as part of the popular bitcoinJS framework, in JavaScript</p>
+</dd>
+<dt class="hdlist1"><a href="https://github.com/libbitcoin/libbitcoin/blob/master/src/wallet/mnemonic.cpp">libbitcoin/mnemonic</a></dt>
+<dd>
+<p>An implementation of BIP-39, as part of the popular Libbitcoin framework, in <span class="keep-together">C++</span></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_creating_an_hd_wallet_from_the_seed">Creating an HD Wallet from the Seed</h4>
+<div class="paragraph">
+<p>HD wallets are created from a single <em>root seed</em>, which is a 128-, 256-, or 512-bit random number. Most commonly, this seed is generated from a <em>mnemonic</em> as detailed in the previous section.</p>
+</div>
+<div class="paragraph">
+<p>Every key in the HD wallet is deterministically derived from this root seed, which makes it possible to re-create the entire HD wallet from that seed in any compatible HD wallet. This makes it easy to back up, restore, export, and import HD wallets containing thousands or even millions of keys by simply transferring only the mnemonic that the root seed is derived from.</p>
+</div>
+<div class="paragraph">
+<p>The process of creating the master keys and master chain code for an HD wallet is shown in <a href="#HDWalletFromSeed">Creating master keys and chain code from a root seed</a>.</p>
+</div>
+<div id="HDWalletFromSeed" class="imageblock">
+<div class="content">
+<img src="images/mbc2_0509.png" alt="HDWalletFromRootSeed">
+</div>
+<div class="title">Figure 8. Creating master keys and chain code from a root seed</div>
+</div>
+<div class="paragraph">
+<p>The root seed is input into the HMAC-SHA512 algorithm and the resulting hash is used to create a <em>master private key</em> (m) and a <em>master chain code</em> (c).</p>
+</div>
+<div class="paragraph">
+<p>The master private key (m) then generates a corresponding master public key (M) using the normal elliptic curve multiplication process m * G that we saw in <a href="#pubkey">[pubkey]</a>.</p>
+</div>
+<div class="paragraph">
+<p>The chain code (c) is used to introduce entropy in the function that creates child keys from parent keys, as we will see in the next section.</p>
+</div>
+<div class="sect4">
+<h5 id="_private_child_key_derivation">Private child key derivation</h5>
+<div class="paragraph">
+<p>HD wallets use a <em>child key derivation</em> (CKD) function to derive child keys from parent keys.</p>
+</div>
+<div class="paragraph">
+<p>The child key derivation functions are based on a one-way hash function that combines:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A parent private or public key (ECDSA compressed key)</p>
+</li>
+<li>
+<p>A seed called a chain code (256 bits)</p>
+</li>
+<li>
+<p>An index number (32 bits)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The chain code is used to introduce deterministic random data to the process, so that knowing the index and a child key is not sufficient to derive other child keys. Knowing a child key does not make it possible to find its siblings, unless you also have the chain code. The initial chain code seed (at the root of the tree) is made from the seed, while subsequent child chain codes are derived from each parent chain code.</p>
+</div>
+<div class="paragraph">
+<p>These three items (parent key, chain code, and index) are combined and hashed to generate children keys, as follows.</p>
+</div>
+<div class="paragraph">
+<p>The parent public key, chain code, and the index number are combined and hashed with the HMAC-SHA512 algorithm to produce a 512-bit hash. This 512-bit hash is split into two 256-bit halves. The right-half 256 bits of the hash output become the chain code for the child. The left-half 256 bits of the hash are added to the parent key to produce the child private key. In <a href="#CKDpriv">Extending a parent private key to create a child private key</a>, we see this illustrated with the index set to 0 to produce the "zero" (first by index) child of the parent.</p>
+</div>
+<div id="CKDpriv" class="imageblock">
+<div class="content">
+<img src="images/mbc2_0510.png" alt="ChildPrivateDerivation">
+</div>
+<div class="title">Figure 9. Extending a parent private key to create a child private key</div>
+</div>
+<div class="paragraph">
+<p>Changing the index allows us to extend the parent and create the other children in the sequence, e.g., Child 0, Child 1, Child 2, etc. Each parent key can have 2,147,483,647 (2<sup>31</sup>) children (2<sup>31</sup> is half of the entire 2<sup>32</sup> range available because the other half is reserved for a special type of derivation we will talk about later in this chapter).</p>
+</div>
+<div class="paragraph">
+<p>Repeating the process one level down the tree, each child can in turn become a parent and create its own children, in an infinite number of generations.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_using_derived_child_keys">Using derived child keys</h5>
+<div class="paragraph">
+<p>Child private keys are indistinguishable from nondeterministic (random) keys. Because the derivation function is a one-way function, the child key cannot be used to find the parent key. The child key also cannot be used to find any siblings. If you have the n<sub>th</sub> child, you cannot find its siblings, such as the n&#x2013;1 child or the n+1 child, or any other children that are part of the sequence. Only the parent key and chain code can derive all the children. Without the child chain code, the child key cannot be used to derive any grandchildren either. You need both the child private key and the child chain code to start a new branch and derive grandchildren.</p>
+</div>
+<div class="paragraph">
+<p>So what can the child private key be used for on its own? It can be used to make a public key and a Bitcoin address. Then, it can be used to sign transactions to spend anything paid to that address.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A child private key, the corresponding public key, and the Bitcoin address are all indistinguishable from keys and addresses created randomly. The fact that they are part of a sequence is not visible outside of the HD wallet function that created them. Once created, they operate exactly as "normal" keys.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_extended_keys">Extended keys</h5>
+<div class="paragraph">
+<p>As we saw earlier, the key derivation function can be used to create children at any level of the tree, based on the three inputs: a key, a chain code, and the index of the desired child. The two essential ingredients are the key and chain code, and combined these are called an <em>extended key</em>. The term "extended key" could also be thought of as "extensible key" because such a key can be used to derive children.</p>
+</div>
+<div class="paragraph">
+<p>Extended keys are stored and represented simply as the concatenation of the 256-bit key and 256-bit chain code into a 512-bit sequence. There are two types of extended keys. An extended private key is the combination of a private key and chain code and can be used to derive child private keys (and from them, child public keys). An extended public key is a public key and chain code, which can be used to create child public keys (<em>public only</em>), as described in <a href="#public_key_derivation">[public_key_derivation]</a>.</p>
+</div>
+<div class="paragraph">
+<p>Think of an extended key as the root of a branch in the tree structure of the HD wallet. With the root of the branch, you can derive the rest of the branch. The extended private key can create a complete branch, whereas the extended public key can <em>only</em> create a branch of public keys.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>An extended key consists of a private or public key and chain code. An extended key can create children, generating its own branch in the tree structure. Sharing an extended key gives access to the entire branch.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Extended keys are encoded using Base58Check, to easily export and import between different BIP-32&#x2013;compatible wallets. The Base58Check coding for extended keys uses a special version number that results in the prefix "xprv" and "xpub" when encoded in Base58 characters to make them easily recognizable. Because the extended key is 512 or 513 bits, it is also much longer than other Base58Check-encoded strings we have seen previously.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s an example of an extended <em>private</em> key, encoded in Base58Check:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>xprv9tyUQV64JT5qs3RSTJkXCWKMyUgoQp7F3hA1xzG6ZGu6u6Q9VMNjGr67Lctvy5P8oyaYAL9CAWrUE9i6GoNMKUga5biW6Hx4tws2six3b9c</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s the corresponding extended <em>public</em> key, encoded in Base58Check:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>xpub67xpozcx8pe95XVuZLHXZeG6XWXHpGq6Qv5cmNfi7cS5mtjJ2tgypeQbBs2UAR6KECeeMVKZBPLrtJunSDMstweyLXhRgPxdp14sk9tJPW9</pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="public__child_key_derivation">Public child key derivation</h5>
+<div class="paragraph">
+<p>As mentioned  previously, a very useful characteristic of HD wallets is the ability to derive public child keys from public parent keys, <em>without</em> having the private keys. This gives us two ways to derive a child public key: either from the child private key, or directly from the parent public key.</p>
+</div>
+<div class="paragraph">
+<p>An extended public key can be used, therefore, to derive all of the <em>public</em> keys (and only the public keys) in that branch of the HD wallet structure.</p>
+</div>
+<div class="paragraph">
+<p>This shortcut can be used to create very secure public key&#x2013;only deployments where a server or application has a copy of an extended public key and no private keys whatsoever. That kind of deployment can produce an infinite number of public keys and Bitcoin addresses, but cannot spend any of the money sent to those addresses. Meanwhile, on another, more secure server, the extended private key can derive all the corresponding private keys to sign transactions and spend the money.</p>
+</div>
+<div class="paragraph">
+<p>One common application of this solution is to install an extended public key on a web server that serves an ecommerce application. The web server can use the public key derivation function to create a new Bitcoin address for every transaction (e.g., for a customer shopping cart). The web server will not have any private keys that would be vulnerable to theft. Without HD wallets, the only way to do this is to generate thousands of Bitcoin addresses on a separate secure server and then preload them on the ecommerce server. That approach is cumbersome and requires constant maintenance to ensure that the ecommerce server doesn&#8217;t "run out" of addresses.</p>
+</div>
+<div class="paragraph">
+<p>Another common application of this solution is for cold-storage or hardware wallets. In that scenario, the extended private key can be stored on a paper wallet or hardware device (such as a Trezor hardware wallet), while the extended public key can be kept online. The user can create "receive" addresses at will, while the private keys are safely stored offline. To spend the funds, the user can use the extended private key on an offline signing Bitcoin client or sign transactions on the hardware wallet device (e.g., Trezor). <a href="#CKDpub">Extending a parent public key to create a child public key</a> illustrates the mechanism for extending a parent public key to derive child public keys.</p>
+</div>
+<div id="CKDpub" class="imageblock">
+<div class="content">
+<img src="images/mbc2_0511.png" alt="ChildPublicDerivation">
+</div>
+<div class="title">Figure 10. Extending a parent public key to create a child public key</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_hardened_child_key_derivation">Hardened child key derivation</h5>
+<div class="paragraph">
+<p>The ability to derive a branch of public keys from an xpub is very useful, but it comes with a potential risk. Access to an xpub does not give access to child private keys. However, because the xpub contains the chain code, if a child private key is known, or somehow leaked, it can be used with the chain code to derive all the other child private keys. A single leaked child private key, together with a parent chain code, reveals all the private keys of all the children. Worse, the child private key together with a parent chain code can be used to deduce the parent private key.</p>
+</div>
+<div class="paragraph">
+<p>To counter this risk, HD wallets use an alternative derivation function called <em>hardened derivation</em>, which "breaks" the relationship between parent public key and child chain code. The hardened derivation function uses the parent private key to derive the child chain code, instead of the parent public key. This creates a "firewall" in the parent/child sequence, with a chain code that cannot be used to compromise a parent or sibling private key. The hardened derivation function looks almost identical to the normal child private key derivation, except that the parent private key is used as input to the hash function, instead of the parent public key, as shown in the diagram in <a href="#CKDprime">Hardened derivation of a child key; omits the parent public key</a>.</p>
+</div>
+<div id="CKDprime" class="imageblock">
+<div class="content">
+<img src="images/mbc2_0513.png" alt="ChildHardPrivateDerivation">
+</div>
+<div class="title">Figure 11. Hardened derivation of a child key; omits the parent public key</div>
+</div>
+<div class="paragraph pagebreak-before">
+<p>When the hardened private derivation function is used, the resulting child private key and chain code are completely different from what would result from the normal derivation function. The resulting "branch" of keys can be used to produce extended public keys that are not vulnerable, because the chain code they contain cannot be exploited to reveal any private keys. Hardened derivation is therefore used to create a "gap" in the tree above the level where extended public keys are used.</p>
+</div>
+<div class="paragraph">
+<p>In simple terms, if you want to use the convenience of an xpub to derive branches of public keys, without exposing yourself to the risk of a leaked chain code, you should derive it from a hardened parent key, rather than a normal (non-hardened) parent key. As a best practice, the level-1 children of the master keys are always derived through the hardened derivation, to prevent compromise of the master keys.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_index_numbers_for_normal_and_hardened_derivation">Index numbers for normal and hardened derivation</h5>
+<div class="paragraph">
+<p>The index number used in the derivation function is a 32-bit integer. To easily distinguish between keys derived through the normal derivation function versus keys derived through hardened derivation, this index number is split into two ranges. Index numbers between 0 and 2<sup>31</sup>&#x2013;1 (0x0 to 0x7FFFFFFF) are used <em>only</em> for normal derivation. Index numbers between 2<sup>31</sup> and 2<sup>32</sup>&#x2013;1 (0x80000000 to 0xFFFFFFFF) are used <em>only</em> for hardened derivation. Therefore, if the index number is less than 2<sup>31</sup>, the child is normal, whereas if the index number is equal or above 2<sup>31</sup>, the child is hardened.</p>
+</div>
+<div class="paragraph">
+<p>To make the index number easier to read and display, the index number for hardened children is displayed starting from zero, but with a prime symbol. The first normal child key is therefore displayed as 0, whereas the first hardened child (index 0x80000000) is displayed as 0&amp;#x27;. In sequence then, the second hardened key would have index 0x80000001 and would be displayed as 1&amp;#x27;, and so on. When you see an HD wallet index i&amp;#x27;, that means 2<sup>31</sup>+i.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_hd_wallet_key_identifier_path">HD wallet key identifier (path)</h5>
+<div class="paragraph">
+<p>Keys in an HD wallet are identified using a "path" naming convention, with each level of the tree separated by a slash (/) character (see <a href="#table_4-8">HD wallet path examples</a>). Private keys derived from the master private key start with "m." Public keys derived from the master public key start with "M." Therefore, the first child private key of the master private key is m/0. The first child public key is M/0. The second grandchild of the first child is m/0/1, and so on.</p>
+</div>
+<div class="paragraph">
+<p>The "ancestry" of a key is read from right to left, until you reach the master key from which it was derived. For example, identifier m/x/y/z describes the private key that is the z-th child of the parent private key m/x/y, which is the y-th child of the parent private key m/x, which is the x-th child of the parent master private key m.</p>
+</div>
+<table id="table_4-8" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 6. HD wallet path examples</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">HD path</th>
+<th class="tableblock halign-left valign-top">Key described</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">m/0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The first (0) child private key from the master private key (m)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">m/0/0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The first (0) child private key from the first child (m/0)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">m/0'/0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The first (0) normal child from the first <em>hardened</em> child (m/0')</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">m/1/0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The first (0) child private key from the second child (m/1)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M/23/17/0/0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The first (0) child public key from the first child (M/23/17/0) from the 18th child (M/23/17) from the 24th child (M/23)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_navigating_the_hd_wallet_tree_structure">Navigating the HD wallet tree structure</h5>
+<div class="paragraph">
+<p>The HD wallet tree structure offers tremendous flexibility. Each parent extended key can have 4 billion children: 2 billion normal children and 2 billion hardened children. Each of those children can have another 4 billion children, and so on. The tree can be as deep as you want, with an infinite number of generations. With all that flexibility, however, it becomes quite difficult to navigate this infinite tree. It is especially difficult to transfer HD wallets between implementations, because the possibilities for internal organization into branches and subbranches are endless.</p>
+</div>
+<div class="paragraph">
+<p>Two BIPs offer a solution to this complexity by creating some proposed standards for the structure of HD wallet trees. BIP-43 proposes the use of the first hardened child index as a special identifier that signifies the "purpose" of the tree structure. Based on BIP-43, an HD wallet should use only one level-1 branch of the tree, with the index number identifying the structure and namespace of the rest of the tree by defining its purpose. For example, an HD wallet using only branch m/i&amp;#x27;/ is intended to signify a specific purpose and that purpose is identified by index number "i."</p>
+</div>
+<div class="paragraph">
+<p>Extending that specification, BIP-44 proposes a multiaccount structure as "purpose" number 44' under BIP-43. All HD wallets following the BIP-44 structure are identified by the fact that they only used one branch of the tree: m/44'/.</p>
+</div>
+<div class="paragraph">
+<p>BIP-44 specifies the structure as consisting of five predefined tree levels:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>m / purpose' / coin_type' / account' / change / address_index</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The first-level "purpose" is always set to 44'. The second-level "coin_type" specifies the type of cryptocurrency coin, allowing for multicurrency HD wallets where each currency has its own subtree under the second level. There are three currencies defined for now: Bitcoin is m/44'/0', Bitcoin Testnet is m/44&amp;#x27;/1&amp;#x27;, and Litecoin is m/44&amp;#x27;/2&amp;#x27;.</p>
+</div>
+<div class="paragraph">
+<p>The third level of the tree is "account," which allows users to subdivide their wallets into separate logical subaccounts, for accounting or organizational purposes. For example, an HD wallet might contain two bitcoin "accounts": m/44&amp;#x27;/0&amp;#x27;/0&amp;#x27; and m/44&amp;#x27;/0&amp;#x27;/1&amp;#x27;. Each account is the root of its own subtree.</p>
+</div>
+<div class="paragraph">
+<p>On the fourth level, "change," an HD wallet has two subtrees, one for creating receiving addresses and one for creating change addresses. Note that whereas the previous levels used hardened derivation, this level uses normal derivation. This is to allow this level of the tree to export extended public keys for use in a nonsecured environment. Usable addresses are derived by the HD wallet as children of the fourth level, making the fifth level of the tree the "address_index." For example, the third receiving address for bitcoin payments in the primary account would be M/44&amp;#x27;/0&amp;#x27;/0&amp;#x27;/0/2. <a href="#table_4-9">BIP-44 HD wallet structure examples</a> shows a few more examples.</p>
+</div>
+<table id="table_4-9" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 7. BIP-44 HD wallet structure examples</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">HD path</th>
+<th class="tableblock halign-left valign-top">Key described</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M/44&amp;#x27;/0&amp;#x27;/0&amp;#x27;/0/2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The third receiving public key for the primary bitcoin account</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">M/44&amp;#x27;/0&amp;#x27;/3&amp;#x27;/1/14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The fifteenth change-address public key for the fourth bitcoin account</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">m/44&amp;#x27;/2&amp;#x27;/0&amp;#x27;/0/1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The second private key in the Litecoin main account, for signing transactions</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_using_an_extended_public_key_on_a_web_store">Using an Extended Public Key on a Web Store</h4>
+<div class="paragraph">
+<p>Let&#8217;s see how HD wallets are used by continuing our story with Gabriel&#8217;s web store.</p>
+</div>
+<div class="paragraph">
+<p>Gabriel first set up his web store as a hobby, based on a simple hosted Wordpress page. His store was quite basic with only a few pages and an order form with a single Bitcoin address.</p>
+</div>
+<div class="paragraph">
+<p>Gabriel used the first Bitcoin address generated by his Trezor device as the main Bitcoin address for his store. This way, all incoming payments would be paid to an address controlled by his Trezor hardware wallet.</p>
+</div>
+<div class="paragraph">
+<p>Customers would submit an order using the form and send payment to Gabriel&#8217;s published Bitcoin address, triggering an email with the order details for Gabriel to process. With just a few orders each week, this system worked well enough.</p>
+</div>
+<div class="paragraph">
+<p>However, the little web store became quite successful and attracted many orders from the local community. Soon, Gabriel was overwhelmed. With all the orders paying the same address, it became difficult to correctly match orders and transactions, especially when multiple orders for the same amount came in close together.</p>
+</div>
+<div class="paragraph">
+<p>Gabriel&#8217;s HD wallet offers a much better solution through the ability to derive public child keys without knowing the private keys. Gabriel can load an extended public key (xpub) on his website, which can be used to derive a unique address for every customer order. Gabriel can spend the funds from his Trezor, but the xpub loaded on the website can only generate addresses and receive funds. This feature of HD wallets is a great security feature. Gabriel&#8217;s website does not contain any private keys and therefore does not need high levels of security.</p>
+</div>
+<div class="paragraph">
+<p>To export the xpub, Gabriel uses the Trezor Suite desktop app in conjunction with the Trezor hardware wallet. The Trezor device must be plugged in for the public keys to be exported. Note that hardware wallets will never export private keys&#x2014;those always remain on the device. <a href="#export_xpub">Exporting an xpub from a Trezor hardware wallet</a> shows what Gabriel sees in Trezor Suite when exporting the xpub.</p>
+</div>
+<div id="export_xpub" class="imageblock">
+<div class="content">
+<img src="images/mbc2_0512.png" alt="Exporting the xpub from the Trezor">
+</div>
+<div class="title">Figure 12. Exporting an xpub from a Trezor hardware wallet</div>
+</div>
+<div class="paragraph">
+<p>Gabriel copies the xpub to his web store&#8217;s bitcoin shop software. He uses <em>BTCPay Server</em>, which is an open source web-store for a variety of web hosting and content platforms. BTCPay Server uses the xpub to generate a unique address for every purchase. </p>
+</div>
+<div class="sect4">
+<h5 id="_account_discovery_and_management">Account Discovery and Management</h5>
+<div class="paragraph">
+<p>Gabriel&#8217;s business is flourishing. He has provided his extended public key (xpub) to <em>BTCPay Server</em>, which is generating unique addresses for customers to his website. Every time a customer to Gabriel&#8217;s website clicks on the "Checkout" button with a specified payment modality (in this case, bitcoin), <em>BTCPay Server</em> generates a new address for that customer.  More specifically, <em>BTCPay Server</em> iterates on the <em>address_index</em> tree to create a new address to display to the customer, as defined by BIP-44. If the customer decides to switch payment methods or abandon the transaction entirely, this Bitcoin address goes unused and will not be used for another customer right away.</p>
+</div>
+<div class="paragraph">
+<p>At a single moment in time, Gabriel&#8217;s website may have a large volume of outstanding addresses for customers making purchases, some of which may go unused and eventually expire. Once these addresses expire, <em>BTCPay Server</em> will go back to reuse these addresses to fill the gap in <em>address_index</em>, but it becomes clear how there can be gaps between the <em>address_index</em> leaves of the hierarchical deterministic tree where the money is actually located.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say that Gabriel is interested in viewing his total amount of bitcoin earned on a watch-only wallet (one that allows you to view transaction history, but not spend funds) that is separate from BTCPay Server but also conforms to the BIP-44 standard. How should this separate wallet go about searching for funds in this vast hierarchical tree, and when should it stop looking? Most wallets will typically follow an iterative process that utilizes a predefined limit, known as the <em>gap limit</em>. If, while searching for used addresses, the wallet doesn&#8217;t find used addresses in a row beyond this limit number, it will stop searching the address chain. The default gap limit is typically set to 20. This is detailed in <a id="bip-44"></a><a href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki">BIP-44</a>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Gap limits explain the phenomenon whereby the importing of a wallet may show an incorrect or zero balance. The funds are not lost, but rather, the wallet importing function has not traversed enough leaves to fully detect funds. Many wallets allow this default gap limit to be changed, and Gabriel may need to increase this limit to allow his wallet to fully import his transaction history.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2022-05-24 14:39:11 -0400
+</div>
+</div>
+</body>
+</html>

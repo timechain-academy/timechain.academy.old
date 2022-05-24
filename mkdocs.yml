@@ -22,7 +22,7 @@ nav:
     - Setup: 'COMMANDS.md'
     - Playground: 'playground/README.md'
     - Git: 'git/README.md'
-    - Mastering Bitcoin: 'bitcoinbook/README.md'
+    - Mastering Bitcoin: 'bitcoinbook/book.html'
     - Bitcoin Script: 'ide/Readme.md'
     - Mastering Lighting: 'lnbook/README.md'
     - LnBits: 'lnbits/lnbits.md'
@@ -35,6 +35,7 @@ plugins:
             - "*.tmp"
             - "*.pdf"
             - "*.gz"
+            - "*.asciidoc"
         regex:
             - '.*\.(tmp|bin|tar)$'
     - search
