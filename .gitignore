@@ -1,6 +1,12 @@
 CNAME
 
-sources/plebnet
+sources/playground
+sources/git
+sources/bitcoinbook
+#sources/lnbits/README.md
+sources/lnbook
+
+
 
 bitcoin.pdf
 

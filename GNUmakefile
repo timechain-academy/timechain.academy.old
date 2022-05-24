@@ -263,7 +263,12 @@ docs: init
 	bash -c 'pandoc -s timechain.academy.md -o index.html  --metadata title="" '
 
 init:
-	git clone git@github.com:timechain-academy/plebnet.git sources/plebnet || git pull -f git@github.com:timechain-academy/plebnet.git sources/plebnet || true
+	git clone git@github.com:timechain-academy/playground.git sources/playground   || git pull -f git@github.com:timechain-academy/playground.git        sources/playground || true
+	git clone https://github.com/jlord/git-it-electron.git    sources/git          || git pull -f https://github.com/jlord/git-it-electron.git           sources/git || true
+	git clone https://github.com/siminchen/bitcoinIDE.git     sources/ide          || git pull -f https://github.com/siminchen/bitcoinIDE.git            sources/ide || true
+	git clone https://github.com/bitcoinbook/bitcoinbook.git  sources/bitcoinbook  || git pull -f https://github.com/bitcoinbook/bitcoinbook.git         sources/bitcoinbook || true
+	git clone https://github.com/lnbook/lnbook.git            sources/lnbook       || git pull -f https://github.com/lnbook/lnbook.git                   sources/lnbook || true
+https://github.com/bitcoinbook/bitcoinbook.git
 	python3 -m pip install -r requirements.txt
 build:
 	mkdocs build

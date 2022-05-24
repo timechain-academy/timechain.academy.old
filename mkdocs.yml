@@ -20,7 +20,8 @@ use_directory_urls: true
 nav:
     - 'README.md'
     - Setup: 'COMMANDS.md'
-    - git: 'git/README.md'
+    - Playground: 'playground/README.md'
+    - Git: 'git/README.md'
     - Mastering Bitcoin: 'bitcoinbook/README.md'
     - Bitcoin Script: 'ide/Readme.md'
     - Mastering Lighting: 'lnbook/README.md'
