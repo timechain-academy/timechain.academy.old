@@ -18,7 +18,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recomme
     sudo \
     zip \
     quilt \
-    vim virtualenv
+    vim virtualenv mkdocs
 RUN apt-get install debconf --reinstall
 ARG PASSWORD=${PASSWORD}
 ENV GIT_DISABLE_UNTRACKED_CACHE=true
