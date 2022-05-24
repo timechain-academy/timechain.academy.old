@@ -249,7 +249,16 @@ report:
 
 #######################
 
+.PHONY: docs
+docs: init
+	@echo "Use 'make docs nocache=true' to force docs rebuild..."
 
+	cat sources/HEADER.md > README.md
+
+	echo "## MAKE COMMAND" >> MAKE.md
+	echo '```' >> README.md
+	make >> README.md
+	echo '```' >> README.md
 
 init:
 	python3 -m pip install -r requirements.txt
