@@ -9,19 +9,16 @@ RUN export DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y \
 	apt-utils \
 	adduser automake \
-    bash bash-completion binutils bsdmainutils build-essential \
-    ca-certificates cmake curl doxygen \
-    g++-multilib git \
-    #libffi6 \
-    libtool libffi-dev lbzip2 libssl-dev \
-    make nsis \
+    bash bash-completion \
+    cmake curl git \
+    make \
 	openssh-client openssh-server \
-    patch pkg-config \
     python3 python3-pip \
     python3-setuptools \
-    vim virtualenv \
-    xz-utils \
-	quilt parted qemu-user-static debootstrap zerofree zip dosfstools libcap2-bin libarchive-tools rsync kmod bc qemu-utils kpartx libssl-dev sudo
+    sudo \
+    zip \
+    quilt \
+    vim virtualenv
 RUN apt-get install debconf --reinstall
 ARG PASSWORD=${PASSWORD}
 ENV GIT_DISABLE_UNTRACKED_CACHE=true
