@@ -22,6 +22,7 @@ nav:
     - Setup: 'COMMANDS.md'
     - Playground: 'playground/README.md'
     - Git: 'git/README.md'
+    - Qt: 'qt/README.md'
     - Mastering Bitcoin: 'bitcoinbook/book.html'
     - Bitcoin Script: 'ide/Readme.md'
     - Mastering Lighting: 'lnbook/README.md'
@@ -36,6 +37,26 @@ plugins:
             - "*.pdf"
             - "*.gz"
             - "*.asciidoc"
+            - qt/webengine/*
+            - qt/webengine/src/3rdparty/*
+            - qt/webengine/src/3rdparty/*
+            - FOOTER.md
+            - HEADER.md
+            - awesome.md
+            - bitcoinbook/README.md
+            - git/CONTRIBUTING.md
+            - git/SECURITY.md
+            - git/docs.md
+            - ide/CONTRIBUTING.md
+            - ide/demo/kitchen-sink/docs/markdown.md
+            - ide/doc/index.md
+            - ide/lib/ace/mode/_test/Readme.md
+            - ide/lib/ace/mode/xquery/Readme.md
+            - ide/tool/Readme.md
+            - lnbits/README.md
+            - lnbook/CONTRIBUTING.md
+            - lnbook/LICENSE.md
+            - template/template.md
         regex:
             - '.*\.(tmp|bin|tar)$'
     - search
