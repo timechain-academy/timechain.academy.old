@@ -17,5 +17,4 @@ git clone https://github.com/timechain-academy/timechain.academy.git
 				test                   			test
 					test                   				test
 	#####################
-	#####################
 ```

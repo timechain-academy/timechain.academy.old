@@ -25,6 +25,13 @@ SERVICE_TARGET := ubuntu
 endif
 export SERVICE_TARGET
 
+ifeq ($(nocache),true)
+NOCACHE:=--no-cache
+endif
+ifeq ($(verbose),true)
+NOCACHE:=--verbose
+endif
+
 ifeq ($(user),root)
 HOST_USER := root
 HOST_UID  := $(strip $(if $(uid),$(uid),0))
@@ -296,7 +303,7 @@ serve: build
 	#$(PYTHON3) -m http.server $(PORT) --bind 127.0.0.1 -d $(PWD)/docs > /dev/null 2>&1 || open http://127.0.0.1:$(PORT)
 
 .PHONY: shell
-shell:
+shell: build-shell
 ifeq ($(CMD_ARGUMENTS),)
 	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run --rm ${SERVICE_TARGET} bash
 else
@@ -305,12 +312,7 @@ endif
 
 build-shell:
 	# only build the container. Note, docker does this also if you apply other targets.
-	docker-compose build ${SERVICE_TARGET}
-
-#######################
-rebuild-shell:
-	# force a rebuild by passing --no-cache
-	docker-compose build --no-cache $(VERBOSE) ${SERVICE_TARGET}
+	docker-compose build $(NOCACHE) $(VERBOSE) ${SERVICE_TARGET}
 
 shell-test:
 	docker-compose -p $(PROJECT_NAME)_$(HOST_UID) run --rm ${SERVICE_TARGET} sh -c '\
