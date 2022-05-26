@@ -22,6 +22,7 @@ nav:
     - Setup: 'COMMANDS.md'
     - Playground: 'playground/README.md'
     - Git: 'git/README.md'
+    - Gnupg: 'gnupg/README.md'
     - Qt: 'qt/README.md'
     - Mastering Bitcoin: 'bitcoinbook/book.html'
     - Bitcoin Script: 'ide/Readme.md'

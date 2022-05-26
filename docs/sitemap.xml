@@ -16,6 +16,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://timechain.academy/gnupg/</loc>
+         <lastmod>2022-05-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://timechain.academy/ide/Readme/</loc>
          <lastmod>2022-05-26</lastmod>
          <changefreq>daily</changefreq>
