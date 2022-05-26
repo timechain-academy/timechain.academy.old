@@ -326,7 +326,7 @@ shell-test:
 
 
 
-git-add:
+push-docs: docs push
 
 push:
 	@echo push

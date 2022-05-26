@@ -21,7 +21,11 @@ nav:
     - 'README.md'
     - Setup: 'COMMANDS.md'
     - Playground: 'playground/README.md'
-    - Git: 'git/README.md'
+    - Git:
+        - 'git/README.md'
+        - DOCS: 'git/docs.md'
+        - CONTRIBUTING: 'git/CONTRIBUTING.md'
+        - SECURITY: 'git/SECURITY.md'
     - Gnupg: 'gnupg/README.md'
     - Qt: 'qt/README.md'
     - Mastering Bitcoin: 'bitcoinbook/book.html'
@@ -45,15 +49,8 @@ plugins:
             - HEADER.md
             - awesome.md
             - bitcoinbook/README.md
-            - git/CONTRIBUTING.md
-            - git/SECURITY.md
-            - git/docs.md
-            - ide/CONTRIBUTING.md
-            - ide/demo/kitchen-sink/docs/markdown.md
-            - ide/doc/index.md
             - ide/lib/ace/mode/_test/Readme.md
             - ide/lib/ace/mode/xquery/Readme.md
-            - ide/tool/Readme.md
             - lnbits/README.md
             - lnbook/CONTRIBUTING.md
             - lnbook/LICENSE.md
