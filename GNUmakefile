@@ -292,7 +292,8 @@ clean:
 	rm -rf sources/bitcoinbook
 	rm -rf sources/lnbook
 
-sources:
+sources: resources
+resources:
 	git clone --depth 1 git@github.com:timechain-academy/playground.git    sources/playground   || git pull -f git@github.com:timechain-academy/playground.git        sources/playground || true
 	git clone --depth 1 https://github.com/jlord/git-it-electron.git       sources/git          || git pull -f https://github.com/jlord/git-it-electron.git           sources/git || true
 	git clone --depth 1 https://github.com/siminchen/bitcoinIDE.git        sources/ide          || git pull -f https://github.com/siminchen/bitcoinIDE.git            sources/ide || true
