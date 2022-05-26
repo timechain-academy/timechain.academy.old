@@ -83,5 +83,7 @@ jobs:
           cd $GITHUB_WORKSPACE
           python3 -c "import sys; print(sys.version)"
           make init
+          make resources
+          make docs
           make build-shell
 
