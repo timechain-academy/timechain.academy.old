@@ -327,11 +327,14 @@ git-add:
 
 push:
 	@echo 'push'
+	git push --set-upstream origin $(GIT_BRANCH)
+	git add docs
+	git commit --amend --no-edit --allow-empty -m '$(GIT_HASH)'          || echo failed to commit --amend --no-edit
 	#bash -c "git reset --soft HEAD~1 || echo failed to add docs..."
 	#bash -c "git add README.md docker/README.md docker/DOCKER.md *.md docker/*.md || echo failed to add docs..."
 	#bash -c "git commit --amend --no-edit --allow-empty -m '$(GIT_HASH)'          || echo failed to commit --amend --no-edit"
 	#bash -c "git commit         --no-edit --allow-empty -m '$(GIT_PREVIOUS_HASH)' || echo failed to commit --amend --no-edit"
-	bash -c "git push -f --all git@github.com:$(GIT_PROFILE)/$(PROJECT_NAME).git || echo failed to push docs"
+	git push -f origin $(GIT_BRANCH):$(GIT_BRANCH)
 
 push-to-master:
 	git push -f  $(GIT_REPO_ORIGIN) $(GIT_BRANCH):master || echo failed to push docs
