@@ -292,7 +292,7 @@ clean:
 	rm -rf sources/bitcoinbook
 	rm -rf sources/lnbook
 
-build:
+sources:
 	git clone --depth 1 git@github.com:timechain-academy/playground.git    sources/playground   || git pull -f git@github.com:timechain-academy/playground.git        sources/playground || true
 	git clone --depth 1 https://github.com/jlord/git-it-electron.git       sources/git          || git pull -f https://github.com/jlord/git-it-electron.git           sources/git || true
 	git clone --depth 1 https://github.com/siminchen/bitcoinIDE.git        sources/ide          || git pull -f https://github.com/siminchen/bitcoinIDE.git            sources/ide || true
@@ -300,6 +300,8 @@ build:
 	git clone --depth 1 https://github.com/lnbook/lnbook.git               sources/lnbook       || git pull -f https://github.com/lnbook/lnbook.git                   sources/lnbook || true
 	git clone --depth 1 -b v5.15.5-lts git://code.qt.io/qt/qtwebengine.git sources/qt/webengine || echo "more todo..."
 	git clone --depth 1 -b v5.15.2 git://code.qt.io/qt/qtwebengine-chromium.git sources/qt/webengine/src/3rdparty/qtwebengine-chromium || echo "more todo..."
+
+build:
 	mkdocs build
 
 serve: build
