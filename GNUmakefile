@@ -255,8 +255,10 @@ report:
 	@echo '        - GIT_REPO_PATH=${GIT_REPO_PATH}'
 
 #######################
-.PHONY: init docs clean build serve
-init:
+.PHONY: init initialize docs clean build serve
+initialize:
+	./scripts/initialize
+init: initialize
 	python3 -m pip install -r requirements.txt
 
 docs: build
