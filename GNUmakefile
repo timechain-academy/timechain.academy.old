@@ -310,7 +310,7 @@ init: initialize## 	init
 
 docs: build## 	docs
 	git add -f docs
-	git commit -m "docs: update $(TIME)"
+	git commit --allow-empty -m "docs: update $(TIME)"
 
 
 .PHONY: clean-resources clean sources resources
@@ -416,16 +416,18 @@ push-docs: docs push
 
 push:
 	@echo push
+	$(MAKE) docs
 	git checkout -b $(TIME)/$(GIT_PREVIOUS_HASH)/$(GIT_HASH)
 	git push --set-upstream origin $(TIME)/$(GIT_PREVIOUS_HASH)/$(GIT_HASH)
-	git add docs
 	git commit --amend --no-edit --allow-empty || echo failed to commit --amend --no-edit
 	git push -f origin $(TIME)/$(GIT_PREVIOUS_HASH)/$(GIT_HASH):$(TIME)/$(GIT_PREVIOUS_HASH)/$(GIT_HASH)
 
 
 push-to-master:
+	$(MAKE) docs
 	git push -f  $(GIT_REPO_ORIGIN) $(GIT_BRANCH):master || echo failed to push docs
 push-to-main: docs
+	$(MAKE) docs
 	git push -f  $(GIT_REPO_ORIGIN) $(GIT_BRANCH):main || echo failed to push docs
 
 
