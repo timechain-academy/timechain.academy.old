@@ -36,9 +36,9 @@ ifeq ($(user),root)
 HOST_USER := root
 HOST_UID  := $(strip $(if $(uid),$(uid),0))
 else
-# allow override by adding user= and/ or uid=  (lowercase!).
-# uid= defaults to 0 if user= set (i.e. root).
-# USER retrieved from env, UID from shell.
+#allow override by adding user= and/ or uid=  (lowercase!).
+#uid= defaults to 0 if user= set (i.e. root).
+#USER retrieved from env, UID from shell.
 HOST_USER :=  $(strip $(if $(USER),$(USER),nodummy))
 HOST_UID  :=  $(strip $(if $(shell id -u),$(shell id -u),4000))
 endif
@@ -78,7 +78,7 @@ export python_version_patch
 export PYTHON_VERSION
 
 
-# PROJECT_NAME defaults to name of the current directory.
+#PROJECT_NAME defaults to name of the current directory.
 ifeq ($(project),)
 PROJECT_NAME							:= timechain-academy#$(notdir $(PWD))
 else
@@ -90,9 +90,9 @@ ifeq ($(user),root)
 HOST_USER := root
 HOST_UID  := $(strip $(if $(uid),$(uid),0))
 else
-# allow override by adding user= and/ or uid=  (lowercase!).
-# uid= defaults to 0 if user= set (i.e. root).
-# USER retrieved from env, UID from shell.
+#allow override by adding user= and/ or uid=  (lowercase!).
+#uid= defaults to 0 if user= set (i.e. root).
+#USER retrieved from env, UID from shell.
 HOST_USER :=  $(strip $(if $(USER),$(USER),nodummy))
 HOST_UID  :=  $(strip $(if $(shell id -u),$(shell id -u),4000))
 endif
@@ -204,27 +204,75 @@ export GIT_REPO_PATH
 PORT:=8000
 export PORT
 
-.PHONY: - help init build serve push signin git-add
--: help
+#REF: https://linuxize.com/post/bash-printf-command/
+#Width directive
+#Here is an example:
+#
+#printf "%20s %d\n" Mark 305
+#Copy
+#%20s means set the field at least 20 characters long. Blanks are added before the text because, by default, the output is right-justified. To align the text to left, use the - flag (%-20s).
+#
+#      Mark 305
+#
+#\\ - Displays a backslash character.
+#\b - Displays a backspace character.
+#\n - Displays a new line.
+#\r - Displays a carriage return.
+#\t - Displays a horizontal tab.
+#\v - Displays a vertical tab.
 
-##help:print help
-##	test
-##		test
-##			test
-##				test
-##	test:test
-##		test:test
-##			test:test
-##				test:test
-##	test:	test
-##		test:		test
-##			test:			test
-##				test:				test
-help:
-	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^/	/'
+
+.PHONY: - help init build serve push signin git-add
+-:
+	#NOTE: 2 hashes are detected as 1st column output with color
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?##/ {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+
+help:## verbose help
+# help:print help
+# 	test
+# 		test
+# 			test
+# 				test
+# 	test:test
+# 		test:test
+# 			test:test
+# 				test:test
+# 	test:	test
+# 		test:		test
+# 			test:			test
+# 				test:				test
+## help:print help
+## 	test
+## 		test
+## 			test
+## 				test
+## 	test:test
+## 		test:test
+## 			test:test
+## 				test:test
+## 	test:	test
+## 		test:		test
+## 			test:			test
+## 				test:				test
+### help:print help
+### 	test
+### 		test
+### 			test
+### 				test
+### 	test:test
+### 		test:test
+### 			test:test
+### 				test:test
+### 	test:	test
+### 		test:		test
+### 			test:			test
+### 				test:				test
+	@sed -n 's/^# //p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^/# /'
+	@sed -n 's/^## //p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^/## /'
+	@sed -n 's/^### //p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^/### /'
 
 .PHONY: report
-report:
+report:## report
 	@echo ''
 	@echo '	[ARGUMENTS]	'
 	@echo '      args:'
@@ -254,51 +302,65 @@ report:
 	@echo '        - GIT_REPO_NAME=${GIT_REPO_NAME}'
 	@echo '        - GIT_REPO_PATH=${GIT_REPO_PATH}'
 
-#######################
-.PHONY: init initialize docs clean build serve
-initialize:
+.PHONY: init initialize docs
+initialize:## initialize
 	./scripts/initialize
-init: initialize
+init: initialize## init
 	python3 -m pip install -r requirements.txt
 
-docs: build
+docs: build##
 	@echo "Use 'make docs nocache=true' to force docs rebuild..."
-
 	mkdir -p docs
-
 	apt install pandoc || brew install pandoc
-
 	cat sources/HEADER.md > README.md
 	echo '```' >> README.md
 	make >> README.md
 	echo '```' >> README.md
 	bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
 	bash -c 'pandoc -s README.md -o index.html  --metadata title="" '
-
 	apt install asciidoctor || brew install asciidoctor
-
 	pushd sources/bitcoinbook > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "."
 	pushd sources/bitcoinbook > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
 	pushd sources/bitcoinbook > /dev/null; for string in *.asciidoc; do asciidoctor $$string; done; popd || echo "..."
-
 	pushd sources/lnbook      > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "...."
 	pushd sources/lnbook      > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
 	pushd sources/lnbook      > /dev/null; for string in *.asciidoc; do asciidoctor $$string; done; popd || echo "......"
 
+.PHONY: clean-resources clean sources resources
+clean-resources: clean resources
 clean:
+	rm -rf sources/playground/docker
 	rm -rf sources/git
 	rm -rf sources/ide
 	rm -rf sources/bitcoinbook
 	rm -rf sources/lnbook
+	rm -rf sources/qt/webengine
+	rm -f  *.log
 
+.SILENT:
 sources: resources
 resources:
-	git clone --depth 1 https://github.com/jlord/git-it-electron.git       sources/git          || git pull -f https://github.com/jlord/git-it-electron.git           sources/git || true
-	git clone --depth 1 https://github.com/siminchen/bitcoinIDE.git        sources/ide          || git pull -f https://github.com/siminchen/bitcoinIDE.git            sources/ide || true
-	git clone --depth 1 https://github.com/bitcoinbook/bitcoinbook.git     sources/bitcoinbook  || git pull -f https://github.com/bitcoinbook/bitcoinbook.git         sources/bitcoinbook || true
-	git clone --depth 1 https://github.com/lnbook/lnbook.git               sources/lnbook       || git pull -f https://github.com/lnbook/lnbook.git                   sources/lnbook || true
-	git clone --depth 1 -b v5.15.5-lts git://code.qt.io/qt/qtwebengine.git sources/qt/webengine || echo "more todo..."
-	git clone --depth 1 -b v5.15.2 git://code.qt.io/qt/qtwebengine-chromium.git sources/qt/webengine/src/3rdparty/qtwebengine-chromium || echo "more todo..."
+	git clone --depth 1 -b 0.5.0 https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker.git  \
+        sources/playground/docker > resource.log 2>&1 \
+        || >  resource.log 2>&1
+	git clone --depth 1 -b 4.4.0 https://github.com/jlord/git-it-electron.git                         \
+        sources/git               > resource.log 2>&1 \
+        || >> resource.log 2>&1
+	git clone --depth 1 https://github.com/timechain=academy/bitcoinIDE.gi                            \
+        sources/ide               > resource.log 2>&1 \
+        || >> resource.log 2>&1
+	git clone --depth 1 https://github.com/bitcoinbook/bitcoinbook.git                                \
+        sources/bitcoinbook       > resource.log 2>&1 \
+        || >> resource.log 2>&1
+	git clone --depth 1 https://github.com/lnbook/lnbook.git                                          \
+        sources/lnbook            > resource.log 2>&1 \
+        || >> resource.log 2>&1
+	git clone --depth 1 -b v5.15.5-lts git://code.qt.io/qt/qtwebengine.git                            \
+        sources/qt/webengine      > resource.log 2>&1 \
+        || >> resource.log 2>&1
+	git clone --depth 1 -b v5.15.2 git://code.qt.io/qt/qtwebengine-chromium.git                       \
+        sources/qt/webengine/src/3rdparty/qtwebengine-chromium > resource.log 2>&1 \
+        || >> resource.log 2>&1
 
 build:
 	mkdocs build
