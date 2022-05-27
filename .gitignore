@@ -11,6 +11,10 @@ sources/lnbook
 resources.log
 .bash_history
 
+# We manually add the docs folder when updating
+# This avoids diff junk due to book footers updating creation date/time
+docs
+
 bitcoin.pdf
 
 *.DS_Store
