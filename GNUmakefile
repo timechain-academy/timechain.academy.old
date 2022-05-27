@@ -319,8 +319,7 @@ clean:## 	clean
 	rm -rf sources/playground/docker
 	rm -rf sources/git
 	rm -rf sources/ide
-	rm -rf sources/bitcoinbook
-	rm -rf sources/lnbook
+	rm -rf sources/books
 	rm -rf sources/qt/webengine
 	rm -f  *.log
 
@@ -334,38 +333,55 @@ resources:
 	    $(MAKE) playground; \
 	    $(MAKE) git-it; \
 	    $(MAKE) bitcoin-ide; \
-	    $(MAKE) mastering-bitcoin; \
-	    $(MAKE) mastering-lightning; \
 	    $(MAKE) qt-webengine; \
+	    $(MAKE) books; \
 	);
 
 playground:## 	clone-playground
 	git clone --progress --verbose --depth 1 -b 0.5.0 https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker.git   \
-        sources/playground/docker >> resources.log 2>&1 \
+        sources/playground/docker \
+		>> resources.log 2>&1 \
         || >>  resources.log 2>&1
 git-it:## 	git-it
 	git clone --progress --verbose --depth 1 -b 4.4.0 https://github.com/jlord/git-it-electron.git                          \
-        sources/git               >> resources.log 2>&1 \
+        sources/git \
+		>> resources.log 2>&1 \
         || >> resources.log 2>&1
 bitcoin-ide:## 	bitcoin-ide
 	git clone --progress --verbose --depth 1 https://github.com/timechain-academy/bitcoinIDE.git                            \
-        sources/ide               >> resources.log 2>&1 \
-        || >> resources.log 2>&1
-mastering-bitcoin:## 	mastering bitcoin
-	git clone --progress --verbose --depth 1 -b 1653630097/6f13274/77b91b1 https://github.com/randymcmillan/bitcoinbook.git \
-        sources/bitcoinbook       >> resources.log 2>&1 \
-        || >> resources.log 2>&1
-mastering-lightning:## 	mastering lightning
-	git clone --progress --verbose --depth 1 https://github.com/lnbook/lnbook.git                                           \
-        sources/lnbook            >> resources.log 2>&1 \
+        sources/ide \
+		>> resources.log 2>&1 \
         || >> resources.log 2>&1
 qt-webengine:## 	qt webengine
 	git clone --progress --verbose --depth 1 -b v5.15.5-lts git://code.qt.io/qt/qtwebengine.git                             \
-        sources/qt/webengine      >> resources.log 2>&1 \
+        sources/qt/webengine \
+		>> resources.log 2>&1 \
         || >> resources.log 2>&1
 	git clone --progress --verbose --depth 1 -b v5.15.2 git://code.qt.io/qt/qtwebengine-chromium.git                        \
-        sources/qt/webengine/src/3rdparty/qtwebengine-chromium >> resources.log 2>&1 \
+        sources/qt/webengine/src/3rdparty/qtwebengine-chromium \
+		>> resources.log 2>&1 \
         || >> resources.log 2>&1
+
+books: mastering-bitcoin mastering-lightning python
+mastering-bitcoin:## 	mastering bitcoin
+	git clone --progress --verbose --depth 1 -b 1653630097/6f13274/77b91b1 https://github.com/randymcmillan/bitcoinbook.git \
+        sources/books/bitcoinbook \
+		>> resources.log 2>&1 \
+        || >> resources.log 2>&1
+mastering-lightning:## 	mastering lightning
+	git clone --progress --verbose --depth 1 https://github.com/lnbook/lnbook.git                                           \
+        sources/books/lnbook \
+		>> resources.log 2>&1 \
+        || >> resources.log 2>&1
+python:##	python
+	git clone --progress --verbose --depth 1 https://github.com/kyclark/tiny_python_projects.git                             \
+        sources/books/python \
+		>> resources.log 2>&1 \
+        || >> resources.log 2>&1
+
+
+
+
 
 .PHONY: build serve build-shell shell shell-test
 build-docs:## 	build mkdocs
