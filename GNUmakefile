@@ -455,7 +455,8 @@ push:
 	$(MAKE) docs
 	git checkout -b $(TIME)/$(GIT_PREVIOUS_HASH)/$(GIT_HASH)
 	git push --set-upstream origin $(TIME)/$(GIT_PREVIOUS_HASH)/$(GIT_HASH)
-	git commit --amend --no-edit --allow-empty || echo failed to commit --amend --no-edit
+	#git add docs
+	#git commit --no-edit --allow-empty -m "$(TIME)" || echo failed to commit --amend --no-edit
 	git push -f origin $(TIME)/$(GIT_PREVIOUS_HASH)/$(GIT_HASH):$(TIME)/$(GIT_PREVIOUS_HASH)/$(GIT_HASH)
 
 
