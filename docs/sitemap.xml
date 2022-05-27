@@ -11,6 +11,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://timechain.academy/bitcoinbook/</loc>
+         <lastmod>2022-05-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://timechain.academy/git/</loc>
          <lastmod>2022-05-27</lastmod>
          <changefreq>daily</changefreq>
@@ -26,12 +31,52 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://timechain.academy/ide/CONTRIBUTING/</loc>
+         <lastmod>2022-05-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://timechain.academy/ide/Readme/</loc>
+         <lastmod>2022-05-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://timechain.academy/ide/demo/kitchen-sink/docs/markdown/</loc>
+         <lastmod>2022-05-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://timechain.academy/ide/doc/</loc>
+         <lastmod>2022-05-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://timechain.academy/ide/tool/Readme/</loc>
+         <lastmod>2022-05-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://timechain.academy/lnbits/</loc>
+         <lastmod>2022-05-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://timechain.academy/lnbits/lnbits/</loc>
          <lastmod>2022-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://timechain.academy/lnbook/</loc>
+         <lastmod>2022-05-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://timechain.academy/lnbook/CONTRIBUTING/</loc>
+         <lastmod>2022-05-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://timechain.academy/lnbook/LICENSE/</loc>
          <lastmod>2022-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
