@@ -137,7 +137,7 @@ fi
     export this_python3
 
     # curl -O https://bootstrap.pypa.io/get-pip.py
-    $this_python3 -m pip install "$DASH_U" --upgrade pip
+    $this_python3 -m pip install "$DASH_U" --upgrade pip omegaconf
     $this_python3 -m pip install "$DASH_U" -r requirements.txt
 
     if ! hash gawk 2>/dev/null; then
@@ -208,9 +208,12 @@ if [[ "$OSTYPE" == "linux"* ]]; then
             sudo apt install -y $(apt-cache pkgnames python3-pyside2.) pyside2-tools python-pyside2-doc
 
             sudo apt-get install -y build-essential python3-dev
-            pip install pycryptodomex
-            pip install pycryptodome-test-vectors
-            python3 -m Cryptodome.SelfTest
+
+            pip install omegaconf
+
+            # pip install pycryptodomex
+            # pip install pycryptodome-test-vectors
+            # python3 -m Cryptodome.SelfTest
 
 
             initialize-report
