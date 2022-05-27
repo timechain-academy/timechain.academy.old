@@ -29,7 +29,21 @@ nav:
         - 'git/README.md'
     - Gnupg: 'gnupg/README.md'
     - Qt: 'qt/README.md'
-    - Mastering Bitcoin: 'bitcoinbook/book.html'
+    - Mastering Bitcoin:
+        - Chapters:  'bitcoinbook/README.md'
+        - Chapter 1: 'bitcoinbook/ch01.html'
+        - Chapter 2: 'bitcoinbook/ch02.html'
+        - Chapter 3: 'bitcoinbook/ch03.html'
+        - Chapter 4: 'bitcoinbook/ch04.html'
+        - Chapter 5: 'bitcoinbook/ch05.html'
+        - Chapter 6: 'bitcoinbook/ch06.html'
+        - Chapter 7: 'bitcoinbook/ch07.html'
+        - Chapter 8: 'bitcoinbook/ch08.html'
+        - Chapter 9: 'bitcoinbook/ch09.html'
+        - Chapter 10: 'bitcoinbook/ch10.html'
+        - Chapter 11: 'bitcoinbook/ch11.html'
+        - Chapter 12: 'bitcoinbook/ch12.html'
+        - Glossary: 'bitcoinbook/glossary.html'
     - Bitcoin Script: 'ide/Readme.md'
     - Mastering Lighting: 'lnbook/README.md'
     - LnBits: 'lnbits/lnbits.md'
@@ -50,17 +64,9 @@ plugins:
             - HEADER.md
             - git/docs.md
             - awesome.md
-            - bitcoinbook/README.md
             - ide/lib/ace/mode/_test/Readme.md
             - ide/lib/ace/mode/xquery/Readme.md
-            - lnbits/README.md
-            - lnbook/CONTRIBUTING.md
-            - lnbook/LICENSE.md
             - template/template.md
-            - ide/CONTRIBUTING.md
-            - ide/demo/kitchen-sink/docs/markdown.md
-            - ide/doc/index.md
-            - ide/tool/Readme.md
             - playground/docker/btcd/README.md
             - playground/docker/dashboard/README.md
             - playground/docker/docs/README.md
@@ -85,7 +91,7 @@ markdown_extensions:
         strip_comments: true
         strip_js_on_attributes: false
 
-copyright: Copyright &copy; 2014 <a href="https://twitter.com/_tomchristie">Tom Christie</a>, Maintained by the <a href="/about/release-notes/#maintenance-team">MkDocs Team</a>.
+copyright: Copyright &copy; 2022 <a href="https://twitter.com/RandyMcMillan">@RandyMcMillan</a>, Maintained by <a href="https://github.com/timechain-academy/timechain.academy/people">timechain.academy/people</a>.
 
 
 # Development

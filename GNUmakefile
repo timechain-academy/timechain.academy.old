@@ -339,32 +339,50 @@ clean:## clean
 
 .SILENT:
 sources: resources## sources
-resources:## resources
-	git clone --depth 1 -b 0.5.0 https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker.git  \
+resources:
+	$(MAKE) clone-playground
+	$(MAKE) clone-git-it
+	$(MAKE) clone-bitcoin-ide
+	$(MAKE) clone-mastering-bitcoin
+	$(MAKE) clone-mastering-lightning
+	$(MAKE) clone-qt-webengine
+	cat resource.log
+## clone plebnet-playground git-it bitcoin-ide mastering-bitcoin mastering-lightning qt-webengine
+
+clone-playground:
+	@echo "cloning plebnet-playground-docker to sources/playground/docker"
+	git clone --progress --verbose --depth 1 -b 0.5.0 https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker.git   \
         sources/playground/docker >> resource.log 2>&1 \
         || >  resource.log 2>&1
-	git clone --depth 1 -b 4.4.0 https://github.com/jlord/git-it-electron.git                         \
+clone-git-it:
+	git clone --progress --verbose --depth 1 -b 4.4.0 https://github.com/jlord/git-it-electron.git                          \
         sources/git               >> resource.log 2>&1 \
         || >> resource.log 2>&1
-	git clone --depth 1 https://github.com/timechain=academy/bitcoinIDE.gi                            \
+clone-bitcoin-ide:
+	git clone --progress --verbose --depth 1 https://github.com/timechain-academy/bitcoinIDE.git                            \
         sources/ide               >> resource.log 2>&1 \
         || >> resource.log 2>&1
-	git clone --depth 1 https://github.com/bitcoinbook/bitcoinbook.git                                \
+clone-mastering-bitcoin:
+	git clone --progress --verbose --depth 1 -b 1653630097/6f13274/77b91b1 https://github.com/randymcmillan/bitcoinbook.git \
         sources/bitcoinbook       >> resource.log 2>&1 \
         || >> resource.log 2>&1
-	git clone --depth 1 https://github.com/lnbook/lnbook.git                                          \
+clone-mastering-lightning:
+	git clone --progress --verbose --depth 1 https://github.com/lnbook/lnbook.git                                           \
         sources/lnbook            >> resource.log 2>&1 \
         || >> resource.log 2>&1
-	git clone --depth 1 -b v5.15.5-lts git://code.qt.io/qt/qtwebengine.git                            \
+clone-qt-webengine:
+	git clone --progress --verbose --depth 1 -b v5.15.5-lts git://code.qt.io/qt/qtwebengine.git                             \
         sources/qt/webengine      >> resource.log 2>&1 \
         || >> resource.log 2>&1
-	git clone --depth 1 -b v5.15.2 git://code.qt.io/qt/qtwebengine-chromium.git                       \
+	git clone --progress --verbose --depth 1 -b v5.15.2 git://code.qt.io/qt/qtwebengine-chromium.git                        \
         sources/qt/webengine/src/3rdparty/qtwebengine-chromium >> resource.log 2>&1 \
         || >> resource.log 2>&1
 
 .PHONY: build serve build-shell shell shell-test
 build:## build mkdocs
-	mkdocs build
+	mkdocs -q build
+build-playground:
+
 
 serve: build## serve mkdocs
 	mkdocs serve & open http://127.0.0.1:$(PORT) || open http://127.0.0.1:$(PORT)
