@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.17">
+<title>Advanced Transactions and Scripting</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="adv_transactions">Advanced Transactions and Scripting</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="ch07_intro">Introduction</h3>
+<div class="paragraph">
+<p>In the previous chapter, we introduced the basic elements of bitcoin transactions and looked at the most common type of transaction script, the P2PKH script. In this chapter we will look at more advanced scripting and how we can use it to build transactions with complex conditions.</p>
+</div>
+<div class="paragraph">
+<p>First, we will look at <em>multisignature</em> scripts. Next, we will examine the second most common transaction script, <em>Pay-to-Script-Hash</em>, which opens up a whole world of complex scripts. Then, we will examine new script operators that add a time dimension to bitcoin, through <em>timelocks</em>. Finally, we will look at <em>Segregated Witness</em>, an architectural change to the structure of transactions.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="multisig">Multisignature</h3>
+<div class="paragraph">
+<p>Multisignature scripts set a condition where N public keys are recorded in the script and at least M of those must provide signatures to unlock the funds. This is also known as an M-of-N scheme, where N is the total number of keys and M is the threshold of signatures required for validation. For example, a 2-of-3 multisignature is one where three public keys are listed as potential signers and at least two of those must be used to create signatures for a valid transaction to spend the funds.</p>
+</div>
+<div class="paragraph">
+<p>At this time, <em>standard</em> multisignature scripts are limited to at most 3 listed public keys, meaning you can do anything from a 1-of-1 to a 3-of-3 multisignature or any combination within that range. The limitation to 3 listed keys might be lifted by the time this book is published, so check the IsStandard() function to see what is currently accepted by the network. Note that the limit of 3 keys applies only to standard (also known as "bare") multisignature scripts, not to multisignature scripts wrapped in a Pay-to-Script-Hash (P2SH) script. P2SH multisignature scripts are limited to 15 keys, allowing for up to 15-of-15 multisignature. This limitation is also imposed by the IsStandard() function. We will learn about P2SH in <a href="#p2sh">Pay-to-Script-Hash (P2SH)</a>.</p>
+</div>
+<div class="paragraph">
+<p>The general form of a locking script setting an M-of-N multisignature condition is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>M &lt;Public Key 1&gt; &lt;Public Key 2&gt; ... &lt;Public Key N&gt; N CHECKMULTISIG</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where N is the total number of listed public keys and M is the threshold of required signatures to spend the output.</p>
+</div>
+<div class="paragraph">
+<p>A locking script setting a 2-of-3 multisignature condition looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>2 &lt;Public Key A&gt; &lt;Public Key B&gt; &lt;Public Key C&gt; 3 CHECKMULTISIG</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The preceding locking script can be satisfied with an unlocking script containing any combination of two signatures from the private keys corresponding to the three listed public keys:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;Signature B&gt; &lt;Signature C&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The two scripts together would form the combined validation script:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;Signature B&gt; &lt;Signature C&gt; 2 &lt;Public Key A&gt; &lt;Public Key B&gt; &lt;Public Key C&gt; 3 CHECKMULTISIG</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When executed, this combined script will evaluate to TRUE if, and only if, the unlocking script matches the conditions set by the locking script. In this case, the condition is whether the unlocking script has a valid signature from the two private keys that correspond to two of the three public keys set as an encumbrance.</p>
+</div>
+<div class="sect4">
+<h5 id="multisig_bug">A bug in CHECKMULTISIG execution</h5>
+<div class="paragraph">
+<p>There is a bug in CHECKMULTISIG's execution that requires a slight workaround. When CHECKMULTISIG executes, it should consume M+N+2 items on the stack as parameters. However, due to the bug, CHECKMULTISIG will pop an extra value or one value more than expected.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s look at this in greater detail using the previous validation example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;Signature B&gt; &lt;Signature C&gt; 2 &lt;Public Key A&gt; &lt;Public Key B&gt; &lt;Public Key C&gt; 3 CHECKMULTISIG</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>First, CHECKMULTISIG pops the top item, which is N (in this example "3"). Then it pops N items, which are the public keys that can sign. In this example, public keys A, B, and C. Then, it pops one item, which is M, the quorum (how many signatures are needed). Here M = 2. At this point, CHECKMULTISIG should pop the final M items, which are the signatures, and see if they are valid. However, unfortunately, a bug in the implementation causes CHECKMULTISIG to pop one more item (M+1 total) than it should. The extra item is disregarded when checking the signatures so it has no direct effect on CHECKMULTISIG itself. However, an extra value must be present because if it is not present, when CHECKMULTISIG attempts to pop on an empty stack, it will cause a stack error and script failure (marking the transaction as invalid). Because the extra item is disregarded it can be anything, but customarily 0 is used.</p>
+</div>
+<div class="paragraph">
+<p>Because this bug became part of the consensus rules, it must now be replicated forever. Therefore the correct script validation would look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>0 &lt;Signature B&gt; &lt;Signature C&gt; 2 &lt;Public Key A&gt; &lt;Public Key B&gt; &lt;Public Key C&gt; 3 CHECKMULTISIG</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Thus the unlocking script actually used in multisig is not:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;Signature B&gt; &lt;Signature C&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>but instead it is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>0 &lt;Signature B&gt; &lt;Signature C&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>From now on, if you see a multisig unlocking script, you should expect to see an extra 0 in the beginning, whose only purpose is as a workaround to a bug that accidentally became a consensus rule.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="p2sh">Pay-to-Script-Hash (P2SH)</h3>
+<div class="paragraph">
+<p>Pay-to-Script-Hash (P2SH) was introduced in 2012 as a powerful new type of transaction that greatly simplifies the use of complex transaction scripts. To explain the need for P2SH, let&#8217;s look at a practical example.</p>
+</div>
+<div class="paragraph">
+<p>In <a href="#ch01_intro_what_is_bitcoin">[ch01_intro_what_is_bitcoin]</a> we introduced Mohammed, an electronics importer based in Dubai. Mohammed&#8217;s company uses bitcoin&#8217;s multisignature feature extensively for its corporate accounts. Multisignature scripts are one of the most common uses of bitcoin&#8217;s advanced scripting capabilities and are a very powerful feature. Mohammed&#8217;s company uses a multisignature script for all customer payments, known in accounting terms as "accounts receivable," or AR. With the multisignature scheme, any payments made by customers are locked in such a way that they require at least two signatures to release, from Mohammed and one of his partners or from his attorney who has a backup key. A multisignature scheme like that offers corporate governance controls and protects against theft, embezzlement, or loss.</p>
+</div>
+<div class="paragraph">
+<p>The resulting script is quite long and looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>2 &lt;Mohammed's Public Key&gt; &lt;Partner1 Public Key&gt; &lt;Partner2 Public Key&gt; &lt;Partner3 Public Key&gt; &lt;Attorney Public Key&gt; 5 CHECKMULTISIG</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Although multisignature scripts are a powerful feature, they are cumbersome to use. Given the preceding script, Mohammed would have to communicate this script to every customer prior to payment. Each customer would have to use special bitcoin wallet software with the ability to create custom transaction scripts, and each customer would have to understand how to create a transaction using custom scripts. Furthermore, the resulting transaction would be about five times larger than a simple payment transaction, because this script contains very long public keys. The burden of that extra-large transaction would be borne by the customer in the form of fees. Finally, a large transaction script like this would be carried in the UTXO set in RAM in every full node, until it was spent. All of these issues make using complex locking scripts difficult in practice.</p>
+</div>
+<div class="paragraph">
+<p>P2SH was developed to resolve these practical difficulties and to make the use of complex scripts as easy as a payment to a Bitcoin address. With P2SH payments, the complex locking script is replaced with its digital fingerprint, a cryptographic hash. When a transaction attempting to spend the UTXO is presented later, it must contain the script that matches the hash, in addition to the unlocking script. In simple terms, P2SH means "pay to a script matching this hash, a script that will be presented later when this output is spent."</p>
+</div>
+<div class="paragraph">
+<p>In P2SH transactions, the locking script that is replaced by a hash is referred to as the <em>redeem script</em> because it is presented to the system at redemption time rather than as a locking script. <a href="#without_p2sh">Complex script without P2SH</a> shows the script without P2SH and <a href="#with_p2sh">Complex script as P2SH</a> shows the same script encoded with P2SH.</p>
+</div>
+<table id="without_p2sh" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Complex script without P2SH</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locking Script</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 PubKey1 PubKey2 PubKey3 PubKey4 PubKey5 5 CHECKMULTISIG</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unlocking Script</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 Sig1 Sig2</p></td>
+</tr>
+</tbody>
+</table>
+<table id="with_p2sh" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Complex script as P2SH</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Redeem Script</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 PubKey1 PubKey2 PubKey3 PubKey4 PubKey5 5 CHECKMULTISIG</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Locking Script</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HASH160 &lt;20-byte hash of redeem script&gt; EQUAL</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unlocking Script</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 Sig1 Sig2 &lt;redeem script&gt;</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>As you can see from the tables, with P2SH the complex script that details the conditions for spending the output (redeem script) is not presented in the locking script. Instead, only a hash of it is in the locking script and the redeem script itself is presented later, as part of the unlocking script when the output is spent. This shifts the burden in fees and complexity from the sender (who creates the transaction) to the recipient (who unlocks and spends the transaction).</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s look at Mohammed&#8217;s company, the complex multisignature script, and the resulting P2SH scripts.</p>
+</div>
+<div class="paragraph">
+<p>First, the multisignature script that Mohammed&#8217;s company uses for all incoming payments from customers:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>2 &lt;Mohammed's Public Key&gt; &lt;Partner1 Public Key&gt; &lt;Partner2 Public Key&gt; &lt;Partner3 Public Key&gt; &lt;Attorney Public Key&gt; 5 CHECKMULTISIG</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the placeholders are replaced by actual public keys (shown here as 520-bit numbers starting with 04) you can see that this script becomes very long:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>2
+04C16B8698A9ABF84250A7C3EA7EEDEF9897D1C8C6ADF47F06CF73370D74DCCA01CDCA79DCC5C395D7EEC6984D83F1F50C900A24DD47F569FD4193AF5DE762C58704A2192968D8655D6A935BEAF2CA23E3FB87A3495E7AF308EDF08DAC3C1FCBFC2C75B4B0F4D0B1B70CD2423657738C0C2B1D5CE65C97D78D0E34224858008E8B49047E63248B75DB7379BE9CDA8CE5751D16485F431E46117B9D0C1837C9D5737812F393DA7D4420D7E1A9162F0279CFC10F1E8E8F3020DECDBC3C0DD389D99779650421D65CBD7149B255382ED7F78E946580657EE6FDA162A187543A9D85BAAA93A4AB3A8F044DADA618D087227440645ABE8A35DA8C5B73997AD343BE5C2AFD94A5043752580AFA1ECED3C68D446BCAB69AC0BA7DF50D56231BE0AABF1FDEEC78A6A45E394BA29A1EDF518C022DD618DA774D207D137AAB59E0B000EB7ED238F4D800 5 CHECKMULTISIG</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This entire script can instead be represented by a 20-byte cryptographic hash, by first applying the SHA256 hashing algorithm and then applying the RIPEMD160 algorithm on the result.</p>
+</div>
+<div class="paragraph">
+<p>We use libbitcoin-explorer (bx) on the command-line to produce the script hash, as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>echo \
+2 \
+[04C16B8698A9ABF84250A7C3EA7EEDEF9897D1C8C6ADF47F06CF73370D74DCCA01CDCA79DCC5C395D7EEC6984D83F1F50C900A24DD47F569FD4193AF5DE762C587] \
+[04A2192968D8655D6A935BEAF2CA23E3FB87A3495E7AF308EDF08DAC3C1FCBFC2C75B4B0F4D0B1B70CD2423657738C0C2B1D5CE65C97D78D0E34224858008E8B49] \
+[047E63248B75DB7379BE9CDA8CE5751D16485F431E46117B9D0C1837C9D5737812F393DA7D4420D7E1A9162F0279CFC10F1E8E8F3020DECDBC3C0DD389D9977965] \
+[0421D65CBD7149B255382ED7F78E946580657EE6FDA162A187543A9D85BAAA93A4AB3A8F044DADA618D087227440645ABE8A35DA8C5B73997AD343BE5C2AFD94A5] \
+[043752580AFA1ECED3C68D446BCAB69AC0BA7DF50D56231BE0AABF1FDEEC78A6A45E394BA29A1EDF518C022DD618DA774D207D137AAB59E0B000EB7ED238F4D800] \
+5 CHECKMULTISIG \
+| bx script-encode | bx sha256 | bx ripemd160
+54c557e07dde5bb6cb791c7a540e0a4796f5e97e</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The series of commands above first encodes Mohammed&#8217;s multisig redeem script as a serialized hex-encoded bitcoin Script. The next bx command calculates the SHA256 hash of that. The next bx command hashes again with RIPEMD160, producing the final script-hash:</p>
+</div>
+<div class="paragraph">
+<p>The 20-byte hash of Mohammed&#8217;s redeem script is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>54c557e07dde5bb6cb791c7a540e0a4796f5e97e</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A P2SH transaction locks the output to this hash instead of the longer redeem script, using the locking script:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>HASH160 54c557e07dde5bb6cb791c7a540e0a4796f5e97e EQUAL</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>which, as you can see, is much shorter. Instead of "pay to this 5-key multisignature script," the P2SH equivalent transaction is "pay to a script with this hash." A customer making a payment to Mohammed&#8217;s company need only include this much shorter locking script in his payment. When Mohammed and his partners want to spend this UTXO, they must present the original redeem script (the one whose hash locked the UTXO) and the signatures necessary to unlock it, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;Sig1&gt; &lt;Sig2&gt; &lt;2 PK1 PK2 PK3 PK4 PK5 5 CHECKMULTISIG&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The two scripts are combined in two stages. First, the redeem script is checked against the locking script to make sure the hash matches:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;2 PK1 PK2 PK3 PK4 PK5 5 CHECKMULTISIG&gt; HASH160 &lt;redeem scriptHash&gt; EQUAL</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the redeem script hash matches, the unlocking script is executed on its own, to unlock the redeem script:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;Sig1&gt; &lt;Sig2&gt; 2 PK1 PK2 PK3 PK4 PK5 5 CHECKMULTISIG</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Almost all the scripts described in this chapter can only be implemented as P2SH scripts. For example, a 2 of 5 standard multisignature locking script cannot be used directly in the locking script of an UTXO, as IsStandard() would invalidate the transaction. To conform, a P2SH locking script can be used instead, as seen above. A transaction that then includes a P2SH unlocking script can be used to redeem this UTXO and will be valid so long as it does not contain more than 15 public keys. </p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Remember, because of policy set forth by the IsStandard() function at the time of this writing, standard multisignature scripts are limited to at most 3 listed public keys, while P2SH scripts are limited to at most 15 listed public keys. Standard multisignature scripts can invalidate transactions by way of their locking <em>or</em> unlocking script, while P2SH scripts can invalidate transactions by way of their unlocking script <em>only</em>. This is because there is no way for IsStandard() to tell if a hash of a redeem script in a locking script includes more signatures than the currently imposed size limitation, so it can only observe the unlocking scripts in transaction inputs.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_p2sh_addresses">P2SH Addresses</h4>
+<div class="paragraph">
+<p>Another important part of the P2SH feature is the ability to encode a script hash as an address, as defined in BIP-13. P2SH addresses are Base58Check encodings of the 20-byte hash of a script, just like Bitcoin addresses are Base58Check encodings of the 20-byte hash of a public key. P2SH addresses use the version prefix "5," which results in Base58Check-encoded addresses that start with a "3."</p>
+</div>
+<div class="paragraph">
+<p>For example, Mohammed&#8217;s complex script, hashed and Base58Check-encoded as a P2SH address, becomes 39RF6JqABiHdYHkfChV6USGMe6Nsr66Gzw. We can confirm that with the bx command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>echo \
+'54c557e07dde5bb6cb791c7a540e0a4796f5e97e'\
+ | bx address-encode -v 5
+39RF6JqABiHdYHkfChV6USGMe6Nsr66Gzw</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, Mohammed can give this "address" to his customers and they can use almost any bitcoin wallet to make a simple payment, as if it were a Bitcoin address. The 3 prefix gives them a hint that this is a special type of address, one corresponding to a script instead of a public key, but otherwise it works in exactly the same way as a payment to a Bitcoin address.</p>
+</div>
+<div class="paragraph">
+<p>P2SH addresses hide all of the complexity, so that the person making a payment does not see the script.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_benefits_of_p2sh">Benefits of P2SH</h4>
+<div class="paragraph">
+<p>The P2SH feature offers the following benefits compared to the direct use of complex scripts in locking outputs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Complex scripts are replaced by shorter fingerprints in the transaction output, making the transaction smaller.</p>
+</li>
+<li>
+<p>Scripts can be coded as an address, so the sender and the sender&#8217;s wallet don&#8217;t need complex engineering to implement P2SH.</p>
+</li>
+<li>
+<p>P2SH shifts the burden of constructing the script to the recipient, not the sender.</p>
+</li>
+<li>
+<p>P2SH shifts the burden in data storage for the long script from the output (which additionally to being stored on the blockchain is in the UTXO set) to the input (only stored on the blockchain).</p>
+</li>
+<li>
+<p>P2SH shifts the burden in data storage for the long script from the present time (payment) to a future time (when it is spent).</p>
+</li>
+<li>
+<p>P2SH shifts the higher transaction fee costs of a long script from the sender to the recipient, who has to include the long redeem script to spend it.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_redeem_script_and_validation">Redeem Script and Validation</h4>
+<div class="paragraph">
+<p>Prior to version 0.9.2 of the Bitcoin Core client, Pay-to-Script-Hash was limited to the standard types of bitcoin transaction scripts, by the IsStandard() function. That means that the redeem script presented in the spending transaction could only be one of the standard types: P2PK, P2PKH, or multisig.</p>
+</div>
+<div class="paragraph">
+<p>As of version 0.9.2 of the Bitcoin Core client, P2SH transactions can contain any valid script, making the P2SH standard much more flexible and allowing for experimentation with many novel and complex types of transactions.</p>
+</div>
+<div class="paragraph">
+<p>You are not able to put a P2SH inside a P2SH redeem script, because the P2SH specification is not recursive. Also, while it is technically possible to include RETURN (see <a href="#op_return">Data Recording Output (RETURN)</a>) in a redeem script, as nothing in the rules prevents you from doing so, it is of no practical use because executing RETURN during validation will cause the transaction to be marked invalid.</p>
+</div>
+<div class="paragraph">
+<p>Note that because the redeem script is not presented to the network until you attempt to spend a P2SH output, if you lock an output with the hash of an invalid redeem script it will be processed regardless. The UTXO will be successfully locked. However, you will not be able to spend it because the spending transaction, which includes the redeem script, will not be accepted because it is an invalid script. This creates a risk, because you can lock bitcoin in a P2SH that cannot be spent later. The network will accept the P2SH locking script even if it corresponds to an invalid redeem script, because the script hash gives no indication of the script it represents.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>P2SH locking scripts contain the hash of a redeem script, which gives no clues as to the content of the redeem script itself. The P2SH transaction will be considered valid and accepted even if the redeem script is invalid. You might accidentally lock bitcoin in such a way that it cannot later be spent.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="op_return">Data Recording Output (RETURN)</h3>
+<div class="paragraph">
+<p>Bitcoin&#8217;s distributed and timestamped ledger, the blockchain, has potential uses far beyond payments. Many developers have tried to use the transaction scripting language to take advantage of the security and resilience of the system for applications such as digital notary services, stock certificates, and smart contracts. Early attempts to use bitcoin&#8217;s script language for these purposes involved creating transaction outputs that recorded data on the blockchain; for example, to record a digital fingerprint of a file in such a way that anyone could establish proof-of-existence of that file on a specific date by reference to that transaction.</p>
+</div>
+<div class="paragraph">
+<p>The use of bitcoin&#8217;s blockchain to store data unrelated to bitcoin payments is a controversial subject. Many developers consider such use abusive and want to discourage it. Others view it as a demonstration of the powerful capabilities of blockchain technology and want to encourage such experimentation. Those who object to the inclusion of nonpayment data argue that it causes "blockchain bloat," burdening those running full Bitcoin nodes with carrying the cost of disk storage for data that the blockchain was not intended to carry. Moreover, such transactions create UTXO that cannot be spent, using the destination Bitcoin address as a freeform 20-byte field. Because the address is used for data, it doesn&#8217;t correspond to a private key and the resulting UTXO can <em>never</em> be spent; it&#8217;s a fake payment. These transactions that can never be spent are therefore never removed from the UTXO set and cause the size of the UTXO database to forever increase, or "bloat."</p>
+</div>
+<div class="paragraph">
+<p>In version 0.9 of the Bitcoin Core client, a compromise was reached with the introduction of the RETURN operator. RETURN allows developers to add 80 bytes of nonpayment data to a transaction output. However, unlike the use of "fake" UTXO, the RETURN operator creates an explicitly <em>provably unspendable</em> output, which does not need to be stored in the UTXO set. RETURN outputs are recorded on the blockchain, so they consume disk space and contribute to the increase in the blockchain&#8217;s size, but they are not stored in the UTXO set and therefore do not bloat the UTXO memory pool and burden full nodes with the cost of more expensive RAM.</p>
+</div>
+<div class="paragraph">
+<p>RETURN scripts look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>RETURN &lt;data&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The data portion is limited to 80 bytes and most often represents a hash, such as the output from the SHA256 algorithm (32 bytes). Many applications put a prefix in front of the data to help identify the application. For example, the <a href="https://proofofexistence.com">Proof of Existence</a> digital notarization service uses the 8-byte prefix DOCPROOF, which is ASCII encoded as 44 4f 43 50 52 4f 4f 46 in hexadecimal.</p>
+</div>
+<div class="paragraph">
+<p>Keep in mind that there is no "unlocking script" that corresponds to RETURN that could possibly be used to "spend" a RETURN output. The whole point of RETURN is that you can&#8217;t spend the money locked in that output, and therefore it does not need to be held in the UTXO set as potentially spendable—RETURN is <em>provably unspendable</em>. RETURN is usually an output with a zero bitcoin amount, because any bitcoin assigned to such an output is effectively lost forever. If a RETURN is referenced as an input in a transaction, the script validation engine will halt the execution of the validation script and mark the transaction as invalid. The execution of RETURN essentially causes the script to "RETURN" with a FALSE and halt. Thus, if you accidentally reference a RETURN output as an input in a transaction, that transaction is invalid.</p>
+</div>
+<div class="paragraph">
+<p>A standard transaction (one that conforms to the IsStandard() checks) can have only one RETURN output. However, a single RETURN output can be combined in a transaction with outputs of any other type.</p>
+</div>
+<div class="paragraph">
+<p>Two new command-line options have been added in Bitcoin Core as of version 0.10. The option datacarrier controls relay and mining of RETURN transactions, with the default set to "1" to allow them. The option datacarriersize takes a numeric argument specifying the maximum size in bytes of the RETURN script, 83 bytes by default, which, allows for a maximum of 80 bytes of RETURN data plus one byte of RETURN opcode and two bytes of PUSHDATA opcode.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>RETURN was initially proposed with a limit of 80 bytes, but the limit was reduced to 40 bytes when the feature was released. In February 2015, in version 0.10 of Bitcoin Core, the limit was raised back to 80 bytes. Nodes may choose not to relay or mine RETURN, or only relay and mine RETURN containing less than 80 bytes of data.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_timelocks">Timelocks</h3>
+<div class="paragraph">
+<p>Timelocks are restrictions on transactions or outputs that only allow spending after a point in time. Bitcoin has had a transaction-level timelock feature from the beginning. It is implemented by the nLocktime field in a transaction. Two new timelock features were introduced in late 2015 and mid-2016 that offer UTXO-level timelocks. These are CHECKLOCKTIMEVERIFY and CHECKSEQUENCEVERIFY.</p>
+</div>
+<div class="paragraph">
+<p>Timelocks are useful for postdating transactions and locking funds to a date in the future. More importantly, timelocks extend bitcoin scripting into the dimension of time, opening the door for complex multistep smart contracts.</p>
+</div>
+<div class="sect3">
+<h4 id="transaction_locktime_nlocktime">Transaction Locktime (nLocktime)</h4>
+<div class="paragraph">
+<p>From the beginning, bitcoin has had a transaction-level timelock feature. Transaction locktime is a transaction-level setting (a field in the transaction data structure) that defines the earliest time that a transaction is valid and can be relayed on the network or added to the blockchain. Locktime is also known as nLocktime from the variable name used in the Bitcoin Core codebase. It is set to zero in most transactions to indicate immediate propagation and execution. If nLocktime is nonzero and below 500 million, it is interpreted as a block height, meaning the transaction is not valid and is not relayed or included in the blockchain prior to the specified block height. If it is greater than or equal to 500 million, it is interpreted as a Unix Epoch timestamp (seconds since Jan-1-1970) and the transaction is not valid prior to the specified time. Transactions with nLocktime specifying a future block or time must be held by the originating system and transmitted to the Bitcoin network only after they become valid. If a transaction is transmitted to the network before the specified nLocktime, the transaction will be rejected by the first node as invalid and will not be relayed to other nodes. The use of nLocktime is equivalent to postdating a paper check.</p>
+</div>
+<div class="sect4">
+<h5 id="locktime_limitations">Transaction locktime limitations</h5>
+<div class="paragraph">
+<p>nLocktime has the limitation that while it makes it possible to spend some outputs in the future, it does not make it impossible to spend them until that time. Let&#8217;s explain that with the following example.</p>
+</div>
+<div class="paragraph">
+<p>Alice signs a transaction spending one of her outputs to Bob&#8217;s address, and sets the transaction nLocktime to 3 months in the future. Alice sends that transaction to Bob to hold. With this transaction Alice and Bob know that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Bob cannot transmit the transaction to redeem the funds until 3 months have elapsed.</p>
+</li>
+<li>
+<p>Bob may transmit the transaction after 3 months.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>However:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Alice can create another transaction, double-spending the same inputs without a locktime. Thus, Alice can spend the same UTXO before the 3 months have elapsed.</p>
+</li>
+<li>
+<p>Bob has no guarantee that Alice won&#8217;t do that.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It is important to understand the limitations of transaction nLocktime. The only guarantee is that Bob will not be able to redeem it before 3 months have elapsed. There is no guarantee that Bob will get the funds. To achieve such a guarantee, the timelock restriction must be placed on the UTXO itself and be part of the locking script, rather than on the transaction. This is achieved by the next form of timelock, called Check Lock Time Verify.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_check_lock_time_verify_cltv">Check Lock Time Verify (CLTV)</h4>
+<div class="paragraph">
+<p>In December 2015, a new form of timelock was introduced to bitcoin as a soft fork upgrade. Based on a specification in BIP-65, a new script operator called <em>CHECKLOCKTIMEVERIFY</em> (<em>CLTV</em>) was added to the scripting language. CLTV is a per-output timelock, rather than a per-transaction timelock as is the case with nLocktime. This allows for much greater flexibility in the way timelocks are applied.</p>
+</div>
+<div class="paragraph">
+<p>In simple terms, by adding the CLTV opcode in the redeem script of an output it restricts the output, so that it can only be spent after the specified time has elapsed.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>While nLocktime is a transaction-level timelock, CLTV is an output-based timelock.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>CLTV doesn&#8217;t replace nLocktime, but rather restricts specific UTXO such that they can only be spent in a future transaction with nLocktime set to a greater or equal value.</p>
+</div>
+<div class="paragraph">
+<p>The CLTV opcode takes one parameter as input, expressed as a number in the same format as nLocktime (either a block height or Unix epoch time). As indicated by the VERIFY suffix, CLTV is the type of opcode that halts execution of the script if the outcome is FALSE. If it results in TRUE, execution continues.</p>
+</div>
+<div class="paragraph">
+<p>In order to lock an output with CLTV, you insert it into the redeem script of the output in the transaction that creates the output. For example, if Alice is paying Bob&#8217;s address, the output would normally contain a P2PKH script like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>DUP HASH160 &lt;Bob's Public Key Hash&gt; EQUALVERIFY CHECKSIG</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To lock it to a time, say 3 months from now, the transaction would be a P2SH transaction with a redeem script like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;now + 3 months&gt; CHECKLOCKTIMEVERIFY DROP DUP HASH160 &lt;Bob's Public Key Hash&gt; EQUALVERIFY CHECKSIG</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where &lt;now {plus} 3 months&gt; is a block height or time value estimated 3 months from the time the transaction is mined: current block height &#43; 12,960 (blocks) or current Unix epoch time &#43; 7,760,000 (seconds). For now, don&#8217;t worry about the DROP opcode that follows CHECKLOCKTIMEVERIFY; it will be explained shortly.</p>
+</div>
+<div class="paragraph">
+<p>When Bob tries to spend this UTXO, he constructs a transaction that references the UTXO as an input. He uses his signature and public key in the unlocking script of that input and sets the transaction nLocktime to be equal to or greater than the timelock in the CHECKLOCKTIMEVERIFY Alice set. Bob then broadcasts the transaction on the Bitcoin network.</p>
+</div>
+<div class="paragraph">
+<p>Bob&#8217;s transaction is evaluated as follows. If the CHECKLOCKTIMEVERIFY parameter Alice set is less than or equal to the spending transaction&#8217;s nLocktime, script execution continues (acts as if a &#x201c;no operation&#x201d; or NOP opcode was executed). Otherwise, script execution halts and the transaction is deemed invalid.</p>
+</div>
+<div class="paragraph">
+<p>More precisely, CHECKLOCKTIMEVERIFY fails and halts execution, marking the transaction invalid if (source: BIP-65):</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>the stack is empty; or</p>
+</li>
+<li>
+<p>the top item on the stack is less than 0; or</p>
+</li>
+<li>
+<p>the timelock type (height versus timestamp) of the top stack item and the nLocktime field are not the same; or</p>
+</li>
+<li>
+<p>the top stack item is greater than the transaction&#8217;s nLocktime field; or</p>
+</li>
+<li>
+<p>the nSequence field of the input is 0xffffffff.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>CLTV and nLocktime use the same format to describe timelocks, either a block height or the time elapsed in seconds since Unix epoch. Critically, when used together, the format of nLocktime must match that of CLTV in the outputs&#x2014;they must both reference either block height or time in seconds.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>After execution, if CLTV is satisfied, the time parameter that preceded it remains as the top item on the stack and may need to be dropped, with DROP, for correct execution of subsequent script opcodes. You will often see CHECKLOCKTIMEVERIFY followed by DROP in scripts for this reason.</p>
+</div>
+<div class="paragraph">
+<p>By using nLocktime in conjunction with CLTV, the scenario described in <a href="#locktime_limitations">Transaction locktime limitations</a> changes. Alice can no longer spend the money (because it&#8217;s locked with Bob&#8217;s key) and Bob cannot spend it before the 3-month locktime has expired.</p>
+</div>
+<div class="paragraph">
+<p>By introducing timelock functionality directly into the scripting language, CLTV allows us to develop some very interesting complex scripts.</p>
+</div>
+<div class="paragraph">
+<p>The standard is defined in <a href="https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki">BIP-65 (CHECKLOCKTIMEVERIFY)</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_relative_timelocks">Relative Timelocks</h4>
+<div class="paragraph">
+<p>nLocktime and CLTV are both <em>absolute timelocks</em> in that they specify an absolute point in time. The next two timelock features we will examine are <em>relative timelocks</em> in that they specify, as a condition of spending an output, an elapsed time from the confirmation of the output in the blockchain.</p>
+</div>
+<div class="paragraph">
+<p>Relative timelocks are useful because they allow a chain of two or more interdependent transactions to be held off chain, while imposing a time constraint on one transaction that is dependent on the elapsed time from the confirmation of a previous transaction. In other words, the clock doesn&#8217;t start counting until the UTXO is recorded on the blockchain. This functionality is especially useful in bidirectional state channels and Lightning Networks, as we will see in <a href="#state_channels">[state_channels]</a>.</p>
+</div>
+<div class="paragraph">
+<p>Relative timelocks, like absolute timelocks, are implemented with both a transaction-level feature and a script-level opcode. The transaction-level relative timelock is implemented as a consensus rule on the value of nSequence, a transaction field that is set in every transaction input. Script-level relative timelocks are implemented with the CHECKSEQUENCEVERIFY (CSV) opcode.</p>
+</div>
+<div class="paragraph">
+<p>Relative timelocks are implemented according to the specifications in <a href="https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki">BIP-68, Relative lock-time using consensus-enforced sequence numbers</a> and <a href="https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki">BIP-112, CHECKSEQUENCEVERIFY</a>.</p>
+</div>
+<div class="paragraph">
+<p>BIP-68 and BIP-112 were activated in May 2016 as a soft fork upgrade to the consensus rules.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_relative_timelocks_with_nsequence">Relative Timelocks with nSequence</h4>
+<div class="paragraph">
+<p>Relative timelocks can be set on each input of a transaction, by setting the nSequence field in each input.</p>
+</div>
+<div class="sect4">
+<h5 id="_original_meaning_of_nsequence">Original meaning of nSequence</h5>
+<div class="paragraph">
+<p>The nSequence field was originally intended (but never properly implemented) to allow modification of transactions in the mempool. In that use, a transaction containing inputs with nSequence value below 2<sup>32</sup> - 1 (0xFFFFFFFF) indicated a transaction that was not yet "finalized." Such a transaction would be held in the mempool until it was replaced by another transaction spending the same inputs with a higher nSequence value. Once a transaction was received whose inputs had an nSequence value of 0xFFFFFFFF it would be considered "finalized" and mined.</p>
+</div>
+<div class="paragraph">
+<p>The original meaning of nSequence was never properly implemented and the value of nSequence is customarily set to 0xFFFFFFFF in transactions that do not utilize timelocks. For transactions with nLocktime or CHECKLOCKTIMEVERIFY, the nSequence value must be set to less than 2<sup>31</sup> for the timelock guards to have an effect, as explained below.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_nsequence_as_a_consensus_enforced_relative_timelock">nSequence as a consensus-enforced relative timelock</h5>
+<div class="paragraph">
+<p>Since the activation of BIP-68, new consensus rules apply for any transaction containing an input whose nSequence value is less than 2<sup>31</sup> (bit 1&lt;&lt;31 is not set). Programmatically, that means that if the most significant bit (bit 1&lt;&lt;31) is not set, it is a flag that means "relative locktime." Otherwise (bit 1&lt;&lt;31 set), the nSequence value is reserved for other uses such as enabling CHECKLOCKTIMEVERIFY, nLocktime, Opt-In-Replace-By-Fee, and other future developments.</p>
+</div>
+<div class="paragraph">
+<p>Transaction inputs with nSequence values less than 2<sup>31</sup> are interpreted as having a relative timelock. Such a transaction is only valid once the input has aged by the relative timelock amount. For example, a transaction with one input with an nSequence relative timelock of 30 blocks is only valid when at least 30 blocks have elapsed from the time the UTXO referenced in the input was mined. Since nSequence is a per-input field, a transaction may contain any number of timelocked inputs, all of which must have sufficiently aged for the transaction to be valid. A transaction can include both timelocked inputs (nSequence &lt; 2<sup>31</sup>) and inputs without a relative timelock (nSequence &gt;= 2<sup>31</sup>).</p>
+</div>
+<div class="paragraph">
+<p>The nSequence value is specified in either blocks or seconds, but in a slightly different format than we saw used in nLocktime. A type-flag is used to differentiate between values counting blocks and values counting time in seconds. The type-flag is set in the 23rd least-significant bit (i.e., value 1&lt;&lt;22). If the type-flag is set, then the nSequence value is interpreted as a multiple of 512 seconds. If the type-flag is not set, the nSequence value is interpreted as a number of blocks.</p>
+</div>
+<div class="paragraph">
+<p>When interpreting nSequence as a relative timelock, only the 16 least significant bits are considered. Once the flags (bits 32 and 23) are evaluated, the nSequence value is usually "masked" with a 16-bit mask (e.g., nSequence &amp; 0x0000FFFF).</p>
+</div>
+<div class="paragraph">
+<p><a href="#bip_68_def_of_nseq">BIP-68 definition of nSequence encoding (Source: BIP-68)</a> shows the binary layout of the nSequence value, as defined by BIP-68.</p>
+</div>
+<div id="bip_68_def_of_nseq" class="imageblock">
+<div class="content">
+<img src="images/mbc2_0701.png" alt="BIP-68 definition of nSequence encoding">
+</div>
+<div class="title">Figure 1. BIP-68 definition of nSequence encoding (Source: BIP-68)</div>
+</div>
+<div class="paragraph">
+<p>Relative timelocks based on consensus enforcement of the nSequence value are defined in BIP-68.</p>
+</div>
+<div class="paragraph">
+<p>The standard is defined in <a href="https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki">BIP-68, Relative lock-time using consensus-enforced sequence numbers</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_relative_timelocks_with_csv">Relative Timelocks with CSV</h4>
+<div class="paragraph">
+<p>Just like CLTV and nLocktime, there is a script opcode for relative timelocks that leverages the nSequence value in scripts. That opcode is CHECKSEQUENCEVERIFY, commonly referred to as CSV for short.</p>
+</div>
+<div class="paragraph">
+<p>The CSV opcode when evaluated in an UTXO&#8217;s redeem script allows spending only in a transaction whose input nSequence value is greater than or equal to the CSV parameter. Essentially, this restricts spending the UTXO until a certain number of blocks or seconds have elapsed relative to the time the UTXO was mined.</p>
+</div>
+<div class="paragraph">
+<p>As with CLTV, the value in CSV must match the format in the corresponding nSequence value. If CSV is specified in terms of blocks, then so must nSequence. If CSV is specified in terms of seconds, then so must nSequence.</p>
+</div>
+<div class="paragraph">
+<p>Relative timelocks with CSV are especially useful when several (chained) transactions are created and signed, but not propagated, when they&#8217;re kept "off-chain." A child transaction cannot be used until the parent transaction has been propagated, mined, and aged by the time specified in the relative timelock. One application of this use case can be seen in <a href="#state_channels">[state_channels]</a> and <a href="#lightning_network">[lightning_network]</a>.</p>
+</div>
+<div class="paragraph">
+<p>CSV is defined in detail in <a href="https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki">BIP-112, CHECKSEQUENCEVERIFY</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_median_time_past">Median-Time-Past</h4>
+<div class="paragraph">
+<p>As part of the activation of relative timelocks, there was also a change in the way "time" is calculated for timelocks (both absolute and relative). In bitcoin there is a subtle, but very significant, difference between wall time and consensus time. Bitcoin is a decentralized network, which means that each participant has his or her own perspective of time. Events on the network do not occur instantaneously everywhere. Network latency must be factored into the perspective of each node. Eventually everything is synchronized to create a common ledger. Bitcoin reaches consensus every 10 minutes about the state of the ledger as it existed in the <em>past</em>.</p>
+</div>
+<div class="paragraph">
+<p>The timestamps set in block headers are set by the miners. There is a certain degree of latitude allowed by the consensus rules to account for differences in clock accuracy between decentralized nodes. However, this creates an unfortunate incentive for miners to lie about the time in a block so as to earn extra fees by including timelocked transactions that are not yet mature. See the following section for more information.</p>
+</div>
+<div class="paragraph">
+<p>To remove the incentive to lie and strengthen the security of timelocks, a BIP was proposed and activated at the same time as the BIPs for relative timelocks. This is BIP-113, which defines a new consensus measurement of time called <em>Median-Time-Past</em>.</p>
+</div>
+<div class="paragraph">
+<p>Median-Time-Past is calculated by taking the timestamps of the last 11 blocks and finding the median. That median time then becomes consensus time and is used for all timelock calculations. By taking the midpoint from approximately two hours in the past, the influence of any one block&#8217;s timestamp is reduced. By incorporating 11 blocks, no single miner can influence the timestamps in order to gain fees from transactions with a timelock that hasn&#8217;t yet matured.</p>
+</div>
+<div class="paragraph">
+<p>Median-Time-Past changes the implementation of time calculations for nLocktime, CLTV, nSequence, and CSV. The consensus time calculated by Median-Time-Past is always approximately one hour behind wall clock time. If you create timelock transactions, you should account for it when estimating the desired value to encode in nLocktime, nSequence, CLTV, and CSV.</p>
+</div>
+<div class="paragraph">
+<p>Median-Time-Past is specified in <a href="https://github.com/bitcoin/bips/blob/master/bip-0113.mediawiki">BIP-113</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="fee_sniping">Timelock Defense Against Fee Sniping</h4>
+<div class="paragraph">
+<p>Fee-sniping is a theoretical attack scenario, where miners attempting to rewrite past blocks "snipe" higher-fee transactions from future blocks to maximize their profitability.</p>
+</div>
+<div class="paragraph">
+<p>For example, let&#8217;s say the highest block in existence is block  #100,000. If instead of attempting to mine block #100,001 to extend the chain, some miners attempt to remine  #100,000. These miners can choose to include any valid transaction (that hasn&#8217;t been mined yet) in their candidate block  #100,000. They don&#8217;t have to remine the block with the same transactions. In fact, they have the incentive to select the most profitable (highest fee per kB) transactions to include in their block. They can include any transactions that were in the "old" block  #100,000, as well as any transactions from the current mempool. Essentially they have the option to pull transactions from the "present" into the rewritten "past" when they re-create block  #100,000.</p>
+</div>
+<div class="paragraph">
+<p>Today, this attack is not very lucrative, because block reward is much higher than total fees per block. But at some point in the future, transaction fees will be the majority of the mining reward (or even the entirety of the mining reward). At that time, this scenario becomes inevitable.</p>
+</div>
+<div class="paragraph">
+<p>To prevent "fee sniping," when Bitcoin Core creates transactions, it uses nLocktime to limit them to the "next block," by default. In our scenario, Bitcoin Core would set nLocktime to 100,001 on any transaction it created. Under normal circumstances, this nLocktime has no effect&#x2014;the transactions could only be included in block #100,001 anyway; it&#8217;s the next block.</p>
+</div>
+<div class="paragraph">
+<p>But under a blockchain fork/double-spend attack, the miners would not be able to pull high-fee transactions from the mempool, because all those transactions would be timelocked to block #100,001. They can only remine #100,000 with whatever transactions were valid at that time, essentially gaining no new fees.</p>
+</div>
+<div class="paragraph">
+<p>To achieve this, Bitcoin Core sets the nLocktime on all new transactions to &lt;current block # + 1&gt; and sets the nSequence on all the inputs to 0xFFFFFFFE to enable nLocktime.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_scripts_with_flow_control_conditional_clauses">Scripts with Flow Control (Conditional Clauses)</h3>
+<div class="paragraph">
+<p>One of the more powerful features of Bitcoin Script is flow control, also known as conditional clauses. You are probably familiar with flow control in various programming languages that use the construct IF...THEN...ELSE. Bitcoin conditional clauses look a bit different, but are essentially the same construct.</p>
+</div>
+<div class="paragraph">
+<p>At a basic level, bitcoin conditional opcodes allow us to construct a redeem script that has two ways of being unlocked, depending on a TRUE/FALSE outcome of evaluating a logical condition. For example, if x is TRUE, the redeem script is A and the ELSE redeem script is B.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, bitcoin conditional expressions can be "nested" indefinitely, meaning that a conditional clause can contain another within it, which contains another, etc. Bitcoin Script flow control can be used to construct very complex scripts with hundreds or even thousands of possible execution paths. There is no limit to nesting, but consensus rules impose a limit on the maximum size, in bytes, of a script.</p>
+</div>
+<div class="paragraph">
+<p>Bitcoin implements flow control using the IF, ELSE, ENDIF, and NOTIF opcodes. Additionally, conditional expressions can contain boolean operators such as BOOLAND, BOOLOR, and NOT.</p>
+</div>
+<div class="paragraph">
+<p>At first glance, you may find the bitcoin&#8217;s flow control scripts confusing. That is because Bitcoin Script is a stack language. The same way that 1 {plus} 1 looks "backward" when expressed as 1 1 ADD, flow control clauses in bitcoin also look "backward."</p>
+</div>
+<div class="paragraph">
+<p>In most traditional (procedural) programming languages, flow control looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">Pseudocode of flow control in most programming languages</div>
+<div class="content">
+<pre>if (condition):
+  code to run when condition is true
+else:
+  code to run when condition is false
+code to run in either case</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In a stack-based language like Bitcoin Script, the logical condition comes before the IF, which makes it look "backward," like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">Bitcoin Script flow control</div>
+<div class="content">
+<pre>condition
+IF
+  code to run when condition is true
+ELSE
+  code to run when condition is false
+ENDIF
+code to run in either case</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When reading Bitcoin Script, remember that the condition being evaluated comes <em>before</em> the IF opcode.</p>
+</div>
+<div class="sect3">
+<h4 id="_conditional_clauses_with_verify_opcodes">Conditional Clauses with VERIFY Opcodes</h4>
+<div class="paragraph">
+<p>Another form of conditional in Bitcoin Script is any opcode that ends in VERIFY. The VERIFY suffix means that if the condition evaluated is not TRUE, execution of the script terminates immediately and the transaction is deemed invalid.</p>
+</div>
+<div class="paragraph">
+<p>Unlike an IF clause, which offers alternative execution paths, the VERIFY suffix acts as a <em>guard clause</em>, continuing only if a precondition is met.</p>
+</div>
+<div class="paragraph">
+<p>For example, the following script requires Bob&#8217;s signature and a pre-image (secret) that produces a specific hash. Both conditions must be satisfied to unlock it:</p>
+</div>
+<div class="listingblock">
+<div class="title">A redeem script with an EQUALVERIFY  guard clause.</div>
+<div class="content">
+<pre>HASH160 &lt;expected hash&gt; EQUALVERIFY &lt;Bob's Pubkey&gt; CHECKSIG</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To redeem this, Bob must construct an unlocking script that presents a valid pre-image and a signature:</p>
+</div>
+<div class="listingblock">
+<div class="title">An unlocking script to satisfy the above redeem script</div>
+<div class="content">
+<pre>&lt;Bob's Sig&gt; &lt;hash pre-image&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Without presenting the pre-image, Bob can&#8217;t get to the part of the script that checks for his signature.</p>
+</div>
+<div class="paragraph pagebreak-after">
+<p>This script can be written with an IF instead:</p>
+</div>
+<div class="listingblock">
+<div class="title">A redeem script with an IF guard clause</div>
+<div class="content">
+<pre>HASH160 &lt;expected hash&gt; EQUAL
+IF
+   &lt;Bob's Pubkey&gt; CHECKSIG
+ENDIF</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Bob&#8217;s unlocking script is identical:</p>
+</div>
+<div class="listingblock">
+<div class="title">An unlocking script to satisfy the above redeem script</div>
+<div class="content">
+<pre>&lt;Bob's Sig&gt; &lt;hash pre-image&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The script with IF does the same thing as using an opcode with a VERIFY suffix; they both operate as guard clauses. However, the VERIFY construction is more efficient, using two fewer opcodes.</p>
+</div>
+<div class="paragraph">
+<p>So, when do we use VERIFY and when do we use IF? If all we are trying to do is to attach a precondition (guard clause), then VERIFY is better. If, however, we want to have more than one execution path (flow control), then we need an IF...ELSE flow control clause.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>An opcode such as EQUAL will push the result (TRUE/FALSE) onto the stack, leaving it there for evaluation by subsequent opcodes. In contrast, the opcode EQUALVERIFY suffix does not leave anything on the stack. Opcodes that end in VERIFY do not leave the result on the stack.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_using_flow_control_in_scripts">Using Flow Control in Scripts</h4>
+<div class="paragraph">
+<p>A very common use for flow control in Bitcoin Script is to construct a redeem script that offers multiple execution paths, each a different way of redeeming the UTXO.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s look at a simple example, where we have two signers, Alice and Bob, and either one is able to redeem. With multisig, this would be expressed as a 1-of-2 multisig script. For the sake of demonstration, we will do the same thing with an IF clause:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>IF
+ &lt;Alice's Pubkey&gt; CHECKSIG
+ELSE
+ &lt;Bob's Pubkey&gt; CHECKSIG
+ENDIF</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Looking at this redeem script, you may be wondering: "Where is the condition? There is nothing preceding the IF clause!"</p>
+</div>
+<div class="paragraph">
+<p>The condition is not part of the redeem script. Instead, the condition will be offered in the unlocking script, allowing Alice and Bob to "choose" which execution path they want.</p>
+</div>
+<div class="paragraph">
+<p>Alice redeems this with the unlocking script:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;Alice's Sig&gt; 1</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The 1 at the end serves as the condition (TRUE) that will make the IF clause execute the first redemption path for which Alice has a signature.</p>
+</div>
+<div class="paragraph">
+<p>For Bob to redeem this, he would have to choose the second execution path by giving a FALSE value to the IF clause:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;Bob's Sig&gt; 0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Bob&#8217;s unlocking script puts a 0 on the stack, causing the IF clause to execute the second (ELSE) script, which requires Bob&#8217;s signature.</p>
+</div>
+<div class="paragraph">
+<p>Since IF clauses can be nested, we can create a "maze" of execution paths. The unlocking script can provide a "map" selecting which execution path is actually executed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>IF
+  script A
+ELSE
+  IF
+    script B
+  ELSE
+    script C
+  ENDIF
+ENDIF</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this scenario, there are three execution paths (script A, script B, and script C). The unlocking script provides a path in the form of a sequence of TRUE or FALSE values. To select path script B, for example, the unlocking script must end in 1 0 (TRUE, FALSE). These values will be pushed onto the stack, so that the second value (FALSE) ends up at the top of the stack. The outer IF clause pops the FALSE value and executes the first ELSE clause. Then the TRUE value moves to the top of the stack and is evaluated by the inner (nested) IF, selecting the B execution path.</p>
+</div>
+<div class="paragraph">
+<p>Using this construct, we can build redeem scripts with tens or hundreds of execution paths, each offering a different way to redeem the UTXO. To spend, we construct an unlocking script that navigates the execution path by putting the appropriate TRUE and FALSE values on the stack at each flow control point.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_complex_script_example">Complex Script Example</h3>
+<div class="paragraph">
+<p>In this section we combine many of the concepts from this chapter into a single example.</p>
+</div>
+<div class="paragraph">
+<p>Our example uses the story of Mohammed, the company owner in Dubai who is operating an import/export business.</p>
+</div>
+<div class="paragraph">
+<p>In this example, Mohammed wishes to construct a company capital account with flexible rules. The scheme he creates requires different levels of authorization depending on timelocks. The participants in the multisig scheme are Mohammed, his two partners Saeed and Zaira, and their company lawyer Abdul. The three partners make decisions based on a majority rule, so two of the three must agree. However, in the case of a problem with their keys, they want their lawyer to be able to recover the funds with one of the three partner signatures. Finally, if all partners are unavailable or incapacitated for a while, they want the lawyer to be able to manage the account directly.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s the redeem script that Mohammed designs to achieve this (line number prefix as XX):</p>
+</div>
+<div class="listingblock">
+<div class="title">Variable Multi-Signature with Timelock</div>
+<div class="content">
+<pre>01  IF
+02    IF
+03      2
+04    ELSE
+05      &lt;30 days&gt; CHECKSEQUENCEVERIFY DROP
+06      &lt;Abdul the Lawyer's Pubkey&gt; CHECKSIGVERIFY
+07      1
+08    ENDIF
+09    &lt;Mohammed's Pubkey&gt; &lt;Saeed's Pubkey&gt; &lt;Zaira's Pubkey&gt; 3 CHECKMULTISIG
+10  ELSE
+11    &lt;90 days&gt; CHECKSEQUENCEVERIFY DROP
+12    &lt;Abdul the Lawyer's Pubkey&gt; CHECKSIG
+13  ENDIF</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Mohammed&#8217;s script implements three execution paths using nested IF...ELSE flow control clauses.</p>
+</div>
+<div class="paragraph">
+<p>In the first execution path, this script operates as a simple 2-of-3 multisig with the three partners. This execution path consists of lines 3 and 9. Line 3 sets the quorum of the multisig to 2 (2-of-3). This execution path can be selected by putting TRUE TRUE at the end of the unlocking script:</p>
+</div>
+<div class="listingblock">
+<div class="title">Unlocking script for the first execution path (2-of-3 multisig)</div>
+<div class="content">
+<pre>0 &lt;Mohammed's Sig&gt; &lt;Zaira's Sig&gt; TRUE TRUE</pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The 0 at the beginning of this unlocking script is because of a bug in CHECKMULTISIG that pops an extra value from the stack. The extra value is disregarded by the CHECKMULTISIG, but it must be present or the script fails. Pushing 0 (customarily) is a workaround to the bug, as described in <a href="#multisig_bug">A bug in CHECKMULTISIG execution</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The second execution path can only be used after 30 days have elapsed from the creation of the UTXO. At that time, it requires the signature of Abdul the lawyer and one of the three partners (a 1-of-3 multisig). This is achieved by line 7, which sets the quorum for the multisig to 1. To select this execution path, the unlocking script would end in FALSE TRUE:</p>
+</div>
+<div class="listingblock">
+<div class="title">Unlocking script for the second execution path (Lawyer + 1-of-3)</div>
+<div class="content">
+<pre>0 &lt;Abdul the Lawyer's Sig&gt; &lt;Saeed's Sig&gt; FALSE TRUE</pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Why FALSE TRUE? Isn&#8217;t that backward? Because the two values are pushed on to the stack, with FALSE pushed first, then TRUE pushed second. TRUE is therefore popped <em>first</em> by the first IF opcode.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Finally, the third execution path allows Abdul the lawyer to spend the funds alone, but only after 90 days. To select this execution path, the unlocking script has to end in FALSE:</p>
+</div>
+<div class="listingblock">
+<div class="title">Unlocking script for the third execution path (Lawyer only)</div>
+<div class="content">
+<pre>&lt;Abdul the Lawyer's Sig&gt; FALSE</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Try running the script on paper to see how it behaves on the stack.</p>
+</div>
+<div class="paragraph">
+<p>A few more things to consider when reading this example. See if you can find the answers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Why can&#8217;t the lawyer redeem the third execution path at any time by selecting it with FALSE on the unlocking script?</p>
+</li>
+<li>
+<p>How many execution paths can be used 5, 35, and 105 days, respectively, after the UTXO is mined?</p>
+</li>
+<li>
+<p>Are the funds lost if the lawyer loses his key? Does your answer change if 91 days have elapsed?</p>
+</li>
+<li>
+<p>How do the partners "reset" the clock every 29 or 89 days to prevent the lawyer from accessing the funds?</p>
+</li>
+<li>
+<p>Why do some CHECKSIG opcodes in this script have the VERIFY suffix while others don&#8217;t?</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="segwit">Segregated Witness</h3>
+<div class="paragraph">
+<p>Segregated Witness (segwit) is an upgrade to the bitcoin consensus rules and network protocol, proposed and implemented as a BIP-9 soft-fork that was activated on bitcoin&#8217;s mainnet on August 1st, 2017.</p>
+</div>
+<div class="paragraph">
+<p>In cryptography, the term "witness" is used to describe a solution to a cryptographic puzzle. In bitcoin terms, the witness satisfies a cryptographic condition placed on an unspent transaction output (UTXO).</p>
+</div>
+<div class="paragraph">
+<p>In the context of bitcoin, a digital signature is <em>one type of witness</em>, but a witness is more broadly any solution that can satisfy the conditions imposed on an UTXO and unlock that UTXO for spending. The term “witness” is a more general term for an “unlocking script” or “scriptSig.”</p>
+</div>
+<div class="paragraph">
+<p>Before segwit’s introduction, every input in a transaction was followed by the witness data that unlocked it. The witness data was embedded in the transaction as part of each input. The term <em>segregated witness</em>, or <em>segwit</em> for short, simply means separating the signature or unlocking script of a specific output. Think "separate scriptSig," or “separate signature” in the simplest form.</p>
+</div>
+<div class="paragraph">
+<p>Segregated Witness therefore is an architectural change to bitcoin that aims to move the witness data from the scriptSig (unlocking script) field of a transaction into a separate <em>witness</em> data structure that accompanies a transaction. Clients may request transaction data with or without the accompanying witness data.</p>
+</div>
+<div class="paragraph">
+<p>In this section we will look at some of the benefits of Segregated Witness, describe the mechanism used to deploy and implement this architecture change, and demonstrate the use of Segregated Witness in transactions and addresses.</p>
+</div>
+<div class="paragraph">
+<p>Segregated Witness is defined by the following BIPs:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki">BIP-141</a> </dt>
+<dd>
+<p>The main definition of Segregated Witness.</p>
+</dd>
+<dt class="hdlist1"><a href="https://github.com/bitcoin/bips/blob/master/bip-0143.mediawiki">BIP-143</a> </dt>
+<dd>
+<p>Transaction Signature Verification for Version 0 Witness Program</p>
+</dd>
+<dt class="hdlist1"><a href="https://github.com/bitcoin/bips/blob/master/bip-0144.mediawiki">BIP-144</a> </dt>
+<dd>
+<p>Peer Services&#x2014;New network messages and serialization formats</p>
+</dd>
+<dt class="hdlist1"><a href="https://github.com/bitcoin/bips/blob/master/bip-0145.mediawiki">BIP-145</a> </dt>
+<dd>
+<p>getblocktemplate Updates for Segregated Witness (for mining)</p>
+</dd>
+<dt class="hdlist1"><a href="https://github.com/bitcoin/bips/blob/master/bip-0173.mediawiki">BIP-173</a></dt>
+<dd>
+<p>Base32 address format for native v0-16 witness outputs</p>
+</dd>
+</dl>
+</div>
+<div class="sect3">
+<h4 id="_why_segregated_witness">Why Segregated Witness?</h4>
+<div class="paragraph">
+<p>Segregated Witness is an architectural change that has several effects on the scalability, security, economic incentives, and performance of bitcoin:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Transaction Malleability </dt>
+<dd>
+<p>By moving the witness outside the transaction data, the transaction hash used as an identifier no longer includes the witness data. Since the witness data is the only part of the transaction that can be modified by a third party (see <a href="#segwit_txid">Transaction identifiers</a>), removing it also removes the opportunity for transaction malleability attacks. With Segregated Witness, transaction hashes become immutable by anyone other than the creator of the transaction, which greatly improves the implementation of many other protocols that rely on advanced bitcoin transaction construction, such as payment channels, chained transactions, and lightning networks.</p>
+</dd>
+<dt class="hdlist1">Script Versioning </dt>
+<dd>
+<p>With the introduction of Segregated Witness scripts, every locking script is preceded by a <em>script version</em> number, similar to how transactions and blocks have version numbers. The addition of a script version number allows the scripting language to be upgraded in a backward-compatible way (i.e., using soft fork upgrades) to introduce new script operands, syntax, or semantics. The ability to upgrade the scripting language in a nondisruptive way will greatly accelerate the rate of innovation in bitcoin.</p>
+</dd>
+<dt class="hdlist1">Network and Storage Scaling </dt>
+<dd>
+<p>The witness data is often a big contributor to the total size of a transaction. More complex scripts such as those used for multisig or payment channels are very large. In some cases these scripts account for the majority (more than 75%) of the data in a transaction. By moving the witness data outside the transaction data, Segregated Witness improves bitcoin’s scalability. Nodes can prune the witness data after validating the signatures, or ignore it altogether when doing simplified payment verification. The witness data doesn’t need to be transmitted to all nodes and does not need to be stored on disk by all nodes.</p>
+</dd>
+<dt class="hdlist1">Signature Verification Optimization </dt>
+<dd>
+<p>Segregated Witness upgrades the signature functions (CHECKSIG, CHECKMULTISIG, etc.) to reduce the algorithm&#8217;s computational complexity. Before segwit, the algorithm used to produce a signature required a number of hash operations that was proportional to the size of the transaction. Data-hashing computations increased in O(n<sup>2</sup>) with respect to the number of signature operations, introducing a substantial computational burden on all nodes verifying the signature. With segwit, the algorithm is changed to reduce the complexity to O(n).</p>
+</dd>
+<dt class="hdlist1">Offline Signing Improvement </dt>
+<dd>
+<p>Segregated Witness signatures incorporate the value (amount) referenced by each input in the hash that is signed. Previously, an offline signing device, such as a hardware wallet, would have to verify the amount of each input before signing a transaction. This was usually accomplished by streaming a large amount of data about the previous transactions referenced as inputs. Since the amount is now part of the commitment hash that is signed, an offline device does not need the previous transactions. If the amounts do not match (are misrepresented by a compromised online system), the signature will be invalid.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_how_segregated_witness_works">How Segregated Witness Works</h4>
+<div class="paragraph">
+<p>At first glance, Segregated Witness appears to be a change to how transactions are constructed and therefore a transaction-level feature, but it is not. Rather, Segregated Witness is a change to how individual UTXO are spent and therefore is a per-output feature.</p>
+</div>
+<div class="paragraph">
+<p>A transaction can spend Segregated Witness outputs or traditional (inline-witness) outputs or both. Therefore, it does not make much sense to refer to a transaction as a “Segregated Witness transaction.” Rather we should refer to specific transaction outputs as “Segregated Witness outputs."</p>
+</div>
+<div class="paragraph">
+<p>When a transaction spends an UTXO, it must provide a witness. In a traditional UTXO, the locking script requires that witness data be provided <em>inline</em> in the input part of the transaction that spends the UTXO. A Segregated Witness UTXO, however, specifies a locking script that can be satisfied with witness data outside of the input (segregated).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_soft_fork_backward_compatibility">Soft Fork (Backward Compatibility)</h4>
+<div class="paragraph">
+<p>Segregated Witness is a significant change to the way outputs and transactions are architected. Such a change would normally require a simultaneous change in every Bitcoin node and wallet to change the consensus rules&#x2014;what is known as a hard fork. Instead, segregated witness is introduced with a much less disruptive change, which is backward compatible, known as a soft fork. This type of upgrade allows non-upgraded software to ignore the changes and continue to operate without any disruption.</p>
+</div>
+<div class="paragraph">
+<p>Segregated Witness outputs are constructed so that older systems that are not segwit-aware can still validate them. To an old wallet or node, a Segregated Witness output looks like an output that <em>anyone can spend</em>. Such outputs can be spent with an empty signature, therefore the fact that there is no signature inside the transaction (it is segregated) does not invalidate the transaction. Newer wallets and mining nodes, however, see the Segregated Witness output and expect to find a valid witness for it in the transaction’s witness data.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_segregated_witness_output_and_transaction_examples">Segregated Witness Output and Transaction Examples</h4>
+<div class="paragraph">
+<p>Let’s look at some of our example transactions and see how they would change with Segregated Witness. We’ll first look at how a Pay-to-Public-Key-Hash (P2PKH) payment is transformed with the Segregated Witness program. Then, we’ll look at the Segregated Witness equivalent for Pay-to-Script-Hash (P2SH) scripts. Finally, we’ll look at how both of the preceding Segregated Witness programs can be embedded inside a P2SH script.</p>
+</div>
+<div class="sect4">
+<h5 id="p2wpkh">Pay-to-Witness-Public-Key-Hash (P2WPKH)</h5>
+<div class="paragraph">
+<p>In <a href="#cup_of_coffee">[cup_of_coffee]</a>, Alice created a transaction to pay Bob for a cup of coffee. That transaction created a P2PKH output with a value of 0.015 BTC that was spendable by Bob. The output’s script looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example P2PKH output script</div>
+<div class="content">
+<pre>DUP HASH160 ab68025513c3dbd2f7b92a94e0581f5d50f654e7 EQUALVERIFY CHECKSIG</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With Segregated Witness, Alice would create a Pay-to-Witness-Public-Key-Hash (P2WPKH) script, which looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example P2WPKH output script</div>
+<div class="content">
+<pre>0 ab68025513c3dbd2f7b92a94e0581f5d50f654e7</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see, a Segregated Witness output’s locking script is much simpler than a traditional output. It consists of two values that are pushed on to the script evaluation stack. To an old (nonsegwit-aware) Bitcoin client, the two pushes would look like an output that anyone can spend and does not require a signature (or rather, can be spent with an empty signature). To a newer, segwit-aware client, the first number (0) is interpreted as a version number (the <em>witness version</em>) and the second part (20 bytes) is the equivalent of a locking script known as a <em>witness program</em>. The 20-byte witness program is simply the hash of the public key, as in a P2PKH script.</p>
+</div>
+<div class="paragraph">
+<p>Now, let’s look at the corresponding transaction that Bob uses to spend this output. For the original script (nonsegwit), Bob’s transaction would have to include a signature within the transaction input:</p>
+</div>
+<div class="listingblock">
+<div class="title">Decoded transaction showing a P2PKH output being spent with a signature</div>
+<div class="content">
+<pre>[...]
+“Vin” : [
+"txid": "0627052b6f28912f2703066a912ea577f2ce4da4caa5a5fbd8a57286c345c2f2",
+"vout": 0,
+     	 "scriptSig": “&lt;Bob’s scriptSig&gt;”,
+]
+[...]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However, to spend the Segregated Witness output, the transaction has no signature in the input part. Instead, Bob’s transaction has an empty scriptSig in the transaction data (the first part of a transaction, which includes the input part) and includes his signature in the witness data (the second part of a transaction, which is separated from the transaction data):</p>
+</div>
+<div class="listingblock">
+<div class="title">Decoded transaction showing a P2WPKH output being spent with separate witness data</div>
+<div class="content">
+<pre>[...]
+“Vin” : [
+"txid": "0627052b6f28912f2703066a912ea577f2ce4da4caa5a5fbd8a57286c345c2f2",
+"vout": 0,
+     	 "scriptSig": “”,
+]
+[...]
+“witness”: “&lt;Bob’s witness data&gt;”
+[...]</pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_wallet_construction_of_p2wpkh">Wallet construction of P2WPKH</h5>
+<div class="paragraph">
+<p>It is extremely important to note that P2WPKH should only be created by the payee (recipient) and not converted by the sender from a known public key, P2PKH script, or address. The receiver has no way of knowing if the sender&#8217;s wallet has the ability to construct segwit transactions and spend P2WPKH outputs.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, P2WPKH outputs must be constructed from the hash of a <em>compressed</em> public key. Uncompressed public keys are nonstandard in segwit and may be explicitly disabled by a future soft fork. If the hash used in the P2WPKH came from an uncompressed public key, it may be unspendable and you may lose funds. P2WPKH outputs should be created by the payee&#8217;s wallet by deriving a compressed public key from their private key.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>P2WPKH should be constructed by the payee (recipient) by converting a compressed public key to a P2WPKH hash. You should never transform a P2PKH script, Bitcoin address, or uncompressed public key to a P2WPKH witness script.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="p2wsh">Pay-to-Witness-Script-Hash (P2WSH)</h5>
+<div class="paragraph">
+<p>The second type of witness program corresponds to a Pay-to-Script-Hash (P2SH) script. We saw this type of script in <a href="#p2sh">Pay-to-Script-Hash (P2SH)</a>. In that example, P2SH was used by Mohammed&#8217;s company to express a multisignature script. Payments to Mohammed&#8217;s company were encoded with a locking script like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example P2SH output script</div>
+<div class="content">
+<pre>HASH160 54c557e07dde5bb6cb791c7a540e0a4796f5e97e EQUAL</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This P2SH script references the hash of a <em>redeem script</em> that defines a 2-of-5 multisignature requirement to spend funds. To spend this output, Mohammed&#8217;s company would present the redeem script (whose hash matches the script hash in the P2SH output) and the signatures necessary to satisfy that redeem script, all inside the transaction input:</p>
+</div>
+<div class="listingblock">
+<div class="title">Decoded transaction showing a P2SH output being spent</div>
+<div class="content">
+<pre>[...]
+“Vin” : [
+"txid": "abcdef12345...",
+"vout": 0,
+     	 "scriptSig": “&lt;SigA&gt; &lt;SigB&gt; &lt;2 PubA PubB PubC PubD PubE 5 CHECKMULTISIG&gt;”,
+]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, let&#8217;s look at how this entire example would be upgraded to segwit. If Mohammed&#8217;s customers were using a segwit-compatible wallet, they would make a payment, creating a Pay-to-Witness-Script-Hash (P2WSH) output that would look like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example P2WSH output script</div>
+<div class="content">
+<pre>0 a9b7b38d972cabc7961dbfbcb841ad4508d133c47ba87457b4a0e8aae86dbb89</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Again, as with the example of P2WPKH, you can see that the Segregated Witness equivalent script is a lot simpler and omits the various script operands that you see in P2SH scripts. Instead, the Segregated Witness program consists of two values pushed to the stack: a witness version (0) and the 32-byte SHA256 hash of the redeem script.</p>
+</div>
+<div class="paragraph">
+<p>Mohammed&#8217;s company can spend the P2WSH output by presenting the correct redeem script and sufficient signatures to satisfy it. Both the redeem script and the signatures would be segregated <em>outside</em> the spending transaction data as part of the witness data. Within the transaction input, Mohammed&#8217;s wallet would put an empty scriptSig:</p>
+</div>
+<div class="listingblock">
+<div class="title">Decoded transaction showing a P2WSH output being spent with separate witness data</div>
+<div class="content">
+<pre>[...]
+“Vin” : [
+"txid": "abcdef12345...",
+"vout": 0,
+     	 "scriptSig": “”,
+]
+[...]
+“witness”: “&lt;SigA&gt; &lt;SigB&gt; &lt;2 PubA PubB PubC PubD PubE 5 CHECKMULTISIG&gt;”
+[...]</pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>While P2SH uses the 20-byte RIPEMD160(SHA256(script)) hash, the P2WSH witness program uses a 32-byte SHA256(script) hash. This difference in the selection of the hashing algorithm is deliberate and provides stronger security to P2WSH (128 bits of security in P2WSH versus 80 bits of security in P2SH). It is also used to differentiate between the two types of witness programs (P2WPKH and P2WSH) by using the length of the hash (see below).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_differentiating_between_p2wpkh_and_p2wsh">Differentiating between P2WPKH and P2WSH</h5>
+<div class="paragraph">
+<p>In the previous two sections, we demonstrated two types of witness programs: <a href="#p2wpkh">Pay-to-Witness-Public-Key-Hash (P2WPKH)</a> and <a href="#p2wsh">Pay-to-Witness-Script-Hash (P2WSH)</a>. Both types of witness programs consist of a single byte version number followed by a longer hash. They look very similar, but are interpreted very differently: one is interpreted as a public key hash, which is satisfied by a signature and the other as a script hash, which is satisfied by a redeem script. The critical difference between them is the length of the hash:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The public key hash in P2WPKH is 20 bytes</p>
+</li>
+<li>
+<p>The script hash in P2WSH is 32 bytes</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This is the one difference that allows a wallet to differentiate between the two types of witness programs. By looking at the length of the hash, a wallet can determine what type of witness program it is, P2WPKH or P2WSH.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_upgrading_to_segregated_witness">Upgrading to Segregated Witness</h4>
+<div class="paragraph">
+<p>As we can see from the previous examples, upgrading to Segregated Witness is a two-step process. First, wallets must create special segwit type outputs. Then, these outputs can be spent by wallets that know how to construct Segregated Witness transactions. In the examples, Alice&#8217;s wallet was segwit-aware and able to create special outputs with Segregated Witness scripts. Bob&#8217;s wallet is also segwit-aware and able to spend those outputs. What may not be obvious from the example is that in practice, Alice&#8217;s wallet needs to <em>know</em> that Bob uses a segwit-aware wallet and can spend these outputs. Otherwise, if Bob&#8217;s wallet is not upgraded and Alice tries to make segwit payments to Bob, Bob&#8217;s wallet will not be able to detect these payments.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For P2WPKH and P2WSH payment types, both the sender and the recipient wallets need to be upgraded to be able to use segwit. Furthermore, the sender&#8217;s wallet needs to know that the recipient&#8217;s wallet is segwit-aware.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Segregated Witness will not be implemented simultaneously across the entire network. Rather, Segregated Witness is implemented as a backward-compatible upgrade, where <em>old and new clients can coexist</em>. Wallet developers will independently upgrade wallet software to add segwit capabilities. The P2WPKH and P2WSH payment types are used when both sender and recipient are segwit-aware. The traditional P2PKH and P2SH will continue to work for non-upgraded wallets. That leaves two important scenarios, which are addressed in the next section:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ability of a sender&#8217;s wallet that is not segwit-aware to make a payment to a recipient&#8217;s wallet that can process segwit transactions</p>
+</li>
+<li>
+<p>Ability of a sender&#8217;s wallet that is segwit-aware to recognize and distinguish between recipients that are segwit-aware and ones that are not, by their <em>addresses</em>.</p>
+</li>
+</ul>
+</div>
+<div class="sect4">
+<h5 id="_embedding_segregated_witness_inside_p2sh">Embedding Segregated Witness inside P2SH</h5>
+<div class="paragraph">
+<p>Let&#8217;s assume, for example, that Alice&#8217;s wallet is not upgraded to segwit, but Bob&#8217;s wallet is upgraded and can handle segwit transactions. Alice and Bob can use "old" non-segwit transactions. But Bob would likely want to use segwit to reduce transaction fees, taking advantage of the discount that applies to witness data.</p>
+</div>
+<div class="paragraph">
+<p>In this case Bob&#8217;s wallet can construct a P2SH address that contains a segwit script inside it. Alice&#8217;s wallet sees this as a "normal" P2SH address and can make payments to it without any knowledge of segwit. Bob&#8217;s wallet can then spend this payment with a segwit transaction, taking full advantage of segwit and reducing transaction fees.</p>
+</div>
+<div class="paragraph">
+<p>Both forms of witness scripts, P2WPKH and P2WSH, can be embedded in a P2SH address. The first is noted as P2SH(P2WPKH) and the second is noted as P2SH(P2WSH).</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_pay_to_witness_public_key_hash_inside_pay_to_script_hash">Pay-to-Witness-Public-Key-Hash inside Pay-to-Script-Hash</h5>
+<div class="paragraph">
+<p>The first form of witness script we will examine is P2SH(P2WPKH). This is a Pay-to-Witness-Public-Key-Hash witness program, embedded inside a Pay-to-Script-Hash script, so that it can be used by a wallet that is not aware of segwit.</p>
+</div>
+<div class="paragraph">
+<p>Bob&#8217;s wallet constructs a P2WPKH witness program with Bob&#8217;s public key. This witness program is then hashed and the resulting hash is encoded as a P2SH script. The P2SH script is converted to a Bitcoin address, one that starts with a "3," as we saw in the <a href="#p2sh">Pay-to-Script-Hash (P2SH)</a> section.</p>
+</div>
+<div class="paragraph">
+<p>Bob&#8217;s wallet starts with the P2WPKH witness program we saw earlier:</p>
+</div>
+<div class="listingblock">
+<div class="title">Bob&#8217;s P2WPKH witness program</div>
+<div class="content">
+<pre>0 ab68025513c3dbd2f7b92a94e0581f5d50f654e7</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The P2WPKH witness program consists of the witness version and Bob&#8217;s 20-byte public key hash.</p>
+</div>
+<div class="paragraph">
+<p>Bob&#8217;s wallet then hashes the preceding witness program, first with SHA256, then with RIPEMD160, producing another 20-byte hash.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s use bx on the command-line to replicate that:</p>
+</div>
+<div class="listingblock">
+<div class="title">HASH160 of the P2WPKH witness program</div>
+<div class="content">
+<pre>echo \
+'0 [ab68025513c3dbd2f7b92a94e0581f5d50f654e7]'\
+ | bx script-encode | bx sha256 | bx ripemd160
+3e0547268b3b19288b3adef9719ec8659f4b2b0b</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next, the redeem script hash is converted to a Bitcoin address. Let&#8217;s use bx on the command-line again:</p>
+</div>
+<div class="listingblock">
+<div class="title">P2SH address</div>
+<div class="content">
+<pre>echo \
+'3e0547268b3b19288b3adef9719ec8659f4b2b0b' \
+| bx address-encode -v 5
+37Lx99uaGn5avKBxiW26HjedQE3LrDCZru</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, Bob can display this address for customers to pay for their coffee. Alice&#8217;s wallet can make a payment to 37Lx99uaGn5avKBxiW26HjedQE3LrDCZru, just as it would to any other Bitcoin address.</p>
+</div>
+<div class="paragraph">
+<p>To pay Bob, Alice&#8217;s wallet would lock the output with a P2SH script:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>HASH160 3e0547268b3b19288b3adef9719ec8659f4b2b0b EQUAL</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Even though Alice&#8217;s wallet has no support for segwit, the payment it creates can be spent by Bob with a segwit transaction.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_pay_to_witness_script_hash_inside_pay_to_script_hash">Pay-to-Witness-Script-Hash inside Pay-to-Script-Hash</h5>
+<div class="paragraph">
+<p>Similarly, a P2WSH witness program for a multisig script or other complicated script can be embedded inside a P2SH script and address, making it possible for any wallet to make payments that are segwit compatible.</p>
+</div>
+<div class="paragraph">
+<p>As we saw in <a href="#p2wsh">Pay-to-Witness-Script-Hash (P2WSH)</a>, Mohammed&#8217;s company is using Segregated Witness payments with multisignature scripts. To make it possible for any client to pay his company, regardless of whether their wallets are upgraded for segwit, Mohammed&#8217;s wallet can embed the P2WSH witness program inside a P2SH script.</p>
+</div>
+<div class="paragraph">
+<p>First, Mohammed&#8217;s wallet hashes the redeem script with SHA256 (just once). Let&#8217;s use bx to do that on the command-line:</p>
+</div>
+<div class="listingblock">
+<div class="title">Mohammed&#8217;s wallet creates a P2WSH witness program</div>
+<div class="content">
+<pre>echo \
+2 \ [04C16B8698A9ABF84250A7C3EA7EEDEF9897D1C8C6ADF47F06CF73370D74DCCA01CDCA79DCC5C395D7EEC6984D83F1F50C900A24DD47F569FD4193AF5DE762C587] \
+[04A2192968D8655D6A935BEAF2CA23E3FB87A3495E7AF308EDF08DAC3C1FCBFC2C75B4B0F4D0B1B70CD2423657738C0C2B1D5CE65C97D78D0E34224858008E8B49] \
+[047E63248B75DB7379BE9CDA8CE5751D16485F431E46117B9D0C1837C9D5737812F393DA7D4420D7E1A9162F0279CFC10F1E8E8F3020DECDBC3C0DD389D9977965] \
+[0421D65CBD7149B255382ED7F78E946580657EE6FDA162A187543A9D85BAAA93A4AB3A8F044DADA618D087227440645ABE8A35DA8C5B73997AD343BE5C2AFD94A5] \
+[043752580AFA1ECED3C68D446BCAB69AC0BA7DF50D56231BE0AABF1FDEEC78A6A45E394BA29A1EDF518C022DD618DA774D207D137AAB59E0B000EB7ED238F4D800] \
+5 CHECKMULTISIG \
+| bx script-encode | bx sha256
+9592d601848d04b172905e0ddb0adde59f1590f1e553ffc81ddc4b0ed927dd73</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next, the hashed redeem script is turned into a P2WSH witness program:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>0 9592d601848d04b172905e0ddb0adde59f1590f1e553ffc81ddc4b0ed927dd73</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, the witness program itself is hashed with SHA256 and RIPEMD160, producing a new 20-byte hash, as used in traditional P2SH. Let&#8217;s use bx on the command-line to do that:</p>
+</div>
+<div class="listingblock">
+<div class="title">The HASH160 of the P2WSH witness program</div>
+<div class="content">
+<pre> echo \
+'0 [9592d601848d04b172905e0ddb0adde59f1590f1e553ffc81ddc4b0ed927dd73]'\
+ | bx script-encode | bx sha256 | bx ripemd160
+86762607e8fe87c0c37740cddee880988b9455b2</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next, the wallet constructs a P2SH Bitcoin address from this hash. Again, we use bx to calculate on the command-line:</p>
+</div>
+<div class="listingblock">
+<div class="title">P2SH Bitcoin address</div>
+<div class="content">
+<pre>echo \
+'86762607e8fe87c0c37740cddee880988b9455b2'\
+ | bx address-encode -v 5
+3Dwz1MXhM6EfFoJChHCxh1jWHb8GQqRenG</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, Mohammed&#8217;s clients can make payments to this address without any need to support segwit. To send a payment to Mohammed, a wallet would lock the output with the following P2SH script:</p>
+</div>
+<div class="listingblock">
+<div class="title">P2SH script used to lock payments to Mohammed&#8217;s multisig</div>
+<div class="content">
+<pre>HASH160 86762607e8fe87c0c37740cddee880988b9455b2 EQUAL</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Mohammed&#8217;s company can then construct segwit transactions to spend these payments, taking advantage of segwit features including lower transaction fees.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_segregated_witness_addresses">Segregated Witness addresses</h5>
+<div class="paragraph">
+<p>Even after segwit activation, it will take some time until most wallets are upgraded. At first, segwit will be embedded in P2SH, as we saw in the previous section, to ease compatibility between segwit-aware and unaware wallets.</p>
+</div>
+<div class="paragraph">
+<p>However, once wallets are broadly supporting segwit, it makes sense to encode witness scripts directly in a native address format designed for segwit, rather than embed it in P2SH.</p>
+</div>
+<div class="paragraph">
+<p>The native segwit address format is defined in BIP-173:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="https://github.com/bitcoin/bips/blob/master/bip-0173.mediawiki">BIP-173</a></dt>
+<dd>
+<p>Base32 address format for native v0-16 witness outputs</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>BIP-173 only encodes witness (P2WPKH and P2WSH) scripts. It is not compatible with non-segwit P2PKH or P2SH scripts. BIP-173 is a checksummed Base32 encoding, as compared to the Base58 encoding of a "traditional" Bitcoin address. BIP-173 addresses are also called <em>bech32</em> addresses, pronounced "beh-ch thirty two", alluding to the use of a "BCH" error detection algorithm and 32-character encoding set.</p>
+</div>
+<div class="paragraph">
+<p>BIP-173 addresses use 32 lower-case-only alphanumeric character set, carefully selected to reduce errors from misreading or mistyping. By choosing a lower-case-only character set, bech32 is easier to read, speak, and 45% more efficient to encode in QR codes.</p>
+</div>
+<div class="paragraph">
+<p>The BCH error detection algorithm is a vast improvement over the previous checksum algorithm (from Base58Check), allowing not only detection but also <em>correction</em> of errors. Address-input interfaces (such as text-fields in forms) can detect and highlight which character was most likely mistyped when they detect an error.</p>
+</div>
+<div class="paragraph">
+<p>From the BIP-173 specification, here are some examples of bech32 addresses:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Mainnet P2WPKH</dt>
+<dd>
+<p>bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4</p>
+</dd>
+<dt class="hdlist1">Testnet P2WPKH</dt>
+<dd>
+<p>tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx</p>
+</dd>
+<dt class="hdlist1">Mainnet P2WSH</dt>
+<dd>
+<p>bc1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qccfmv3</p>
+</dd>
+<dt class="hdlist1">Testnet P2WSH</dt>
+<dd>
+<p>tb1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3q0sl5k7</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>As you can see in these examples, a segwit bech32 string is up to 90 characters long and consists of three parts:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">The human readable part</dt>
+<dd>
+<p>This prefix "bc" or "tb" identifying mainnet or testnet</p>
+</dd>
+<dt class="hdlist1">The separator</dt>
+<dd>
+<p>The digit "1", which is not part of the 32-character encoding set and can only appear in this position as a separator</p>
+</dd>
+<dt class="hdlist1">The data part</dt>
+<dd>
+<p>A minimum of 6 alphanumeric characters, the checksum encoded witness script</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>At this time, only a few wallets accept or produce native segwit bech32 addresses, but as segwit adoption increases, you will see these more and more often.</p>
+</div>
+<div class="paragraph">
+<p><a href="#segwit_addresses">Bitcoin non-segwit (legacy) and segwit addresses</a> shows bitcoin non-segwit (legacy) and segwit addresses.</p>
+</div>
+<table id="segwit_addresses" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Bitcoin non-segwit (legacy) and segwit addresses</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Encoding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prefix</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Legacy P2PKH Address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Base58</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Legacy Testnet P2PKH Address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Base58</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">m or n</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Legacy P2SH Address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Base58</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Legacy Testnet P2SH Address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Base58</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nested (embedded) Segwit P2SH(P2WPKH) Address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Base58</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nested (embedded) Segwit P2SH(P2WSH) Address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Base58</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Native Segwit P2WPKH Address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bech32</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bc1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Native Segwit Testnet P2WPKH Address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bech32</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tb1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Native Segwit P2WSH Address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bech32</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bc1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Native Segwit Testnet P2WSH Address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bech32</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tb1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="segwit_txid">Transaction identifiers</h5>
+<div class="paragraph">
+<p>One of the greatest benefits of Segregated Witness is that it eliminates third-party transaction malleability.</p>
+</div>
+<div class="paragraph">
+<p>Before segwit, transactions could have their signatures subtly modified by third parties, changing their transaction ID (hash) without changing any fundamental properties (inputs, outputs, amounts). This created opportunities for denial-of-service attacks as well as attacks against poorly written wallet software that assumed unconfirmed transaction hashes were immutable.</p>
+</div>
+<div class="paragraph">
+<p>With the introduction of Segregated Witness, transactions have two identifiers, txid and wtxid. The traditional transaction ID txid is the double-SHA256 hash of the serialized transaction, without the witness data. A transaction wtxid is the double-SHA256 hash of the new serialization format of the transaction with witness data.</p>
+</div>
+<div class="paragraph">
+<p>The traditional txid is calculated in exactly the same way as with a nonsegwit transaction. However, since a pure segwit transaction (a transaction that only contains segwit inputs) has empty scriptSigs in every input, there is no part of the transaction that can be modified by a third party. Therefore, in a pure segwit transaction, the txid is immutable by a third party, even when the transaction is unconfirmed.</p>
+</div>
+<div class="paragraph">
+<p>The wtxid is like an "extended" ID, in that the hash also incorporates the witness data. If a transaction is transmitted without witness data, then the wtxid and txid are identical. Note that since the wtxid includes witness data (signatures) and since witness data may be malleable, the wtxid should be considered malleable until the transaction is confirmed. Only the txid of a pure segwit transaction can be considered immutable by third parties.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Segregated Witness transactions have two IDs: txid and wtxid. The txid is the hash of the transaction without the witness data and the wtxid is the hash inclusive of witness data. Only pure segwit transactions (transactions that only contain segwit inputs) have a txid that is not susceptible to third-party transaction malleability.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_segregated_witness_new_signing_algorithm">Segregated Witness' New Signing Algorithm</h4>
+<div class="paragraph">
+<p>Segregated Witness modifies the semantics of the four signature verification functions (CHECKSIG, CHECKSIGVERIFY, CHECKMULTISIG, and CHECKMULTISIGVERIFY), changing the way a transaction commitment hash is calculated.</p>
+</div>
+<div class="paragraph">
+<p>Signatures in bitcoin transactions are applied on a <em>commitment hash</em>, which is calculated from the transaction data, locking specific parts of the data indicating the signer&#8217;s commitment to those values. For example, in a simple SIGHASH_ALL type signature, the commitment hash includes all inputs and outputs.</p>
+</div>
+<div class="paragraph">
+<p>Unfortunately, the way the commitment hash was calculated introduced the possibility that a node verifying the signature can be forced to perform a significant number of hash computations. Specifically, the hash operations increase in O(n<sup>2</sup>) with respect to the number of signature operations in the transaction. An attacker could therefore create a transaction with a very large number of signature operations, causing the entire Bitcoin network to have to perform hundreds or thousands of hash operations to verify the transaction.</p>
+</div>
+<div class="paragraph">
+<p>Segwit represented an opportunity to address this problem by changing the way the commitment hash is calculated. For segwit version 0 witness programs, signature verification occurs using an improved commitment hash algorithm as specified in BIP-143.</p>
+</div>
+<div class="paragraph">
+<p>The new algorithm achieves two important goals. Firstly, the number of hash operations increases by a much more gradual O(n) to the number of signature operations, reducing the opportunity to create denial-of-service attacks with overly complex transactions. Secondly, the commitment hash now also includes the value (amounts) of each input as part of the commitment. This means that a signer can commit to a specific input value without needing to "fetch" and check the previous transaction referenced by the input. In the case of offline devices, such as hardware wallets, this greatly simplifies the communication between the host and the hardware wallet, removing the need to stream previous transactions for validation. A hardware wallet can accept the input value "as stated" by an untrusted host. Since the signature is invalid if that input value is not correct, the hardware wallet doesn&#8217;t need to validate the value before signing the input.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_economic_incentives_for_segregated_witness">Economic Incentives for Segregated Witness</h4>
+<div class="paragraph">
+<p>Bitcoin mining nodes and full nodes incur costs for the resources used to support the Bitcoin network and the blockchain. As the volume of bitcoin transactions increases, so does the cost of resources (CPU, network bandwidth, disk space, memory). Miners are compensated for these costs through fees that are proportional to the size (in bytes) of each transaction. Nonmining full nodes are not compensated, so they incur these costs because they have a need to run an authoritative fully validating full-index node, perhaps because they use the node to operate a bitcoin business.</p>
+</div>
+<div class="paragraph">
+<p>Without transaction fees, the growth in bitcoin data would arguably increase dramatically. Fees are intended to align the needs of bitcoin users with the burden their transactions impose on the network, through a market-based price discovery mechanism.</p>
+</div>
+<div class="paragraph">
+<p>The calculation of fees based on transaction size treats all the data in the transaction as equal in cost. But from the perspective of full nodes and miners, some parts of a transaction carry much higher costs. Every transaction added to the Bitcoin network affects the consumption of four resources on nodes:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Disk Space </dt>
+<dd>
+<p>Every transaction is stored in the blockchain, adding to the total size of the blockchain. The blockchain is stored on disk, but the storage can be optimized by “pruning” (deleting) older transactions.</p>
+</dd>
+<dt class="hdlist1">CPU </dt>
+<dd>
+<p>Every transaction must be validated, which requires CPU time.</p>
+</dd>
+<dt class="hdlist1">Bandwidth </dt>
+<dd>
+<p>Every transaction is transmitted (through flood propagation) across the network at least once. Without any optimization in the block propagation protocol, transactions are transmitted again as part of a block, doubling the impact on network capacity.</p>
+</dd>
+<dt class="hdlist1">Memory </dt>
+<dd>
+<p>Nodes that validate transactions keep the UTXO index or the entire UTXO set in memory to speed up validation. Because memory is at least one order of magnitude more expensive than disk, growth of the UTXO set contributes disproportionately to the cost of running a node.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>As you can see from the list, not every part of a transaction has an equal impact on the cost of running a node or on the ability of bitcoin to scale to support more transactions. The most expensive part of a transaction are the newly created outputs, as they are added to the in-memory UTXO set. By comparison, signatures (aka witness data) add the least burden to the network and the cost of running a node, because witness data are only validated once and then never used again. Furthermore, immediately after receiving a new transaction and validating witness data, nodes can discard that witness data. If fees are calculated on transaction size, without discriminating between these two types of data, then the market incentives of fees are not aligned with the actual costs imposed by a transaction. In fact, the current fee structure actually encourages the opposite behavior, because witness data is the largest part of a transaction.</p>
+</div>
+<div class="paragraph">
+<p>The incentives created by fees matter because they affect the behavior of wallets. All wallets must implement some strategy for assembling transactions that takes into consideration a number of factors, such as privacy (reducing address reuse), fragmentation (making lots of loose change), and fees. If the fees are overwhelmingly motivating wallets to use as few inputs as possible in transactions, this can lead to UTXO picking and change address strategies that inadvertently bloat the UTXO set.</p>
+</div>
+<div class="paragraph">
+<p>Transactions consume UTXO in their inputs and create new UTXO with their outputs. A transaction, therefore, that has more inputs than outputs will result in a decrease in the UTXO set, whereas a transaction that has more outputs than inputs will result in an increase in the UTXO set. Let’s consider the <em>difference</em> between inputs and outputs and call that the “Net-new-UTXO.” That’s an important metric, as it tells us what impact a transaction will have on the most expensive network-wide resource, the in-memory UTXO set. A transaction with positive Net-new-UTXO adds to that burden. A transaction with a negative Net-new-UTXO reduces the burden. We would therefore want to encourage transactions that are either negative Net-new-UTXO or neutral with zero Net-new-UTXO.</p>
+</div>
+<div class="paragraph">
+<p>Let’s look at an example of what incentives are created by the transaction fee calculation, with and without Segregated Witness. We will look at two different transactions. Transaction A is a 3-input, 2-output transaction, which has a Net-new-UTXO metric of &#x2013;1, meaning it consumes one more UTXO than it creates, reducing the UTXO set by one. Transaction B is a 2-input, 3-output transaction, which has a Net-new-UTXO metric of 1, meaning it adds one UTXO to the UTXO set, imposing additional cost on the entire Bitcoin network. Both transactions use multisignature (2-of-3) scripts to demonstrate how complex scripts increase the impact of segregated witness on fees. Let’s assume a transaction feerate of 30 satoshi per byte and a 75% fee discount on witness data:</p>
+</div>
+<dl>
+<dt>Without Segregated Witness</dt>
+<dd>
+<p>Transaction A fee: 28,590 satoshi</p>
+<p>Transaction B fee: 20,760 satoshi</p>
+</dd>
+
+<dt>With Segregated Witness</dt>
+<dd>
+<p>Transaction A fee: 12,255 satoshi</p>
+<p>Transaction B fee: 10,425 satoshi</p>
+</dd>
+</dl>
+<div class="paragraph">
+<p>Both transactions are less expensive when segregated witness is implemented. Comparing the costs between the two transactions, we see that before Segregated Witness, the transaction with the positive Net-new-UTXO has significant cost-savings. With Segregated Witness, the cost difference shrinks significantly in absolute as well as relative terms. While it would require inputs to become cheaper than outputs to incentivize UTXO set consolidation, this discount reduces the incentive to create new UTXO in order to avoid using more inputs.</p>
+</div>
+<div class="paragraph">
+<p>Segregated Witness therefore has two main effects on the fees paid by bitcoin users. Firstly, segwit reduces the overall cost of transactions by discounting witness data and increasing the capacity of the Bitcoin blockchain. Secondly, segwit’s discount on witness data partially mitigates a misalignment of incentives that may have inadvertently created more bloat in the UTXO set.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2022-05-27 12:12:09 -0400
+</div>
+</div>
+</body>
+</html>

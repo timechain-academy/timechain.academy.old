@@ -8,6 +8,10 @@ sources/ide
 sources/bitcoinbook
 sources/lnbook
 
+sources/books/bitcoinbook
+sources/books/lnbook
+sources/books/python
+
 resources.log
 .bash_history
 
