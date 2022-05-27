@@ -392,7 +392,7 @@ mastering-lightning:## 	mastering lightning
         sources/books/lnbook \
 		>> resources.log 2>&1 \
         || >> resources.log 2>&1
-python:##	python
+python:## 	python
 	git clone --progress --verbose --depth 1 https://github.com/kyclark/tiny_python_projects.git                             \
         sources/books/python \
 		>> resources.log 2>&1 \
@@ -404,6 +404,7 @@ python:##	python
 
 .PHONY: build serve build-shell shell shell-test
 build-docs:## 	build mkdocs
+	$(MAKE) resources
 	mkdir -p docs
 	apt install pandoc || brew install pandoc
 	cat sources/HEADER.md > README.md
@@ -413,13 +414,14 @@ build-docs:## 	build mkdocs
 	bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
 	bash -c 'pandoc -s README.md -o index.html  --metadata title="" '
 	apt install asciidoctor || brew install asciidoctor
-	pushd sources/bitcoinbook > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "."
-	pushd sources/bitcoinbook > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
-	pushd sources/bitcoinbook > /dev/null; for string in *.asciidoc; do asciidoctor $$string; done; popd || echo "..."
-	pushd sources/lnbook      > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "...."
-	pushd sources/lnbook      > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
-	pushd sources/lnbook      > /dev/null; for string in *.asciidoc; do asciidoctor $$string; done; popd || echo "......"
+	pushd sources/books/bitcoinbook > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "."
+	pushd sources/books/bitcoinbook > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
+	pushd sources/books/bitcoinbook > /dev/null; for string in *.asciidoc; do asciidoctor --doctype=book $$string; done; popd || echo "..."
+	pushd sources/books/lnbook      > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "...."
+	pushd sources/books/lnbook      > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
+	pushd sources/books/lnbook      > /dev/null; for string in *.asciidoc; do asciidoctor --doctype book $$string; done; popd || echo "......"
 	mkdocs -q build
+
 build-playground:## 	build-playground
 	pushd sources/playground/docker && make initialize init build && popd
 
