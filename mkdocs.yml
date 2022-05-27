@@ -18,14 +18,15 @@ theme:
 use_directory_urls: true
 
 nav:
-    - 'README.md'
+    - :): 'README.md'
     - Setup: 'COMMANDS.md'
-    - Playground: 'playground/README.md'
+    - Plebnet Playground:
+        - 'playground/docker/README.md'
+        - make: 'playground/docker/MAKE.md'
+        - play: 'playground/docker/PLAY.md'
+        - More: 'playground/README.md'
     - Git:
         - 'git/README.md'
-        - DOCS: 'git/docs.md'
-        - CONTRIBUTING: 'git/CONTRIBUTING.md'
-        - SECURITY: 'git/SECURITY.md'
     - Gnupg: 'gnupg/README.md'
     - Qt: 'qt/README.md'
     - Mastering Bitcoin: 'bitcoinbook/book.html'
@@ -47,6 +48,7 @@ plugins:
             - qt/webengine/src/3rdparty/*
             - FOOTER.md
             - HEADER.md
+            - git/docs.md
             - awesome.md
             - bitcoinbook/README.md
             - ide/lib/ace/mode/_test/Readme.md
@@ -55,6 +57,20 @@ plugins:
             - lnbook/CONTRIBUTING.md
             - lnbook/LICENSE.md
             - template/template.md
+            - ide/CONTRIBUTING.md
+            - ide/demo/kitchen-sink/docs/markdown.md
+            - ide/doc/index.md
+            - ide/tool/Readme.md
+            - playground/docker/btcd/README.md
+            - playground/docker/dashboard/README.md
+            - playground/docker/docs/README.md
+            - playground/docker/docs/docs/index.md
+            - playground/docker/docs/docs/ALIASES.md
+            - playground/docker/docs/docs/MAKE.md
+            - playground/docker/docs/docs/PLAY.md
+            - playground/docker/notebooks/README.md
+            - playground/docker/scripts/README.md
+            - playground/docker/worklogs/asherp.md
         regex:
             - '.*\.(tmp|bin|tar)$'
     - search

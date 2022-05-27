@@ -1,0 +1,251 @@
+version: "3.4"
+networks: {}
+services:
+  bitcoind:
+    build: 
+      context: ./bitcoin-signet
+      dockerfile: Dockerfile
+      args:
+        - TRIPLET=${TRIPLET}
+    links:
+    - tor
+    depends_on: 
+    - tor
+    restart: unless-stopped
+    container_name: playground-bitcoind
+    environment:
+      TRIPLET: ${TRIPLET}
+      GET_COINS_ON_STARTUP: 'true'
+    expose:
+    - "38332"
+    - "38333"
+    - "38334"
+    ports:
+    - "38333:38333"
+    volumes:
+      - type: bind
+        source: ${oc.env:PWD}/volumes/bitcoin_datadir
+        target: /root/.bitcoin/
+  lnd:
+    links:
+    - bitcoind
+    - tor
+    depends_on: 
+    - bitcoind
+    - tor
+    environment:
+      TRIPLET: '${TRIPLET}'
+      LND_ALIAS: 'NewNode'
+      LND_LISTEN: 'playground-lnd:9735'
+      LND_RPCLISTEN: 'playground-lnd:10009'
+      LND_RESTLISTEN: 'playground-lnd:8080'
+      zmqpubrawblock: 'tcp://playground-bitcoind:28332'
+      zmqpubrawtx: 'tcp://playground-bitcoind:28333'
+      torsocks: 'playground-tor:9050'
+      torcontrol: 'playground-tor:9051'
+      tlsextradomain: 'playground-lnd'
+      rpchost: 'playground-bitcoind'
+    restart: unless-stopped
+    container_name: playground-lnd
+    build: 
+      context: ./lnd-signet
+      dockerfile: Dockerfile
+    expose:
+    - "8080"
+    - "9735"
+    - "9911"
+    - "10009"
+    ports:
+    - "8080:8080"
+    - "9735:9735"
+    - "9911:9911"
+    - "10009:10009"
+    volumes:
+      - type: bind
+        source: ${oc.env:PWD}/volumes/lnd_datadir
+        target: /root/.lnd/
+  tor:
+      restart: unless-stopped
+      container_name: playground-tor
+      build:
+        context: ./tor
+        dockerfile: Dockerfile
+      expose:
+      - 9050
+      - 9051
+      volumes:
+        - type: bind
+          source: ${oc.env:PWD}/volumes/tor_datadir
+          target: /home/tor/.tor
+        - type: bind
+          source: ${oc.env:PWD}/volumes/tor_torrcdir
+          target: /usr/local/etc/tor
+        - type: bind
+          source: ${oc.env:PWD}/volumes/tor_servicesdir
+          target: /var/lib/tor/hidden_services
+  thunderhub:
+    container_name: playground-thub
+    depends_on: 
+      - lnd
+      - bitcoind
+    links: 
+      - bitcoind
+      - lnd
+    build:
+        context: ./thub
+        dockerfile: Dockerfile
+    restart: unless-stopped
+    stop_signal: SIGKILL
+    environment:
+      NO_VERSION_CHECK: "true" 
+      ACCOUNT_CONFIG_PATH: '/data/thubConfig.yaml'
+      LOG_LEVEL: debug
+    volumes:
+      - type: bind
+        source: ${oc.env:PWD}/volumes/lnd_datadir
+        target: /etc/lnd
+        read_only: true
+      - type: bind
+        source: ${oc.env:PWD}/volumes/thub_datadir
+        target: /data
+    ports:
+      - '3001:3000'  
+  rtl:
+      container_name: playground-rtl
+      links:
+        - lnd      
+        - bitcoind 
+      depends_on: 
+        - lnd
+        - bitcoind
+      restart: unless-stopped 
+      environment: 
+        LND_SERVER_URL: https://playground-lnd:8080/v1
+        MACAROON_PATH: /root/.lnd/data/chain/bitcoin/signet
+        RTL_CONFIG_PATH: /data/
+        LND_CONFIG_PATH: /root/.lnd/lnd.conf
+        BITCOIND_CONFIG_PATH: /etc/bitcoin/bitcoin.conf
+        RTL_SSO: 0
+        RTL_COOKIE_PATH: ''
+        LOGOUT_REDIRECT_LINK: ''
+        CONFIG_PATH: ''
+        LN_IMPLEMENTATION: LND
+      ports:
+      - "3000:3000"
+      image: shahanafarooqui/rtl:0.11.0 
+      volumes:
+        - type: bind
+          source: ${oc.env:PWD}/volumes/lnd_datadir
+          target: /root/.lnd/
+          read_only: true
+        - type: bind
+          source: ${oc.env:PWD}/volumes/bitcoin_datadir
+          target: /etc/bitcoin/
+          read_only: true
+        - type: bind
+          source: ${oc.env:PWD}/volumes/rtl_datadir
+          target: /data
+  notebook:
+    container_name: playground-notebook
+    links: 
+      - lnd
+      - bitcoind
+    depends_on:
+      - lnd
+      - bitcoind
+    restart: unless-stopped
+    ports:
+      - "8888:8888"
+    image: plebnet-playground-docker_dashboard
+    volumes:
+      - type: bind
+        source: ${oc.env:PWD}/notebooks
+        target: /notebooks
+      - type: bind
+        source: ${oc.env:PWD}/dashboard
+        target: /dashboard
+      - type: bind
+        source: ${oc.env:PWD}/volumes/lnd_datadir
+        target: /root/.lnd/
+        read_only: true
+    environment:
+      JUPYTER_NOTEBOOKS: /
+      JUPYTER_PORT: 8888
+      LND_DATADIR: /root/.lnd
+    working_dir: /
+    command:
+      - sh
+      - -c
+      - chmod +x /dashboard/jupyter_run.sh && /dashboard/jupyter_run.sh
+  dashboard:
+    container_name: playground-dashboard
+    links: 
+      - lnd      
+      - bitcoind 
+    depends_on: 
+      - lnd
+      - bitcoind
+    restart: unless-stopped
+    ports:
+      - "8050:8050"
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    image: plebnet-playground-docker_dashboard
+    volumes:
+      - type: bind
+        source: ${oc.env:PWD}/dashboard
+        target: /dashboard
+      - type: bind
+        source: ${oc.env:PWD}/volumes/lnd_datadir
+        target: /root/.lnd/
+        read_only: true
+    environment:
+      JUPYTER_NOTEBOOKS: /dashboard
+      LND_DATADIR: /root/.lnd
+      GRAPH_TEST_DATA: describegraph.json
+      USE_TEST_DATA: ${USE_TEST_DATA}
+    working_dir: /dashboard
+    # use this command to spin up jupyter serving on localhost:8888
+    command:
+      - python
+      - dashboard.py
+  lndg:  
+    image: ghcr.io/cryptosharks131/lndg:latest  
+    container_name: playground-lndg
+    depends_on:  
+      - lnd  
+    volumes:  
+      - ${oc.env:PWD}/volumes/lnd_datadir:/root/.lnd:ro
+      - ${oc.env:PWD}/volumes/lndg_datadir/db.sqlite3:/lndg/db.sqlite3:rw
+    command:  
+      - sh  
+      - -c  
+      - python initialize.py -net 'signet' -server 'playground-lnd:10009' -d && python manage.py migrate && sleep 20 && supervisord  && python manage.py runserver 0.0.0.0:8000  
+    ports:  
+      - 8889:8000
+  docs:
+    links:
+    - tor
+    depends_on: 
+    - tor
+    restart: unless-stopped
+    container_name: playground-docs
+    environment:
+      - TRIPLET=${TRIPLET}
+    build: 
+      context: ${oc.env:PWD}/docs
+      dockerfile: Dockerfile
+      args:
+        - TRIPLET=${TRIPLET}
+    expose:
+    - "8000"
+    - "8008"
+    ports:
+    - "8008:8000"
+    volumes:
+      - type: bind
+        source: ${oc.env:PWD}/docs
+        target: /docs
+
+

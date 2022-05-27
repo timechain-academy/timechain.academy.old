@@ -2,82 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://timechain.academy/</loc>
-         <lastmod>2022-05-26</lastmod>
+         <lastmod>2022-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://timechain.academy/COMMANDS/</loc>
-         <lastmod>2022-05-26</lastmod>
+         <lastmod>2022-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://timechain.academy/git/</loc>
-         <lastmod>2022-05-26</lastmod>
+         <lastmod>2022-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://timechain.academy/git/CONTRIBUTING/</loc>
-         <lastmod>2022-05-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://timechain.academy/git/SECURITY/</loc>
-         <lastmod>2022-05-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://timechain.academy/git/docs/</loc>
-         <lastmod>2022-05-26</lastmod>
+         <lastmod>2022-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://timechain.academy/gnupg/</loc>
-         <lastmod>2022-05-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://timechain.academy/ide/CONTRIBUTING/</loc>
-         <lastmod>2022-05-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://timechain.academy/ide/Readme/</loc>
-         <lastmod>2022-05-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://timechain.academy/ide/demo/kitchen-sink/docs/markdown/</loc>
-         <lastmod>2022-05-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://timechain.academy/ide/doc/</loc>
-         <lastmod>2022-05-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://timechain.academy/ide/tool/Readme/</loc>
-         <lastmod>2022-05-26</lastmod>
+         <lastmod>2022-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://timechain.academy/lnbits/lnbits/</loc>
-         <lastmod>2022-05-26</lastmod>
+         <lastmod>2022-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://timechain.academy/lnbook/</loc>
-         <lastmod>2022-05-26</lastmod>
+         <lastmod>2022-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://timechain.academy/playground/</loc>
-         <lastmod>2022-05-26</lastmod>
+         <lastmod>2022-05-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://timechain.academy/playground/docker/</loc>
+         <lastmod>2022-05-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://timechain.academy/playground/docker/MAKE/</loc>
+         <lastmod>2022-05-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://timechain.academy/playground/docker/PLAY/</loc>
+         <lastmod>2022-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://timechain.academy/qt/</loc>
-         <lastmod>2022-05-26</lastmod>
+         <lastmod>2022-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

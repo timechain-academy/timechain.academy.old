@@ -308,14 +308,14 @@ initialize:## initialize
 init: initialize## init
 	python3 -m pip install -r requirements.txt
 
-docs: build##
+docs: build## docs
 	@echo "Use 'make docs nocache=true' to force docs rebuild..."
 	mkdir -p docs
 	apt install pandoc || brew install pandoc
 	cat sources/HEADER.md > README.md
-	echo '```' >> README.md
-	make >> README.md
-	echo '```' >> README.md
+	#echo '```' >> README.md
+	make help >> sources/COMMANDS.md
+	#echo '```' >> README.md
 	bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
 	bash -c 'pandoc -s README.md -o index.html  --metadata title="" '
 	apt install asciidoctor || brew install asciidoctor
@@ -328,7 +328,7 @@ docs: build##
 
 .PHONY: clean-resources clean sources resources
 clean-resources: clean resources
-clean:
+clean:## clean
 	rm -rf sources/playground/docker
 	rm -rf sources/git
 	rm -rf sources/ide
@@ -338,48 +338,48 @@ clean:
 	rm -f  *.log
 
 .SILENT:
-sources: resources
-resources:
+sources: resources## sources
+resources:## resources
 	git clone --depth 1 -b 0.5.0 https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker.git  \
-        sources/playground/docker > resource.log 2>&1 \
+        sources/playground/docker >> resource.log 2>&1 \
         || >  resource.log 2>&1
 	git clone --depth 1 -b 4.4.0 https://github.com/jlord/git-it-electron.git                         \
-        sources/git               > resource.log 2>&1 \
+        sources/git               >> resource.log 2>&1 \
         || >> resource.log 2>&1
 	git clone --depth 1 https://github.com/timechain=academy/bitcoinIDE.gi                            \
-        sources/ide               > resource.log 2>&1 \
+        sources/ide               >> resource.log 2>&1 \
         || >> resource.log 2>&1
 	git clone --depth 1 https://github.com/bitcoinbook/bitcoinbook.git                                \
-        sources/bitcoinbook       > resource.log 2>&1 \
+        sources/bitcoinbook       >> resource.log 2>&1 \
         || >> resource.log 2>&1
 	git clone --depth 1 https://github.com/lnbook/lnbook.git                                          \
-        sources/lnbook            > resource.log 2>&1 \
+        sources/lnbook            >> resource.log 2>&1 \
         || >> resource.log 2>&1
 	git clone --depth 1 -b v5.15.5-lts git://code.qt.io/qt/qtwebengine.git                            \
-        sources/qt/webengine      > resource.log 2>&1 \
+        sources/qt/webengine      >> resource.log 2>&1 \
         || >> resource.log 2>&1
 	git clone --depth 1 -b v5.15.2 git://code.qt.io/qt/qtwebengine-chromium.git                       \
-        sources/qt/webengine/src/3rdparty/qtwebengine-chromium > resource.log 2>&1 \
+        sources/qt/webengine/src/3rdparty/qtwebengine-chromium >> resource.log 2>&1 \
         || >> resource.log 2>&1
 
-build:
+.PHONY: build serve build-shell shell shell-test
+build:## build mkdocs
 	mkdocs build
 
-serve: build
+serve: build## serve mkdocs
 	mkdocs serve & open http://127.0.0.1:$(PORT) || open http://127.0.0.1:$(PORT)
 	#$(PYTHON3) -m http.server $(PORT) --bind 127.0.0.1 -d $(PWD)/docs > /dev/null 2>&1 || open http://127.0.0.1:$(PORT)
 
+build-shell:## build the ubuntu docker image
+	docker-compose build $(NOCACHE) $(VERBOSE) ${SERVICE_TARGET}
+
 .PHONY: shell
-shell: build-shell
+shell: build-shell## run the ubuntu docker environment
 ifeq ($(CMD_ARGUMENTS),)
 	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run --rm ${SERVICE_TARGET} bash
 else
 	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run --rm $(SERVICE_TARGET) bash -c "$(CMD_ARGUMENTS)"
 endif
-
-build-shell:
-	# only build the container. Note, docker does this also if you apply other targets.
-	docker-compose build $(NOCACHE) $(VERBOSE) ${SERVICE_TARGET}
 
 shell-test:
 	docker-compose -p $(PROJECT_NAME)_$(HOST_UID) run --rm ${SERVICE_TARGET} sh -c '\
