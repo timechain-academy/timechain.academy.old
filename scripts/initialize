@@ -57,26 +57,26 @@ if hash apt-get 2>/dev/null; then
         python3 python3-pip mkdocs jq gnupg # \
         # build-essential libboost-all-dev libssl-dev
     if ! hash docker 2>/dev/null; then
-        sudo apt-get install docker.io
+        sudo apt-get install -y docker.io
     fi
     if ! hash docker-compose 2>/dev/null; then
-        sudo apt-get install docker-compose
+        sudo apt-get install -y docker-compose
     fi
     if ! hash pip3 2>/dev/null; then
-        sudo apt-get install python3-pip
+        sudo apt-get install -y python3-pip
     else
         "$PYTHON3" -m "$PIP" install "$DASH_U" omegaconf glom
     fi
     if ! hash flake8 2>/dev/null; then
-        sudo apt-get install flake8
+        sudo apt-get install -y flake8
     fi
     if ! hash isort 2>/dev/null; then
-        sudo apt-get install isort
+        sudo apt-get install -y isort
     fi
     if ! hash black 2>/dev/null; then
-        sudo apt-get install black
+        sudo apt-get install -y black
     fi
-    sudo apt-get install python3-pyside2.qt3dcore python3-pyside2.qt3dinput python3-pyside2.qt3dlogic python3-pyside2.qt3drender python3-pyside2.qtcharts python3-pyside2.qtconcurrent python3-pyside2.qtcore python3-pyside2.qtgui python3-pyside2.qthelp python3-pyside2.qtlocation python3-pyside2.qtmultimedia python3-pyside2.qtmultimediawidgets python3-pyside2.qtnetwork python3-pyside2.qtopengl python3-pyside2.qtpositioning python3-pyside2.qtprintsupport python3-pyside2.qtqml python3-pyside2.qtquick python3-pyside2.qtquickwidgets python3-pyside2.qtscript python3-pyside2.qtscripttools python3-pyside2.qtsensors python3-pyside2.qtsql python3-pyside2.qtsvg python3-pyside2.qttest python3-pyside2.qttexttospeech python3-pyside2.qtuitools python3-pyside2.qtwebchannel python3-pyside2.qtwebsockets python3-pyside2.qtwidgets python3-pyside2.qtx11extras python3-pyside2.qtxml python3-pyside2.qtxmlpatterns python3-pyside2uic
+    # sudo apt-get install -y python3-pyside2.qt3dcore python3-pyside2.qt3dinput python3-pyside2.qt3dlogic python3-pyside2.qt3drender python3-pyside2.qtcharts python3-pyside2.qtconcurrent python3-pyside2.qtcore python3-pyside2.qtgui python3-pyside2.qthelp python3-pyside2.qtlocation python3-pyside2.qtmultimedia python3-pyside2.qtmultimediawidgets python3-pyside2.qtnetwork python3-pyside2.qtopengl python3-pyside2.qtpositioning python3-pyside2.qtprintsupport python3-pyside2.qtqml python3-pyside2.qtquick python3-pyside2.qtquickwidgets python3-pyside2.qtscript python3-pyside2.qtscripttools python3-pyside2.qtsensors python3-pyside2.qtsql python3-pyside2.qtsvg python3-pyside2.qttest python3-pyside2.qttexttospeech python3-pyside2.qtuitools python3-pyside2.qtwebchannel python3-pyside2.qtwebsockets python3-pyside2.qtwidgets python3-pyside2.qtx11extras python3-pyside2.qtxml python3-pyside2.qtxmlpatterns python3-pyside2uic
 
 fi
 
@@ -194,20 +194,20 @@ if [[ "$OSTYPE" == "linux"* ]]; then
     #CHECK APT
     if [[ "$OSTYPE" == "linux-gnu" ]]; then
         if hash apt 2>/dev/null; then
-            sudo apt install gawk
+            sudo apt install -y gawk
             sudo apt update
-            sudo apt install software-properties-common
+            sudo apt install -y software-properties-common curl
             sudo apt-get -y gnupg # build-essential libboost-all-dev libssl-dev
-            sudo apt install python3
-            sudo apt-get install python3-pip
-            sudo apt install containerd docker.io docker-compose
-            sudo apt python3.8-venv
-            sudo apt python3.9-venv
+            sudo apt install -y python3
+            sudo apt-get install -y python3-pip
+            sudo apt install -y containerd docker.io docker-compose
+            # sudo apt python3.8-venv
+            # sudo apt python3.9-venv
             # sudo apt install libssl-dev libffi7 glibc
-            sudo apt pycairo testresources
-            sudo apt install $(apt-cache pkgnames python3-pyside2.) pyside2-tools python-pyside2-doc
+            # sudo apt install -y pycairo testresources
+            sudo apt install -y $(apt-cache pkgnames python3-pyside2.) pyside2-tools python-pyside2-doc
 
-            sudo apt-get install build-essential python3-dev
+            sudo apt-get install -y build-essential python3-dev
             pip install pycryptodomex
             pip install pycryptodome-test-vectors
             python3 -m Cryptodome.SelfTest
@@ -217,7 +217,7 @@ if [[ "$OSTYPE" == "linux"* ]]; then
             initialize-use-apt
             echo 'Using apt...'
         fi
-        source $HOME/.cargo/env
+        # source $HOME/.cargo/env
 
     fi
     if [[ "$OSTYPE" == "linux-musl" ]]; then

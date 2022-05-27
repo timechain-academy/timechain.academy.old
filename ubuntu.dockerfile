@@ -40,7 +40,7 @@ RUN mkdir -p /var/cache/debconf
 RUN if [ -r ~/.ssh/id_rsa ]; then y | ssh-keygen; fi
 
 # RUN [[ "string1" == "string2" ]] && echo "Equal" || echo "Not equal"
-RUN rm -rf  /home/${HOST_USER}
+# RUN rm -rf  /home/${HOST_USER}
 RUN if [ ${HOST_UID} != 0 ]; then adduser --system --disabled-password --ingroup sudo --home /home/${HOST_USER} --uid ${HOST_UID} ${HOST_USER}; fi
 RUN echo root:${PASSWORD} | chpasswd
 RUN echo ${HOST_USER}:${PASSWORD} | chpasswd
