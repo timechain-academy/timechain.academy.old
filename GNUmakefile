@@ -408,7 +408,7 @@ build-docs:## 	build mkdocs
 	apt install pandoc || brew install pandoc
 	cat sources/HEADER.md > README.md
 	#echo '```' >> README.md
-	make help >> sources/COMMANDS.md
+	make help > sources/COMMANDS.md
 	#echo '```' >> README.md
 	bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
 	bash -c 'pandoc -s README.md -o index.html  --metadata title="" '

@@ -18,38 +18,66 @@ theme:
 use_directory_urls: true
 
 nav:
-    - :): 'README.md'
+    - :): 'index.html'
     - Setup: 'COMMANDS.md'
     - Plebnet Playground:
-        - 'playground/docker/README.md'
+        - 'playground/docker/index.html'
         - make: 'playground/docker/MAKE.md'
         - play: 'playground/docker/PLAY.md'
-        - More: 'playground/README.md'
+        - More: 'playground/index.html'
     - Git:
-        - 'git/README.md'
-    - Gnupg: 'gnupg/README.md'
-    - Qt: 'qt/README.md'
-    - Bitcoin Script: 'ide/Readme.md'
+        - 'git/index.html'
+    - Gnupg: 'gnupg/index.html'
+    - Qt: 'qt/index.html'
+    - Bitcoin Script: 'ide/index.html'
     - LnBits: 'lnbits/lnbits.md'
     - Library:
-        - Books: 'books/README.md'
+        - Index: 'books/index.html'
+        - Python:
+            - Index: 'books/python/index.html'
+            - 01_Hello: 'books/python/01_hello/index.html'
+            - 02_CrowsNest: 'books/python/02_crowsnest/index.html'
+            - 03_Picnic: 'books/python/03_picnic/index.html'
+            - 04_Examples: 'books/python/04_jump_the_five/index.html'
+            - 05_Examples: 'books/python/05_howler/index.html'
+            - 06_Examples: 'books/python/06_wc/index.html'
+            - 07_Examples: 'books/python/07_gashlycrumb/index.html'
+            - 08_Examples: 'books/python/08_apples_and_bananas/index.html'
+            - 09_Examples: 'books/python/09_abuse/index.html'
+            - 10_Examples: 'books/python/10_telephone/index.html'
+            - 11_Examples: 'books/python/11_bottles_of_beer/index.html'
+            - 12_Examples: 'books/python/12_ransom/index.html'
+            - 13_Examples: 'books/python/13_twelve_days/index.html'
+            - 14_Examples: 'books/python/14_rhymer/index.html'
+            - 15_Examples: 'books/python/15_kentucky_friar/index.html'
+            - 16_Examples: 'books/python/16_scrambler/index.html'
+            - 17_Examples: 'books/python/17_mad_libs/index.html'
+            - 18_Examples: 'books/python/18_gematria/index.html'
+            - 19_Examples: 'books/python/19_wod/index.html'
+            - 20_Examples: 'books/python/20_password/index.html'
+            - 21_Examples: 'books/python/21_tictactoe/index.html'
+            - 22_Examples: 'books/python/22_itictactoe/index.html'
+            - Argparse_Examples: 'books/python/appendix_argparse/index.html'
+            - Docker_Examples: 'books/python/docker/index.html'
+            - Extra_Examples: 'books/python/extra/index.html'
         - Mastering Bitcoin:
-            - Chapters:  'bitcoinbook/README.md'
-            - Chapter 1: 'bitcoinbook/ch01.html'
-            - Chapter 2: 'bitcoinbook/ch02.html'
-            - Chapter 3: 'bitcoinbook/ch03.html'
-            - Chapter 4: 'bitcoinbook/ch04.html'
-            - Chapter 5: 'bitcoinbook/ch05.html'
-            - Chapter 6: 'bitcoinbook/ch06.html'
-            - Chapter 7: 'bitcoinbook/ch07.html'
-            - Chapter 8: 'bitcoinbook/ch08.html'
-            - Chapter 9: 'bitcoinbook/ch09.html'
-            - Chapter 10: 'bitcoinbook/ch10.html'
-            - Chapter 11: 'bitcoinbook/ch11.html'
-            - Chapter 12: 'bitcoinbook/ch12.html'
-            - Glossary: 'bitcoinbook/glossary.html'
-        - Mastering Lighting: 'lnbook/README.md'
-      # - Coarse Template: 'template/template.md'
+            - Index:     'books/bitcoinbook/index.html'
+            - Chapter 1: 'books/bitcoinbook/ch01.html'
+            - Chapter 2: 'books/bitcoinbook/ch02.html'
+            - Chapter 3: 'books/bitcoinbook/ch03.html'
+            - Chapter 4: 'books/bitcoinbook/ch04.html'
+            - Chapter 5: 'books/bitcoinbook/ch05.html'
+            - Chapter 6: 'books/bitcoinbook/ch06.html'
+            - Chapter 7: 'books/bitcoinbook/ch07.html'
+            - Chapter 8: 'books/bitcoinbook/ch08.html'
+            - Chapter 9: 'books/bitcoinbook/ch09.html'
+            - Chapter 10: 'books/bitcoinbook/ch10.html'
+            - Chapter 11: 'books/bitcoinbook/ch11.html'
+            - Chapter 12: 'books/bitcoinbook/ch12.html'
+            - Glossary: 'books/bitcoinbook/glossary.html'
+        - Mastering Lighting:
+            - Index: 'books/lnbook/index.html'
+  # - Coarse Template: 'template/template.md'
 
 plugins:
     - exclude:
@@ -98,4 +126,5 @@ copyright: Copyright &copy; 2022 <a href="https://twitter.com/RandyMcMillan">@Ra
 
 # Development
 watch:
+    - .
     - sources
