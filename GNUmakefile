@@ -227,7 +227,7 @@ export PORT
 	#NOTE: 2 hashes are detected as 1st column output with color
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?##/ {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-help:## verbose help
+help:## 	verbose help
 # help:print help
 # 	test
 # 		test
@@ -272,7 +272,7 @@ help:## verbose help
 	@sed -n 's/^### //p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^/### /'
 
 .PHONY: report
-report:## report
+report:## 	report
 	@echo ''
 	@echo '	[ARGUMENTS]	'
 	@echo '      args:'
@@ -303,12 +303,12 @@ report:## report
 	@echo '        - GIT_REPO_PATH=${GIT_REPO_PATH}'
 
 .PHONY: init initialize docs
-initialize:## initialize
+initialize:## 	initialize
 	./scripts/initialize
-init: initialize## init
+init: initialize## 	init
 	python3 -m pip install -r requirements.txt
 
-docs: build## docs
+docs: build## 	docs
 	@echo "Use 'make docs nocache=true' to force docs rebuild..."
 	mkdir -p docs
 	apt install pandoc || brew install pandoc
@@ -327,8 +327,8 @@ docs: build## docs
 	pushd sources/lnbook      > /dev/null; for string in *.asciidoc; do asciidoctor $$string; done; popd || echo "......"
 
 .PHONY: clean-resources clean sources resources
-clean-resources: clean resources
-clean:## clean
+clean-resources: 	clean resources
+clean:## 	clean
 	rm -rf sources/playground/docker
 	rm -rf sources/git
 	rm -rf sources/ide
@@ -338,7 +338,7 @@ clean:## clean
 	rm -f  *.log
 
 .SILENT:
-sources: resources## sources
+sources: resources## 	sources
 resources:
 	$(MAKE) clone-playground
 	$(MAKE) clone-git-it
@@ -349,7 +349,7 @@ resources:
 	cat resource.log
 ## clone plebnet-playground git-it bitcoin-ide mastering-bitcoin mastering-lightning qt-webengine
 
-clone-playground:
+clone-playground:## 	clone-playground
 	@echo "cloning plebnet-playground-docker to sources/playground/docker"
 	git clone --progress --verbose --depth 1 -b 0.5.0 https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker.git   \
         sources/playground/docker >> resource.log 2>&1 \
@@ -379,20 +379,21 @@ clone-qt-webengine:
         || >> resource.log 2>&1
 
 .PHONY: build serve build-shell shell shell-test
-build:## build mkdocs
+build:## 	build mkdocs
 	mkdocs -q build
-build-playground:
+build-playground:## 	build-playground
+	pushd sources/playground/docker && make initialize init build && popd
 
 
-serve: build## serve mkdocs
+serve: build## 	serve mkdocs
 	mkdocs serve & open http://127.0.0.1:$(PORT) || open http://127.0.0.1:$(PORT)
 	#$(PYTHON3) -m http.server $(PORT) --bind 127.0.0.1 -d $(PWD)/docs > /dev/null 2>&1 || open http://127.0.0.1:$(PORT)
 
-build-shell:## build the ubuntu docker image
+build-shell:## 	build the ubuntu docker image
 	docker-compose build $(NOCACHE) $(VERBOSE) ${SERVICE_TARGET}
 
 .PHONY: shell
-shell: build-shell## run the ubuntu docker environment
+shell: build-shell## 	run the ubuntu docker environment
 ifeq ($(CMD_ARGUMENTS),)
 	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run --rm ${SERVICE_TARGET} bash
 else
