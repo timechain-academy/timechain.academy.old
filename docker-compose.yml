@@ -22,9 +22,9 @@ services:
     command: ["ssh-agent ssh-add"]
     volumes:
         - type: bind
-          source: ${HOME:-.}
-          target: /home/${HOST_USER}
-        - type: bind
-          source: ~/.ssh
-          target: /home/${HOST_USER}/.ssh
+          source: ${PWD:-.}
+          target: /home/${HOST_USER}/timechain.academy
+              # - type: bind
+              #   source: ~/.ssh
+              #   target: /home/${HOST_USER}/.ssh
 

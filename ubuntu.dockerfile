@@ -4,20 +4,19 @@ RUN set -xe; \
 apt install -y apt
 RUN apt-get -y upgrade
 RUN apt-get -y update
-ARG DEBIAN_FRONTEND=noninteractive
-ENV DEBIAN_FRONTEND=noninteractive
-RUN export DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y \
 	debconf --reinstall \
+	bsdmainutils \
 	apt-utils sudo adduser bash-completion \
 	openssh-client openssh-server \
-	git make vim \
-	python3 python3-pip python3-setuptools quilt \
-	virtualenv mkdocs \
-	build-essential libtool autotools-dev automake pkg-config bsdmainutils g++ \
-	libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools
+	git make vim python3 python3-pip
+# 	python3 python3-pip python3-setuptools quilt \
+# 	virtualenv mkdocs \
+# 	build-essential libtool autotools-dev automake pkg-config bsdmainutils g++ \
+# 	libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools
 
-USER root
+# USER root
 
 ARG PASSWORD=${PASSWORD}
 ENV GIT_DISABLE_UNTRACKED_CACHE=true
@@ -36,12 +35,13 @@ RUN chmod 640 /etc/shadow
 RUN chmod 4511 /usr/bin/passwd
 RUN mkdir -p /var/cache/debconf
 
-RUN mkdir -p /home/${HOST_USER}
-RUN mkdir -p /home/${HOST_USER}/.ssh
+# RUN mkdir -p /home/${HOST_USER}
+# RUN mkdir -p /home/${HOST_USER}/.ssh
 RUN if [ -r ~/.ssh/id_rsa ]; then y | ssh-keygen; fi
 
-RUN [[ "string1" == "string2" ]] && echo "Equal" || echo "Not equal"
-RUN [[  "${HOST_UID}" == "0"  ]] && echo "test" || adduser --system --disabled-password --ingroup sudo --home /home/${HOST_USER} --uid ${HOST_UID} ${HOST_USER}
+# RUN [[ "string1" == "string2" ]] && echo "Equal" || echo "Not equal"
+RUN rm -rf  /home/${HOST_USER}
+RUN if [ ${HOST_UID} != 0 ]; then adduser --system --disabled-password --ingroup sudo --home /home/${HOST_USER} --uid ${HOST_UID} ${HOST_USER}; fi
 RUN echo root:${PASSWORD} | chpasswd
 RUN echo ${HOST_USER}:${PASSWORD} | chpasswd
 RUN echo "Set disable_coredump false" >> /etc/sudo.conf
