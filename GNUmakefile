@@ -156,6 +156,13 @@ PASSWORD := changeme
 endif
 export PASSWORD
 
+ifneq ($(cmd),)
+CMD_ARGUMENTS := $(cmd)
+else
+CMD_ARGUMENTS :=
+endif
+export CMD_ARGUMENTS
+
 DOCKER:=$(shell which docker)
 export DOCKER
 DOCKER_COMPOSE:=$(shell which docker-compose)
