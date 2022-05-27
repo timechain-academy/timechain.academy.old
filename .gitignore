@@ -8,7 +8,8 @@ sources/ide
 sources/bitcoinbook
 sources/lnbook
 
-resource.log
+resources.log
+.bash_history
 
 bitcoin.pdf
 
