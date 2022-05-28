@@ -1,94 +1,68 @@
 #!/usr/bin/env bash
-#ENV VARS
+# Check for group sudo
+if groups | grep "\<sudo\>" &> /dev/null; then
+    echo "You are a sudoer!"
+    export SUDO="sudo -s"
+else
+    echo "You are not a sudoer!"
+fi
+# Check for group admin
+if groups | grep "\<admin\>" &> /dev/null; then
+    echo "You are an admin!"
+    export SUDO="sudo -s"
+else
+    echo "You are not an admin!"
+fi
+#DETECT ENV VARS
 OS=$(uname)
 OS_VERSION=$(uname -r)
 UNAME_M=$(uname -m)
+UNAME_P=$(uname -p)
 ARCH=$(uname -m)
+if [[ "$OS" != "Linux"* ]]; then
+    if hash brew; then
+        BREW=$(which brew)
+        BREW_AWK=$(brew --prefix awk)
+        BREW_GAWK=$(brew --prefix gawk)
+        export HOMEBREW_NO_ENV_HINTS=0
+        export HOMEBREW_NO_INSTALL_CLEANUP=false
+    fi
+fi
 PYTHON3=$(which python3)
 PIP=$(which pip)
-DASH_U="-U"
-export OS
-export OS_VERSION
-export UNAME_M
-export ARCH
-export PYTHON3
-export PIP
-export DASH_U
-
-# if hash python3 2>/dev/null; then
-# python3 -m venv venv
-# source venv/bin/activate
-# else
-# echo "Please install python@3.8"
-# fi
-
-function initialize-report(){
-echo OS:
-echo "$OS" | awk '{print tolower($0)}'
-echo OS_VERSION:
-echo "$OS_VERSION" | awk '{print tolower($0)}'
-echo UNAME_M:
-echo "$UNAME_M" | awk '{print tolower($0)}'
-echo ARCH:
-echo "$ARCH" | awk '{print tolower($0)}'
-echo OSTYPE:
-echo "$OSTYPE" | awk '{print tolower($0)}'
-}
-
-function initialize-add-python-paths(){
-# support python 3.8 - 3.10
-PATH=$PATH:/usr/local/opt/python@3.8/Frameworks/Python.framework/Versions/3.8/bin
-PATH=$PATH:/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin
-# PATH=$PATH:/usr/local/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/bin
-}
-
-function initialize-use-apk(){
-
-	echo "more apk support needed"
-	sudo apk add py3-pyside2
-
-}
-
-function initialize-use-apt(){
-
-if hash apt-get 2>/dev/null; then
-    sudo apt-get update
-    sudo apt-get install -y \
-        python3 python3-pip mkdocs jq gnupg # \
-        # build-essential libboost-all-dev libssl-dev
-    if ! hash docker 2>/dev/null; then
-        sudo apt-get install -y docker.io
-    fi
-    if ! hash docker-compose 2>/dev/null; then
-        sudo apt-get install -y docker-compose
-    fi
-    if ! hash pip3 2>/dev/null; then
-        sudo apt-get install -y python3-pip
-    else
-        "$PYTHON3" -m "$PIP" install "$DASH_U" omegaconf glom
-    fi
-    if ! hash flake8 2>/dev/null; then
-        sudo apt-get install -y flake8
-    fi
-    if ! hash isort 2>/dev/null; then
-        sudo apt-get install -y isort
-    fi
-    if ! hash black 2>/dev/null; then
-        sudo apt-get install -y black
-    fi
-    # sudo apt-get install -y python3-pyside2.qt3dcore python3-pyside2.qt3dinput python3-pyside2.qt3dlogic python3-pyside2.qt3drender python3-pyside2.qtcharts python3-pyside2.qtconcurrent python3-pyside2.qtcore python3-pyside2.qtgui python3-pyside2.qthelp python3-pyside2.qtlocation python3-pyside2.qtmultimedia python3-pyside2.qtmultimediawidgets python3-pyside2.qtnetwork python3-pyside2.qtopengl python3-pyside2.qtpositioning python3-pyside2.qtprintsupport python3-pyside2.qtqml python3-pyside2.qtquick python3-pyside2.qtquickwidgets python3-pyside2.qtscript python3-pyside2.qtscripttools python3-pyside2.qtsensors python3-pyside2.qtsql python3-pyside2.qtsvg python3-pyside2.qttest python3-pyside2.qttexttospeech python3-pyside2.qtuitools python3-pyside2.qtwebchannel python3-pyside2.qtwebsockets python3-pyside2.qtwidgets python3-pyside2.qtx11extras python3-pyside2.qtxml python3-pyside2.qtxmlpatterns python3-pyside2uic
-
+PIP3=$(which pip3)
+if [ -z "$SUDO" ]; then
+    DASH_U="-U"
+else
+    DASH_U=
 fi
+AWK=$(which awk)
+GAWK=$(which gawk)
 
-}
-
-function initialize-checkbrew(){
+echo "OS=$OS"
+echo "OS_VERSION=$OS_VERSION"
+echo "UNAME_M=$UNAME_M"
+echo "UNAME_P=$UNAME_P"
+echo "ARCH=$ARCH"
+echo "BREW=$BREW"
+echo "PYTHON3=$PYTHON3"
+echo "PIP=$PIP"
+echo "PIP3=$PIP3"
+echo "DASH_U=$DASH_U"
+echo "AWK=$AWK"
+echo "GAWK=$GAWK"
+echo "BREW_AWK=$BREW_AWK"
+echo "BREW_GAWK=$BREW_GAWK"
 
 if [ "${UNAME_M}" = "x86_64" ]; then
-    if [ "$(sysctl -in sysctl.proc_translated)" = "1" ]; then
-        echo "Running on Rosetta 2"
-    else
-        echo "Running on native Intel"
+    if [ "${OS}" = "Darwin"* ]; then
+        if [ "$(sysctl -in sysctl.proc_translated)" = "1" ]; then
+            echo "Running on Rosetta 2"
+            ROSETTA=1
+            export ROSETTA
+        else
+            echo "Running on native Intel"
+        fi
     fi
 elif [ "${UNAME_M}" = "arm64" ]; then
     echo "Running on arm64"
@@ -98,78 +72,98 @@ else
     echo "Unknown architecture: ${UNAME_M}"
 fi
 
-if hash brew 2>/dev/null; then
-    export HOMEBREW_NO_ENV_HINTS=0
-
-    if [[ "$OSTYPE" == "linux"* ]]; then
-        brew install glibc
-    fi
-
-    brew install --quiet python@3.8
-    brew install --quiet python@3.9
-    brew install --quiet python@3.10
-
-if groups | grep "\<sudo\>" &> /dev/null; then
-    echo yes
-else
-    echo no
+if [[ ! -z "$GAWK" ]]; then
+    AWK=$(which gawk)
+    export AWK
 fi
 
-    # decending order to catch lowest python3 version
+function initialize-add-python3-to-path(){
+#ADD python3 to PATH
+if [[ ! -z "${python_version_major}" ]]; then
+    if [[ ! -z "${python_version_minor}" ]]; then
+        export PATH=$PATH:/usr/local/opt/python@${python_version_major}.${python_version_minor}/Frameworks/Python.framework/Versions/${python_version_major}.${python_version_minor}/bin
+    fi
+fi
+}
 
-    [ -f "/usr/local/opt/python@3.10/bin/python3" ] &&
-        this_python3=/usr/local/opt/python@3.10/bin/python3
+function initialize-use-apk(){
+# alpine linux... not android
+    echo "more apk support needed"
+    apk add "$AWK"
+    apk add python3 py3-pip
+    python3 -m pip install -r requirements.txt || \
+    python3 -m pip install -r ../requirements.txt
 
-    [ -f "/usr/local/opt/python@3.9/bin/python3" ] &&
-        this_python3=/usr/local/opt/python@3.9/bin/python3
+}
+function initialize-use-apt(){
 
-    [ -f "/opt/homebrew/opt/python@3.8/bin/python3" ] &&
-        this_python3=/opt/homebrew/opt/python@3.8/bin/python3
+DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
 
-    [ -f "/opt/homebrew/opt/python@3.7/bin/python3" ] &&
-        this_python3=/opt/homebrew/opt/python@3.7/bin/python3 &&
-        # echo python3.7 - not supported...
+if hash apt-get 2>/dev/null; then
+    $SUDO apt-get update
+     $SUDO apt-get install -y \
+        python3 python3-pip mkdocs jq
 
-    [ -f "/opt/homebrew/opt/python@3.6/bin/python3" ] &&
-        this_python3=/opt/homebrew/opt/python@3.6/bin/python3
-        # echo python3.6 - not supported...
+    if ! hash docker 2>/dev/null; then
+        $SUDO apt-get install -y runc containerd docker.io
+    fi
+    if ! hash docker-compose 2>/dev/null; then
+        $SUDO apt-get install -y docker-compose
+    fi
+    if ! hash flake8 2>/dev/null; then
+        $SUDO apt-get install -y flake8
+    fi
+    if ! hash isort 2>/dev/null; then
+        $SUDO apt-get install -y isort
+    fi
+    if ! hash black 2>/dev/null; then
+        $SUDO apt-get install -y black
+    fi
+else
+    apt install apt-get python3 python3-pip
+    initialize-use-apt
+fi
+$PYTHON3 -m pip install $DASH_U omegaconf glom
+}
 
-    export this_python3
+function checkbrew() {
 
-    # curl -O https://bootstrap.pypa.io/get-pip.py
-    $this_python3 -m pip install "$DASH_U" --upgrade pip omegaconf
-    $this_python3 -m pip install "$DASH_U" -r requirements.txt
-
+if hash brew 2>/dev/null; then
+    # We want to use gawk
     if ! hash gawk 2>/dev/null; then
+        if [[ ! -z $BREW_AWK ]]; then
+            brew link --overwrite gawk
+        fi
         brew install gawk
-    fi
-    if ! hash flake8 2>/dev/null; then
-        brew install flake8
-    fi
-    if ! hash flake8 2>/dev/null; then
-        brew install black
-    fi
-    if ! hash flake8 2>/dev/null; then
-        brew install poetry
-    fi
-    if ! hash flake8 2>/dev/null; then
-        brew install isort
-    fi
-    if ! hash node 2>/dev/null; then
-        brew install node
+        brew link gawk
     fi
     if ! hash docker 2>/dev/null; then
-        rm -f /usr/local/share/fish/vendor_completions.d/docker-compose.*
         brew install --cask docker
+        brew install docker
+        brew link docker
     fi
-    brew install openssl@1.1 glib-openssl pyside@2
-
+    if ! hash docker-compose 2>/dev/null; then
+        brew install docker-compose
+    fi
+    if ! hash mkdocs 2>/dev/null; then
+        brew install mkdocs
+    fi
+    if ! hash jq 2>/dev/null; then
+        brew install jq
+    fi
+    brew install --quiet --force python@3.9
+    #echo $(brew --prefix python@3.9)
+    # omegaconf works with python3.9
+    # stability on other versions needs to be retested and updated
+    $(which python3.9) -m ensurepip $DASH_U 2>/dev/null
+    $(which python3.9) -m pip -q install omegaconf 2>/dev/null
+    echo
 else
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     checkbrew
 fi
 }
-function initialize-checkraspi(){
+checkraspi(){
 
     echo 'Checking Raspi'
     if [ -e /etc/rpi-issue ]; then
@@ -189,92 +183,46 @@ function initialize-checkraspi(){
     echo "- Firmware"
     /opt/vc/bin/vcgencmd version
 }
-initialize-add-python-paths
+
 if [[ "$OSTYPE" == "linux"* ]]; then
     #CHECK APT
     if [[ "$OSTYPE" == "linux-gnu" ]]; then
         if hash apt 2>/dev/null; then
-            sudo apt install -y gawk
-            sudo apt update
-            sudo apt install -y software-properties-common curl
-            sudo apt-get -y gnupg # build-essential libboost-all-dev libssl-dev
-            sudo apt install -y python3
-            sudo apt-get install -y python3-pip
-            sudo apt install -y containerd docker.io docker-compose
-            # sudo apt python3.8-venv
-            # sudo apt python3.9-venv
-            # sudo apt install libssl-dev libffi7 glibc
-            # sudo apt install -y pycairo testresources
-            sudo apt install -y $(apt-cache pkgnames python3-pyside2.) pyside2-tools python-pyside2-doc
-
-            sudo apt-get install -y build-essential python3-dev
-
-            pip install omegaconf
-
-            # pip install pycryptodomex
-            # pip install pycryptodome-test-vectors
-            # python3 -m Cryptodome.SelfTest
-
-
-            initialize-report
             initialize-use-apt
-            echo 'Using apt...'
         fi
-        # source $HOME/.cargo/env
-
     fi
     if [[ "$OSTYPE" == "linux-musl" ]]; then
         if hash apk 2>/dev/null; then
-            apk add awk
-            initialize-report
             initialize-use-apk
-            echo 'Using apk...'
+            apk add "$AWK"
+            apk add python3 py3-pip
+            python3 -m pip install -r requirements.txt || \
+            python3 -m pip install -r ../requirements.txt
+
 
         fi
     fi
     if [[ "$OSTYPE" == "linux-arm"* ]]; then
         checkraspi
         if hash apt 2>/dev/null; then
-            apt install awk
-            initialize-report
-            # likely a raspi
-            # more detect raspi needed
-            initialize-use-apt
+            apt install "$AWK"
+            report
             echo 'Using apt...'
 
         fi
     fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    chown :admin $HOME/Library/Caches/pip
-    initialize-report
-    initialize-checkbrew
+    echo "checking brew..."
+    checkbrew
 elif [[ "$OSTYPE" == "cygwin" ]]; then
-    echo TODO add support for "$OSTYPE"
+    echo TODO add support for $OSTYPE
 elif [[ "$OSTYPE" == "msys" ]]; then
-    echo TODO add support for "$OSTYPE"
+    echo TODO add support for $OSTYPE
 elif [[ "$OSTYPE" == "win32" ]]; then
-    echo TODO add support for "$OSTYPE"
+    echo TODO add support for $OSTYPE
 elif [[ "$OSTYPE" == "freebsd"* ]]; then
-    echo TODO add support for "$OSTYPE"
+    echo TODO add support for $OSTYPE
 else
-    echo TODO add support for "$OSTYPE"
+    echo TODO add support for $OSTYPE
 fi
-# catch all for poetry
-if ! hash poetry 2>/dev/null; then
-    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
-    source $HOME/.poetry/env
-fi
-# touch $HOME/.bash_profile
-# echo 'export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"' >> $HOME/.bash_profile
-# export CFLAGS='-stdlib=libc++'
-# export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
-# export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
-# export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
-# export PKG_CONFIG_PATH="/usr/local/opt/openssl@3/lib/pkgconfig"
 
-# if ! hash rustc 2>/dev/null; then
-#     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-# fi
-# if hash brew 2>/dev/null; then
-#     brew bundle --force dump
-# fi

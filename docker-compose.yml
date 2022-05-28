@@ -12,7 +12,7 @@ services:
     build:
       context: .
       target: base
-      dockerfile: ubuntu.dockerfile
+      dockerfile: docker/ubuntu.dockerfile
       args:
         - HOST_UID=${HOST_UID:-4000}
         - HOST_USER=${HOST_USER:-nodummy}
@@ -21,10 +21,9 @@ services:
         - UBUNTU_VERSION=${UBUNTU_VERSION}
     command: ["ssh-agent ssh-add"]
     volumes:
-        - type: bind
-          source: ${PWD:-.}
-          target: /home/${HOST_USER}/timechain.academy
-        - type: bind
-          source: ~/.ssh
-          target: /home/${HOST_USER}/.ssh
-
+      - type: bind
+        source: ${PWD:-.}
+        target: /home/${HOST_USER}/timechain.academy
+      - type: bind
+        source: ~/.ssh
+        target: /home/${HOST_USER}/.ssh
