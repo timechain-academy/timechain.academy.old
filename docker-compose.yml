@@ -24,7 +24,7 @@ services:
         - type: bind
           source: ${PWD:-.}
           target: /home/${HOST_USER}/timechain.academy
-              # - type: bind
-              #   source: ~/.ssh
-              #   target: /home/${HOST_USER}/.ssh
+        - type: bind
+          source: ~/.ssh
+          target: /home/${HOST_USER}/.ssh
 
