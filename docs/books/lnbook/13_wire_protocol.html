@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.17">
+<title>Wire Protocol: Framing and Extensibility</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="wire_protocol">Wire Protocol: Framing and Extensibility</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this chapter, we dive into the wire protocol of the Lightning Network
+and also cover all the various extensibility levers that have been built into
+the protocol. By the end of this chapter, an ambitious reader should be able to
+write their very own wire protocol parser for the Lightning Network. In addition
+to being able to write a custom wire protocol parser, a reader of this chapter
+will gain a deep understanding of the various upgrade mechanisms
+that have been built into the protocol.</p>
+</div>
+<div class="sect2">
+<h3 id="_messaging_layer_in_the_lightning_protocol_suite">Messaging Layer in the Lightning Protocol Suite</h3>
+<div class="paragraph">
+<p>The messaging layer, which is detailed in this chapter, consists of "Framing and message format," "Type-Length-Value" encoding, and "Feature bits." These components are highlighted by an outline in the protocol suite, shown in <a href="#LN_protocol_wire_message_highlight">Messaging layer in the Lightning protocol suite</a>.</p>
+</div>
+<div id="LN_protocol_wire_message_highlight" class="imageblock">
+<div class="content">
+<img src="images/mtln_1301.png" alt="Messaging layer in the Lightning protocol suite">
+</div>
+<div class="title">Figure 1. Messaging layer in the Lightning protocol suite</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_wire_framing">Wire Framing</h3>
+<div class="paragraph">
+<p>We begin by describing the high-level structure of the wire <em>framing</em>
+within the protocol. When we say framing, we mean the way that the bytes are
+packed on the wire to <em>encode</em> a particular protocol message. Without knowledge
+of the framing system used in the protocol, a string of bytes on the wire would
+resemble a series of random bytes because no structure has been imposed. By applying
+proper framing to decode these bytes on the wire, we&#8217;ll be able to extract
+structure and finally parse this structure into protocol messages within our
+higher-level language.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s important to note that the Lightning Network is an <em>end-to-end
+encrypted</em> protocol, and the wire framing is itself encapsulated within an
+<em>encrypted</em> message transport layer. As we see in <a href="#encrypted_message_transport">[encrypted_message_transport]</a>, the Lightning
+Network uses a custom variant of the Noise Protocol to handle
+transport encryption. Within this chapter, whenever we give an example of wire
+framing, we assume the encryption layer has already been stripped away (when
+decoding), or that we haven&#8217;t yet encrypted the set of bytes before we send
+them on the wire (encoding).</p>
+</div>
+<div class="sect3">
+<h4 id="_high_level_wire_framing">High-Level Wire Framing</h4>
+<div class="paragraph">
+<p>With that said, we&#8217;re ready to describe the high-level schema used to
+encode messages on the wire:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Messages on the wire begin with a <em>2-byte</em> type field, followed by a
+message payload.</p>
+</li>
+<li>
+<p>The message payload itself can be up to 65 KB in size.</p>
+</li>
+<li>
+<p>All integers are encoded in big-endian (network order).</p>
+</li>
+<li>
+<p>Any bytes that follow after a defined message can be safely ignored.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Yep, that&#8217;s it. As the protocol relies on an <em>encapsulating</em> transport protocol
+encryption layer, we don&#8217;t need an explicit length for each message type. This
+is due to the fact that transport encryption works at the <em>message</em> level, so
+by the time we&#8217;re ready to decode the next message, we already know the total
+number of bytes of the message itself. Using 2 bytes for the message type
+(encoded in big-endian) means that the protocol can have up to 2^16 – 1 or
+65,535 distinct messages. Continuing, because we know all messages must be less than
+65 KB, this simplifies our parsing as we can use a <em>fixed-size</em> buffer and
+maintain strong bounds on the total amount of memory required to parse an
+incoming wire message.</p>
+</div>
+<div class="paragraph">
+<p>The final bullet point allows for a degree of <em>backward</em> compatibility  because new nodes are able to provide information in the wire messages that older nodes
+(which may not understand them) can safely ignore. As we see subsequently, this
+feature, combined with a very flexible wire message extensibility format, allows the protocol to achieve <em>forward</em> compatibility as well.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_type_encoding">Type Encoding</h4>
+<div class="paragraph">
+<p>With this high-level background provided, we now start at the most primitive
+layer: parsing primitive types. In addition to encoding integers, the Lightning
+Protocol also allows for encoding of a vast array of types, including variable-length byte slices, elliptic curve public keys, Bitcoin addresses, and
+signatures. When we describe the <em>structure</em> of wire messages later in this
+chapter, we refer to the high-level type (the abstract type) rather than the
+lower-level representation of said type. In this section, we peel back this
+abstraction layer to ensure that our future wire parser is able to properly
+encode/decode any of the higher-level types.</p>
+</div>
+<div class="paragraph">
+<p>In <a href="#message_types">High-level message types</a>, we map the name of a given message type to the
+high-level routine used to encode/decode the type.</p>
+</div>
+<table id="message_types" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. High-level message types</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">High-level type</th>
+<th class="tableblock halign-left valign-top">Framing</th>
+<th class="tableblock halign-left valign-top">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>node_alias</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A 32-byte fixed-length byte slice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When decoding, reject if contents are not a valid UTF-8 string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>channel_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A 32-byte fixed-length byte slice that maps an outpoint to a 32-byte value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Given an outpoint, one can convert it to a <code>channel_id</code> by taking the TxID of the outpoint and XORing it with the index (interpreted as the lower 2 bytes)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>short_chan_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An unsigned 64-bit integer (<code>uint64</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Composed of the block height (24 bits), transaction index (24 bits), and output index (16 bits) packed into 8 bytes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>milli_satoshi</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An unsigned 64-bit integer (<code>uint64</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Represents 1000th of a satoshi</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>satoshi</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An unsigned 64-bit integer (<code>uint64</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The base unit of bitcoin</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pubkey</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An secp256k1 public key encoded in <em>compressed</em> format, occupying 33 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Occupies a fixed 33-byte length on the wire</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sig</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An ECDSA signature of the secp256k1 elliptic curve</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Encoded as a <em>fixed</em> 64-byte byte slice, packed as <code>R || S</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint8</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An 8-bit integer</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint16</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A 16-bit integer</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint64</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A 64-bit integer</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]byte</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A variable-length byte slice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prefixed with a 16-bit integer denoting the length of the bytes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>color_rgb</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RGB color encoding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Encoded as a series of 8-bit integers</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>net_addr</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The encoding of a network address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Encoded with a 1-byte prefix that denotes the type of address, followed by the address body</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>In the next section, we describe the structure of each wire message,
+including the prefix type of the message along with the contents of its message
+body.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="tlv_message_extensions">Type-Length-Value Message Extensions</h3>
+<div class="paragraph">
+<p>Earlier in this chapter we mentioned that messages can be up to 65 KB in size,
+and if while parsing a message, extra bytes are left over, then those bytes
+are to be ignored. At an initial glance, this requirement may appear to be
+somewhat arbitrary; however, this requirement allows for decoupled desynchronized evolution of the Lightning
+Protocol itself. We discuss this more toward the end of the chapter. But first, we turn our attention to exactly what those "extra bytes" at
+the end of a message can be used for.</p>
+</div>
+<div class="sect3">
+<h4 id="_the_protocol_buffers_message_format">The Protocol Buffers Message Format</h4>
+<div class="paragraph">
+<p>The Protocol Buffers (Protobuf) message serialization format started out as an
+internal format used at Google and has blossomed into one of the most popular
+message serialization formats used by developers globally. The Protobuf format
+describes how a message (usually some sort of data structure related to an API)
+is encoded on the wire and decoded on the other end. Several "Protobuf
+compilers" exists in dozens of languages which act as a bridge that allows any
+language to encode a Protobuf that will be able to decode by a compliant decode
+in another language. Such cross-language data structure compatibility allows
+for a wide range of innovation because it&#8217;s possible to transmit structure and even
+typed data structures across language and abstraction boundaries.</p>
+</div>
+<div class="paragraph">
+<p>Protobufs are also known for their flexibility with respect to how they
+handle changes in the underlying messages structure. As long as the field
+numbering schema is adhered to, then it&#8217;s possible for a newer write of
+Protobufs to include information within a Protobuf that may be unknown to any
+older readers. When the old reader encounters the new serialized format, if
+there are types/fields that it doesn&#8217;t understand, then it simply <em>ignores</em>
+them. This allows old clients and new clients to coexist because all clients can
+parse some portion of the newer message format.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_forward_and_backward_compatibility">Forward and Backward Compatibility</h4>
+<div class="paragraph">
+<p>Protobufs are extremely popular amongst developers because they have built-in
+support for both forward and backward compatibility. Most developers are
+likely familiar with the concept of backward compatibility. In simple terms,
+the principle states that any changes to a message format or API should be
+done in a manner that doesn&#8217;t break support for older clients. Within our preceding Protobuf extensibility examples, backward compatibility is achieved by
+ensuring that new additions to the Protobuf format don&#8217;t break the known portions
+of older readers. Forward compatibility, on the other hand, is just as important
+for desynchronized updates; however, it&#8217;s less commonly known. For a change to
+be forward compatible, clients are to simply ignore any information
+they don&#8217;t understand. The soft fork mechanism of upgrading the Bitcoin
+consensus system can be said to be both forward and backward compatible: any
+clients that don&#8217;t update can still use Bitcoin, and if they encounter any
+transactions they don&#8217;t understand, then they simply ignore them as their funds
+aren&#8217;t using those new features.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="tlv">Type-Length-Value Format</h3>
+<div class="paragraph">
+<p>To be able to upgrade messages in a manner that is both forward and backward
+compatible, in addition to feature bits (more on that later), the Lightning Network utilizes a custom message serialization format plainly called Type-Length-Value, or TLV for short. The format was inspired by the widely used Protobuf
+format and borrows many concepts by significantly simplifying the
+implementation as well as the software that interacts with message parsing. A
+curious reader might ask, "why not just use Protobufs?" In response, the
+Lightning developers would respond that we&#8217;re able to have the best of the
+extensibility of Protobufs while also having the benefit of a smaller
+implementation and thus smaller attack. As of version 3.15.6, the Protobuf
+compiler weighs in at over 656,671 lines of code.  In comparison, LND&#8217;s
+implementation of the TLV message format weighs in at only 2.3k lines of code
+(including tests).</p>
+</div>
+<div class="paragraph">
+<p>With the necessary background presented, we&#8217;re now ready to describe the TLV
+format in detail. A TLV message extension is said to be a stream of
+individual <span class="keep-together">TLV records</span>. A single TLV record has three components: the type of
+the record, the length of the record, and finally the opaque value of the
+record:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>type</code></dt>
+<dd>
+<p>An integer representing the name of the record being encoded</p>
+</dd>
+<dt class="hdlist1"><code>length</code></dt>
+<dd>
+<p>The length of the record</p>
+</dd>
+<dt class="hdlist1"><code>value</code></dt>
+<dd>
+<p>The opaque value of the record</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Both the <code>type</code> and <code>length</code> are encoded using a variable-sized integer that&#8217;s inspired by the variable-sized integer (varint) used in Bitcoin&#8217;s P2P protocol, called <code>BigSize</code> for short.</p>
+</div>
+<div class="sect3">
+<h4 id="_bigsize_integer_encoding">BigSize Integer Encoding</h4>
+<div class="paragraph">
+<p>In its fullest form, a <code>BigSize</code>
+integer can represent value up to 64 bits. In contrast to Bitcoin&#8217;s varint
+format, the <code>BigSize</code> format instead encodes integers using a big-endian byte
+ordering.</p>
+</div>
+<div class="paragraph">
+<p>The <code>BigSize</code> varint has two components: the discriminant and the body. In the
+context of the <code>BigSize</code> integer, the discriminant communicates to the decoder
+the size of the variable-sized integer that follows. Remember that the unique thing about
+variable-sized integers is that they allow a parser to use fewer bytes to encode
+smaller integers than larger ones, saving space. Encoding of a <code>BigSize</code>
+integer follows one of the four following options:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If the value is less than <code>0xfd</code> (<code>253</code>): Then the discriminant isn&#8217;t really used, and the encoding is simply the integer itself. This allows us to encode very small integers with no additional overhead.</p>
+</li>
+<li>
+<p>If the value is less than or equal to <code>0xffff</code> (<code>65535</code>): The discriminant is encoded as <code>0xfd</code>, which indicates that the value that follows is larger than <code>0xfd</code>, but smaller than <code>0xffff</code>. The number is then encoded as a 16-bit integer. Including the discriminant, we can encode a value that is greater than 253, but less than 65,535 using 3 bytes.</p>
+</li>
+<li>
+<p>If the value is less than <code>0xffffffff</code> (<code>4294967295</code>): The discriminant is encoded as <code>0xfe</code>. The body is encoded using a 32-bit integer, including the discriminant, and we can encode a value that&#8217;s less than <code>4,294,967,295</code> using 5 bytes.</p>
+</li>
+<li>
+<p>Otherwise, we just encode the value as a full-size 64-bit integer.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_tlv_encoding_constraints">TLV Encoding Constraints</h4>
+<div class="paragraph">
+<p>Within the context of a TLV message, record types below <code>2^16</code> are said to be <em>reserved</em> for future use. Types beyond this
+range are to be used for "custom" message extensions used by higher-level application protocols.</p>
+</div>
+<div class="paragraph">
+<p>The <code>value</code> of a record depends on the <code>type</code>. In other words, it can take any form because parsers will attempt to interpret it depending on the context of the type itself.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_tlv_canonical_encoding">TLV Canonical Encoding</h4>
+<div class="paragraph">
+<p>One issue with the Protobuf format is that encodings of the same message may
+output an entirely different set of bytes when encoded by two different
+versions of the compiler. Such instances of a noncanonical encoding are not
+acceptable within the context of Lightning, as many messages contain a
+signature of the message digest. If it&#8217;s possible for a message to be encoded
+in two different ways, then it would be possible to break the authentication of
+a signature inadvertently by re-encoding a message using a slightly different
+set of bytes on the wire.</p>
+</div>
+<div class="paragraph">
+<p>To ensure that all encoded messages are canonical, the following
+constraints are defined when encoding:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>All records within a TLV stream must be encoded in order of strictly
+increasing type.</p>
+</li>
+<li>
+<p>All records must minimally encode the <code>type</code> and <code>length</code> fields. In other words, the smallest <code>BigSize</code> representation for an integer must be used at all times.</p>
+</li>
+<li>
+<p>Each <code>type</code> may only appear once within a given TLV stream.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In addition to these encoding constraints, a series of higher-level
+interpretation requirements is also defined based on the <em>arity</em> of a given <code>type</code> integer. We dive further into these details toward the end of the
+chapter once we describe how the Lightning Protocol is upgraded in practice and
+in theory.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="feature_bits">Feature Bits and Protocol Extensibility</h3>
+<div class="paragraph">
+<p>Because the Lightning Network is a decentralized system, no single entity can enforce a
+protocol change or modification upon all the users of the system. This
+characteristic is also seen in other decentralized networks such as Bitcoin.
+However, unlike Bitcoin, overwhelming consensus <em>is not</em> required to change a
+subset of the Lightning Network. Lightning is able to evolve at will without a
+strong requirement of coordination because, unlike Bitcoin, there is no global consensus required in the Lightning Network. Due to this fact and the several
+upgrade mechanisms embedded in the Lightning Network, only the
+participants that wish to use these new Lightning Network features need to
+upgrade, and then they are able to interact with each other.</p>
+</div>
+<div class="paragraph">
+<p>In this section, we explore the various ways that developers and users are
+able to design and deploy new features to the Lightning Network. The
+designers of the original Lightning Network knew that there were many possible future directions for the network and the underlying protocol. As a result, they made sure to implement several
+extensibility mechanisms within the system, which can be used to upgrade it partially or fully in a decoupled, desynchronized, and decentralized
+manner.</p>
+</div>
+<div class="sect3">
+<h4 id="_feature_bits_as_an_upgrade_discoverability_mechanism">Feature Bits as an Upgrade Discoverability Mechanism</h4>
+<div class="paragraph">
+<p>An astute reader may have noticed the various locations where feature bits are
+included within the Lightning Protocol. A <em>feature bit</em> is a bitfield that can
+be used to advertise understanding or adherence to a possible network protocol
+update. Feature bits are commonly assigned in pairs, meaning that each
+potential new feature/upgrade always defines two bits within the bitfield.
+One bit signals that the advertised feature is <em>optional</em>, meaning that the
+node knows about the feature and can use it, but doesn&#8217;t
+consider it required for normal operation. The other bit signals that the
+feature is instead <em>required</em>, meaning that the node will not continue
+operation if a prospective peer doesn&#8217;t understand that feature.</p>
+</div>
+<div class="paragraph">
+<p>Using these two bits (optional and required), we can construct a simple
+compatibility matrix that nodes/users can consult to determine if a peer is compatible with a desired feature, as shown in <a href="#table1302">Feature bit compatibility matrix</a>.</p>
+</div>
+<table id="table1302" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Feature bit compatibility matrix</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Bit type</th>
+<th class="tableblock halign-left valign-top">Remote optional</th>
+<th class="tableblock halign-left valign-top">Remote required</th>
+<th class="tableblock halign-left valign-top">Remote unknown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">❌</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local unknown</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">❌</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">❌</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>From this simplified compatibility matrix, we can see that as long as the other
+party knows about our feature bit, then we can interact with them using the
+protocol. If the party doesn&#8217;t even know about what bit we&#8217;re referring to
+<em>and</em> they require the feature, then we are incompatible with them. Within the
+network, optional features are signaled using an <em>odd bit number</em>, while
+required features are signaled using an <em>even bit number</em>. As an example, if a peer signals that they know of a feature that uses bit 15, then we know that
+this is an optional feature, and we can interact with them or respond to
+their messages even if we don&#8217;t know about the feature. If
+they instead signaled the feature using bit 16, then we know this is a
+required feature, and we can&#8217;t interact with them unless our node also
+understands that feature.</p>
+</div>
+<div class="paragraph">
+<p>The Lightning developers have come up with an easy-to-remember phrase that
+encodes this matrix: "it&#8217;s OK to be odd." This simple rule  allows for a
+rich set of interactions within the protocol, as a simple bitmask operation
+between two feature bit vectors allows peers to determine if certain
+interactions are compatible with each other or not. In other words, feature
+bits are used as an upgrade discoverability mechanism: they easily allow to
+peers to understand if they are compatible or not based on the concepts of
+optional, required, and unknown feature bits.</p>
+</div>
+<div class="paragraph">
+<p>Feature bits are found in the <code>node_announcement</code>, <code>channel_announcement</code>, and
+<code>init</code> messages within the protocol. As a result, these three messages can be
+used to signal the knowledge and/or understanding of in-flight protocol
+updates within the network. The feature bits found in the <code>node_announcement</code>
+message can allow a peer to determine if their <em>connections</em> are compatible or
+not. The feature bits within the <code>channel_announcement</code> messages allow a peer
+to determine if a given payment type or HTLC can transit through a given peer or
+not. The feature bits within the <code>init</code> message allow peers to understand if
+they can maintain a connection, and also which features are negotiated for the
+lifetime of a given connection.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_tlv_for_forward_and_backward_compatibility">TLV for Forward and Backward Compatibility</h4>
+<div class="paragraph">
+<p>As we learned earlier in the chapter, TLV records can be
+used to extend messages in a forward and backward compatible manner.
+Over time, these records have been used to extend existing messages without
+breaking the protocol by utilizing the "undefined" area within a message beyond
+that set of known bytes.</p>
+</div>
+<div class="paragraph">
+<p>As an example, the original Lightning Protocol didn&#8217;t have a concept of the
+"largest amount HTLC" that could traverse through a channel as dictated by a routing
+policy. Later on, the <code>max_htlc</code> field was added to the <code>channel_update</code>
+message to phase in this concept over time. Peers that receive a
+<code>channel_update</code> that sets such a field but don&#8217;t even know the upgrade existed
+are unaffected by the change, but have their HTLCs rejected if they are
+beyond the limit. Newer peers, on the other hand, are able to parse, verify,
+and utilize the new field.</p>
+</div>
+<div class="paragraph">
+<p>Those familiar with the concept of soft forks in Bitcoin may now see some
+similarities between the two mechanisms.  Unlike Bitcoin consensus-level
+soft forks, upgrades to the Lightning Network don&#8217;t require overwhelming
+consensus to be adopted. Instead, at minimum, only two peers within the
+network need to understand a new upgrade to start using it. Commonly these two peers may be the recipient and sender of a
+payment, or may be the channel partners of a new payment channel.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_a_taxonomy_of_upgrade_mechanisms">A Taxonomy of Upgrade Mechanisms</h4>
+<div class="paragraph">
+<p>Rather than there being a single widely utilized upgrade mechanism within the
+network (such as soft forks for Bitcoin), there exist several possible upgrade mechanisms within the Lightning Network. In this
+section, we enumerate these upgrade mechanisms and
+provide a real-world example of their use in the past.</p>
+</div>
+<div class="sect4">
+<h5 id="_internal_network_upgrades">Internal network upgrades</h5>
+<div class="paragraph">
+<p>We start with the upgrade type that requires the most protocol-level
+coordination: internal network upgrades. An internal network upgrade is
+characterized by one that requires <em>every single node</em> within a prospective payment path to understand the new feature. Such an upgrade is similar to any
+upgrade within the internet that requires hardware-level upgrades within
+the core-relay portion of the upgrade. In the context of the Lightning Network, however, we deal
+with pure software, so such upgrades are easier to deploy, yet they still
+require much more coordination than any other upgrade mechanism in the
+network.</p>
+</div>
+<div class="paragraph">
+<p>One example of such an upgrade within the network was the introduction of a TLV
+encoding for the routing information encoded within the onion
+packets. The prior format used a hardcoded fixed-length message
+format to communicate information such as the next hop.
+Because this format was fixed, it meant that new protocol-level upgrades  weren&#8217;t possible. The move to the more flexible TLV
+format meant that after this upgrade, any sort of feature that
+modified the type of information communicated at each hop could be rolled out at will.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s worth mentioning that the TLV onion upgrade was a sort of "soft" internal
+network upgrade, in that if a payment wasn&#8217;t using any new feature beyond
+that new routing information encoding, then a payment could be transmitted
+using a mixed set of nodes.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_end_to_end_upgrades">End-to-end upgrades</h5>
+<div class="paragraph">
+<p>To contrast the internal network upgrade, in this section we describe the
+<em>end-to-end</em> network upgrade. This upgrade mechanism differs from the internal
+network upgrade in that it only requires the "ends" of the payment, the sender
+and recipient, to upgrade.</p>
+</div>
+<div class="paragraph">
+<p>This type of upgrade allows
+for a wide array of unrestricted innovation within the network. Because of the
+onion encrypted nature of payments within the network, those forwarding HTLCs
+within the center of the network may not even know that new features are being
+utilized.</p>
+</div>
+<div class="paragraph">
+<p>One example of an end-to-end upgrade within the network was the rollout of multipart payments (MPP). MPP is a protocol-level feature that enables a
+single payment to be split into multiple parts or paths, to be assembled at the
+recipient for settlement. The rollout of MPP was coupled with a new
+<code>node_announcement</code> level feature bit that indicates that the recipient knows
+how to handle partial payments. Assuming a sender and recipient know about each
+other (possibly via a BOLT #11 invoice), then they&#8217;re able to use the new
+feature without any further negotiation.</p>
+</div>
+<div class="paragraph">
+<p>Another example of an end-to-end upgrade are the various types of
+<em>spontaneous</em> payments deployed within the network. One early type of
+spontaneous payments called <em>keysend</em> worked by simply placing the preimage of a payment within the encrypted onion. Upon receipt, the destination would decrypt the
+preimage, then use that to settle the payment. Because the entire packet is end-to-end encrypted, this payment type was safe, since none of the intermediate nodes
+are able to fully unwrap the onion to uncover the payment preimage.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_channel_construction_level_updates">Channel Construction-Level Updates</h4>
+<div class="paragraph">
+<p>The final broad category of updates are those that happen at
+the channel construction level, but which don&#8217;t modify the structure of the HTLC used widely within the network. When we say channel construction, we mean
+how the channel is funded or created. As an example, the eltoo channel type
+can be rolled out within the network using a new <code>node_announcement</code> level
+feature bit as well as a <code>channel_announcement</code> level feature bit. Only the two
+peers on the sides of the channels need to understand and advertise these new
+features. This channel pair can then be used to forward any payment type
+granted the channel supports it.</p>
+</div>
+<div class="paragraph">
+<p>Another is the <em>anchor outputs</em> channel format which allows the commitment fee to be
+bumped via Bitcoin&#8217;s Child-Pays-For-Parent (CPFP) fee management mechanism.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_conclusion">Conclusion</h3>
+<div class="paragraph">
+<p>Lightning&#8217;s wire protocol is incredibly flexible and allows for rapid innovation and interoperability without strict consensus. It is one of the reasons that the Lightning Network is experiencing much faster development and is attractive to many developers, who might otherwise find Bitcoin&#8217;s development style too conservative and slow.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2022-05-30 16:04:56 -0400
+</div>
+</div>
+</body>
+</html>

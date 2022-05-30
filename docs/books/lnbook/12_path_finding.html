@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.17">
+<title>Pathfinding and Payment Delivery</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="path_finding">Pathfinding and Payment Delivery</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Payment delivery on the Lightning Network depends on finding a path from the sender to the recipient, a process called <em>pathfinding</em>. Since the routing is done by the sender, the sender must find a suitable path to reach the destination. This path is then encoded in an onion, as we saw in <a href="#onion_routing">[onion_routing]</a>.</p>
+</div>
+<div class="paragraph">
+<p>In this chapter we will examine the problem of pathfinding, understand how uncertainty about channel balances complicates this problem, and look at how a typical pathfinding implementation attempts to solve it.</p>
+</div>
+<div class="sect2">
+<h3 id="_pathfinding_in_the_lightning_protocol_suite">Pathfinding in the Lightning Protocol Suite</h3>
+<div class="paragraph">
+<p>Pathfinding, path selection, multipart payments (MPP), and the payment attempt trial-and-error loop occupy the majority of the payment layer at the top of the protocol suite.</p>
+</div>
+<div class="paragraph">
+<p>These components are highlighted by an outline in the protocol suite, shown in <a href="#LN_protocol_pathfinding_highlight">Payment delivery in the Lightning protocol suite</a>.</p>
+</div>
+<div id="LN_protocol_pathfinding_highlight" class="imageblock">
+<div class="content">
+<img src="images/mtln_1201.png" alt="Payment delivery in the Lightning protocol suite">
+</div>
+<div class="title">Figure 1. Payment delivery in the Lightning protocol suite</div>
+</div>
+<div class="sect3">
+<h4 id="_where_is_the_bolt">Where Is the BOLT?</h4>
+<div class="paragraph">
+<p>So far we&#8217;ve looked at several technologies that are part of the Lightning Network and we have seen their exact specification as part of a BOLT standard. You may be surprised to find that pathfinding is not part of the BOLTs!</p>
+</div>
+<div class="paragraph">
+<p>That&#8217;s because pathfinding isn&#8217;t an activity that requires any form of coordination or interoperability between different implementations. As we&#8217;ve seen, the path is selected by the sender. Even though the routing details are specified in detail in the BOLTs, the path discovery and selection are left entirely up to the sender. So each node implementation can choose a different strategy/algorithm to find paths. In fact, the different node/client and wallet implementations can even compete and use their pathfinding algorithm as a point of differentiation.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pathfinding_what_problem_are_we_solving">Pathfinding: What Problem Are We Solving?</h3>
+<div class="paragraph">
+<p>The term pathfinding may be somewhat misleading because it implies a search for <em>a single path</em> connecting two nodes. In the beginning, when the Lightning Network was small and not well interconnected, the problem was indeed about finding a way to join payment channels to reach the recipient.</p>
+</div>
+<div class="paragraph">
+<p>But, as the Lightning Network has grown explosively, the pathfinding problem&#8217;s nature has shifted. In mid-2021, as we finish this book, the Lightning Network consists of 20,000 nodes connected by at least 55,000 public channels with an aggregate capacity of almost 2,000 BTC. A node has on average 8.8 channels, while the top 10 most connected nodes have between 400 and 2,000 channels <em>each</em>. A visualization of just a small subset of the LN channel graph is shown in <a href="#lngraph">A visualization of part of the Lightning Network as of July 2021</a>.</p>
+</div>
+<div id="lngraph" class="imageblock">
+<div class="content">
+<img src="images/mtln_1202.png" alt="mtln 1202">
+</div>
+<div class="title">Figure 2. A visualization of part of the Lightning Network as of July 2021</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The network visualization in <a href="#lngraph">A visualization of part of the Lightning Network as of July 2021</a> was produced with a simple Python script you can find in code/lngraph in the book&#8217;s repository.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If the sender and recipient are connected to other well-connected nodes and have at least one channel with adequate capacity, there will be thousands of paths. The problem becomes selecting the <em>best</em> path that will succeed in payment delivery, out of a list of thousands of possible paths.</p>
+</div>
+<div class="sect3">
+<h4 id="_selecting_the_best_path">Selecting the Best Path</h4>
+<div class="paragraph">
+<p>To select the best path, we have to first define what we mean by "best." There may be many different criteria, such as:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Paths with enough liquidity. Obviously if a path doesn&#8217;t have enough liquidity to route our payment, then it is not a suitable path.</p>
+</li>
+<li>
+<p>Paths with low fees. If we have several candidates, we may want to select ones with lower fees.</p>
+</li>
+<li>
+<p>Paths with short timelocks. We may want to avoid locking our funds for too long and therefore select paths with shorter timelocks.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>All of these criteria may be desirable to some extent, and selecting paths that are favorable across many dimensions is not an easy task. Optimization problems like this may be too complex to solve for the "best" solution, but often can be solved for some approximation of the optimal, which is good news because otherwise pathfinding would be an intractable problem.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_pathfinding_in_math_and_computer_science">Pathfinding in Math and Computer Science</h4>
+<div class="paragraph">
+<p>Pathfinding in the Lightning Network falls under a general category of <em>graph theory</em> in mathematics and the more specific category of <em>graph traversal</em> in computer science.</p>
+</div>
+<div class="paragraph">
+<p>A network such as the Lightning Network can be represented as a mathematical construct called a <em>graph</em>, where <em>nodes</em> are connected to each other by <em>edges</em> (equivalent to the payment channels). The Lightning Network forms a <em>directed graph</em> because the nodes are linked <em>asymmetrically</em>, since the channel balance is split between the two channel partners and the payment liquidity is different in each direction. A directed graph with numerical capacity constraints on its edges is called a <em>flow network</em>, a mathematical construct used to optimize transportation and other similar networks. Flow networks can be used as a framework when solutions need to achieve a specific flow while minimizing cost, known as the minimum cost flow problem (MCFP).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_capacity_balance_liquidity">Capacity, Balance, Liquidity</h4>
+<div class="paragraph">
+<p>To better understand the problem of transporting satoshis from point A to point B, we need to better define three important terms: capacity, balance, and liquidity. We use these terms to describe a payment channel&#8217;s ability to route a payment.</p>
+</div>
+<div class="paragraph">
+<p>In a payment channel connecting A&#8592;&#8594;B:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Capacity</dt>
+<dd>
+<p>This is the aggregate amount of satoshis that were funded into the 2-of-2 multisig with the funding transaction. It represents the maximum amount of value held in the channel. The channel capacity is announced by the gossip protocol and is known to nodes.</p>
+</dd>
+<dt class="hdlist1">Balance</dt>
+<dd>
+<p>This is the amount of satoshis held by each channel partner that can be sent to the other channel partner. A subset of the balance of A can be sent in the direction (A&#8594;B) toward node B. A subset of the balance of B can be sent in the opposite direction (A&#8592;B).</p>
+</dd>
+<dt class="hdlist1">Liquidity</dt>
+<dd>
+<p>The available (subset) balance that can actually be sent across the channel in one direction. Liquidity of A is equal to the balance of A minus the channel reserve and any pending HTLCs committed by A.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The only value known to the network (via gossip announcements) is the aggregate capacity of the channel. Some unknown portion of that capacity is distributed as each partner&#8217;s balance. Some subset of that balance is available to send across the channel in one direction:</p>
+</div>
+<ul class="simplelist">
+<li>capacity = balance(A) + balance(B)</li>
+<li>liquidity(A) = balance(A) – channel_reserve(A) – pending_HTLCs(A)</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_uncertainty_of_balances">Uncertainty of Balances</h4>
+<div class="paragraph">
+<p>If we knew the exact channel balances of every channel, we could compute one or more payment paths using any of the standard pathfinding algorithms taught in good computer science programs. But we don&#8217;t know the channel balances; we only know the aggregate channel capacity, which is advertised by nodes in channel announcements. In order for a payment to succeed, there must be adequate balance on the sending side of the channel. If we don&#8217;t know how the capacity is distributed between the channel partners, we don&#8217;t know if there is enough balance in the direction we are trying to send the payment.</p>
+</div>
+<div class="paragraph">
+<p>Balances are not announced in channel updates for two reasons: privacy and scalability. First, announcing balances would reduce the privacy of the Lightning Network because it would allow surveillance of payment by statistical analysis of the changes in balances. Second, if nodes announced balances (globally) with every payment, the Lightning Network&#8217;s scaling would be as bad as that of on-chain Bitcoin transactions which are broadcast to all participants. Therefore, balances are not announced. To solve the pathfinding problem in the face of uncertainty of balances, we need innovative pathfinding strategies. These strategies must relate closely to the routing algorithm that is used, which is source-based onion routing where it is the responsibility of the sender to find a path through the network.</p>
+</div>
+<div class="paragraph">
+<p>The uncertainty problem can be described mathematically as a <em>range of liquidity</em>, indicating the lower and upper bounds of liquidity based on the information that is known. Since we know the capacity of the channel and we know the channel reserve balance (the minimum allowed balance on each end), the liquidity can be defined as:</p>
+</div>
+<ul class="simplelist">
+<li>min(liquidity) = channel_reserve</li>
+<li>max(liquidity) = capacity – channel_reserve</li>
+</ul>
+<div class="paragraph pagebreak-before">
+<p>or as a range:</p>
+</div>
+<ul class="simplelist">
+<li>channel_reserve &lt;= liquidity &lt;= (capacity – channel_reserve)</li>
+</ul>
+<div class="paragraph">
+<p>Our channel liquidity uncertainty range is the range between the minimum and maximum possible liquidity. This is unknown to the network, except the two channel partners. However, as we will see, we can use failed HTLCs returned from our payment attempts to update our liquidity estimate and reduce uncertainty. If, for example, we get an HTLC failure code that tells us that a channel cannot fulfill an HTLC that is smaller than our estimate for maximum liquidity, that means the maximum liquidity can be updated to the amount of the failed HTLC. In simpler terms, if we think the liquidity can handle an HTLC of <em>N</em> satoshis and we find out it fails to deliver <em>M</em> satoshis (where <em>M</em> is smaller), then we can update our estimate to <em>M</em>–1 as the upper bound. We tried to find the ceiling and bumped against it, so it&#8217;s lower than we thought!</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_pathfinding_complexity">Pathfinding Complexity</h4>
+<div class="paragraph">
+<p>Finding a path through a graph is a problem modern computers can solve rather efficiently.
+Developers mainly choose breadth-first search if the edges are all of equal weight.
+In cases where the edges are not of equal weight, an algorithm based on Dijkstra&#8217;s algorithm is used, such as <a href="https://en.wikipedia.org/wiki/A*_search_algorithm">A* (pronounced "A-star")</a>.
+In our case the weights of the edges can represent the routing fees.
+Only edges with a capacity larger than the amount to be sent will be included in the search.
+In this basic form, pathfinding in the Lightning Network is very simple and straightforward.</p>
+</div>
+<div class="paragraph">
+<p>However, channel liquidity is unknown to the sender. This turns our easy theoretical computer science problem into a rather complex real-world problem.
+We now have to solve a pathfinding problem with only partial knowledge.
+For example, we suspect which edges might be able to forward a payment because their capacity seems big enough.
+But we can&#8217;t be certain unless we try it out or ask the channel owners directly.
+Even if we were able to ask the channel owners directly, their balance might change by the time we have asked others, computed a path, constructed an onion, and sent it along.
+Not only do we have limited information but the information we have is highly dynamic and might change at any point in time without our knowledge.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_keeping_it_simple">Keeping It Simple</h4>
+<div class="paragraph">
+<p>The pathfinding mechanism implemented in Lightning nodes is to first create a list of candidate paths, filtered and sorted by some function. Then, the node or wallet will probe paths (by attempting to deliver a payment) in a trial-and-error loop until a path is found that successfully delivers the payment.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This probing is done by the Lightning node or wallet and is not directly observed by the user of the software.
+However, the user might suspect that probing is taking place if the payment is not completed instantly.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>While blind probing is not optimal and leaves ample room for improvement, it should be noted that even this simplistic strategy works surprisingly well for smaller payments and well-connected nodes.</p>
+</div>
+<div class="paragraph">
+<p>Most Lightning node and wallet implementations improve on this approach by ordering/weighting the list of candidate paths. Some implementations order the candidate paths by cost (fees) or some combination of cost and capacity.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pathfinding_and_payment_delivery_process">Pathfinding and Payment Delivery Process</h3>
+<div class="paragraph">
+<p>Pathfinding and payment delivery involves several steps, which we list here. Different implementations may use different algorithms and strategies, but the basic steps are likely to be very similar:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a <em>channel graph</em> from announcements and updates containing the capacity of each channel, and filter the graph, ignoring any channels with insufficient capacity for the amount we want to send.</p>
+</li>
+<li>
+<p>Find paths connecting the sender to the recipient.</p>
+</li>
+<li>
+<p>Order the paths by some weight (this may be part of the previous step&#8217;s <span class="keep-together">algorithm</span>).</p>
+</li>
+<li>
+<p>Try each path in order until payment succeeds (the trial-and-error loop).</p>
+</li>
+<li>
+<p>Optionally use the HTLC failure returns to update our graph, reducing <span class="keep-together">uncertainty</span>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>We can group these steps into three primary activities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Channel graph construction</p>
+</li>
+<li>
+<p>Pathfinding (filtered and ordered by some heuristics)</p>
+</li>
+<li>
+<p>Payment attempt(s)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These three activities can be repeated in a <em>payment round</em> if we use the failure returns to update the graph, or if we are doing multipart payments (see <a href="#mpp">Multipart Payments</a>).</p>
+</div>
+<div class="paragraph">
+<p>In the next sections we will look at each of these steps in more detail, as well as more advanced payment strategies.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_channel_graph_construction">Channel Graph Construction</h3>
+<div class="paragraph">
+<p>In <a href="#gossip">[gossip]</a> we covered the three main messages that nodes use in their gossip: node_announcement, channel_announcement, and channel_update. These three messages allow any node to gradually construct a "map" of the Lightning Network in the form of a <em>channel graph</em>. Each of these messages provides a critical piece of information for the channel graph:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">node_announcement</dt>
+<dd>
+<p>This contains the information about a node on the Lightning Network, such as its node ID (public key), network address (e.g., IPv4/6 or Tor), capabilities/features, etc.</p>
+</dd>
+<dt class="hdlist1">channel_announcement</dt>
+<dd>
+<p>This contains the capacity and channel ID of a public (announced) channel between two nodes and proof of the channel&#8217;s existence and ownership.</p>
+</dd>
+<dt class="hdlist1">channel_update</dt>
+<dd>
+<p>This contains a node&#8217;s fee and timelock (CLTV) expectations for routing an outgoing (from that node&#8217;s perspective) payment over a specified channel.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>In terms of a mathematical graph, the node_announcement is the information needed to create the nodes or <em>vertices</em> of the graph. The channel_announcement allows us to create the <em>edges</em> of the graph representing the payment channels. Since each direction of the payment channel has its own balance, we create a directed graph. The channel_update allows us to incorporate fees and timelocks to set the <em>cost</em> or <em>weight</em> of the graph edges.</p>
+</div>
+<div class="paragraph">
+<p>Depending on the algorithm we will use for pathfinding, we may establish a number of different cost functions for the edges of the graph.</p>
+</div>
+<div class="paragraph">
+<p>For now, let&#8217;s ignore the cost function and simply establish a channel graph showing nodes and channels, using the node_announcement and channel_announcement messages.</p>
+</div>
+<div class="paragraph">
+<p>In this chapter we will see how Selena attempts to find a path to pay Rashid one million satoshis. To start, Selena is constructing a channel graph using the information from Lightning Network gossip to discover nodes and channels. Selena will then explore her channel graph to find a path to send a payment to Rashid.</p>
+</div>
+<div class="paragraph">
+<p>This is <em>Selena&#8217;s</em> channel graph. There is no such thing as <em>the</em> channel graph, there is only ever <em>a channel graph</em>, and it is always from the perspective of the node that has constructed it (see <a href="#map_territory_relation">The Map-Territory Relation</a>).</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Selena does not contruct a channel graph only when sending a payment. Rather, Selena&#8217;s node is <em>continuously</em> building and updating a channel graph. From the moment Selena&#8217;s node starts and connects to any peer on the network it will participate in the gossip and use every message to learn as much as possible about the network.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="map_territory_relation" class="sidebarblock">
+<div class="content">
+<div class="title">The Map-Territory Relation</div>
+<div class="paragraph">
+<p>From Wikipedia&#8217;s <a href="https://en.wikipedia.org/wiki/Map%E2%80%93territory_relation">page on the Map-Territory Relation</a>, "The map-territory relation describes the relationship between an object and a representation of that object, as in the relation between a geographical territory and a map of it."</p>
+</div>
+<div class="paragraph">
+<p>The map-territory relation is best illustrated in "Sylvie and Bruno Concluded," a short story by Lewis Carroll which describes a fictional map that is a 1:1 scale of the territory it maps, therefore having perfect accuracy but becoming completely useless as it would cover the entire territory if unfolded.</p>
+</div>
+<div class="paragraph">
+<p>What does this mean for the Lightning Network? The Lightning Network is the territory, and a channel graph is a map of that territory.</p>
+</div>
+<div class="paragraph">
+<p>While we could imagine a theoretical (Platonic ideal) channel graph that represents the complete, up-to-date map of the Lightning Network, such a map is simply the Lightning Network itself. Each node has its own channel graph which is constructed from announcements and is necessarily incomplete, incorrect, and out-of-date!</p>
+</div>
+<div class="paragraph">
+<p>The map can never completely and accurately describe the territory.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Selena listens to node_announcement messages and discovers four other nodes (in addition to Rashid, the intended recipient). The resulting graph represents a network of six nodes: Selena and Rashid are the sender and recipient, respectively; Alice, Bob, Xavier, and Yan are intermediary nodes. Selena&#8217;s initial graph is just a list of nodes, shown in <a href="#channel_graph_nodes">Node announcements</a>.</p>
+</div>
+<div id="channel_graph_nodes" class="imageblock">
+<div class="content">
+<img src="images/mtln_1203.png" alt="mtln 1203">
+</div>
+<div class="title">Figure 3. Node announcements</div>
+</div>
+<div class="paragraph">
+<p>Selena also receives seven channel_announcement messages with the corresponding channel capacities, allowing her to construct a basic "map" of the network, shown in <a href="#channel_graph_1">The channel graph</a>. (The names Alice, Bob, Selena, Xavier, Yan, and Rashid have been replaced by their initials: A, B, S, X, and R, respectively.)</p>
+</div>
+<div id="channel_graph_1" class="imageblock">
+<div class="content">
+<img src="images/mtln_1204.png" alt="mtln 1204">
+</div>
+<div class="title">Figure 4. The channel graph</div>
+</div>
+<div class="sect4">
+<h5 id="_uncertainty_in_the_channel_graph">Uncertainty in the channel graph</h5>
+<div class="paragraph">
+<p>As you can see from <a href="#channel_graph_1">The channel graph</a>, Selena does not know any of the balances of the channels. Her initial channel graph contains the highest level of uncertainty.</p>
+</div>
+<div class="paragraph">
+<p>But wait: Selena does know <em>some</em> channel balances! She knows the balances of the channels that her own node has connected with other nodes. While this does not seem like much, it is in fact very important information for constructing a path—Selena knows the actual liquidity of her own channels. Let&#8217;s update the channel graph to show this information. We will use a "?" symbol to represent the unknown balances, as shown in <a href="#channel_graph_2">Channel graph with known and unknown balances</a>.</p>
+</div>
+<div id="channel_graph_2" class="imageblock">
+<div class="content">
+<img src="images/mtln_1205.png" alt="mtln 1205">
+</div>
+<div class="title">Figure 5. Channel graph with known and unknown balances</div>
+</div>
+<div class="paragraph">
+<p>While the "?" symbol seems ominous, a lack of certainty is not the same as complete ignorance. We can <em>quantify</em> the uncertainty and <em>reduce</em> it by updating the graph with the successful/failed HTLCs we attempt.</p>
+</div>
+<div class="paragraph">
+<p>Uncertainty can be quantified, because we know the maximum and minimum possible liquidity and can calculate probabilities for smaller (more precise) ranges.</p>
+</div>
+<div class="paragraph">
+<p>Once we attempt to send an HTLC, we can learn more about channel balances: if we succeed, then the balance was <em>at least</em> sufficient to transport the specific amount. Meanwhile if we get a "temporary channel failure" error, the most likely reason is a lack of liquidity for the specific amount.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You may be thinking, "What&#8217;s the point of learning from a successful HTLC?" After all, if it succeeded we&#8217;re "done." But consider that we may be sending one part of a multipart payment. We also may be sending other single-part payments within a short time. Anything we learn about liquidity is useful for the next attempt!</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_liquidity_uncertainty_and_probability">Liquidity Uncertainty and Probability</h4>
+<div class="paragraph">
+<p>To quantify the uncertainty of a channel&#8217;s liquidity, we can apply probability theory. A basic model of the probability of payment delivery will lead to some rather obvious, but important, conclusions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Smaller payments have a better chance of successful delivery across a path.</p>
+</li>
+<li>
+<p>Larger capacity channels will give us a better chance of payment delivery for a specific amount.</p>
+</li>
+<li>
+<p>The more channels (hops), the lower the chance of success.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>While these may be obvious, they have important implications, especially for the use of multipart payments (see <a href="#mpp">Multipart Payments</a>). The math is not difficult to follow.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s use probability theory to see how we arrived at these conclusions.</p>
+</div>
+<div class="paragraph">
+<p>First, let&#8217;s posit that a channel with capacity <em>c</em> has liquidity on one side with an unknown value in the range of (0, <em>c</em>) or "range between 0 and <em>c</em>." For example, if the capacity is 5, then the liquidity will be in the range (0, 5). Now, from this we see that if we want to send 5 satoshis, our chance of success is only 1 in 6 (16.66%), because we will only succeed if the liquidity is exactly 5.</p>
+</div>
+<div class="paragraph">
+<p>More simply, if the possible values for the liquidity are 0, 1, 2, 3, 4, and 5, only one of those six possible values will be sufficient to send our payment. To continue this example, if our payment amount was 3, then we would succeed if the liquidity was 3, 4, or 5. So our chances of success are 3 in 6 (50%). Expressed in math, the success probability function for a single channel is:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[$P_c(a) = (c + 1 - a) / (c + 1)$\]
+</div>
+</div>
+<div class="paragraph">
+<p>where <em>a</em> is the amount and <em>c</em> is the capacity.</p>
+</div>
+<div class="paragraph">
+<p>From the equation we see that if the amount is close to 0, the probability is close to 1, whereas if the amount exceeds the capacity, the probability is zero.</p>
+</div>
+<div class="paragraph">
+<p>In other words: "Smaller payments have a better chance of successful delivery" or "Larger capacity channels give us better chances of delivery for a specific amount" and "You can&#8217;t send a payment on a channel with insufficient capacity."</p>
+</div>
+<div class="paragraph">
+<p>Now let&#8217;s think about the probability of success across a path made of several channels. Let&#8217;s say our first channel has a 50% chance of success (<em>P</em> = 0.5). Then if our second channel has a 50% chance of success (<em>P</em> = 0.5), it is intuitive that our overall chance is 25% (<em>P</em> = 0.25).</p>
+</div>
+<div class="paragraph">
+<p>We can express this as an equation that calculates the probability of a payment&#8217;s success as the product of probabilities for each channel in the path(s):</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[$P_{payment} = \prod_{i=1}^n P_i$\]
+</div>
+</div>
+<div class="paragraph">
+<p>Where <em>P</em><sub><em>i</em></sub> is the probability of success over one path or channel, and <em>P</em><sub><em>payment</em></sub> is the overall probability of a successful payment over all the paths/channels.</p>
+</div>
+<div class="paragraph">
+<p>From the equation we see that since the probability of success over a single channel is always less than or equal to 1, the  probability across many channels will <em>drop exponentially</em>.</p>
+</div>
+<div class="paragraph">
+<p>In other words, "The more channels (hops) you use, the lower the chance of success."</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>There is a lot of mathematical theory and modeling behind the uncertainty of the liquidity in the channels. Fundamental work about modeling the uncertainty intervals of the channel liquidity can be found in the paper <a href="https://arxiv.org/abs/2103.08576">"Security and Privacy of Lightning Network Payments with Uncertain Channel Balances"</a> by (coauthor of this book) Pickhardt <span class="keep-together">et al</span>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_fees_and_other_channel_metrics">Fees and Other Channel Metrics</h4>
+<div class="paragraph">
+<p>Next, our sender will add information to the graph from channel_update messages received from the intermediary nodes. As a reminder, the channel_update contains a wealth of information about a channel and the expectations of one of the channel partners.</p>
+</div>
+<div class="paragraph">
+<p>In <a href="#channel_graph_3">Channel graph fees and other channel metrics</a> we see how Selena can update the channel graph based on channel_update messages from A, B, X, and Y. Note that the channel ID and channel direction (included in channel_flags) tell Selena which channel and which direction this update refers to. Each channel partner gossips one or more channel_update messages to announce their fee expectations and other information about the channel. For example, in the top left we see the channel_update sent by Alice for the channel A&#8212;&#8203;B and the direction A-to-B. With this update, Alice tells the network how much she will charge in fees to route an HTLC to Bob over that specific channel. Bob may announce a channel update (not shown in this diagram) for the opposite direction with completely different fee expectations. Any node may send a new channel_update to change the fees or timelock expectations at any time.</p>
+</div>
+<div id="channel_graph_3" class="imageblock">
+<div class="content">
+<img src="images/mtln_1206.png" alt="mtln 1206">
+</div>
+<div class="title">Figure 6. Channel graph fees and other channel metrics</div>
+</div>
+<div class="paragraph">
+<p>The fee and timelock information are very important, not just as path selection metrics. As we saw in <a href="#onion_routing">[onion_routing]</a>, the sender needs to add up fees and timelocks (cltv_expiry_delta) at each hop to make the onion. The process of calculating fees happens from the recipient to the sender <em>backward</em> along the path because each intermediary hop expects an incoming HTLC with higher amount and expiry timelock than the outgoing HTLC they will send to the next hop. So, for example, if Bob wants 1,000 satoshis in fees and 30 blocks of expiry timelock delta to send a payment to Rashid, then that amount and expiry delta must be added to the HTLC <em>from Alice</em>.</p>
+</div>
+<div class="paragraph">
+<p>It is also important to note that a channel must have liquidity that is sufficient not only for the payment amount but also for the cumulative fees of all the subsequent hops. Even though Selena&#8217;s channel to Xavier (S&#8594;X) has enough liquidity for a 1M satoshi payment, it <em>does not</em> have enough liquidity once we consider fees. We need to know fees because only paths that have sufficient liquidity for <em>both payment and all fees</em> will be considered.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_finding_candidate_paths">Finding Candidate Paths</h3>
+<div class="paragraph">
+<p>Finding a suitable path through a directed graph like this is a well-studied computer science problem (known broadly as the <em>shortest path problem</em>), which can be solved by a variety of algorithms depending on the desired optimization and resource constraints.</p>
+</div>
+<div class="paragraph">
+<p>The most famous algorithm solving this problem was invented by Dutch mathematician E. W. Dijkstra in 1956, known simply as <a href="https://en.wikipedia.org/wiki/Dijkstra&#8217;s_algorithm"><em>Dijkstra&#8217;s algorithm</em></a>. In addition to the original Dijkstra&#8217;s algorithm, there are many variations and optimizations, such as <a href="https://en.wikipedia.org/wiki/A*_search_algorithm">A* ("A-star")</a>, which is a heuristic-based algorithm.</p>
+</div>
+<div class="paragraph">
+<p>As mentioned previously, the "search" must be applied <em>backward</em> to account for fees that are accumulated from recipient to sender. Thus, Dijkstra, A*, or some other algorithm would search for a path from the recipient to the sender, using fees, estimated liquidity, and timelock delta (or some combination) as a cost function for each hop.</p>
+</div>
+<div class="paragraph">
+<p>Using one such algorithm, Selena calculates several possible paths to Rashid, sorted by shortest path:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>S&#8594;A&#8594;B&#8594;R</p>
+</li>
+<li>
+<p>S&#8594;X&#8594;Y&#8594;R</p>
+</li>
+<li>
+<p>S&#8594;X&#8594;B&#8594;R</p>
+</li>
+<li>
+<p>S&#8594;A&#8594;B&#8594;X&#8594;Y&#8594;R</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>But, as we saw previously, the channel S&#8594;X does not have enough liquidity for a 1M satoshi payment once fees are considered. So Paths 2 and 3 are not viable. That leaves Paths 1 and 4 as possible paths for the payment.</p>
+</div>
+<div class="paragraph">
+<p>With two possible paths, Selena is ready to attempt delivery!</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_payment_delivery_trial_and_error_loop">Payment Delivery (Trial-and-Error Loop)</h3>
+<div class="paragraph">
+<p>Selena&#8217;s node starts the trial-and-error loop by constructing the HTLCs, building the onion, and attempting delivery of the payment. For each attempt, there are three possible outcomes:</p>
+</div>
+<div class="ulist pagebreak-before">
+<ul>
+<li>
+<p>A successful result (update_fulfill_htlc)</p>
+</li>
+<li>
+<p>An error (update_fail_htlc)</p>
+</li>
+<li>
+<p>A "stuck" payment with no response (neither success nor failure)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the payment fails, it can be retried via a different path by updating the graph (changing a channel&#8217;s metrics) and recalculating an alternative path.</p>
+</div>
+<div class="paragraph">
+<p>We looked at what happens if the payment is "stuck" in <a href="#stuck_payments">[stuck_payments]</a>. The important detail is that a stuck payment is the worst outcome because we cannot retry with another HTLC since both (the stuck one and the retry one) might go through eventually and cause a double payment.</p>
+</div>
+<div class="sect3">
+<h4 id="_first_attempt_path_1">First Attempt (Path #1)</h4>
+<div class="paragraph">
+<p>Selena attempts the first path (S&#8594;A&#8594;B&#8594;R). She constructs the onion and sends it, but receives a failure code from Bob&#8217;s node. Bob reports back a temporary channel failure with a channel_update identifying the channel B&#8594;R as the one that can&#8217;t deliver. This attempt is shown in <a href="#path_1_fail">Path #1 attempt fails</a>.</p>
+</div>
+<div id="path_1_fail" class="imageblock">
+<div class="content">
+<img src="images/mtln_1207.png" alt="mtln 1207">
+</div>
+<div class="title">Figure 7. Path #1 attempt fails</div>
+</div>
+<div class="sect4">
+<h5 id="_learning_from_failure">Learning from failure</h5>
+<div class="paragraph">
+<p>From this failure code, Selena will deduce that Bob doesn&#8217;t have enough liquidity to deliver the payment to Rashid on that channel. Importantly, this failure narrows the uncertainty of the liquidity of that channel! Previously, Selena&#8217;s node assumed that the liquidity on Bob&#8217;s side of the channel was somewhere in the range (0, 4M). Now, she can assume that the liquidity is in the range (0, 999999). Similarly, Selena can now assume that the liquidity of that channel on Rashid&#8217;s side is in the range (1M, 4M), instead of (0, 4M). Selena has learned a lot from this failure.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_second_attempt_path_4">Second Attempt (Path #4)</h4>
+<div class="paragraph">
+<p>Now Selena attempts the fourth candidate path (S&#8594;A&#8594;B&#8594;X&#8594;Y&#8594;R). This is a longer path and will incur more fees, but it&#8217;s now the best option for delivery of the payment.</p>
+</div>
+<div class="paragraph">
+<p>Fortunately, Selena receives an update_fulfill_htlc message from Alice, indicating that the payment was successful, as shown in <a href="#path_4_success">Path #4 attempt succeeds</a>.</p>
+</div>
+<div id="path_4_success" class="imageblock">
+<div class="content">
+<img src="images/mtln_1208.png" alt="mtln 1208">
+</div>
+<div class="title">Figure 8. Path #4 attempt succeeds</div>
+</div>
+<div class="sect4">
+<h5 id="_learning_from_success">Learning from success</h5>
+<div class="paragraph">
+<p>Selena has also learned a lot from this successful payment. She now knows that all the channels on the path S&#8594;A&#8594;B&#8594;X&#8594;Y&#8594;R  had enough liquidity to deliver the payment. Furthermore, she now knows that each of these channels has moved the HTLC amount (1M &#x2b; fees) to the other end of the channel. This allows Selena to recalculate the range of liquidity on the receiving side of all the channels in that path, replacing the minimum liquidity with 1M &#x2b; fees.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_stale_knowledge">Stale knowledge?</h5>
+<div class="paragraph">
+<p>Selena now has a much better "map" of the Lightning Network (at least as far as these seven channels go). This knowledge will be useful for any subsequent payments that Selena attempts to make.</p>
+</div>
+<div class="paragraph">
+<p>However, this knowledge becomes somewhat "stale" as the other nodes send or route payments. Selena will never see any of these payments (unless she is the sender). Even if she is involved in routing payments, the onion routing mechanism means she can only see the changes for one hop (her own channels).</p>
+</div>
+<div class="paragraph">
+<p>Therefore, Selena&#8217;s node must consider how long to keep this knowledge before assuming that it is stale and no longer useful.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mpp">Multipart Payments</h3>
+<div class="paragraph">
+<p><em>Multipart payments (MPP)</em> are a feature that was introduced in the Lightning Network in 2020 and are already very widely available. Multipart payments allow a payment to be split into multiple <em>parts</em> which are sent as HTLCs over several different paths to the intended recipient, preserving the <em>atomicity</em> of the overall payment. In this context, atomicity means that either all the HTLC parts of a payment are eventually fulfilled or the  entire payment fails and all the HTLC parts fail. There is no possibility of a partially successful payment.</p>
+</div>
+<div class="paragraph">
+<p>Multipart payments are a significant improvement in the Lightning Network because they make it possible to send amounts that won&#8217;t "fit" in any single channel by splitting them into smaller amounts for which there is sufficient liquidity. Furthermore, multipart payments have been shown to increase the probability of a successful payment, as compared to a single-path payment.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Now that MPP is available, it is best to think of a single-path payment as a subcategory of an MPP. Essentially, a single-path is just a multipart of size one. All payments can be considered as multipart payments unless the size of the payment and liquidity available make it possible to deliver with a single part.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_using_mpp">Using MPP</h4>
+<div class="paragraph">
+<p>MPP is not something that a user will select, but rather it is a node pathfinding and payment delivery strategy. The same basic steps are implemented: create a graph, select paths, and the trial-and-error loop. The difference is that during path selection we must also consider how to split the payment to optimize delivery.</p>
+</div>
+<div class="paragraph">
+<p>In our example we can see some immediate improvements to our pathfinding problem that become possible with MPP. First, we can utilize the S&#8594;X channel that has known insufficient liquidity to transport 1M satoshis plus fees. By sending a smaller part along that channel, we can use paths that were previously unavailable. Second, we have the unknown liquidity of the B&#8594;R channel, which is insufficient to transport the 1M amount, but might be sufficient to transport a smaller amount.</p>
+</div>
+<div class="sect4">
+<h5 id="_splitting_payments">Splitting payments</h5>
+<div class="paragraph">
+<p>The fundamental question is how to split the payments. More specifically, what are the optimal number of splits and the optimal amounts for each split?</p>
+</div>
+<div class="paragraph">
+<p>This is an area of ongoing research where novel strategies are emerging. Multipart payments lead to a different algorithmic approach than single-path payments, even though single-path solutions can emerge from a multipart optimization (i.e., a single path may be the optimal solution suggested by a multipart pathfinding algorithm).</p>
+</div>
+<div class="paragraph">
+<p>If you recall, we found that the uncertainty of liquidity/balances leads to some (somewhat obvious) conclusions that we can apply in MPP pathfinding, namely:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Smaller payments have a higher chance of succeeding.</p>
+</li>
+<li>
+<p>The more channels you use, the chance of success becomes (exponentially) lower.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>From the first of these insights, we might conclude that splitting a large payment (e.g., 1 million satoshis) into tiny payments increases the chance that each of those smaller payments will succeed. The number of possible paths with sufficient liquidity will be greater if we send smaller amounts.</p>
+</div>
+<div class="paragraph">
+<p>To take this idea to an extreme, why not split the 1M satoshi payment into one million separate one-satoshi parts? Well, the answer lies in our second insight: since we would be using more channels/paths to send our million single-satoshi HTLCs, our chance of success would drop exponentially.</p>
+</div>
+<div class="paragraph">
+<p>If it&#8217;s not obvious, the two preceding insights create a "sweet spot" where we can maximize our chances of success: splitting into smaller payments but not too many splits!</p>
+</div>
+<div class="paragraph">
+<p>Quantifying this optimal balance of size/number of splits for a given channel graph is out of the scope of this book, but it is an active area of research. Some current implementations use a very simple strategy of splitting the payment in two halves, four quarters, etc.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To read more about the optimization problem known as minimum-cost flows involved when splitting payments into different sizes and allocating them to paths, see the paper <a href="https://arxiv.org/abs/2107.05322">"Optimally Reliable &amp; Cheap Payment Flows on the Lightning Network"</a> by (coauthor of this book) René Pickhardt and Stefan Richter.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In our example, Selena&#8217;s node will attempt to split the 1M satoshi payment into 2 parts with 600k and 400k satoshi, respectively, and send them on 2 different paths. This is shown in <a href="#mpp_paths">Sending two parts of a multipart payment</a>.</p>
+</div>
+<div class="paragraph">
+<p>Because the S&#8594;X channel can now be utilized, and (luckily for Selena), the B&#8594;R channel has sufficient liquidity for 600k satoshis, the 2 parts are successful along paths that were previously not possible.</p>
+</div>
+<div id="mpp_paths" class="imageblock">
+<div class="content">
+<img src="images/mtln_1209.png" alt="mtln 1209">
+</div>
+<div class="title">Figure 9. Sending two parts of a multipart payment</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_trial_and_error_over_multiple_rounds">Trial and Error over Multiple "Rounds"</h4>
+<div class="paragraph">
+<p>Multipart payments lead to a somewhat modified trial-and-error loop for payment delivery. Because we are attempting multiple paths in each attempt, we have four possible outcomes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>All parts succeed, the payment is successful</p>
+</li>
+<li>
+<p>Some parts succeed, some fail with errors returned</p>
+</li>
+<li>
+<p>All parts fail with errors returned</p>
+</li>
+<li>
+<p>Some parts are "stuck," no errors are returned</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the second case, where some parts fail with errors returned and some parts succeed, we can now <em>repeat</em> the trial-and-error loop, but <em>only for the residual amount</em>.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s assume for example that Selena had a much larger channel graph with hundreds of possible paths to reach Rashid. Her pathfinding algorithm might find an optimal payment split consisting of 26 parts of varying sizes. After attempting to send all 26 parts in the first round, 3 of those parts failed with errors.</p>
+</div>
+<div class="paragraph">
+<p>If those 3 parts consisted of, say 155k satoshis, then Selena would restart the pathfinding effort, only for 155k satoshis. The next round could find completely different paths (optimized for the residual amount of 155k), and split the 155k amount into completely different splits!</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>While it seems like 26 split parts are a lot, tests on the Lightning Network have successfully delivered a payment of 0.3679 BTC by splitting it into 345 parts.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Furthermore, Selena&#8217;s node would update the channel graph using the information gleaned from the successes and errors of the first round to find the most optimal paths and splits for the second round.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say that Selena&#8217;s node calculates that the best way to send the 155k residual is 6 parts split as 80k, 42k, 15k, 11k, 6.5k, and 500 satoshis. In the next round, Selena gets only one error, indicating that the 11k satoshi part failed. Again, Selena updates the channel graph based on the information gleaned and runs the pathfinding again to send the 11k residual. This time, she succeeds with 2 parts of 6k and 5k satoshis, respectively.</p>
+</div>
+<div class="paragraph">
+<p>This multiround example of sending a payment using MPP is shown in <a href="#mpp_rounds">Sending a payment in multiple rounds with MPP</a>.</p>
+</div>
+<div id="mpp_rounds" class="imageblock">
+<div class="content">
+<img src="images/mtln_1210.png" alt="mtln 1210">
+</div>
+<div class="title">Figure 10. Sending a payment in multiple rounds with MPP</div>
+</div>
+<div class="paragraph">
+<p>In the end, Selena&#8217;s node used 3 rounds of pathfinding to send the 1M satoshis in 30 parts.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_conclusion">Conclusion</h3>
+<div class="paragraph">
+<p>In this chapter we looked at pathfinding and payment delivery. We saw how to use the channel graph to find paths from a sender to a recipient. We also saw how the sender will attempt to deliver payments on a candidate path and repeat in a trial-and-error loop.</p>
+</div>
+<div class="paragraph">
+<p>We also examined the uncertainty of channel liquidity (from the perspective of the sender) and the implications that has for pathfinding. We saw how we can quantify the uncertainty and use probability theory to draw some useful conclusions. We also saw how we can reduce uncertainty by learning from both successful and failed payments.</p>
+</div>
+<div class="paragraph">
+<p>Finally, we saw how the newly deployed multipart payments feature allows us to split payments into parts, increasing the probability of success even for larger payments.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2022-05-30 16:04:56 -0400
+</div>
+</div>
+</body>
+</html>
