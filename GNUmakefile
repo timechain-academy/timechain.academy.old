@@ -318,8 +318,9 @@ init: initialize## 	init
 	python3 -m pip install -r requirements.txt
 
 docs: build## 	docs
-	git add -f docs
-	git commit --allow-empty -m "docs: update $(TIME)"
+	$(NOHUP) $(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) build docs
+	$(NOHUP) $(DOCKER_COMPOSE) $(VERBOSE) run --rm --publish 8008:8000  docs &
+
 
 
 .PHONY: clean-resources clean sources resources
@@ -440,12 +441,12 @@ serve: build## 	serve mkdocs
 	#$(PYTHON3) -m http.server $(PORT) --bind 127.0.0.1 -d $(PWD)/docs > /dev/null 2>&1 || open http://127.0.0.1:$(PORT)
 
 build-shell:## 	build the ubuntu docker image
-	docker-compose build $(NOCACHE) $(VERBOSE) ${SERVICE_TARGET}
+	$(NOHUP) docker-compose build $(NOCACHE) $(VERBOSE) ${SERVICE_TARGET} &
 
 .PHONY: shell
 shell: build-shell## 	run the ubuntu docker environment
 ifeq ($(CMD_ARGUMENTS),)
-	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run    --rm ${SERVICE_TARGET} bash
+	$(NOHUP) $(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run    --rm ${SERVICE_TARGET} bash &
 else
 	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run -d --rm $(SERVICE_TARGET) bash -c "$(CMD_ARGUMENTS)"
 endif

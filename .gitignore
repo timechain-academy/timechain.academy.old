@@ -24,6 +24,8 @@ bitcoin.pdf
 docs/*.DS_Store
 *.DS_Store
 venv
+nohup.out
+
 _private_build
 _build/randymcmillan.github.io
 .buildinfo
