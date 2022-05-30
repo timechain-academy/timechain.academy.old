@@ -21,6 +21,7 @@ docs
 
 bitcoin.pdf
 
+docs/*.DS_Store
 *.DS_Store
 venv
 _private_build
