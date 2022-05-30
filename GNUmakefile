@@ -1,4 +1,5 @@
 SHELL := /bin/bash
+NOHUP := $(shell which nohup)
 
 PWD                                     ?= pwd_unknown
 
@@ -435,7 +436,7 @@ build-playground:## 	build-playground
 
 
 serve: build## 	serve mkdocs
-	mkdocs serve & open http://127.0.0.1:$(PORT) || open http://127.0.0.1:$(PORT)
+	$(NOHUP) mkdocs serve & open http://127.0.0.1:$(PORT) || open http://127.0.0.1:$(PORT)
 	#$(PYTHON3) -m http.server $(PORT) --bind 127.0.0.1 -d $(PWD)/docs > /dev/null 2>&1 || open http://127.0.0.1:$(PORT)
 
 build-shell:## 	build the ubuntu docker image
