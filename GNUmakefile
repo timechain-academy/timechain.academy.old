@@ -317,9 +317,9 @@ initialize:## 	initialize
 init: initialize## 	init
 	python3 -m pip install -r sources/requirements.txt
 
-docs: build## 	docs
-	$(NOHUP) $(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) build docs
-	$(NOHUP) $(DOCKER_COMPOSE) $(VERBOSE) run --rm --publish 8008:8000  docs
+docs: build-docs## 	docs
+	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) build docs
+	$(DOCKER_COMPOSE) $(VERBOSE) run --rm --publish 8008:8000  docs
 
 
 run: docs shell
@@ -446,9 +446,9 @@ build-shell:## 	build the ubuntu docker image
 .PHONY: shell
 shell: build-shell## 	run the ubuntu docker environment
 ifeq ($(CMD_ARGUMENTS),)
-	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run -dit --rm ${SERVICE_TARGET} bash
+	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run -it --rm ${SERVICE_TARGET} bash
 else
-	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run -dit --rm $(SERVICE_TARGET) bash -c "$(CMD_ARGUMENTS)"
+	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run -it --rm $(SERVICE_TARGET) bash -c "$(CMD_ARGUMENTS)"
 endif
 
 shell-test:
