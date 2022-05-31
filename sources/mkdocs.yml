@@ -19,22 +19,21 @@
 # IN THE SOFTWARE.
 
 # Project information
-site_name: Plebnet Playground
+site_name: TimeChain.Academy
 site_url: http://localhost:8008
-site_author: Richard Safier
+site_author: Randy McMillan & [timechain-academy/people](https://github.com/orgs/timechain-academy/people)
 site_description: >-
-  Plebnet Playground Sandbox Docker Package
-  This package will setup a bitcoind, lnd, and tor daemon that will connect to the Plebnet Playground Sandbox (Signet) Chain. This allows users to use and test bitcoin and lightning technologies without the financial risk involved with running on the mainnet chain. RTL (Ride The Lightning) and ThunderHub Web UI is also include to provide a more user friendly experience.
+  Educational Community dedicated to Bitcoin & Lightning Development
 
 # Repository
-repo_name: plebnet-playground-docker
-repo_url: https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker
+repo_name: timechain.academy
+repo_url: https://github.com/timechain-academy/timechain.academy
 edit_uri: ""
 docs_dir: sources
 site_dir: docs
 
 # Copyright
-copyright: Copyright &copy; 2021 -  Richard Safier
+copyright: Copyright &copy; 2022 - TimeChain.Academy - @RandyMcMillan
 
 # Configuration
 language: en
