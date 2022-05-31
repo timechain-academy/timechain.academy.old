@@ -456,12 +456,11 @@ else
 	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run -it --rm $(SERVICE_TARGET) bash -c "$(CMD_ARGUMENTS)"
 endif
 
-shell-test:
+shell-test:## 	shell-test
 	docker-compose -p $(PROJECT_NAME)_$(HOST_UID) run --rm ${SERVICE_TARGET} sh -c "curl -fsSL https://raw.githubusercontent.com/timechain-academy/timechain.academy/master/scripts/shell-test"
-shell-network-test:
-	docker-compose -p $(PROJECT_NAME)_$(HOST_UID) run --rm ${SERVICE_TARGET} sh -c "curl -fsSL https://raw.githubusercontent.com/timechain-academy/timechain.academy/master/scripts/shell-network-test"
 
-
+#shell-network-test:## 	shell-network-test
+#	docker-compose -p $(PROJECT_NAME)_$(HOST_UID) run --rm ${SERVICE_TARGET} bash -c "curl -fsSL https://raw.githubusercontent.com/timechain-academy/timechain.academy/master/scripts/shell-network-test"
 
 push-docs:## 	ghp-import to deploy docs folder
 	ghp-import -n -c $(PROJECT_NAME) \
@@ -483,9 +482,9 @@ push:
 	git push -f origin $(TIME)/$(GIT_PREVIOUS_HASH)/$(GIT_HASH):$(TIME)/$(GIT_PREVIOUS_HASH)/$(GIT_HASH)
 
 push-all: push-to-master #push-to-main ## 	push-to-master push-docs
-push-to-master: push-docs
+push-to-master:## 	push-to-master
 	git push -f  $(GIT_REPO_ORIGIN) $(GIT_BRANCH):master || echo failed to push docs
-push-to-main: push-docs
+push-to-main:## 	push-to-master
 	git push -f  $(GIT_REPO_ORIGIN) $(GIT_BRANCH):main || echo failed to push docs
 
 
