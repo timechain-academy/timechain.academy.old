@@ -10,7 +10,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recomme
 	bsdmainutils socat \
 	apt-utils sudo adduser bash-completion \
 	openssh-client openssh-server \
-	git make vim python3 python3-pip
+	git make vim python3 python3-pip curl
 
 RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
 RUN apt-get install -y \
