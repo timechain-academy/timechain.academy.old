@@ -1,0 +1,111 @@
+[appendix]
+[[appendix_docker]]
+== Docker Basic Installation and Use
+
+((("Docker","basic installation and use", id="ix_appendix_docker_basics-asciidoc0", range="startofrange")))This book contains a number of examples that run inside Docker containers for standardization across different operating systems.
+
+This section will help you install Docker and familiarize yourself with some of the most commonly used Docker commands, so that you can run the book's example containers.
+
+
+=== Installing Docker
+
+((("Docker","installing")))Before we begin, you should install the Docker container system on your computer. Docker is an open system that is distributed for free as a _Community Edition_ for many different operating systems including Windows, macOS, and Linux. The Windows and Macintosh versions are called _Docker Desktop_ and consist of a GUI desktop application and command-line tools. The Linux version is called _Docker Engine_ and is comprised of a server daemon and command-line tools. We will be using the command-line tools, which are identical across all platforms.
+
+Go ahead and install Docker for your operating system by following the instructions to "Get Docker" from the https://docs.docker.com/get-docker[Docker website].
+
+Select your operating system from the list and follow the installation instructions.
+
+[TIP]
+====
+If you install on Linux, follow the post-installation instructions to ensure you can run Docker as a regular user instead of user root. Otherwise, you will need to prefix all +docker+ commands with +sudo+, running them as root like: +sudo docker+.
+====
+
+Once you have Docker installed, you can test your installation by running the demo container +hello-world+ like this:
+
+[[docker-hello-world]]
+----
+$ docker run hello-world
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+[...]
+----
+
+=== Basic Docker Commands
+
+((("Docker","basic commands")))In this appendix, we use Docker quite extensively. We will be using the following Docker commands and arguments.
+
+==== Building a Container
+
+++++
+<pre data-type="programlisting">docker build [-t <em>tag</em>] [<em>directory</em>]</pre>
+++++
+
+((("Docker","building a container")))((("Docker containers","building a container")))++__tag__++ is how we identify the container we are building, and ++__directory__++ is where the container's context (folders and files) and definition file (+Dockerfile+) are found.
+
+==== Running a Container
+
+++++
+<pre data-type="programlisting">docker run -it [--network <em>netname</em>] [--name <em>cname</em>] <em>tag</em></pre>
+++++
+
+((("Docker containers","running a container")))++__netname__++ is the name of a Docker network, ++__cname__++ is the name we choose for this container instance, and ++__tag__++ is the name tag we gave the container when we built it.
+
+==== Executing a Command in a Container
+
+++++
+<pre data-type="programlisting">docker exec <em>cname command</em></pre>
+++++
+
+((("Docker containers","executing a command in a container")))++__cname__++ is the name we gave the container in the +run+ command, and ++__command__++ is an executable or script that we want to run inside the container.
+
+==== Stopping and Starting a Container
+
+((("Docker containers","stopping/starting a container")))In most cases, if we are running a container in an _interactive_ as well as _terminal_ mode, i.e., with the +i+ and +t+ flags (combined as +-it+) set, the container can be stopped by simply pressing Ctrl-C or by exiting the shell with +exit+ or Ctrl-D. If a container does not terminate, you can stop it from another terminal like this:
+
+++++
+<pre data-type="programlisting">docker stop <em>cname</em></pre>
+++++
+
+To resume an already existing container, use the `start` command like so:
+
+++++
+<pre data-type="programlisting">docker start <em>cname</em></pre>
+++++
+
+==== Deleting a Container by Name
+
+((("Docker containers","deleting a container by name")))If you name a container instead of letting Docker name it randomly, you cannot reuse that name until the container is deleted. Docker will return an error like this:
+
+----
+docker: Error response from daemon: Conflict. The container name "/bitcoind" is already in use...
+----
+
+To fix this, delete the existing instance of the container:
+
+++++
+<pre data-type="programlisting">docker rm <em>cname</em></pre>
+++++
+
+++__cname__++ is the name assigned to the container (+bitcoind+ in the example error message).
+
+==== Listing Running Containers
+
+----
+docker ps
+----
+
+((("Docker containers","list running containers")))This command shows the current running containers and their names.
+
+==== Listing Docker Images
+
+----
+docker image ls
+----
+
+((("Docker containers","list Docker images")))This command shows the Docker images that have been built or downloaded on your computer.
+
+=== Conclusion
+
+These basic Docker commands will be enough to get you started and will allow you to run all the examples in this book.(((range="endofrange", startref="ix_appendix_docker_basics-asciidoc0")))

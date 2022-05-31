@@ -1,0 +1,78 @@
+{
+  "branch": "master",
+  "files": [
+    "cover.html",
+    "titlepage.html",
+    "copyright.html",
+    "toc.html",
+    "preface.asciidoc",
+    "part_1_divider.asciidoc",
+    "01_introduction.asciidoc",
+    "02_getting_started.asciidoc",
+    "03_how_ln_works.asciidoc",
+    "04_node_client.asciidoc",
+    "05_node_operations.asciidoc",
+    "part_2_divider.asciidoc",
+    "06_lightning_architecture.asciidoc",
+    "07_payment_channels.asciidoc",
+    "08_routing_htlcs.asciidoc",
+    "09_channel_operation.asciidoc",
+    "10_onion_routing.asciidoc",
+    "11_gossip_channel_graph.asciidoc",
+    "12_path_finding.asciidoc",
+    "13_wire_protocol.asciidoc",
+    "14_encrypted_transport.asciidoc",
+    "15_payment_requests.asciidoc",
+    "16_security_privacy_ln.asciidoc",
+    "17_conclusion.asciidoc",
+    "appendix_bitcoin_fundamentals_review.asciidoc",
+    "appendix_docker_basics.asciidoc",
+    "appendix_protocol_messages.asciidoc",
+    "appendix_license_notices.asciidoc",
+    "glossary.asciidoc",
+    "ix.html",
+    "author_bio.html",
+    "colo.html"
+  ],
+  "formats": {
+    "pdf": {
+      "version": "web",
+      "color_count": "1",
+      "index": true,
+      "toc": true,
+      "syntaxhighlighting": true,
+      "show_comments": false,
+      "trim_size": "7inx9.1875in",
+      "antennahouse_version": "AHFormatterV71_64-MR2"
+    },
+    "epub": {
+      "index": true,
+      "toc": true,
+      "epubcheck": true,
+      "syntaxhighlighting": true,
+      "show_comments": false,
+      "downsample_images": true,
+      "mathmlreplacement": false
+    },
+    "mobi": {
+      "index": true,
+      "toc": true,
+      "syntaxhighlighting": true,
+      "show_comments": false,
+      "downsample_images": false
+    },
+    "html": {
+      "index": true,
+      "toc": true,
+      "syntaxhighlighting": true,
+      "show_comments": false,
+      "consolidated": false
+    }
+  },
+  "theme": "oreillymedia/animal_theme_sass",
+  "title": "Mastering the Lightning Network",
+  "print_isbn13": "9781492054863",
+  "lang": "en",
+  "accent_color": "",
+  "templating": false
+}

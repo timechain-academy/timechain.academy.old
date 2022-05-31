@@ -1,0 +1,403 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Educational Community dedicated to Bitcoin & Lightning Development">
+      
+      
+      
+        <meta name="author" content="Randy McMillan & [timechain-academy/people](https://github.com/orgs/timechain-academy/people)">
+      
+      
+        <link rel="canonical" href="http://localhost:8008/books/python/21_tictactoe/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-7.3.0">
+    
+    
+      
+        <title>Tic-Tac-Toe - TimeChain.Academy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8b42a75e.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tic-tac-toe" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="TimeChain.Academy" class="md-header__button md-logo" aria-label="TimeChain.Academy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TimeChain.Academy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tic-Tac-Toe
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/timechain-academy/timechain.academy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    timechain.academy
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="TimeChain.Academy" class="md-nav__button md-logo" aria-label="TimeChain.Academy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    TimeChain.Academy
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/timechain-academy/timechain.academy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    timechain.academy
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="tic-tac-toe">Tic-Tac-Toe</h1>
+<p>https://www.youtube.com/playlist?list=PLhOuww6rJJNObtig0Kr-jgTJly1x04jgz</p>
+<p>Create a Python program called <code>tictactoe.py</code> that will play a single round of the game Tic-Tac-Toe.
+The program should accept the following parameters:</p>
+<ul>
+<li><code>-b</code>|<code>--board</code>: The optional state of the board for the play. This will be a string of 9 characters representing the 9 cells of the 3x3 board. The string should be composed only of <code>X</code> and <code>O</code> to denote a player occupying that cell or <code>.</code> to show that the cell is open. The default is 9 '.' as all cells are open.</li>
+<li><code>-p</code>|<code>--player</code>: An optional player which must be either <code>X</code> or <code>O</code>.</li>
+<li><code>-c</code>|<code>--cell</code>: An optional cell which must be in the range 1-9 (inclusive).</li>
+</ul>
+<p>Here is the usage the program should print for <code>-h</code> or <code>--help</code>:</p>
+<pre><code>$ ./tictactoe.py -h
+usage: tictactoe.py [-h] [-b str] [-p str] [-c int]
+
+Tic-Tac-Toe
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -b str, --board str   The state of the board (default: .........)
+  -p str, --player str  Player (default: None)
+  -c int, --cell int    Cell 1-9 (default: None)
+</code></pre>
+<p>The program will print the state of the board plus any modifications to the state made by <code>--player</code> and <code>--cell</code> along with the final outcome of the game which can either be "No winner" or "{player} has won."</p>
+<p>When run with no arguments, it should print a blank Tic-Tac-Toe board and "No winner":</p>
+<pre><code>$ ./tictactoe.py
+-------------
+| 1 | 2 | 3 |
+-------------
+| 4 | 5 | 6 |
+-------------
+| 7 | 8 | 9 |
+-------------
+No winner.
+</code></pre>
+<p>Given a valid <code>--player</code> trying to take an unoccupied <code>--cell</code>, the program should modify the state before printing the board and deciding the outcome:</p>
+<pre><code>$ ./tictactoe.py -p X -c 1
+-------------
+| X | 2 | 3 |
+-------------
+| 4 | 5 | 6 |
+-------------
+| 7 | 8 | 9 |
+-------------
+No winner.
+</code></pre>
+<p>The program should error out for a bad <code>--board</code>:</p>
+<pre><code>$ ./tictactoe.py -b ABC......
+usage: tictactoe.py [-h] [-b str] [-p str] [-c int]
+tictactoe.py: error: --board &quot;ABC......&quot; must be 9 characters of ., X, O
+</code></pre>
+<p>Or a bad <code>--cell</code>:</p>
+<pre><code>$ ./tictactoe.py -p X -c 10
+usage: tictactoe.py [-h] [-b str] [-p str] [-c int]
+tictactoe.py: error: argument -c/--cell: invalid choice: 10 \
+(choose from 1, 2, 3, 4, 5, 6, 7, 8, 9)
+</code></pre>
+<p>Or a bad <code>--player</code>:</p>
+<pre><code>$ ./tictactoe.py -p A -c 1
+usage: tictactoe.py [-h] [-b str] [-p str] [-c int]
+tictactoe.py: error: argument -p/--player: invalid choice: 'A' \
+(choose from 'X', 'O')
+</code></pre>
+<p>Or in the event a <code>--player</code> is trying to take an occupied <code>--cell</code>:</p>
+<pre><code>$ ./tictactoe.py -b X........ -p O -c 1
+usage: tictactoe.py [-h] [-b str] [-p str] [-c int]
+tictactoe.py: error: --cell &quot;1&quot; already taken
+</code></pre>
+<p>Or if only <code>--player</code> or <code>--cell</code> is provided:</p>
+<pre><code>$ ./tictactoe.py --player X
+usage: tictactoe.py [-h] [-b board] [-p player] [-c cell]
+tictactoe.py: error: Must provide both --player and --cell
+</code></pre>
+<p>The program should detect a winning state:</p>
+<pre><code>$ ./tictactoe.py -b .XX....OO -p X -c 1
+-------------
+| X | X | X |
+-------------
+| 4 | 5 | 6 |
+-------------
+| 7 | O | O |
+-------------
+X has won!
+</code></pre>
+<p>The program should pass all tests:</p>
+<pre><code>$ make test
+pytest -xv test.py
+============================= test session starts ==============================
+...
+collected 15 items
+
+test.py::test_exists PASSED                                              [  6%]
+test.py::test_usage PASSED                                               [ 13%]
+test.py::test_no_input PASSED                                            [ 20%]
+test.py::test_bad_board PASSED                                           [ 26%]
+test.py::test_bad_player PASSED                                          [ 33%]
+test.py::test_bad_cell_int PASSED                                        [ 40%]
+test.py::test_bad_cell_str PASSED                                        [ 46%]
+test.py::test_both_player_and_cell PASSED                                [ 53%]
+test.py::test_good_board_01 PASSED                                       [ 60%]
+test.py::test_good_board_02 PASSED                                       [ 66%]
+test.py::test_mutate_board_01 PASSED                                     [ 73%]
+test.py::test_mutate_board_02 PASSED                                     [ 80%]
+test.py::test_mutate_cell_taken PASSED                                   [ 86%]
+test.py::test_winning PASSED                                             [ 93%]
+test.py::test_losing PASSED                                              [100%]
+
+============================== 15 passed in 2.12s ==============================
+</code></pre>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2022 - TimeChain.Academy - @RandyMcMillan
+          </div>
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.tracking", "navigation.expand", "navigation.indexes", "toc.follow"], "search": "../../../assets/javascripts/workers/search.f8263e09.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.4fc53ad4.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.17">
+<title>Lightning&#8217;s Encrypted Message Transport</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="book">
+<div id="header">
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="encrypted_message_transport">Lightning&#8217;s Encrypted Message Transport</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this chapter we will review the Lightning Network&#8217;s <em>encrypted message
+transport</em>, sometimes referred to as the <em>Brontide Protocol</em>, which allows peers to
+establish end-to-end encrypted communication, authentication, and integrity
+checking.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Part of this chapter includes some highly technical detail about the encryption protocol and encryption algorithms used in the Lightning encrypted transport. You may decide to skip that section if you are not interested in those details.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_encrypted_transport_in_the_lightning_protocol_suite">Encrypted Transport in the Lightning Protocol Suite</h3>
+<div class="paragraph">
+<p>The transport component of the Lightning Network and its several components are shown in the leftmost part of the network connection layer in  <a href="#LN_protocol_encrypted_transport_highlight">Encrypted message transport in the Lightning protocol suite</a>.</p>
+</div>
+<div id="LN_protocol_encrypted_transport_highlight" class="imageblock">
+<div class="content">
+<img src="images/mtln_1401.png" alt="Encrypted message transport in the Lightning protocol suite">
+</div>
+<div class="title">Figure 1. Encrypted message transport in the Lightning protocol suite</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_introduction">Introduction</h3>
+<div class="paragraph">
+<p>Unlike the vanilla Bitcoin P2P network, every node in the Lightning Network is
+identified by a unique public key which serves as its identity. By default, this
+public key is used to end-to-end encrypt <em>all</em> communication within the
+network. Encryption by default at the lowest level of the protocol ensures that
+all messages are authenticated, are immune to man-in-the-middle (MITM) attacks and snooping by third parties, and ensures privacy at the fundamental transport
+level. In this chapter, we&#8217;ll learn about the encryption protocol used by the
+Lightning Network in detail. Upon completion of this chapter, the reader will
+be familiar with the state of the art in encrypted messaging protocols, as well
+as the various properties such a protocol provides to the network. It&#8217;s worth
+mentioning that the core of the encrypted message transport is <em>agnostic</em> to
+its usage within the context of the Lightning Network. As a result, the
+custom encrypted message transport that Lightning uses can be dropped into any context
+that requires encrypted communication between two parties.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_channel_graph_as_decentralized_public_key_infrastructure">The Channel Graph as Decentralized Public Key Infrastructure</h3>
+<div class="paragraph">
+<p>As we learned in <a href="#routing">[routing]</a>, every node has a long-term
+identity that is used as the identifier for a vertex during pathfinding and
+also used in the asymmetric cryptographic operations related to the creation of
+onion encrypted routing packets. This public key, which serves as a node&#8217;s
+long-term identity, is included in the DNS bootstrapping response, as well as
+embedded within the channel graph. As a result, before a node attempts to
+connect out to another node on the P2P network, it already knows the public key
+of the node it wishes to connect to.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, if the node being connected to already has a series of public
+channels within the graph, then the connecting node is able to further verify the identity of the node. Because the entire channel graph is fully
+authenticated, one can view it as a sort of decentralized public key
+infrastructure (PKI): to register a key, a public channel in the Bitcoin
+blockchain must be opened, and once a node no longer has any public channels, then
+they&#8217;ve effectively been removed from the PKI.</p>
+</div>
+<div class="paragraph">
+<p>Because Lightning is a decentralized network, it&#8217;s imperative that no one central
+party is designated the power to provision a public key identity within the
+network. In place of a central party, the Lightning Network uses the Bitcoin
+blockchain as a Sybil mitigation mechanism because gaining an identity on the
+network has a tangible cost: the fee needed to create a channel in the
+blockchain, as well as the opportunity cost of the capital allocated to their
+channels. In the process of essentially rolling a domain-specific PKI, the
+Lightning Network is able to significantly simplify its encrypted transport
+protocol as it doesn&#8217;t need to deal with all the complexities that come along
+with TLS, the Transport Layer Security protocol.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_why_not_tls">Why Not TLS?</h3>
+<div class="paragraph">
+<p>Readers familiar with the TLS system may be wondering at this point: why wasn&#8217;t
+TLS used in spite of the drawbacks of the existing PKI system? It is indeed a
+fact that "self-signed certificates" can be used to effectively sidestep the
+existing global PKI system by simply asserting to the identity of a given
+public key amongst a set of peers. However, even with the existing PKI system
+out of the way, TLS has several drawbacks that prompted the creators of the Lightning Network
+to instead opt for a more compact custom encryption protocol.</p>
+</div>
+<div class="paragraph">
+<p>To start with, TLS is a protocol that has been around for several decades and
+as a result has evolved over time as new advances have been made in the space
+of transport encryption. However, over time this evolution has caused the
+protocol to balloon in size and complexity. Over the past few decades, several
+vulnerabilities in TLS have been discovered and patched, with each evolution
+further increasing the complexity of the protocol. As a result of the age of
+the protocol, several versions and iterations exist, meaning a client needs to
+understand many of the prior iterations of the protocol to communicate
+with a large portion of the public internet, further increasing implementation
+complexity.</p>
+</div>
+<div class="paragraph">
+<p>In the past, several memory safety vulnerabilities have been discovered in
+widely used implementations of SSL/TLS. Packaging such a protocol within every
+Lightning node would serve to increase the attack surface of nodes exposed to the public peer-to-peer network. To increase the security of the
+network as a whole and minimize exploitable attack surface, the creators of
+the Lightning Network instead opted to adopt the Noise Protocol Framework. Noise as a protocol
+internalizes several of the security and privacy lessons learned over time due
+to continual scrutiny of the TLS protocol over decades. In a way, the existence
+of Noise allows the community to effectively "start over," with a more compact,
+simplified protocol that retains all the added benefits of TLS.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_noise_protocol_framework">The Noise Protocol Framework</h3>
+<div class="paragraph">
+<p>The Noise Protocol Framework is a modern, extensible, and flexible message
+encryption protocol designed by the creators of the Signal Protocol. The Signal Protocol is one of the most widely used message encryption protocols in the
+world. It&#8217;s used by both Signal and Whatsapp, which cumulatively are used by
+over a billion people around the world. The Noise framework is the result of
+decades of evolution both within academia as well as the industry of message
+encryption protocols. Lightning uses the Noise Protocol Framework to implement
+a <em>message-oriented</em> encryption protocol used by all nodes to communicate with
+each other.</p>
+</div>
+<div class="paragraph">
+<p>A communication session using Noise has two distinct phases: the handshake
+phase and the messaging phase. Before two parties can communicate with each
+other, they first need to arrive at a shared secret known only to them which
+will be used to encrypt and authenticate messages sent to each other. A flavor
+of an authenticated key agreement is used to arrive at a final shared key
+between the two parties. In the context of the Noise protocol, this
+authenticated key agreement is referred to as a <em>handshake</em>. Once that
+handshake has been completed, both nodes can now being to send each other
+encrypted messages. Each time peers need to connect or reconnect to each
+other, a fresh iteration of the handshake protocol is executed, ensuring that
+forward secrecy is achieved (leaking the key of a prior transcript doesn&#8217;t compromise any
+future transcripts).</p>
+</div>
+<div class="paragraph">
+<p>Because the Noise Protocol allows a protocol designer to choose from several
+cryptographic primitives, such as symmetric encryption and public key
+cryptography, it&#8217;s customary that each flavor of the Noise Protocol is referred
+to by a unique name. In the spirit of "Noise," each flavor of the protocol
+selects a name derived from some sort of "noise." In the context of the
+Lightning Network, the flavor of the Noise Protocol used is sometimes referred to
+as Brontide. A <em>brontide</em> is a low billowing noise, similar to what one would
+hear during a thunderstorm when very far away.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_lightning_encrypted_transport_in_detail">Lightning Encrypted Transport in Detail</h3>
+<div class="paragraph">
+<p>In this section we will break down the Lightning encrypted transport protocol and delve into the details of the cryptographic algorithms and protocol used to establish encrypted, authenticated, and integrity-assured communications between peers. Feel free to skip this section if you find this level of detail daunting.</p>
+</div>
+<div class="sect3">
+<h4 id="_noise_xk_lightning_networks_noise_handshake">Noise_XK: Lightning Network&#8217;s Noise Handshake</h4>
+<div class="paragraph">
+<p>The Noise Protocol is extremely flexible in that it advertises several
+handshakes, each with different security and privacy properties for a would-be
+protocol implementer to select from. A deep exploration of each of the
+handshakes and their various trade-offs is out of the scope of this chapter.
+With that said, the Lightning Network uses a specific handshake referred to as
+<code>Noise_XK</code>. The unique property provided by this handshake is <em>identity hiding</em>: in order for a node to initiate a connection with another node, it
+must first know its public key. Mechanically, this means that the public key
+of the responder is actually never transmitted during the context of the
+handshake. Instead, a clever series of Elliptic Curve Diffie–Hellman (ECDH) and
+message authentication code (MAC) checks are used to authenticate the
+responder.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_handshake_notation_and_protocol_flow">Handshake Notation and Protocol Flow</h4>
+<div class="paragraph">
+<p>Each handshake typically consists of several steps. At each step some
+(possibly) encrypted material is sent to the opposite party, an ECDH (or
+several) is performed, with the result of the handshake being "mixed" into a
+protocol <em>transcript</em>. This transcript serves to authenticate each step of the
+protocol and helps thwart a flavor of man-in-the-middle attacks. At the
+end of the handshake, two keys, <code>ck</code> and <code>k</code>, are produced which are used to
+encrypt messages (<code>k</code>) and rotate keys (<code>ck</code>) throughout the lifetime of
+the session.</p>
+</div>
+<div class="paragraph">
+<p>In the context of a handshake, <code>s</code> is usually a long-term static public key.
+In our case, the public key crypto system used is an elliptic curve one,
+instantiated with the <code>secp256k1</code> curve, which is used elsewhere in Bitcoin.
+Several ephemeral keys are generated throughout the handshake. We use <code>e</code> to
+refer to a new ephemeral key. ECDH operations between two keys are notated as
+the concatenation of two keys. As an example, <code>ee</code> represents an ECDH operation
+between two ephemeral keys.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_high_level_overview">High-Level Overview</h4>
+<div class="paragraph">
+<p>Using the notation laid out earlier, we can succinctly describe the <code>Noise_XK</code>
+as <span class="keep-together">follows</span>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>    Noise_XK(s, rs):
+       &lt;- rs
+       ...
+       -&gt; e, e(rs)
+       &lt;- e, ee
+       -&gt; s, se</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The protocol begins with the "pretransmission" of the responder&#8217;s static key
+(<code>rs</code>) to the initiator. Before executing the handshake, the initiator is to
+generate its own static key (<code>s</code>). During each step of the handshake, all
+material sent across the wire and the keys sent/used are incrementally
+hashed into a <em>handshake digest</em>, <code>h</code>. This digest is never sent across the
+wire during the handshake, and is instead used as the "associated data" when
+AEAD (authenticated encryption with associated data) is sent across the wire.
+<em>Associated data</em> (AD) allows an encryption protocol to authenticate additional
+information alongside a cipher text packet. In other domains, the AD may be a
+domain name, or plain-text portion of the packet.</p>
+</div>
+<div class="paragraph">
+<p>The existence of <code>h</code> ensures that if a portion of a transmitted handshake
+message is replaced, then the other side will notice. At each step, a MAC
+digest is checked. If the MAC check succeeds, then the receiving party knows
+that the handshake has been successful up until that point. Otherwise, if a MAC
+check ever fails, then the handshake process has failed, and the connection
+should be terminated.</p>
+</div>
+<div class="paragraph">
+<p>The protocol also adds a new piece of data to each handshake message: a protocol
+version. The initial protocol version is <code>0</code>. At the time of writing, no new
+protocol versions have been created. As a result, if a peer receives a version
+other than <code>0</code>, then they should reject the handshake initiation attempt.</p>
+</div>
+<div class="paragraph">
+<p>As far as cryptographic primitives, SHA-256 is used as the hash function of
+choice, <code>secp256k1</code> as the elliptic curve, and <code>ChaChaPoly-130</code> as the AEAD
+(symmetric encryption) construction.</p>
+</div>
+<div class="paragraph">
+<p>Each variant of the Noise Protocol has a unique ASCII string used to refer to it. To ensure that two parties are using the same protocol
+variant, the ASCII string is hashed into a digest, which is used to initialize
+the starting handshake state. In the context of the Lightning Network, the ASCII
+string describing the protocol is <code>Noise_XK_secp256k1_ChaChaPoly_SHA256</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_handshake_in_three_acts">Handshake in Three Acts</h4>
+<div class="paragraph">
+<p>The handshake portion can be separated into three distinct "acts."
+The entire handshake takes 1.5 round trips between the initiator and responder.
+At each act, a single message is sent between both parties. The handshake
+message is a fixed-size payload prefixed by the protocol version.</p>
+</div>
+<div class="paragraph">
+<p>The Noise Protocol uses an object-oriented inspired notation to describe the
+protocol at each step. During setup of the handshake state, each side will
+initialize the following variables:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>ck</code></dt>
+<dd>
+<p>The <em>chaining key</em>. This value is the accumulated hash of all
+previous ECDH outputs. At the end of the handshake, <code>ck</code> is used to derive
+the encryption keys for Lightning messages.</p>
+</dd>
+<dt class="hdlist1"><code>h</code></dt>
+<dd>
+<p>The <em>handshake hash</em>. This value is the accumulated hash of <em>all</em>
+handshake data that has been sent and received so far during the handshake
+process.</p>
+</dd>
+<dt class="hdlist1"><code>temp_k1</code>, <code>temp_k2</code>, <code>temp_k3</code></dt>
+<dd>
+<p>The <em>intermediate keys</em>. These are used to
+encrypt and decrypt the zero-length AEAD payloads at the end of each handshake
+message.</p>
+</dd>
+<dt class="hdlist1"><code>e</code></dt>
+<dd>
+<p>A party&#8217;s <em>ephemeral keypair</em>. For each session, a node must generate a
+new ephemeral key with strong cryptographic randomness.</p>
+</dd>
+<dt class="hdlist1"><code>s</code></dt>
+<dd>
+<p>A party&#8217;s <em>static keypair</em> (<code>ls</code> for local, <code>rs</code> for remote).</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Given this handshake plus messaging session state, we&#8217;ll then define a series of
+functions that will operate on the handshake and messaging state. When
+describing the handshake protocol, we&#8217;ll use these variables in a manner
+similar to pseudocode to reduce the verbosity of the explanation of
+each step in the protocol. We&#8217;ll define the <em>functional</em> primitives of the
+handshake as:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>ECDH(k, rk)</code></dt>
+<dd>
+<p>Performs an Elliptic Curve Diffie–Hellman operation using
+<code>k</code>, which is a valid <code>secp256k1</code> private key, and <code>rk</code>, which is a valid public key.</p>
+<div class="paragraph">
+<p>The returned value is the SHA-256 of the compressed format of the
+      generated point.</p>
+</div>
+</dd>
+<dt class="hdlist1"><code>HKDF(salt,ikm)</code></dt>
+<dd>
+<p>A function defined in <code>RFC 5869</code>,
+evaluated with a zero-length <code>info</code> field.</p>
+<div class="paragraph">
+<p>All invocations of <code>HKDF</code> implicitly return 64 bytes of
+       cryptographic randomness using the extract-and-expand component of the
+       <code>HKDF</code>.</p>
+</div>
+</dd>
+<dt class="hdlist1"><code>encryptWithAD(k, n, ad, plaintext)</code></dt>
+<dd>
+<p>Outputs <code>encrypt(k, n, ad, plaintext)</code>.</p>
+<div class="paragraph">
+<p>Where <code>encrypt</code> is an evaluation of <code>ChaCha20-Poly1305</code> (Internet Engineering Task Force variant)
+       with the passed arguments, with nonce <code>n</code> encoded as 32 zero bits,
+       followed by a <em>little-endian</em> 64-bit value. Note: this follows the Noise
+       Protocol convention, rather than our normal endian.</p>
+</div>
+</dd>
+<dt class="hdlist1"><code>decryptWithAD(k, n, ad, ciphertext)</code></dt>
+<dd>
+<p>Outputs <code>decrypt(k, n, ad, ciphertext)</code>.</p>
+<div class="paragraph">
+<p>Where <code>decrypt</code> is an evaluation of <code>ChaCha20-Poly1305</code> (IETF variant)
+       with the passed arguments, with nonce <code>n</code> encoded as 32 zero bits,
+       followed by a <em>little-endian</em> 64-bit value.</p>
+</div>
+</dd>
+<dt class="hdlist1"><code>generateKey()</code></dt>
+<dd>
+<p>Generates and returns a fresh <code>secp256k1</code> keypair.</p>
+<div class="paragraph">
+<p>Where the object returned by <code>generateKey</code> has two attributes:`.pub`, which returns an abstract object representing the public key; and <code>.priv</code>, which represents the private key used to generate the public key</p>
+</div>
+<div class="paragraph">
+<p>Where the object also has a single method: <code>.serializeCompressed()</code></p>
+</div>
+</dd>
+<dt class="hdlist1"><code>a || b</code></dt>
+<dd>
+<p>This denotes the concatenation of two byte strings <code>a</code> and <code>b</code>.</p>
+</dd>
+</dl>
+</div>
+<div class="sect4">
+<h5 id="_handshake_session_state_initialization">Handshake session state initialization</h5>
+<div class="paragraph">
+<p>Before starting the handshake process, both sides need to initialize the
+starting state that they&#8217;ll use to advance the handshake process. To start,
+both sides need to construct the initial handshake digest <code>h</code>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>h = SHA-256(__protocolName__)</p>
+<div class="paragraph">
+<p>Where __protocolName__ = "Noise_XK_secp256k1_ChaChaPoly_SHA256" encoded as
+      an ASCII string.</p>
+</div>
+</li>
+<li>
+<p><code>ck = h</code></p>
+</li>
+<li>
+<p>h = SHA-256(h || __prologue__)</p>
+<div class="paragraph">
+<p>Where __prologue__ is the ASCII string: <code>lightning</code>.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In addition to the protocol name, we also add in an extra "prologue" that is
+used to further bind the protocol context to the Lightning Network.</p>
+</div>
+<div class="paragraph">
+<p>To conclude the initialization step, both sides mix the responder&#8217;s public key
+into the handshake digest. Because this digest is used while the associated data with a
+zero-length ciphertext (only the MAC) is sent, this ensures that the initiator
+does indeed know the public key of the responder.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The initiating node mixes in the responding node&#8217;s static public key
+serialized in Bitcoin&#8217;s compressed format: <code>h = SHA-256(h || rs.pub.serializeCompressed())</code></p>
+</li>
+<li>
+<p>The responding node mixes in their local static public key serialized in
+Bitcoin&#8217;s compressed format: <code>h = SHA-256(h || ls.pub.serializeCompressed())</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_handshake_acts">Handshake acts</h5>
+<div class="paragraph">
+<p>After the initial handshake initialization, we can begin the actual execution
+of the handshake process. The handshake is composed of a series of
+three messages sent between the initiator and responder, henceforth referred to as
+"acts." Because each act is a single message sent between the parties, a handshake
+is completed in a total of 1.5 round trips (0.5 for each act).</p>
+</div>
+<div class="paragraph">
+<p>The first act completes the initial portion of the incremental triple Diffie–Hellman (DH) key exchange (using a new ephemeral key generated by the initiator)
+and also ensures that the initiator actually knows the long-term public key of
+the responder. During the second act, the responder transmits the ephemeral key
+they wish to use for the session to the initiator, and once again incrementally
+mixes this new key into the triple DH handshake. During the third and final
+act, the initiator transmits their long-term static public key to the
+responder and executes the final DH operation to mix that into the final
+resulting shared secret.</p>
+</div>
+<div class="sect5">
+<h6 id="_act_one">Act One</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>    -&gt; e, es</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Act One is sent from initiator to responder. During Act One, the initiator
+attempts to satisfy an implicit challenge by the responder. To complete this
+challenge, the initiator must know the static public key of the responder.</p>
+</div>
+<div class="paragraph">
+<p>The handshake message is <em>exactly</em> 50 bytes: 1 byte for the handshake
+version, 33 bytes for the compressed ephemeral public key of the initiator,
+and 16 bytes for the <code>poly1305</code> tag.</p>
+</div>
+<div class="paragraph">
+<p>Sender actions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>e = generateKey()</code></p>
+</li>
+<li>
+<p><code>h = SHA-256(h || e.pub.serializeCompressed())</code></p>
+<div class="paragraph">
+<p>The newly generated ephemeral key is accumulated into the running
+       handshake digest.</p>
+</div>
+</li>
+<li>
+<p><code>es = ECDH(e.priv, rs)</code></p>
+<div class="paragraph">
+<p>The initiator performs an ECDH between its newly generated ephemeral
+       key and the remote node&#8217;s static public key.</p>
+</div>
+</li>
+<li>
+<p><code>ck, temp_k1 = HKDF(ck, es)</code></p>
+<div class="paragraph">
+<p>A new temporary encryption key is generated, which is
+       used to generate the authenticating MAC.</p>
+</div>
+</li>
+<li>
+<p><code>c = encryptWithAD(temp_k1, 0, h, zero)</code></p>
+<div class="paragraph">
+<p>Where <code>zero</code> is a zero-length plain text.</p>
+</div>
+</li>
+<li>
+<p><code>h = SHA-256(h || c)</code></p>
+<div class="paragraph">
+<p>Finally, the generated ciphertext is accumulated into the authenticating
+       handshake digest.</p>
+</div>
+</li>
+<li>
+<p>Send <code>m = 0 || e.pub.serializeCompressed() || c</code> to the responder over the network buffer.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Receiver actions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Read <em>exactly</em> 50 bytes from the network buffer.</p>
+</li>
+<li>
+<p>Parse the read message (<code>m</code>) into <code>v</code>, <code>re</code>, and <code>c</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Where <code>v</code> is the <em>first</em> byte of <code>m</code>, <code>re</code> is the next 33
+bytes of <code>m</code>, and <code>c</code> is the last 16 bytes of <code>m</code>.</p>
+</li>
+<li>
+<p>The raw bytes of the remote party&#8217;s ephemeral public key (<code>re</code>) are to be
+deserialized into a point on the curve using affine coordinates as encoded
+by the key&#8217;s serialized composed format.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If <code>v</code> is an unrecognized handshake version, then the responder must
+abort the connection attempt.</p>
+</li>
+<li>
+<p><code>h = SHA-256(h || re.serializeCompressed())</code></p>
+<div class="paragraph">
+<p>The responder accumulates the initiator&#8217;s ephemeral key into the authenticating
+      handshake digest.</p>
+</div>
+</li>
+<li>
+<p><code>es = ECDH(s.priv, re)</code></p>
+<div class="paragraph">
+<p>The responder performs an ECDH between its static private key and the
+      initiator&#8217;s ephemeral public key.</p>
+</div>
+</li>
+<li>
+<p><code>ck, temp_k1 = HKDF(ck, es)</code></p>
+<div class="paragraph">
+<p>A new temporary encryption key is generated, which will
+      shortly be used to check the authenticating MAC.</p>
+</div>
+</li>
+<li>
+<p><code>p = decryptWithAD(temp_k1, 0, h, c)</code></p>
+<div class="paragraph">
+<p>If the MAC check in this operation fails, then the initiator does <em>not</em>
+      know the responder&#8217;s static public key. If this is the case, then the
+      responder must terminate the connection without any further messages.</p>
+</div>
+</li>
+<li>
+<p><code>h = SHA-256(h || c)</code></p>
+<div class="paragraph">
+<p>The received ciphertext is mixed into the handshake digest. This step serves
+       to ensure the payload wasn&#8217;t modified by a MITM.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_act_two">Act Two</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>   &lt;- e, ee</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Act Two is sent from the responder to the initiator. Act Two will <em>only</em>
+take place if Act One was successful. Act One was successful if the
+responder was able to properly decrypt and check the MAC of the tag sent at
+the end of Act One.</p>
+</div>
+<div class="paragraph">
+<p>The handshake is <em>exactly</em> 50 bytes: 1 byte for the handshake version, 33
+bytes for the compressed ephemeral public key of the responder, and 16 bytes
+for the <code>poly1305</code> tag.</p>
+</div>
+<div class="paragraph">
+<p>Sender actions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>e = generateKey()</code></p>
+</li>
+<li>
+<p><code>h = SHA-256(h || e.pub.serializeCompressed())</code></p>
+<div class="paragraph">
+<p>The newly generated ephemeral key is accumulated into the running
+       handshake digest.</p>
+</div>
+</li>
+<li>
+<p><code>ee = ECDH(e.priv, re)</code></p>
+<div class="paragraph">
+<p>Where <code>re</code> is the ephemeral key of the initiator, which was received
+       during Act One.</p>
+</div>
+</li>
+<li>
+<p><code>ck, temp_k2 = HKDF(ck, ee)</code></p>
+<div class="paragraph">
+<p>A new temporary encryption key is generated, which is
+       used to generate the authenticating MAC.</p>
+</div>
+</li>
+<li>
+<p><code>c = encryptWithAD(temp_k2, 0, h, zero)</code></p>
+<div class="paragraph">
+<p>Where <code>zero</code> is a zero-length plain text.</p>
+</div>
+</li>
+<li>
+<p><code>h = SHA-256(h || c)</code></p>
+<div class="paragraph">
+<p>Finally, the generated ciphertext is accumulated into the authenticating
+       handshake digest.</p>
+</div>
+</li>
+<li>
+<p>Send <code>m = 0 || e.pub.serializeCompressed() || c</code> to the initiator over the network buffer.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Receiver actions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Read <em>exactly</em> 50 bytes from the network buffer.</p>
+</li>
+<li>
+<p>Parse the read message (<code>m</code>) into <code>v</code>, <code>re</code>, and <code>c</code>:</p>
+<div class="paragraph">
+<p>Where <code>v</code> is the <em>first</em> byte of <code>m</code>, <code>re</code> is the next 33
+      bytes of <code>m</code>, and <code>c</code> is the last 16 bytes of <code>m</code>.</p>
+</div>
+</li>
+<li>
+<p>If <code>v</code> is an unrecognized handshake version, then the responder must
+abort the connection attempt.</p>
+</li>
+<li>
+<p><code>h = SHA-256(h || re.serializeCompressed())</code></p>
+</li>
+<li>
+<p><code>ee = ECDH(e.priv, re)</code></p>
+<div class="paragraph">
+<p>Where <code>re</code> is the responder&#8217;s ephemeral public key.</p>
+</div>
+<div class="paragraph">
+<p>The raw bytes of the remote party&#8217;s ephemeral public key (<code>re</code>) are to be
+      deserialized into a point on the curve using affine coordinates as encoded
+      by the key&#8217;s serialized composed format.</p>
+</div>
+</li>
+<li>
+<p><code>ck, temp_k2 = HKDF(ck, ee)</code></p>
+<div class="paragraph">
+<p>A new temporary encryption key is generated, which is
+       used to generate the authenticating MAC.</p>
+</div>
+</li>
+<li>
+<p><code>p = decryptWithAD(temp_k2, 0, h, c)</code></p>
+<div class="paragraph">
+<p>If the MAC check in this operation fails, then the initiator must
+      terminate the connection without any further messages.</p>
+</div>
+</li>
+<li>
+<p><code>h = SHA-256(h || c)</code></p>
+<div class="paragraph">
+<p>The received ciphertext is mixed into the handshake digest. This step serves
+       to ensure the payload wasn&#8217;t modified by a MITM.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_act_three">Act Three</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>   -&gt; s, se</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Act Three is the final phase in the authenticated key agreement described in
+this section. This act is sent from the initiator to the responder as a
+concluding step. Act Three is executed <em>if and only if</em> Act Two was successful.
+During Act Three, the initiator transports its static public key to the
+responder encrypted with <em>strong</em> forward secrecy, using the accumulated <code>HKDF</code>
+derived secret key at this point of the handshake.</p>
+</div>
+<div class="paragraph">
+<p>The handshake is <em>exactly</em> 66 bytes: 1 byte for the handshake version, 33
+bytes for the static public key encrypted with the <code>ChaCha20</code> stream
+cipher, 16 bytes for the encrypted public key&#8217;s tag generated via the AEAD
+construction, and 16 bytes for a final authenticating tag.</p>
+</div>
+<div class="paragraph">
+<p>Sender actions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>c = encryptWithAD(temp_k2, 1, h, s.pub.serializeCompressed())</code></p>
+<div class="paragraph">
+<p>Where <code>s</code> is the static public key of the initiator.</p>
+</div>
+</li>
+<li>
+<p><code>h = SHA-256(h || c)</code></p>
+</li>
+<li>
+<p><code>se = ECDH(s.priv, re)</code></p>
+<div class="paragraph">
+<p>Where <code>re</code> is the ephemeral public key of the responder.</p>
+</div>
+</li>
+<li>
+<p><code>ck, temp_k3 = HKDF(ck, se)</code></p>
+<div class="paragraph">
+<p>The final intermediate shared secret is mixed into the running chaining key.</p>
+</div>
+</li>
+<li>
+<p><code>t = encryptWithAD(temp_k3, 0, h, zero)</code></p>
+<div class="paragraph">
+<p>Where <code>zero</code> is a zero-length plain text.</p>
+</div>
+</li>
+<li>
+<p><code>sk, rk = HKDF(ck, zero)</code></p>
+<div class="paragraph">
+<p>Where <code>zero</code> is a zero-length plain text,
+       <code>sk</code> is the key to be used by the initiator to encrypt messages to the
+       responder,
+       and <code>rk</code> is the key to be used by the initiator to decrypt messages sent by
+       the responder.</p>
+</div>
+<div class="paragraph">
+<p>The final encryption keys, to be used for sending and
+       receiving messages for the duration of the session, are generated.</p>
+</div>
+</li>
+<li>
+<p><code>rn = 0, sn = 0</code></p>
+<div class="paragraph">
+<p>The sending and receiving nonces are initialized to 0.</p>
+</div>
+</li>
+<li>
+<p>Send <code>m = 0 || c || t</code> over the network buffer.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Receiver actions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Read <em>exactly</em> 66 bytes from the network buffer.</p>
+</li>
+<li>
+<p>Parse the read message (<code>m</code>) into <code>v</code>, <code>c</code>, and <code>t</code>:</p>
+<div class="paragraph">
+<p>Where <code>v</code> is the <em>first</em> byte of <code>m</code>, <code>c</code> is the next 49
+      bytes of <code>m</code>, and <code>t</code> is the last 16 bytes of <code>m</code>.</p>
+</div>
+</li>
+<li>
+<p>If <code>v</code> is an unrecognized handshake version, then the responder must
+abort the connection attempt.</p>
+</li>
+<li>
+<p><code>rs = decryptWithAD(temp_k2, 1, h, c)</code></p>
+<div class="paragraph">
+<p>At this point, the responder has recovered the static public key of the
+       initiator.</p>
+</div>
+</li>
+<li>
+<p><code>h = SHA-256(h || c)</code></p>
+</li>
+<li>
+<p><code>se = ECDH(e.priv, rs)</code></p>
+<div class="paragraph">
+<p>Where <code>e</code> is the responder&#8217;s original ephemeral key.</p>
+</div>
+</li>
+<li>
+<p><code>ck, temp_k3 = HKDF(ck, se)</code></p>
+</li>
+<li>
+<p><code>p = decryptWithAD(temp_k3, 0, h, t)</code></p>
+<div class="paragraph">
+<p>If the MAC check in this operation fails, then the responder must
+       terminate the connection without any further messages.</p>
+</div>
+</li>
+<li>
+<p><code>rk, sk = HKDF(ck, zero)</code></p>
+<div class="paragraph">
+<p>Where <code>zero</code> is a zero-length plain text,
+       <code>rk</code> is the key to be used by the responder to decrypt the messages sent
+       by the initiator,
+       and <code>sk</code> is the key to be used by the responder to encrypt messages to
+       the initiator.</p>
+</div>
+<div class="paragraph">
+<p>The final encryption keys, to be used for sending and
+       receiving messages for the duration of the session, are generated.</p>
+</div>
+</li>
+<li>
+<p><code>rn = 0, sn = 0</code></p>
+<div class="paragraph">
+<p>The sending and receiving nonces are initialized to 0.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_transport_message_encryption">Transport message encryption</h5>
+<div class="paragraph">
+<p>At the conclusion of Act Three, both sides have derived the encryption keys, which
+will be used to encrypt and decrypt messages for the remainder of the
+session.</p>
+</div>
+<div class="paragraph">
+<p>The actual Lightning Protocol messages are encapsulated within AEAD ciphertexts.
+Each message is prefixed with another AEAD ciphertext, which encodes the total
+length of the following Lightning message (not including its MAC).</p>
+</div>
+<div class="paragraph">
+<p>The <em>maximum</em> size of <em>any</em> Lightning message must not exceed 65,535 bytes. A
+maximum size of 65,535 simplifies testing, makes memory management easier, and
+helps mitigate memory-exhaustion attacks.</p>
+</div>
+<div class="paragraph">
+<p>To make traffic analysis more difficult, the length prefix for all
+encrypted Lightning messages is also encrypted. Additionally a 16-byte
+<code>Poly-1305</code> tag is added to the encrypted length prefix to ensure that
+the packet length hasn&#8217;t been modified when in flight and also to avoid
+creating a decryption oracle.</p>
+</div>
+<div class="paragraph">
+<p>The structure of packets on the wire resembles the diagram in <a href="#noise_encrypted_packet">Encrypted packet structure</a>.</p>
+</div>
+<div id="noise_encrypted_packet" class="imageblock">
+<div class="content">
+<img src="images/mtln_1402.png" alt="Encrypted Packet Structure">
+</div>
+<div class="title">Figure 2. Encrypted packet structure</div>
+</div>
+<div class="paragraph">
+<p>The prefixed message length is encoded as a 2-byte big-endian integer, for a
+total maximum packet length of <span>2 + 16 + 65,535 + 16 = 65,569</span> bytes.</p>
+</div>
+<div class="sect5">
+<h6 id="_encrypting_and_sending_messages">Encrypting and sending messages</h6>
+<div class="paragraph">
+<p>To encrypt and send a Lightning message (<code>m</code>) to the network stream,
+given a sending key (<code>sk</code>) and a nonce (<code>sn</code>), the following steps are
+completed:</p>
+</div>
+<div class="olist arabic pagebreak-before">
+<ol class="arabic">
+<li>
+<p>Let <code>l = len(m)</code>.</p>
+<div class="paragraph">
+<p>Where <code>len</code> obtains the length in bytes of the Lightning message.</p>
+</div>
+</li>
+<li>
+<p>Serialize <code>l</code> into 2 bytes encoded as a big-endian integer.</p>
+</li>
+<li>
+<p>Encrypt <code>l</code> (using <code>ChaChaPoly-1305</code>, <code>sn</code>, and <code>sk</code>), to obtain <code>lc</code>
+(18 bytes).</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The nonce <code>sn</code> is encoded as a 96-bit little-endian number. As the
+decoded nonce is 64 bits, the 96-bit nonce is encoded as 32 bits
+of leading zeros followed by a 64-bit value.</p>
+</li>
+<li>
+<p>The nonce <code>sn</code> must be incremented after this step.</p>
+</li>
+<li>
+<p>A zero-length byte slice is to be passed as the AD (associated data).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Finally, encrypt the message itself (<code>m</code>) using the same procedure used to
+encrypt the length prefix. Let this encrypted ciphertext be known <span class="keep-together">as <code>c</code></span>.</p>
+<div class="paragraph">
+<p>The nonce <code>sn</code> must be incremented after this step.</p>
+</div>
+</li>
+<li>
+<p>Send <code>lc || c</code> over the network buffer.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_receiving_and_decrypting_messages">Receiving and decrypting messages</h6>
+<div class="paragraph">
+<p>To decrypt the <em>next</em> message in the network stream, the following
+steps are completed:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Read <em>exactly</em> 18 bytes from the network buffer.</p>
+</li>
+<li>
+<p>Let the encrypted length prefix be known as <code>lc</code>.</p>
+</li>
+<li>
+<p>Decrypt <code>lc</code> (using <code>ChaCha20-Poly1305</code>, <code>rn</code>, and <code>rk</code>) to obtain the size of
+the encrypted packet <code>l</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A zero-length byte slice is to be passed as the AD (associated data).</p>
+</li>
+<li>
+<p>The nonce <code>rn</code> must be incremented after this step.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Read <em>exactly</em> <code>l + 16</code> bytes from the network buffer, and let the bytes be
+known <span class="keep-together">as <code>c</code></span>.</p>
+</li>
+<li>
+<p>Decrypt <code>c</code> (using <code>ChaCha20-Poly1305</code>, <code>rn</code>, and <code>rk</code>) to obtain decrypted
+plain-text packet <code>p</code>.</p>
+<div class="paragraph">
+<p>The nonce <code>rn</code> must be incremented after this step.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_lightning_message_key_rotation">Lightning message key rotation</h5>
+<div class="paragraph">
+<p>Changing keys regularly and forgetting previous keys is useful to prevent the
+decryption of old messages, in the case of later key leakage (i.e.,  backward
+secrecy).</p>
+</div>
+<div class="paragraph">
+<p>Key rotation is performed for <em>each</em> key (<code>sk</code> and <code>rk</code>) <em>individually</em>. A key
+is to be rotated after a party encrypts or decrypts 1,000 times with it (i.e.,
+every 500 messages).  This can be properly accounted for by rotating the key
+once the nonce dedicated to it exceeds 1,000.</p>
+</div>
+<div class="paragraph">
+<p>Key rotation for a key <code>k</code> is performed according to the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let <code>ck</code> be the chaining key obtained at the end of Act Three.</p>
+</li>
+<li>
+<p><code>ck', k' = HKDF(ck, k)</code></p>
+</li>
+<li>
+<p>Reset the nonce for the key to <code>n = 0</code>.</p>
+</li>
+<li>
+<p><code>k = k'</code></p>
+</li>
+<li>
+<p><code>ck = ck'</code></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_conclusion">Conclusion</h3>
+<div class="paragraph">
+<p>Lightning&#8217;s underlying transport encryption is based on the Noise Protocol and offers strong security guarantees of privacy, authenticity, and integrity for all communications between Lightning peers.</p>
+</div>
+<div class="paragraph">
+<p>Unlike Bitcoin where peers often communicate "in the clear" (without encryption), all Lightning communications are encrypted peer-to-peer. In addition to transport encryption (peer-to-peer), in the Lightning Network, payments are <em>also</em> encrypted into onion packets (hop-to-hop) and payment details are sent out-of-band between the sender and recipient (end-to-end). The combination of all these security mechanisms is cumulative and provides a layered defense against de-anonymization, man-in-the-middle attacks, and network surveillance.</p>
+</div>
+<div class="paragraph">
+<p>Of course, no security is perfect and we will see in <a href="#security_and_privacy">[security_and_privacy]</a> that these properties can be degraded and attacked. However, the Lightning Network significantly improves upon the privacy of Bitcoin.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2022-05-30 16:04:56 -0400
+</div>
+</div>
+</body>
+</html>

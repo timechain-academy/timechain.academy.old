@@ -1,0 +1,650 @@
+[[encrypted_message_transport]]
+== Lightning's Encrypted Message Transport
+
+((("Lightning encrypted transport protocol", id="ix_14_encrypted_transport-asciidoc0", range="startofrange")))In this chapter we will review the Lightning Network's _encrypted message
+transport_, sometimes referred to as the ((("Brontide Protocol")))_Brontide Protocol_, which allows peers to
+establish end-to-end encrypted communication, authentication, and integrity
+checking.
+
+[NOTE]
+====
+Part of this chapter includes some highly technical detail about the encryption protocol and encryption algorithms used in the Lightning encrypted transport. You may decide to skip that section if you are not interested in those details.
+====
+
+=== Encrypted Transport in the Lightning Protocol Suite
+
+((("Lightning encrypted transport protocol","Lightning Protocol Suite and")))The transport component of the Lightning Network and its several components are shown in the leftmost part of the network connection layer in  <<LN_protocol_encrypted_transport_highlight>>.
+
+[[LN_protocol_encrypted_transport_highlight]]
+.Encrypted message transport in the Lightning protocol suite
+image::images/mtln_1401.png["Encrypted message transport in the Lightning protocol suite"]
+
+=== Introduction
+
+Unlike the vanilla Bitcoin P2P network, every node in the Lightning Network is
+identified by a unique public key which serves as its identity. By default, this
+public key is used to end-to-end encrypt _all_ communication within the
+network. Encryption by default at the lowest level of the protocol ensures that
+all messages are authenticated, are immune to man-in-the-middle (MITM) attacks and snooping by third parties, and ensures privacy at the fundamental transport
+level. In this chapter, we'll learn about the encryption protocol used by the
+Lightning Network in detail. Upon completion of this chapter, the reader will
+be familiar with the state of the art in encrypted messaging protocols, as well
+as the various properties such a protocol provides to the network. It's worth
+mentioning that the core of the encrypted message transport is _agnostic_ to
+its usage within the context of the Lightning Network. As a result, the
+custom encrypted message transport that Lightning uses can be dropped into any context
+that requires encrypted communication between two parties.
+
+=== The Channel Graph as Decentralized Public Key Infrastructure
+
+((("channel graph","decentralized public key infrastructure")))((("Lightning encrypted transport protocol","channel graph as decentralized public key infrastructure")))((("PKI (public key infrastructure)")))((("public key infrastructure (PKI)")))As we learned in <<routing>>, every node has a long-term
+identity that is used as the identifier for a vertex during pathfinding and
+also used in the asymmetric cryptographic operations related to the creation of
+onion encrypted routing packets. This public key, which serves as a node's
+long-term identity, is included in the DNS bootstrapping response, as well as
+embedded within the channel graph. As a result, before a node attempts to
+connect out to another node on the P2P network, it already knows the public key
+of the node it wishes to connect to.
+
+Additionally, if the node being connected to already has a series of public
+channels within the graph, then the connecting node is able to further verify the identity of the node. Because the entire channel graph is fully
+authenticated, one can view it as a sort of decentralized public key
+infrastructure (PKI): to register a key, a public channel in the Bitcoin
+blockchain must be opened, and once a node no longer has any public channels, then
+they've effectively been removed from the PKI.
+
+Because Lightning is a decentralized network, it's imperative that no one central
+party is designated the power to provision a public key identity within the
+network. In place of a central party, the Lightning Network uses the Bitcoin
+blockchain as a Sybil mitigation mechanism because gaining an identity on the
+network has a tangible cost: the fee needed to create a channel in the
+blockchain, as well as the opportunity cost of the capital allocated to their
+channels. In the process of essentially rolling a domain-specific PKI, the
+Lightning Network is able to significantly simplify its encrypted transport
+protocol as it doesn't need to deal with all the complexities that come along
+with TLS, the Transport Layer Security protocol.
+
+=== Why Not TLS?
+
+((("Lightning encrypted transport protocol","TLS vulnerabilities/limitations")))((("TLS (Transport Layer Security protocol)")))((("Transport Layer Security protocol (TLS)")))Readers familiar with the TLS system may be wondering at this point: why wasn't
+TLS used in spite of the drawbacks of the existing PKI system? It is indeed a
+fact that "self-signed certificates" can be used to effectively sidestep the
+existing global PKI system by simply asserting to the identity of a given
+public key amongst a set of peers. However, even with the existing PKI system
+out of the way, TLS has several drawbacks that prompted the creators of the Lightning Network
+to instead opt for a more compact custom encryption protocol.
+
+To start with, TLS is a protocol that has been around for several decades and
+as a result has evolved over time as new advances have been made in the space
+of transport encryption. However, over time this evolution has caused the
+protocol to balloon in size and complexity. Over the past few decades, several
+vulnerabilities in TLS have been discovered and patched, with each evolution
+further increasing the complexity of the protocol. As a result of the age of
+the protocol, several versions and iterations exist, meaning a client needs to
+understand many of the prior iterations of the protocol to communicate
+with a large portion of the public internet, further increasing implementation
+complexity.
+
+In the past, several memory safety vulnerabilities have been discovered in
+widely used implementations of SSL/TLS. Packaging such a protocol within every
+Lightning node would serve to increase the attack surface of nodes exposed to the public peer-to-peer network. To increase the security of the
+network as a whole and minimize exploitable attack surface, the creators of
+the Lightning Network instead opted to adopt the Noise Protocol Framework. Noise as a protocol
+internalizes several of the security and privacy lessons learned over time due
+to continual scrutiny of the TLS protocol over decades. In a way, the existence
+of Noise allows the community to effectively "start over," with a more compact,
+simplified protocol that retains all the added benefits of TLS.
+
+=== The Noise Protocol Framework
+
+((("Lightning encrypted transport protocol","Noise Protocol Framework")))((("Noise Protocol Framework","encrypted message transport and")))The Noise Protocol Framework is a modern, extensible, and flexible message
+encryption protocol designed by the creators of the Signal Protocol. The Signal Protocol is one of the most widely used message encryption protocols in the
+world. It's used by both Signal and Whatsapp, which cumulatively are used by
+over a billion people around the world. The Noise framework is the result of
+decades of evolution both within academia as well as the industry of message
+encryption protocols. Lightning uses the Noise Protocol Framework to implement
+a _message-oriented_ encryption protocol used by all nodes to communicate with
+each other.
+
+A communication session using Noise has two distinct phases: the handshake
+phase and the messaging phase. Before two parties can communicate with each
+other, they first need to arrive at a shared secret known only to them which
+will be used to encrypt and authenticate messages sent to each other. ((("handshake","defined")))A flavor
+of an authenticated key agreement is used to arrive at a final shared key
+between the two parties. In the context of the Noise protocol, this
+authenticated key agreement is referred to as a _handshake_. Once that
+handshake has been completed, both nodes can now being to send each other
+encrypted messages. Each time peers need to connect or reconnect to each
+other, a fresh iteration of the handshake protocol is executed, ensuring that
+forward secrecy is achieved (leaking the key of a prior transcript doesn't compromise any
+future transcripts).
+
+Because the Noise Protocol allows a protocol designer to choose from several
+cryptographic primitives, such as symmetric encryption and public key
+cryptography, it's customary that each flavor of the Noise Protocol is referred
+to by a unique name. In the spirit of "Noise," each flavor of the protocol
+selects a name derived from some sort of "noise." In the context of the
+((("Brontide Protocol")))Lightning Network, the flavor of the Noise Protocol used is sometimes referred to
+as Brontide. A _brontide_ is a low billowing noise, similar to what one would
+hear during a thunderstorm when very far away.
+
+=== Lightning Encrypted Transport in Detail
+
+((("Lightning encrypted transport protocol","elements of", id="ix_14_encrypted_transport-asciidoc1", range="startofrange")))In this section we will break down the Lightning encrypted transport protocol and delve into the details of the cryptographic algorithms and protocol used to establish encrypted, authenticated, and integrity-assured communications between peers. Feel free to skip this section if you find this level of detail daunting.
+
+==== Noise_XK: Lightning Network's Noise Handshake
+
+((("Lightning encrypted transport protocol","Noise_XK")))((("Noise Protocol Framework","Noise_XK")))((("Noise_XK")))The Noise Protocol is extremely flexible in that it advertises several
+handshakes, each with different security and privacy properties for a would-be
+protocol implementer to select from. A deep exploration of each of the
+handshakes and their various trade-offs is out of the scope of this chapter.
+With that said, the Lightning Network uses a specific handshake referred to as
+`Noise_XK`. ((("identity hiding")))The unique property provided by this handshake is __identity hiding__: in order for a node to initiate a connection with another node, it
+must first know its public key. Mechanically, this means that the public key
+of the responder is actually never transmitted during the context of the
+handshake. Instead, a clever series of Elliptic Curve Diffie–Hellman (ECDH) and
+message authentication code (MAC) checks are used to authenticate the
+responder.
+
+==== Handshake Notation and Protocol Flow
+
+((("handshake","notation and protocol flow")))((("Lightning encrypted transport protocol","handshake notation and protocol flow")))((("Noise_XK","handshake notation and protocol flow")))Each handshake typically consists of several steps. At each step some
+(possibly) encrypted material is sent to the opposite party, an ECDH (or
+several) is performed, with the result of the handshake being "mixed" into a
+protocol _transcript_. This transcript serves to authenticate each step of the
+protocol and helps thwart a flavor of man-in-the-middle attacks. At the
+end of the handshake, two keys, `ck` and `k`, are produced which are used to
+encrypt messages (`k`) and rotate keys (`ck`) throughout the lifetime of
+the session.
+
+In the context of a handshake, `s` is usually a long-term static public key.
+In our case, the public key crypto system used is an elliptic curve one,
+instantiated with the `secp256k1` curve, which is used elsewhere in Bitcoin.
+Several ephemeral keys are generated throughout the handshake. We use `e` to
+refer to a new ephemeral key. ECDH operations between two keys are notated as
+the concatenation of two keys. As an example, `ee` represents an ECDH operation
+between two ephemeral keys.
+
+==== High-Level Overview
+
+((("Lightning encrypted transport protocol","high-level overview")))((("Noise_XK","high-level overview")))Using the notation laid out earlier, we can succinctly describe the `Noise_XK`
+as pass:[<span class="keep-together">follows</span>]:
+```
+    Noise_XK(s, rs):
+       <- rs
+       ...
+       -> e, e(rs)
+       <- e, ee
+       -> s, se
+```
+
+The protocol begins with the "pretransmission" of the responder's static key
+(`rs`) to the initiator. Before executing the handshake, the initiator is to
+generate its own static key (`s`). During each step of the handshake, all
+material sent across the wire and the keys sent/used are incrementally
+hashed into a _handshake digest_, `h`. This digest is never sent across the
+wire during the handshake, and is instead used as the "associated data" when
+AEAD (authenticated encryption with associated data) is sent across the wire.
+((("AD (associated data)")))((("associated data (AD)")))_Associated data_ (AD) allows an encryption protocol to authenticate additional
+information alongside a cipher text packet. In other domains, the AD may be a
+domain name, or plain-text portion of the packet.
+
+The existence of `h` ensures that if a portion of a transmitted handshake
+message is replaced, then the other side will notice. At each step, a MAC
+digest is checked. If the MAC check succeeds, then the receiving party knows
+that the handshake has been successful up until that point. Otherwise, if a MAC
+check ever fails, then the handshake process has failed, and the connection
+should be terminated.
+
+The protocol also adds a new piece of data to each handshake message: a protocol
+version. The initial protocol version is `0`. At the time of writing, no new
+protocol versions have been created. As a result, if a peer receives a version
+other than `0`, then they should reject the handshake initiation attempt.
+
+As far as cryptographic primitives, SHA-256 is used as the hash function of
+choice, `secp256k1` as the elliptic curve, and `ChaChaPoly-130` as the AEAD
+(symmetric encryption) construction.
+
+Each variant of the Noise Protocol has a unique ASCII string used to refer to it. To ensure that two parties are using the same protocol
+variant, the ASCII string is hashed into a digest, which is used to initialize
+the starting handshake state. In the context of the Lightning Network, the ASCII
+string describing the protocol is `Noise_XK_secp256k1_ChaChaPoly_SHA256`.
+
+==== Handshake in Three Acts
+
+((("Lightning encrypted transport protocol","handshake in three acts", id="ix_14_encrypted_transport-asciidoc2", range="startofrange")))((("Noise_XK","handshake in three acts", id="ix_14_encrypted_transport-asciidoc3", range="startofrange")))The handshake portion can be separated into three distinct "acts."
+The entire handshake takes 1.5 round trips between the initiator and responder.
+At each act, a single message is sent between both parties. The handshake
+message is a fixed-size payload prefixed by the protocol version.
+
+The Noise Protocol uses an object-oriented inspired notation to describe the
+protocol at each step. During setup of the handshake state, each side will
+initialize the following variables:
+
+`ck`:: The _chaining key_. This value is the accumulated hash of all
+   previous ECDH outputs. At the end of the handshake, `ck` is used to derive
+   the encryption keys for Lightning messages.
+
+`h`:: The _handshake hash_. This value is the accumulated hash of _all_
+   handshake data that has been sent and received so far during the handshake
+   process.
+
+`temp_k1`, `temp_k2`, `temp_k3`:: The _intermediate keys_. These are used to
+   encrypt and decrypt the zero-length AEAD payloads at the end of each handshake
+   message.
+
+ `e`:: A party's _ephemeral keypair_. For each session, a node must generate a
+   new ephemeral key with strong cryptographic randomness.
+
+`s`:: A party's _static keypair_ (`ls` for local, `rs` for remote).
+
+Given this handshake plus messaging session state, we'll then define a series of
+functions that will operate on the handshake and messaging state. When
+describing the handshake protocol, we'll use these variables in a manner
+similar to pseudocode to reduce the verbosity of the explanation of
+each step in the protocol. We'll define the _functional_ primitives of the
+handshake as:
+
+`ECDH(k, rk)`:: Performs an Elliptic Curve Diffie–Hellman operation using
+    `k`, which is a valid `secp256k1` private key, and `rk`, which is a valid public key.
++
+The returned value is the SHA-256 of the compressed format of the
+      generated point.
+
+`HKDF(salt,ikm)`:: A function defined in `RFC 5869`,
+    evaluated with a zero-length `info` field.
++
+All invocations of `HKDF` implicitly return 64 bytes of
+       cryptographic randomness using the extract-and-expand component of the
+       `HKDF`.
+
+`encryptWithAD(k, n, ad, plaintext)`:: Outputs `encrypt(k, n, ad, plaintext)`.
++
+Where `encrypt` is an evaluation of `ChaCha20-Poly1305` (Internet Engineering Task Force variant)
+       with the passed arguments, with nonce `n` encoded as 32 zero bits,
+       followed by a _little-endian_ 64-bit value. Note: this follows the Noise
+       Protocol convention, rather than our normal endian.
+
+`decryptWithAD(k, n, ad, ciphertext)`:: Outputs `decrypt(k, n, ad, ciphertext)`.
++
+Where `decrypt` is an evaluation of `ChaCha20-Poly1305` (IETF variant)
+       with the passed arguments, with nonce `n` encoded as 32 zero bits,
+       followed by a _little-endian_ 64-bit value.
+
+`generateKey()`:: Generates and returns a fresh `secp256k1` keypair.
++
+Where the object returned by `generateKey` has two attributes:`.pub`, which returns an abstract object representing the public key; and `.priv`, which represents the private key used to generate the public key
++
+Where the object also has a single method: `.serializeCompressed()`
+
+`a || b`:: This denotes the concatenation of two byte strings `a` and `b`.
+
+===== Handshake session state initialization
+
+((("handshake","session state initialization")))((("Lightning encrypted transport protocol","handshake session state initialization")))((("Noise_XK","handshake session state initialization")))Before starting the handshake process, both sides need to initialize the
+starting state that they'll use to advance the handshake process. To start,
+both sides need to construct the initial handshake digest `h`.
+
+ 1. ++h = SHA-256(__protocolName__)++
++
+Where ++__protocolName__ = "Noise_XK_secp256k1_ChaChaPoly_SHA256"++ encoded as
+      an ASCII string.
+
+ 2. `ck = h`
+
+ 3. ++h = SHA-256(h || __prologue__)++
++
+Where ++__prologue__++ is the ASCII string: `lightning`.
+
+In addition to the protocol name, we also add in an extra "prologue" that is
+used to further bind the protocol context to the Lightning Network.
+
+To conclude the initialization step, both sides mix the responder's public key
+into the handshake digest. Because this digest is used while the associated data with a
+zero-length ciphertext (only the MAC) is sent, this ensures that the initiator
+does indeed know the public key of the responder.
+
+ * The initiating node mixes in the responding node's static public key
+   serialized in Bitcoin's compressed format: `h = SHA-256(h || rs.pub.serializeCompressed())`
+
+ * The responding node mixes in their local static public key serialized in
+   Bitcoin's compressed format: `h = SHA-256(h || ls.pub.serializeCompressed())`
+
+===== Handshake acts
+
+((("handshake","acts", id="ix_14_encrypted_transport-asciidoc4", range="startofrange")))((("Lightning encrypted transport protocol","handshake acts", id="ix_14_encrypted_transport-asciidoc5", range="startofrange")))((("Noise_XK","handshake acts", id="ix_14_encrypted_transport-asciidoc6", range="startofrange")))After the initial handshake initialization, we can begin the actual execution
+of the handshake process. The handshake is composed of a series of
+three messages sent between the initiator and responder, henceforth referred to as
+"acts." Because each act is a single message sent between the parties, a handshake
+is completed in a total of 1.5 round trips (0.5 for each act).
+
+((("Diffie-Hellman Key Exchange (DHKE)")))The first act completes the initial portion of the incremental triple Diffie–Hellman (DH) key exchange (using a new ephemeral key generated by the initiator)
+and also ensures that the initiator actually knows the long-term public key of
+the responder. During the second act, the responder transmits the ephemeral key
+they wish to use for the session to the initiator, and once again incrementally
+mixes this new key into the triple DH handshake. During the third and final
+act, the initiator transmits their long-term static public key to the
+responder and executes the final DH operation to mix that into the final
+resulting shared secret.
+
+====== Act One
+
+```
+    -> e, es
+```
+
+Act One is sent from initiator to responder. During Act One, the initiator
+attempts to satisfy an implicit challenge by the responder. To complete this
+challenge, the initiator must know the static public key of the responder.
+
+The handshake message is _exactly_ 50 bytes: 1 byte for the handshake
+version, 33 bytes for the compressed ephemeral public key of the initiator,
+and 16 bytes for the `poly1305` tag.
+
+Sender actions:
+
+1. `e = generateKey()`
+2. `h = SHA-256(h || e.pub.serializeCompressed())`
++
+The newly generated ephemeral key is accumulated into the running
+       handshake digest.
+3. `es = ECDH(e.priv, rs)`
++
+The initiator performs an ECDH between its newly generated ephemeral
+       key and the remote node's static public key.
+4. `ck, temp_k1 = HKDF(ck, es)`
++
+A new temporary encryption key is generated, which is
+       used to generate the authenticating MAC.
+5. `c = encryptWithAD(temp_k1, 0, h, zero)`
++
+Where `zero` is a zero-length plain text.
+6. `h = SHA-256(h || c)`
++
+Finally, the generated ciphertext is accumulated into the authenticating
+       handshake digest.
+7. Send `m = 0 || e.pub.serializeCompressed() || c` to the responder over the network buffer.
+
+Receiver actions:
+
+1. Read _exactly_ 50 bytes from the network buffer.
+2. Parse the read message (`m`) into `v`, `re`, and `c`:
+    * Where `v` is the _first_ byte of `m`, `re` is the next 33
+      bytes of `m`, and `c` is the last 16 bytes of `m`.
+    * The raw bytes of the remote party's ephemeral public key (`re`) are to be
+      deserialized into a point on the curve using affine coordinates as encoded
+      by the key's serialized composed format.
+3. If `v` is an unrecognized handshake version, then the responder must
+    abort the connection attempt.
+4. `h = SHA-256(h || re.serializeCompressed())`
++
+The responder accumulates the initiator's ephemeral key into the authenticating
+      handshake digest.
+5. `es = ECDH(s.priv, re)`
++
+The responder performs an ECDH between its static private key and the
+      initiator's ephemeral public key.
+6. `ck, temp_k1 = HKDF(ck, es)`
++
+A new temporary encryption key is generated, which will
+      shortly be used to check the authenticating MAC.
+7. `p = decryptWithAD(temp_k1, 0, h, c)`
++
+If the MAC check in this operation fails, then the initiator does _not_
+      know the responder's static public key. If this is the case, then the
+      responder must terminate the connection without any further messages.
+8. `h = SHA-256(h || c)`
++
+The received ciphertext is mixed into the handshake digest. This step serves
+       to ensure the payload wasn't modified by a MITM.
+
+====== Act Two
+
+```
+   <- e, ee
+```
+
+Act Two is sent from the responder to the initiator. Act Two will _only_
+take place if Act One was successful. Act One was successful if the
+responder was able to properly decrypt and check the MAC of the tag sent at
+the end of Act One.
+
+The handshake is _exactly_ 50 bytes: 1 byte for the handshake version, 33
+bytes for the compressed ephemeral public key of the responder, and 16 bytes
+for the `poly1305` tag.
+
+Sender actions:
+
+1. `e = generateKey()`
+2. `h = SHA-256(h || e.pub.serializeCompressed())`
++
+The newly generated ephemeral key is accumulated into the running
+       handshake digest.
+3. `ee = ECDH(e.priv, re)`
++
+Where `re` is the ephemeral key of the initiator, which was received
+       during Act One.
+4. `ck, temp_k2 = HKDF(ck, ee)`
++
+A new temporary encryption key is generated, which is
+       used to generate the authenticating MAC.
+5. `c = encryptWithAD(temp_k2, 0, h, zero)`
++
+Where `zero` is a zero-length plain text.
+6. `h = SHA-256(h || c)`
++
+Finally, the generated ciphertext is accumulated into the authenticating
+       handshake digest.
+7. Send `m = 0 || e.pub.serializeCompressed() || c` to the initiator over the network buffer.
+
+Receiver actions:
+
+1. Read _exactly_ 50 bytes from the network buffer.
+2. Parse the read message (`m`) into `v`, `re`, and `c`:
++
+Where `v` is the _first_ byte of `m`, `re` is the next 33
+      bytes of `m`, and `c` is the last 16 bytes of `m`.
+3. If `v` is an unrecognized handshake version, then the responder must
+    abort the connection attempt.
+4. `h = SHA-256(h || re.serializeCompressed())`
+5. `ee = ECDH(e.priv, re)`
++
+Where `re` is the responder's ephemeral public key.
++
+The raw bytes of the remote party's ephemeral public key (`re`) are to be
+      deserialized into a point on the curve using affine coordinates as encoded
+      by the key's serialized composed format.
+6. `ck, temp_k2 = HKDF(ck, ee)`
++
+A new temporary encryption key is generated, which is
+       used to generate the authenticating MAC.
+7. `p = decryptWithAD(temp_k2, 0, h, c)`
++
+If the MAC check in this operation fails, then the initiator must
+      terminate the connection without any further messages.
+8. `h = SHA-256(h || c)`
++
+The received ciphertext is mixed into the handshake digest. This step serves
+       to ensure the payload wasn't modified by a MITM.
+
+====== Act Three
+
+```
+   -> s, se
+```
+
+Act Three is the final phase in the authenticated key agreement described in
+this section. This act is sent from the initiator to the responder as a
+concluding step. Act Three is executed _if and only if_ Act Two was successful.
+During Act Three, the initiator transports its static public key to the
+responder encrypted with _strong_ forward secrecy, using the accumulated `HKDF`
+derived secret key at this point of the handshake.
+
+The handshake is _exactly_ 66 bytes: 1 byte for the handshake version, 33
+bytes for the static public key encrypted with the `ChaCha20` stream
+cipher, 16 bytes for the encrypted public key's tag generated via the AEAD
+construction, and 16 bytes for a final authenticating tag.
+
+Sender actions:
+
+1. `c = encryptWithAD(temp_k2, 1, h, s.pub.serializeCompressed())`
++
+Where `s` is the static public key of the initiator.
+2. `h = SHA-256(h || c)`
+3. `se = ECDH(s.priv, re)`
++
+Where `re` is the ephemeral public key of the responder.
+4. `ck, temp_k3 = HKDF(ck, se)`
++
+The final intermediate shared secret is mixed into the running chaining key.
+5. `t = encryptWithAD(temp_k3, 0, h, zero)`
++
+Where `zero` is a zero-length plain text.
+6. `sk, rk = HKDF(ck, zero)`
++
+Where `zero` is a zero-length plain text,
+       `sk` is the key to be used by the initiator to encrypt messages to the
+       responder,
+       and `rk` is the key to be used by the initiator to decrypt messages sent by
+       the responder.
++
+The final encryption keys, to be used for sending and
+       receiving messages for the duration of the session, are generated.
+7. `rn = 0, sn = 0`
++
+The sending and receiving nonces are initialized to 0.
+8. Send `m = 0 || c || t` over the network buffer.
+
+Receiver actions:
+
+1. Read _exactly_ 66 bytes from the network buffer.
+2. Parse the read message (`m`) into `v`, `c`, and `t`:
++
+Where `v` is the _first_ byte of `m`, `c` is the next 49
+      bytes of `m`, and `t` is the last 16 bytes of `m`.
+3. If `v` is an unrecognized handshake version, then the responder must
+    abort the connection attempt.
+4. `rs = decryptWithAD(temp_k2, 1, h, c)`
++
+At this point, the responder has recovered the static public key of the
+       initiator.
+5. `h = SHA-256(h || c)`
+6. `se = ECDH(e.priv, rs)`
++
+Where `e` is the responder's original ephemeral key.
+7. `ck, temp_k3 = HKDF(ck, se)`
+8. `p = decryptWithAD(temp_k3, 0, h, t)`
++
+If the MAC check in this operation fails, then the responder must
+       terminate the connection without any further messages.
+9. `rk, sk = HKDF(ck, zero)`
++
+Where `zero` is a zero-length plain text,
+       `rk` is the key to be used by the responder to decrypt the messages sent
+       by the initiator,
+       and `sk` is the key to be used by the responder to encrypt messages to
+       the initiator.
++
+The final encryption keys, to be used for sending and
+       receiving messages for the duration of the session, are generated.
+10. `rn = 0, sn = 0`
++
+The sending and receiving nonces are initialized to 0.(((range="endofrange", startref="ix_14_encrypted_transport-asciidoc6")))(((range="endofrange", startref="ix_14_encrypted_transport-asciidoc5")))(((range="endofrange", startref="ix_14_encrypted_transport-asciidoc4")))
+
+===== Transport message encryption
+
+((("Lightning encrypted transport protocol","transport message encryption")))((("Noise_XK","transport message encryption")))At the conclusion of Act Three, both sides have derived the encryption keys, which
+will be used to encrypt and decrypt messages for the remainder of the
+session.
+
+The actual Lightning Protocol messages are encapsulated within AEAD ciphertexts.
+Each message is prefixed with another AEAD ciphertext, which encodes the total
+length of the following Lightning message (not including its MAC).
+
+The _maximum_ size of _any_ Lightning message must not exceed 65,535 bytes. A
+maximum size of 65,535 simplifies testing, makes memory management easier, and
+helps mitigate memory-exhaustion attacks.
+
+To make traffic analysis more difficult, the length prefix for all
+encrypted Lightning messages is also encrypted. Additionally a 16-byte
+`Poly-1305` tag is added to the encrypted length prefix to ensure that
+the packet length hasn't been modified when in flight and also to avoid
+creating a decryption oracle.
+
+The structure of packets on the wire resembles the diagram in <<noise_encrypted_packet>>.
+
+[[noise_encrypted_packet]]
+.Encrypted packet structure
+image::images/mtln_1402.png["Encrypted Packet Structure"]
+
+The prefixed message length is encoded as a 2-byte big-endian integer, for a
+total maximum packet length of pass:[<span>2 + 16 + 65,535 + 16 = 65,569</span>] bytes.
+
+====== Encrypting and sending messages
+
+To encrypt and send a Lightning message (`m`) to the network stream,
+given a sending key (`sk`) and a nonce (`sn`), the following steps are
+completed:
+
+[role="pagebreak-before"]
+1. Let `l = len(m)`.
++
+Where `len` obtains the length in bytes of the Lightning message.
+2. Serialize `l` into 2 bytes encoded as a big-endian integer.
+3. Encrypt `l` (using `ChaChaPoly-1305`, `sn`, and `sk`), to obtain `lc`
+    (18 bytes).
+    * The nonce `sn` is encoded as a 96-bit little-endian number. As the
+      decoded nonce is 64 bits, the 96-bit nonce is encoded as 32 bits
+      of leading zeros followed by a 64-bit value.
+        * The nonce `sn` must be incremented after this step.
+    * A zero-length byte slice is to be passed as the AD (associated data).
+4. Finally, encrypt the message itself (`m`) using the same procedure used to
+    encrypt the length prefix. Let this encrypted ciphertext be known pass:[<span class="keep-together">as <code>c</code></span>].
++
+The nonce `sn` must be incremented after this step.
+5. Send `lc || c` over the network buffer.
+
+====== Receiving and decrypting messages
+
+To decrypt the _next_ message in the network stream, the following
+steps are completed:
+
+1. Read _exactly_ 18 bytes from the network buffer.
+2. Let the encrypted length prefix be known as `lc`.
+3. Decrypt `lc` (using `ChaCha20-Poly1305`, `rn`, and `rk`) to obtain the size of
+    the encrypted packet `l`.
+    * A zero-length byte slice is to be passed as the AD (associated data).
+    * The nonce `rn` must be incremented after this step.
+4. Read _exactly_ `l + 16` bytes from the network buffer, and let the bytes be
+    known pass:[<span class="keep-together">as <code>c</code></span>].
+5. Decrypt `c` (using `ChaCha20-Poly1305`, `rn`, and `rk`) to obtain decrypted
+    plain-text packet `p`.
++
+The nonce `rn` must be incremented after this step.
+
+===== Lightning message key rotation
+
+((("Lightning encrypted transport protocol","Lightning message key rotation")))((("Noise_XK","Lightning message key rotation")))Changing keys regularly and forgetting previous keys is useful to prevent the
+decryption of old messages, in the case of later key leakage (i.e.,  backward
+secrecy).
+
+Key rotation is performed for _each_ key (`sk` and `rk`) _individually_. A key
+is to be rotated after a party encrypts or decrypts 1,000 times with it (i.e.,
+every 500 messages).  This can be properly accounted for by rotating the key
+once the nonce dedicated to it exceeds 1,000.
+
+Key rotation for a key `k` is performed according to the following steps(((range="endofrange", startref="ix_14_encrypted_transport-asciidoc3")))(((range="endofrange", startref="ix_14_encrypted_transport-asciidoc2"))):(((range="endofrange", startref="ix_14_encrypted_transport-asciidoc1")))
+
+1. Let `ck` be the chaining key obtained at the end of Act Three.
+2. `ck', k' = HKDF(ck, k)`
+3. Reset the nonce for the key to `n = 0`.
+4. `k = k'`
+5. `ck = ck'`
+
+=== Conclusion
+
+Lightning's underlying transport encryption is based on the Noise Protocol and offers strong security guarantees of privacy, authenticity, and integrity for all communications between Lightning peers.
+
+Unlike Bitcoin where peers often communicate "in the clear" (without encryption), all Lightning communications are encrypted peer-to-peer. In addition to transport encryption (peer-to-peer), in the Lightning Network, payments are _also_ encrypted into onion packets (hop-to-hop) and payment details are sent out-of-band between the sender and recipient (end-to-end). The combination of all these security mechanisms is cumulative and provides a layered defense against de-anonymization, man-in-the-middle attacks, and network surveillance.
+
+Of course, no security is perfect and we will see in <<security_and_privacy>> that these properties can be degraded and attacked. However, the Lightning Network significantly improves upon the privacy of Bitcoin.(((range="endofrange", startref="ix_14_encrypted_transport-asciidoc0")))
