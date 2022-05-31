@@ -16,6 +16,7 @@ mkdocs-material
 mkdocs-abs-rel-plugin
 mkdocs-add-number-plugin
 mkdocs-autolinks-plugin
+#REF: https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin#customize-navigation
 mkdocs-awesome-pages-plugin
 mkdocs-codeinclude-plugin
 mkdocs-enumerate-headings-plugin
