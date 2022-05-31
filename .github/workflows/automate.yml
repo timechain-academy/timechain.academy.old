@@ -1,14 +1,10 @@
+---
 name: automate.yml
 
-# Controls when the action will run.
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
 
-    branches:       #[ master ]
-      - '*'         # matches every branch that doesn't contain a '/'
-      - '*/*'       # matches every branch containing a single '/'
-      - '**'        # matches every branch
+    branches:
       - 'master'    # includes master
       - 'main'      # includes main
 
@@ -22,7 +18,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        python-version: ['3.6','3.7','3.8','3.10']
+        python-version: ['3.6', '3.7', '3.8', '3.10']
         exclude:
           - os: ubuntu-latest
             python-version: ['2.7']
@@ -56,7 +52,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        python-version: ['3.6','3.7','3.8','3.10']
+        python-version: ['3.6', '3.7', '3.8', '3.10']
         exclude:
           - os: ubuntu-latest
             python-version: ['2.7']
@@ -77,6 +73,17 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
+      - name: Deploy docs
+        uses: mhausenblas/mkdocs-deploy-gh-pages@master
+        # Or use mhausenblas/mkdocs-deploy-gh-pages@nomaterial
+        # to build without the mkdocs-material theme
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CUSTOM_DOMAIN: timechain.academy
+          # CONFIG_FILE: sources/mkdocs.yml
+          EXTRA_PACKAGES: build-base
+          # GITHUB_DOMAIN: github.myenterprise.com
+          REQUIREMENTS: sources/requirements.txt
       - name: automate.sh matrix
         run: |
           echo $GITHUB_WORKSPACE
@@ -93,4 +100,3 @@ jobs:
           make resources
           make build-playground
           make build-shell
-
