@@ -91,7 +91,7 @@ function initialize-use-apk(){
     echo "more apk support needed"
     apk add "$AWK"
     apk add python3 py3-pip
-    python3 -m pip install -r requirements.txt || \
+    python3 -m pip install -r sources/requirements.txt || \
     python3 -m pip install -r ../requirements.txt
 
 }
