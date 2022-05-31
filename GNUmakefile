@@ -383,7 +383,7 @@ books: mastering-bitcoin mastering-lightning python
 	mkdir -p docs/books
 	apt install pandoc || brew install pandoc
 	bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
-	bash -c 'pandoc -s README.md -o index.html  --metadata title="" '
+	bash -c 'pandoc -s sources/books/README.md -o sources/books/index.html  --metadata title="" '
 	apt install asciidoctor || brew install asciidoctor
 	pushd sources/books/bitcoinbook > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "."
 	pushd sources/books/bitcoinbook > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
