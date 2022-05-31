@@ -35,17 +35,19 @@ site_dir: docs
 # Copyright
 copyright: Copyright &copy; 2022 - TimeChain.Academy - @RandyMcMillan
 
-# Configuration
-language: en
-features:
-    - navigation.top
-    - navigation.tabs
-    - navigation.tabs.sticky
-    - navigation.sections
-    - navigation.tracking
-    - navigation.expand
-    - navigation.indexes
-    - toc.follow
+
+theme:
+    name: material
+    language: en
+    features:
+        - navigation.top
+        - navigation.tabs
+        - navigation.tabs.sticky
+        - navigation.sections
+        - navigation.tracking
+        - navigation.expand
+        - navigation.indexes
+        - toc.follow
 
 plugins:
   - exclude:
