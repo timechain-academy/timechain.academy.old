@@ -166,6 +166,13 @@ CMD_ARGUMENTS :=
 endif
 export CMD_ARGUMENTS
 
+ifeq ($(private),true)
+PRIVATE := true
+else
+PRIVATE := false
+endif
+export PRIVATE
+
 DOCKER:=$(shell which docker)
 export DOCKER
 DOCKER_COMPOSE:=$(shell which docker-compose)
@@ -320,7 +327,7 @@ init: initialize## 	init
 	python3 -m pip install -r sources/requirements.txt
 
 docs:## 	docs
-	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) build docs
+	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) build $(NOCACHE)  docs
 	# $(DOCKER_COMPOSE) $(VERBOSE) run --rm --publish 18000:18000  docs
 	#$(DOCKER_COMPOSE) $(VERBOSE) run -d --rm docs
 	$(DOCKER_COMPOSE) $(VERBOSE) up -d
@@ -369,60 +376,80 @@ qt-webengine:## 	qt webengine
         || >> resources.log 2>&1
 
 clean-books:## 	clean
-	rm -rf sources/books
-	$(MAKE) books
+	rm -rf sources/books/bitcoinbook
+	rm -rf sources/books/lnbook
+	rm -rf sources/books/python
+	rm -rf sources/books/*.html
+	# $(MAKE) books
 books: mastering-bitcoin mastering-lightning python
 	mkdir -p docs/books
 	apt install pandoc || brew install pandoc
 	bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
 	bash -c 'pandoc -s sources/books/README.md -o sources/books/index.html  --metadata title="" '
 	apt install asciidoctor || brew install asciidoctor
+ifeq ($(PRIVATE),true)
 	pushd sources/books/bitcoinbook > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "."
 	pushd sources/books/bitcoinbook > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
 	pushd sources/books/bitcoinbook > /dev/null; for string in *.asciidoc; do asciidoctor $$string; done; popd || echo "..."
 	pushd sources/books/lnbook      > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "...."
 	pushd sources/books/lnbook      > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
 	pushd sources/books/lnbook      > /dev/null; for string in *.asciidoc; do asciidoctor $$string; done; popd || echo "......"
+endif
 
 mastering-bitcoin:## 	mastering bitcoin
+ifeq ($(PRIVATE),true)
 	git clone --progress --verbose --depth 1 -b 1653630097/6f13274/77b91b1 https://github.com/randymcmillan/bitcoinbook.git \
         sources/books/bitcoinbook \
 		>> resources.log 2>&1 \
         || >> resources.log 2>&1
+else
+	rm -rf sources/books/bitcoinbook
+	rm -rf docs/books/bitcoinbook
+endif
 mastering-lightning:## 	mastering lightning
+ifeq ($(PRIVATE),true)
 	git clone --progress --verbose --depth 1 https://github.com/lnbook/lnbook.git                                           \
         sources/books/lnbook \
 		>> resources.log 2>&1 \
         || >> resources.log 2>&1
+else
+	rm -rf sources/books/lnbook
+	rm -rf docs/books/lnbook
+endif
 python:## 	python
+ifeq ($(PRIVATE),true)
 	git clone --progress --verbose --depth 1 https://github.com/kyclark/tiny_python_projects.git                             \
         sources/books/python \
 		>> resources.log 2>&1 \
         || >> resources.log 2>&1
+else
+	rm -rf sources/books/python
+	rm -rf docs/books/python
+endif
 
-
-
-
-
-.PHONY: build serve build-shell shell shell-test
-build-docs:## 	build mkdocs
-	$(MAKE) resources
-	mkdir -p docs
-	apt install pandoc || brew install pandoc
-	cat sources/HEADER.md > README.md
+.PHONY: build serve build-readme build-shell shell shell-test
+build-readme:## 	build-readme
+	cat sources/HEADER.md >  sources/README.md
 	#echo '```' >> README.md
 	make help > sources/COMMANDS.md
 	#echo '```' >> README.md
-	bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
-	bash -c 'pandoc -s README.md -o index.html  --metadata title="" '
+	cat sources/FOOTER.md >> sources/README.md
+	# bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
+	# bash -c 'pandoc -s README.md -o index.html  --metadata title="" '
+build-docs: build-readme## 	build mkdocs
+	$(MAKE) resources
+	mkdir -p docs
+	apt install pandoc || brew install pandoc
 	apt install asciidoctor || brew install asciidoctor
+ifeq ($(PRIVATE),true)
 	pushd sources/books/bitcoinbook > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "."
 	pushd sources/books/bitcoinbook > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
 	pushd sources/books/bitcoinbook > /dev/null; for string in *.asciidoc; do asciidoctor --doctype=book $$string; done; popd || echo "..."
 	pushd sources/books/lnbook      > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "...."
 	pushd sources/books/lnbook      > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
 	pushd sources/books/lnbook      > /dev/null; for string in *.asciidoc; do asciidoctor --doctype book $$string; done; popd || echo "......"
-	mkdocs -q build
+endif
+	mkdocs $(VERBOSE) build
 
 build-playground:## 	build-playground
 	pushd sources/playground/docker && make initialize init build && popd

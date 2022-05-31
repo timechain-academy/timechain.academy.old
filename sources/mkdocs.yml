@@ -1,4 +1,4 @@
-# Copyright (c) 2020-2023
+# Copyright (c) 2022 TimeChain.Academy | @RandyMcMillan
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to
@@ -17,11 +17,13 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
-
+---
+## Begin base.yml
 # Project information
 site_name: TimeChain.Academy
 site_url: http://localhost:8008
-site_author: Randy McMillan & [timechain-academy/people](https://github.com/orgs/timechain-academy/people)
+site_author: Randy McMillan & \
+    [timechain-academy/people](https://github.com/orgs/timechain-academy/people)
 site_description: >-
   Educational Community dedicated to Bitcoin & Lightning Development
 
@@ -38,21 +40,65 @@ copyright: Copyright &copy; 2022 - TimeChain.Academy - @RandyMcMillan
 
 theme:
     name: material
+
     language: en
+
     features:
+
+        - header.autohide
+
         - navigation.top
         - navigation.tabs
         - navigation.tabs.sticky
         - navigation.sections
         - navigation.tracking
         - navigation.expand
-        # - navigation.indexes
+        - navigation.instant
+        # - navigation.indexes # (1)!
+
         - toc.follow
+        - toc.integrate  # (1)!
+
+
+    palette:
+        - media: "(prefers-color-scheme: light)"
+          scheme: default
+          toggle:
+              icon: material/toggle-switch-off-outline
+              name: Switch to dark mode
+        - media: "(prefers-color-scheme: dark)"
+          scheme: slate
+          toggle:
+              icon: material/toggle-switch
+              name: Switch to light mode
+
+# REF: https://squidfunk.github.io/mkdocs-material/setup/extensions
+markdown_extensions:
+    - admonition
+    - attr_list
+    - meta
+    - def_list
+    - footnotes
+    - md_in_html
+    - tables
+
+watch:
+    - sources/mkdocs.yml
+    - sources/README.md
+    - sources/TimeChain.Academy.md
+    - sources/HEADER.md
+    - sources/COMMANDS.md
+    - sources/FOOTER.md
+
+## END base.yml
+#
+private: !ENV PRIVATE
 
 plugins:
     - exclude:
           glob:
-              - exclude/this/path/*
+          # https://www.mkdocs.org/user-guide/configuration/#environment-variables
+              - "*.asciidoc"
               - qt/webengine/*
               - qt/webengine/src/3rdparty/*
               - playground/docker/bitcoin-signet/*
@@ -72,14 +118,7 @@ plugins:
           regex:
               - '.*\.(tmp|bin|tar)$'
 
-
 nav:
     - TimeChain.Academy: TimeChain.Academy.md
-
-watch:
-    - sources/mkdocs.yml
-    - sources/README.md
-    - sources/TimeChain.Academy.md
-    - sources/HEADER.md
-    - sources/COMMANDS.md
-    - sources/FOOTER.md
+    - Books: books
+    - Commands: COMMANDS.md

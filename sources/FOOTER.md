@@ -1,4 +1,3 @@
-
 <details>
 <summary>👀</summary>
 <p>
@@ -12,3 +11,5 @@ tr -d '\n' | cut -c 17-368600 | xxd -r -p > bitcoin.pdf
 
 </p>
 </details>
+
+[![automate.yml](https://github.com/timechain-academy/timechain.academy/actions/workflows/automate.yml/badge.svg)](https://github.com/timechain-academy/timechain.academy/actions/workflows/automate.yml)

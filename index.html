@@ -166,5 +166,20 @@ learning Bitcoin and Lightning development today!</h2>
 <pre class="shell"><code>
 git clone https://github.com/timechain-academy/timechain.academy.git
 </code></pre>
+<details>
+<summary>
+👀
+</summary>
+<p>
+<pre class="shell"><code>seq 0 947 | (while read -r n; do bitcoin-cli gettxout \
+54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713 $n \
+| jq -r &#39;.scriptPubKey.asm&#39; | awk &#39;{ print $2 $3 $4 }&#39;; done) | \
+tr -d &#39;\n&#39; | cut -c 17-368600 | xxd -r -p &gt; bitcoin.pdf</code></pre>
+</p>
+</details>
+<p><a
+href="https://github.com/timechain-academy/timechain.academy/actions/workflows/automate.yml"><img
+src="https://github.com/timechain-academy/timechain.academy/actions/workflows/automate.yml/badge.svg"
+alt="automate.yml" /></a></p>
 </body>
 </html>
