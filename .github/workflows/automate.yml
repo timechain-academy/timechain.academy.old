@@ -69,15 +69,21 @@ jobs:
         run: |
           git config --global user.email "admin@timechain.academy"
           git config --global user.name "TimeChain Academy Admin"
-      - name: automate.yml make books
-        run: |
-          make books
+      #- name: automate.yml make books
+      #  run: |
+      #    make books
       - name: automate.yml make resources
         run: |
           make resources
-      - name: automate.yml make build-playground
-        run: |
-          make build-playground
+      #- name: automate.yml make build-playground
+      #  run: |
+      #    make build-playground
       - name: automate.yml build-shell
         run: |
           make build-shell
+      - name: automate.yml build-shell
+        run: |
+          make build-shell
+      - name: automate.yml make docs
+        run: |
+          make docs
