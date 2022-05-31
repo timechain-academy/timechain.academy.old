@@ -46,7 +46,7 @@ theme:
         - navigation.sections
         - navigation.tracking
         - navigation.expand
-        - navigation.indexes
+        # - navigation.indexes
         - toc.follow
 
 plugins:
@@ -74,11 +74,12 @@ plugins:
 
 
 nav:
-    - 🜨TimeChain.Academy🜨: README.md
+    - TimeChain.Academy: TimeChain.Academy.md
 
 watch:
     - sources/mkdocs.yml
     - sources/README.md
+    - sources/TimeChain.Academy.md
     - sources/HEADER.md
     - sources/COMMANDS.md
     - sources/FOOTER.md

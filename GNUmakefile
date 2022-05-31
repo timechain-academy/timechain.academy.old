@@ -349,8 +349,6 @@ resources:
 	    tail resources.log & \
 	    echo $(TIME) > resources.log; \
 	    $(MAKE) playground; \
-	    $(MAKE) git-it; \
-	    $(MAKE) bitcoin-ide; \
 	    $(MAKE) qt-webengine; \
 	    $(MAKE) books; \
 	);
@@ -360,16 +358,6 @@ playground:## 	clone-playground
         sources/playground/docker \
 		>> resources.log 2>&1 \
         || >>  resources.log 2>&1
-git-it:## 	git-it
-	git clone --progress --verbose --depth 1 -b 4.4.0 https://github.com/jlord/git-it-electron.git                          \
-        sources/git \
-		>> resources.log 2>&1 \
-        || >> resources.log 2>&1
-bitcoin-ide:## 	bitcoin-ide
-	git clone --progress --verbose --depth 1 https://github.com/timechain-academy/bitcoinIDE.git                            \
-        sources/ide \
-		>> resources.log 2>&1 \
-        || >> resources.log 2>&1
 qt-webengine:## 	qt webengine
 	git clone --progress --verbose --depth 1 -b v5.15.5-lts git://code.qt.io/qt/qtwebengine.git                             \
         sources/qt/webengine \
