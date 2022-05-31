@@ -11,6 +11,8 @@ sources/books/bitcoinbook
 sources/books/lnbook
 sources/books/python
 
+sources/playground/docker/volumes
+
 resources.log
 .bash_history
 

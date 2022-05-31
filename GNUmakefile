@@ -467,9 +467,9 @@ push-docs:## 	ghp-import to deploy docs folder
         -m "Deployed by $(GIT_USER_NAME) at $(TIME)" \
         -p \
         -f \
-        -o \
         -r origin \
-        -b gh-pages docs
+        -b gh-pages \
+        docs
 
 
 push:

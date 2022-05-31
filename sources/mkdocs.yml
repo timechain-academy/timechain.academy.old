@@ -50,16 +50,27 @@ theme:
         - toc.follow
 
 plugins:
-  - exclude:
-      glob:
-        - exclude/this/path/*
-        - qt/webengine/*
-        - qt/webengine/src/3rdparty/*
-        - "*.tmp"
-        - "*.pdf"
-        - "*.gz"
-      regex:
-        - '.*\.(tmp|bin|tar)$'
+    - exclude:
+          glob:
+              - exclude/this/path/*
+              - qt/webengine/*
+              - qt/webengine/src/3rdparty/*
+              - playground/docker/bitcoin-signet/*
+              - playground/docker/bos/*
+              - playground/docker/btcd/*
+              - playground/docker/dashboard/*
+              - playground/docker/docs/*
+              - playground/docker/lnd-signet/*
+              - playground/docker/notebooks/*
+              - playground/docker/thub/*
+              - playground/docker/tor/*
+              - playground/docker/worklogs/*
+              - playground/docker/volumes/*
+              - "*.tmp"
+              - "*.pdf"
+              - "*.gz"
+          regex:
+              - '.*\.(tmp|bin|tar)$'
 
 
 nav:
