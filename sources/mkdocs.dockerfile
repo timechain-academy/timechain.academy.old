@@ -27,9 +27,9 @@ RUN mkdir -p /root/mkdocs
 RUN mkdir -p /root/docs
 
 # Expose MkDocs development server port
-EXPOSE 8000 8008
+EXPOSE 18000
 
 # Start development server by default
 ENTRYPOINT ["mkdocs"]
-CMD [ "serve", "-a", "0.0.0.0:8000", "-t", "material" ]
+CMD [ "-v", "serve", "-a", "0.0.0.0:18000", "-t", "material" ]
 

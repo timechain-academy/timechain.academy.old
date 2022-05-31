@@ -74,4 +74,11 @@ plugins:
 
 
 nav:
-    - Home: README.md
+    - 🜨TimeChain.Academy🜨: README.md
+
+watch:
+    - sources/mkdocs.yml
+    - sources/README.md
+    - sources/HEADER.md
+    - sources/COMMANDS.md
+    - sources/FOOTER.md

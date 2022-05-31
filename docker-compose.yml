@@ -35,10 +35,9 @@ services:
     container_name: ${PROJECT_NAME}_${HOST_UID:-4000}_docs
     restart: unless-stopped
     expose:
-        - '8000'
-        - '8008'
+        - '18000'
     ports:
-        - 8008:8000
+        - 18000:18000
     image: ${PROJECT_NAME}_${HOST_UID:-4000}_docs
     build:
       context: .

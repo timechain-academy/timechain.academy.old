@@ -319,9 +319,11 @@ initialize:## 	initialize
 init: initialize## 	init
 	python3 -m pip install -r sources/requirements.txt
 
-docs: build-docs## 	docs
+docs:## 	docs
 	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) build docs
-	$(DOCKER_COMPOSE) $(VERBOSE) run --rm --publish 8008:8000  docs
+	# $(DOCKER_COMPOSE) $(VERBOSE) run --rm --publish 18000:18000  docs
+	#$(DOCKER_COMPOSE) $(VERBOSE) run -d --rm docs
+	$(DOCKER_COMPOSE) $(VERBOSE) up -d
 
 
 run: docs shell
