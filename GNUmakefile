@@ -435,6 +435,11 @@ build-docs:## 	build mkdocs
 build-playground:## 	build-playground
 	pushd sources/playground/docker && make initialize init build && popd
 
+run-playground:## 	run-playground
+	pushd sources/playground/docker && make install && popd
+
+run-playground-cluster:## 	run-playground-cluster
+	pushd sources/playground/docker && make install-cluster && popd
 
 serve: build## 	serve mkdocs
 	$(NOHUP) mkdocs serve & open http://127.0.0.1:$(PORT) || open http://127.0.0.1:$(PORT)
@@ -453,7 +458,7 @@ endif
 
 shell-test:
 	docker-compose -p $(PROJECT_NAME)_$(HOST_UID) run --rm ${SERVICE_TARGET} sh -c '\
-		echo "I am `whoami`. My uid is `id -u`." && /bin/bash -c "curl -fsSL https://raw.githubusercontent.com/timechain-academy/timechain.academy/master/whatami"' \
+		echo "I am `whoami`. My uid is `id -u`." && /bin/bash -c "curl -fsSL https://raw.githubusercontent.com/timechain-academy/timechain.academy/master/scripts/whatami"' \
 	&& echo success
 
 
