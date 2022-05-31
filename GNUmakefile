@@ -460,7 +460,7 @@ shell-test:
 
 push-docs:## 	ghp-import to deploy docs folder
 	ghp-import -n -c $(PROJECT_NAME) \
-        -m "Deployed by $(GITHUB_USER_NAME) at $(TIME)" \
+        -m "Deployed by $(GIT_USER_NAME) at $(TIME)" \
         -p \
         -f \
         -o \
