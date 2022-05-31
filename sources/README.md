@@ -7,4 +7,3 @@
 git clone https://github.com/timechain-academy/timechain.academy.git
 
 ```
-
