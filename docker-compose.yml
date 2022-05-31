@@ -1,3 +1,4 @@
+---
 version: '3.4'
 services:
 
@@ -34,22 +35,23 @@ services:
   docs:
     container_name: ${PROJECT_NAME}_${HOST_UID:-4000}_docs
     restart: unless-stopped
+    environment:
+      - PRIVATE=${PRIVATE}
     expose:
-        - '18000'
+      - '18000'
     ports:
-        - 18000:18000
+      - 18000:18000
     image: ${PROJECT_NAME}_${HOST_UID:-4000}_docs
     build:
       context: .
       dockerfile: mkdocs/mkdocs.dockerfile
     volumes:
-    volumes:
-    - type: bind
-      source: ${PWD:-.}
-      target: /root
-    - type: bind
-      source: ${PWD:-.}/sources
-      target: /root/mkdocs
-    - type: bind
-      source: ${PWD:-.}/docs
-      target: /root/docs
+      - type: bind
+        source: ${PWD:-.}
+        target: /root
+      - type: bind
+        source: ${PWD:-.}/sources
+        target: /root/mkdocs
+      - type: bind
+        source: ${PWD:-.}/docs
+        target: /root/docs
