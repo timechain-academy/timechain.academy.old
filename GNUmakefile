@@ -320,6 +320,8 @@ init: initialize## 	init
 docs: build## 	docs
 	$(NOHUP) $(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) build docs
 	#$(NOHUP) $(DOCKER_COMPOSE) $(VERBOSE) run --rm --publish 8008:8000  docs &
+
+
 run: docs shell
 	$(NOHUP) $(DOCKER_COMPOSE) $(VERBOSE) up &
 
@@ -380,10 +382,6 @@ clean-books:## 	clean
 books: mastering-bitcoin mastering-lightning python
 	mkdir -p docs/books
 	apt install pandoc || brew install pandoc
-	# cat sources/HEADER.md > README.md
-	# #echo '```' >> README.md
-	# make help >> sources/COMMANDS.md
-	# #echo '```' >> README.md
 	bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
 	bash -c 'pandoc -s README.md -o index.html  --metadata title="" '
 	apt install asciidoctor || brew install asciidoctor
@@ -460,7 +458,15 @@ shell-test:
 
 
 
-push-docs: docs push
+push-docs: docs push##Use ghp-import to deploy docs folder
+	ghp-import -n -c $(PROJECT_NAME) \
+        -m "Deployed by $(GITHUB_USER_NAME) at $(TIME)" \
+        -p \
+        -f \
+        -o \
+        -r origin \
+        -b gh-pages docs
+
 
 push:
 	@echo push
