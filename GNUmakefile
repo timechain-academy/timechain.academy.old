@@ -315,7 +315,7 @@ initialize:## 	initialize
 	./scripts/initialize
 	test ./sources/playground/docker/scripts/initialize && ./sources/playground/docker/scripts/initialize || echo "Try: `make resources`"
 init: initialize## 	init
-	python3 -m pip install -r requirements.txt
+	python3 -m pip install -r sources/requirements.txt
 
 docs: build## 	docs
 	$(NOHUP) $(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) build docs
@@ -446,7 +446,8 @@ build-shell:## 	build the ubuntu docker image
 .PHONY: shell
 shell: build-shell## 	run the ubuntu docker environment
 ifeq ($(CMD_ARGUMENTS),)
-	$(NOHUP) $(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run    --rm ${SERVICE_TARGET} bash &
+	#$(NOHUP) $(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run    --rm ${SERVICE_TARGET} bash &
+	$(NOHUP) $(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run    --rm ${SERVICE_TARGET} bash
 else
 	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) run -d --rm $(SERVICE_TARGET) bash -c "$(CMD_ARGUMENTS)"
 endif
