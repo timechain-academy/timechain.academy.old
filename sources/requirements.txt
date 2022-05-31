@@ -3,6 +3,7 @@ argparse
 mkdocs
 mkdocs-material
 mkdocs-minify-plugin
+mkdocs-exclude
 jinja2>=2.11.1
 omegaconf>=2.0.0
 glom
