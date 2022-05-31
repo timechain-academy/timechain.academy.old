@@ -43,19 +43,41 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
-      - name: automate.sh matrix
+      - name: automate.yml start
         run: |
           echo $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
+      - name: automate.yml python3 sys.version
+        run: |
           python3 -c "import sys; print(sys.version)"
+      - name: automate.yml make
+        run: |
           make
+      - name: automate.yml make help
+        run: |
           make help
+      - name: automate.yml make report
+        run: |
           make report
+      - name: automate.yml make sources
+        run: |
           make sources
+      - name: automate.yml make init
+        run: |
           make init
+      - name: automate.yml git config
+        run: |
           git config --global user.email "admin@timechain.academy"
           git config --global user.name "TimeChain Academy Admin"
+      - name: automate.yml make books
+        run: |
           make books
+      - name: automate.yml make resources
+        run: |
           make resources
+      - name: automate.yml make build-playground
+        run: |
           make build-playground
+      - name: automate.yml build-shell
+        run: |
           make build-shell
