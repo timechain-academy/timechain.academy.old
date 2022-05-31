@@ -79,7 +79,9 @@ export python_version_patch
 export PYTHON_VERSION
 
 
-#PROJECT_NAME defaults to name of the current directory.
+# NOTE: docker doesnt like names with dots
+# Use $(GIT_REPO_NAME) for commands that need the dotted name
+# $(PROJECT_NAME) is used in many docker commands in the GNUmakefile
 ifeq ($(project),)
 PROJECT_NAME							:= timechain-academy#$(notdir $(PWD))
 else
@@ -176,8 +178,9 @@ GIT_USER_EMAIL							:= $(shell git config user.email)
 export GIT_USER_EMAIL
 GIT_SERVER								:= https://github.com
 export GIT_SERVER
-
-GIT_REPO_NAME							:= $(PROJECT_NAME)
+# NOTE: We use the dotted name for some commands
+# ie. ghp-import -c $(GIT_REPO_NAME) in make push-docs
+GIT_REPO_NAME							:= $(subst -,.,$(PROJECT_NAME))
 export GIT_REPO_NAME
 
 #Usage
@@ -207,10 +210,9 @@ export GIT_REPO_ORIGIN
 GIT_REPO_PATH							:= $(HOME)/$(GIT_REPO_NAME)
 export GIT_REPO_PATH
 
-
-
 PORT:=8000
 export PORT
+export
 
 #REF: https://linuxize.com/post/bash-printf-command/
 #Width directive
@@ -463,10 +465,14 @@ shell-test:## 	shell-test
 #	docker-compose -p $(PROJECT_NAME)_$(HOST_UID) run --rm ${SERVICE_TARGET} bash -c "curl -fsSL https://raw.githubusercontent.com/timechain-academy/timechain.academy/master/scripts/shell-network-test"
 
 push-docs:## 	ghp-import to deploy docs folder
-	ghp-import -n -c $(PROJECT_NAME) \
+	# NOTES: configure the CNAME from the github settings->pages
+	# git checkout gh-pages && git pull origin gh-pages
+	# to preserve github created CNAME commit
+	# dont use the -c
+	ghp-import -n \
         -m "Deployed by $(GIT_USER_NAME) at $(TIME)" \
+        -c $(GIT_REPO_NAME) \
         -p \
-        -f \
         -r origin \
         -b gh-pages \
         docs
