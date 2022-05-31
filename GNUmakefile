@@ -468,7 +468,7 @@ push-docs: ## 	ghp-import to deploy docs folder
 	# NOTES: The docs folder becomes the root on the gh-pages branch
 	# NOTES: In the github.com pages setting use branch: gh-pages / (root)
 	ghp-import -n \
-        -m "Deployed by $(GIT_USER_NAME) at $(TIME)" \
+        -m "$(TIME):Deployed by $(GIT_USER_NAME) commit: $(GIT_HASH)" \
         -c $(GIT_REPO_NAME) \
         -p \
         -r origin \
