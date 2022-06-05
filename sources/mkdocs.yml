@@ -54,7 +54,7 @@ theme:
         - navigation.tracking
         - navigation.expand
         - navigation.instant
-        # - navigation.indexes # (1)!
+        - navigation.indexes # (1)!
 
         - toc.follow
         - toc.integrate  # (1)!
