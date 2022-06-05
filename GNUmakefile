@@ -329,6 +329,9 @@ report:## 	report
 	@echo '        - GIT_REPO_PATH=${GIT_REPO_PATH}'
 
 .PHONY: init initialize docs
+all:
+	$(DOCKER_COMPOSE) up -d
+
 initialize:## 	initialize
 	./scripts/initialize
 	test ./sources/playground/docker/scripts/initialize && ./sources/playground/docker/scripts/initialize || echo "Try: `make resources`"
