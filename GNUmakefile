@@ -166,9 +166,9 @@ CMD_ARGUMENTS :=
 endif
 export CMD_ARGUMENTS
 
-ifneq ($(private),)
+ifeq ($(private),true)
 # make docs private=books
-PRIVATE := $(private)
+PRIVATE := books
 else
 # default point toward sourcs/private
 # User needs to use

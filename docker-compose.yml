@@ -36,13 +36,19 @@ services:
     container_name: ${PROJECT_NAME}_${HOST_UID:-4000}_docs
     restart: unless-stopped
     environment:
-      - PRIVATE=${PRIVATE}
+      # Always error on the side of NOT publishing
+      # COPYRIGHTED book content
+      # if PRIVATE is not set
+      # we default to private!
+      - PRIVATE=${PRIVATE:-private}
     expose:
       - '18000'
     ports:
       - 18000:18000
     image: ${PROJECT_NAME}_${HOST_UID:-4000}_docs
     build:
+      args:
+        - PRIVATE=${PRIVATE:-private}
       context: .
       dockerfile: mkdocs/mkdocs.dockerfile
     volumes:
