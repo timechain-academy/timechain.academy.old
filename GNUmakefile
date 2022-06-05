@@ -166,12 +166,21 @@ CMD_ARGUMENTS :=
 endif
 export CMD_ARGUMENTS
 
-ifeq ($(private),true)
-PRIVATE := true
+ifneq ($(private),)
+# make docs private=books
+PRIVATE := $(private)
 else
-PRIVATE := false
+# default point toward sourcs/private
+# User needs to use
+# make books private=books
+# make resources private=books
+# to install the books in the sources folder
+# make docs private=books
+# then builds the docker mkdocs container
+# which the books should be included
+PRIVATE := private
 endif
-export PRIVATE
+# export PRIVATE
 
 DOCKER:=$(shell which docker)
 export DOCKER
@@ -327,9 +336,10 @@ init: initialize## 	init
 	python3 -m pip install -r sources/requirements.txt
 
 docs:## 	docs
-	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) build $(NOCACHE)  docs
-	# $(DOCKER_COMPOSE) $(VERBOSE) run --rm --publish 18000:18000  docs
-	#$(DOCKER_COMPOSE) $(VERBOSE) run -d --rm docs
+ifneq ($(private),books)
+	$(MAKE) clean-books
+endif
+	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) build $(NOCACHE) docs
 	$(DOCKER_COMPOSE) $(VERBOSE) up -d
 
 
@@ -339,12 +349,14 @@ run: docs shell
 
 
 .PHONY: clean-resources clean sources resources
-clean-resources: 	clean resources
+clean-sources: 	clean sources
 clean:## 	clean
 	rm -rf sources/playground/docker
 	rm -rf sources/git
 	rm -rf sources/ide
-	rm -rf sources/books
+	rm -rf sources/books/bitcoinbook
+	rm -rf sources/books/lnbook
+	rm -rf sources/books/python
 	rm -rf sources/qt/webengine
 	rm -f  *.log
 
@@ -361,7 +373,7 @@ resources:
 	);
 
 playground:## 	clone-playground
-	git clone --progress --verbose --depth 1 -b 0.5.0 https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker.git   \
+	git clone --progress --verbose --depth 1 -b master https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker.git   \
         sources/playground/docker \
 		>> resources.log 2>&1 \
         || >>  resources.log 2>&1
@@ -380,24 +392,25 @@ clean-books:## 	clean
 	rm -rf sources/books/lnbook
 	rm -rf sources/books/python
 	rm -rf sources/books/*.html
-	# $(MAKE) books
 books: mastering-bitcoin mastering-lightning python
-	mkdir -p docs/books
+	mkdir -p sources/books
 	apt install pandoc || brew install pandoc
-	bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
-	bash -c 'pandoc -s sources/books/README.md -o sources/books/index.html  --metadata title="" '
+	#bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
+	#bash -c 'pandoc -s sources/books/README.md -o sources/books/index.html  --metadata title="" '
 	apt install asciidoctor || brew install asciidoctor
-ifeq ($(PRIVATE),true)
+ifeq ($(private),books)
 	pushd sources/books/bitcoinbook > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "."
 	pushd sources/books/bitcoinbook > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
 	pushd sources/books/bitcoinbook > /dev/null; for string in *.asciidoc; do asciidoctor $$string; done; popd || echo "..."
 	pushd sources/books/lnbook      > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "...."
 	pushd sources/books/lnbook      > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
 	pushd sources/books/lnbook      > /dev/null; for string in *.asciidoc; do asciidoctor $$string; done; popd || echo "......"
+else
+	$(MAKE) clean-books
 endif
 
 mastering-bitcoin:## 	mastering bitcoin
-ifeq ($(PRIVATE),true)
+ifeq ($(private),books)
 	git clone --progress --verbose --depth 1 -b 1653630097/6f13274/77b91b1 https://github.com/randymcmillan/bitcoinbook.git \
         sources/books/bitcoinbook \
 		>> resources.log 2>&1 \
@@ -407,7 +420,7 @@ else
 	rm -rf docs/books/bitcoinbook
 endif
 mastering-lightning:## 	mastering lightning
-ifeq ($(PRIVATE),true)
+ifeq ($(private),books)
 	git clone --progress --verbose --depth 1 https://github.com/lnbook/lnbook.git                                           \
         sources/books/lnbook \
 		>> resources.log 2>&1 \
@@ -417,7 +430,7 @@ else
 	rm -rf docs/books/lnbook
 endif
 python:## 	python
-ifeq ($(PRIVATE),true)
+ifeq ($(private),books)
 	git clone --progress --verbose --depth 1 https://github.com/kyclark/tiny_python_projects.git                             \
         sources/books/python \
 		>> resources.log 2>&1 \
@@ -441,7 +454,7 @@ build-docs: build-readme## 	build mkdocs
 	mkdir -p docs
 	apt install pandoc || brew install pandoc
 	apt install asciidoctor || brew install asciidoctor
-ifeq ($(PRIVATE),true)
+ifeq ($(private),true)
 	pushd sources/books/bitcoinbook > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "."
 	pushd sources/books/bitcoinbook > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
 	pushd sources/books/bitcoinbook > /dev/null; for string in *.asciidoc; do asciidoctor --doctype=book $$string; done; popd || echo "..."
@@ -461,7 +474,8 @@ run-playground-cluster:## 	run-playground-cluster
 	pushd sources/playground/docker && make install-cluster && popd
 
 serve: build## 	serve mkdocs
-	$(NOHUP) mkdocs serve & open http://127.0.0.1:$(PORT) || open http://127.0.0.1:$(PORT)
+	$(NOHUP) mkdocs serve & open http://127.0.0.1:$(PORT) || open http://127.0.0.1:$(PORT) &
+	tail -f nohup.out
 	#$(PYTHON3) -m http.server $(PORT) --bind 127.0.0.1 -d $(PWD)/docs > /dev/null 2>&1 || open http://127.0.0.1:$(PORT)
 
 build-shell:## 	build the ubuntu docker image

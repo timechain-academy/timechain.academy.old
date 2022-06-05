@@ -89,10 +89,10 @@ watch:
     - sources/HEADER.md
     - sources/COMMANDS.md
     - sources/FOOTER.md
+    - sources/private/README.md
 
 ## END base.yml
 #
-private: !ENV PRIVATE
 
 plugins:
     - exclude:
@@ -118,7 +118,8 @@ plugins:
           regex:
               - '.*\.(tmp|bin|tar)$'
 
+
 nav:
     - TimeChain.Academy: TimeChain.Academy.md
-    - Books: books
+    - Books: !ENV [PRIVATE, "private"]
     - Commands: COMMANDS.md
