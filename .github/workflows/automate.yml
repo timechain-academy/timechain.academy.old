@@ -74,12 +74,9 @@ jobs:
       - name: automate.yml make resources
         run: |
           make resources
-      - name: automate.yml make build-docs
-        run: |
-          make build-docs
       - name: automate.yml build-shell
         run: |
           make build-shell
-      - name: automate.yml make build-docs
-        run: |
-          make build-docs
+      #      - name: automate.yml make build-docs
+      #        run: |
+      #          make build-docs
