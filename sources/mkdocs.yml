@@ -40,8 +40,12 @@ copyright: Copyright &copy; 2022 - TimeChain.Academy - @RandyMcMillan
 
 theme:
     name: material
+    custom_dir: sources/overrides
 
     language: en
+
+    highlightjs: true
+    hljs_languages: [yaml, rust, bash, python]
 
     features:
 
@@ -81,6 +85,8 @@ markdown_extensions:
     - footnotes
     - md_in_html
     - tables
+    - pymdownx.details
+    - pymdownx.superfences
 
 watch:
     - sources/mkdocs.yml
@@ -118,10 +124,12 @@ plugins:
           regex:
               - '.*\.(tmp|bin|tar)$'
 
+use_directory_urls: false
 
 nav:
-    - TimeChain.Academy: TimeChain.Academy.md
+    - TimeChain.Academy: 'TimeChain.Academy.md'
     - Books:
           - books/public/README.md
           - !ENV [PRIVATE, "books"]
+    - Git: [git/README.md, git/lessons/lesson1.md, git/lessons/lesson2.md]
     - Commands: COMMANDS.md

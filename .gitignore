@@ -1,7 +1,6 @@
 *.asciidoc
 
 sources/*.html
-sources/git
 sources/ide
 sources/bitcoinbook
 sources/lnbook
