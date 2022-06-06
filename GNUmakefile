@@ -167,20 +167,12 @@ endif
 export CMD_ARGUMENTS
 
 ifeq ($(private),true)
-# make docs private=books
-PRIVATE := books
-else
-# default point toward sourcs/private
-# User needs to use
-# make books private=books
-# make resources private=books
-# to install the books in the sources folder
-# make docs private=books
-# then builds the docker mkdocs container
-# which the books should be included
+# make docs private=true
 PRIVATE := private
+else
+PRIVATE :=
 endif
-# export PRIVATE
+export PRIVATE
 
 DOCKER:=$(shell which docker)
 export DOCKER
@@ -388,56 +380,51 @@ qt-webengine:## 	qt webengine
         || >> resources.log 2>&1
 
 clean-books:## 	clean
-	rm -rf sources/books/bitcoinbook
-	rm -rf sources/books/lnbook
-	rm -rf sources/books/python
+	rm -rf sources/books/private/bitcoinbook
+	rm -rf sources/books/private/lnbook
 	rm -rf sources/books/*.html
 books: mastering-bitcoin mastering-lightning python
-	mkdir -p sources/books
+	mkdir -p sources/books/public
+	mkdir -p sources/books/private
+	touch sources/books/private/README.md
 	apt install pandoc || brew install pandoc
 	#bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
 	#bash -c 'pandoc -s sources/books/README.md -o sources/books/index.html  --metadata title="" '
 	apt install asciidoctor || brew install asciidoctor
-ifeq ($(private),books)
-	pushd sources/books/bitcoinbook > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "."
-	pushd sources/books/bitcoinbook > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
-	pushd sources/books/bitcoinbook > /dev/null; for string in *.asciidoc; do asciidoctor $$string; done; popd || echo "..."
-	pushd sources/books/lnbook      > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "...."
-	pushd sources/books/lnbook      > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
-	pushd sources/books/lnbook      > /dev/null; for string in *.asciidoc; do asciidoctor $$string; done; popd || echo "......"
+ifeq ($(private),true)
+	pushd sources/books/private/bitcoinbook > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "."
+	pushd sources/books/private/bitcoinbook > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
+	pushd sources/books/private/bitcoinbook > /dev/null; for string in *.asciidoc; do asciidoctor $$string; done; popd || echo "..."
+	pushd sources/books/private/lnbook      > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "...."
+	pushd sources/books/private/lnbook      > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
+	pushd sources/books/private/lnbook      > /dev/null; for string in *.asciidoc; do asciidoctor $$string; done; popd || echo "......"
 else
 	$(MAKE) clean-books
 endif
 
 mastering-bitcoin:## 	mastering bitcoin
-ifeq ($(private),books)
+ifeq ($(private),true)
 	git clone --progress --verbose --depth 1 -b 1653630097/6f13274/77b91b1 https://github.com/randymcmillan/bitcoinbook.git \
-        sources/books/bitcoinbook \
-		>> resources.log 2>&1 \
-        || >> resources.log 2>&1
+		sources/books/private/bitcoinbook || true
 else
-	rm -rf sources/books/bitcoinbook
-	rm -rf docs/books/bitcoinbook
+	rm -rf sources/books/private/bitcoinbook
+	rm -rf docs/books/private/bitcoinbook
 endif
 mastering-lightning:## 	mastering lightning
-ifeq ($(private),books)
+ifeq ($(private),true)
 	git clone --progress --verbose --depth 1 https://github.com/lnbook/lnbook.git                                           \
-        sources/books/lnbook \
-		>> resources.log 2>&1 \
-        || >> resources.log 2>&1
+		sources/books/private/lnbook || true
 else
-	rm -rf sources/books/lnbook
-	rm -rf docs/books/lnbook
+	rm -rf sources/books/private/lnbook
+	rm -rf docs/books/private/lnbook
 endif
 python:## 	python
 ifeq ($(private),books)
 	git clone --progress --verbose --depth 1 https://github.com/kyclark/tiny_python_projects.git                             \
-        sources/books/python \
-		>> resources.log 2>&1 \
-        || >> resources.log 2>&1
+        sources/books/public/python
 else
-	rm -rf sources/books/python
-	rm -rf docs/books/python
+	rm -rf sources/books/public/python
+	rm -rf docs/books/public/python
 endif
 
 .PHONY: build serve build-readme build-shell shell shell-test
@@ -455,12 +442,12 @@ build-docs: build-readme## 	build mkdocs
 	apt install pandoc || brew install pandoc
 	apt install asciidoctor || brew install asciidoctor
 ifeq ($(private),true)
-	pushd sources/books/bitcoinbook > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "."
-	pushd sources/books/bitcoinbook > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
-	pushd sources/books/bitcoinbook > /dev/null; for string in *.asciidoc; do asciidoctor --doctype=book $$string; done; popd || echo "..."
-	pushd sources/books/lnbook      > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "...."
-	pushd sources/books/lnbook      > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
-	pushd sources/books/lnbook      > /dev/null; for string in *.asciidoc; do asciidoctor --doctype book $$string; done; popd || echo "......"
+	pushd sources/books/private/bitcoinbook > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "."
+	pushd sources/books/private/bitcoinbook > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
+	pushd sources/books/private/bitcoinbook > /dev/null; for string in *.asciidoc; do asciidoctor --doctype=book $$string; done; popd || echo "..."
+	pushd sources/books/private/lnbook      > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "...."
+	pushd sources/books/private/lnbook      > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
+	pushd sources/books/private/lnbook      > /dev/null; for string in *.asciidoc; do asciidoctor --doctype book $$string; done; popd || echo "......"
 endif
 	mkdocs $(VERBOSE) build
 

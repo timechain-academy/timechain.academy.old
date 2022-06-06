@@ -121,5 +121,7 @@ plugins:
 
 nav:
     - TimeChain.Academy: TimeChain.Academy.md
-    - Books: !ENV [PRIVATE, "private"]
+    - Books:
+          - books/public/README.md
+          - !ENV [PRIVATE, "books"]
     - Commands: COMMANDS.md
