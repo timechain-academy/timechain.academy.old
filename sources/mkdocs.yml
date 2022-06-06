@@ -95,7 +95,8 @@ watch:
     - sources/HEADER.md
     - sources/COMMANDS.md
     - sources/FOOTER.md
-    - sources/private/README.md
+    - sources/books/public/README.md
+    - sources/books/private/README.md
 
 ## END base.yml
 #
