@@ -419,13 +419,9 @@ else
 	rm -rf docs/books/private/lnbook
 endif
 python:## 	python
-ifeq ($(private),books)
-	git clone --progress --verbose --depth 1 https://github.com/kyclark/tiny_python_projects.git                             \
+	test sources/books/public/python && echo books/python exists!|| \
+        git clone --progress --verbose --depth 1 https://github.com/kyclark/tiny_python_projects.git                         \
         sources/books/public/python
-else
-	rm -rf sources/books/public/python
-	rm -rf docs/books/public/python
-endif
 
 .PHONY: build serve build-readme build-shell shell shell-test
 build-readme:## 	build-readme
