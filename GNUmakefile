@@ -510,6 +510,9 @@ push-to-main:## 	push-to-main
 	git push -f  $(GIT_REPO_ORIGIN) $(GIT_BRANCH):main || echo failed to push docs
 
 
+config-gpg:## 	add gpg to git signing key
+	./scripts/config-gpg.sh
+
 SIGNIN=randymcmillan
 export SIGNIN
 
