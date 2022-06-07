@@ -107,7 +107,9 @@ plugins:
           # https://www.mkdocs.org/user-guide/configuration/#environment-variables
               - "*.asciidoc"
               - sources/qt/webengine/*
+              - sources/qt/webengine/src/3rdparty
               - sources/qt/webengine/src/3rdparty/*
+              - sources/qt/webengine/src/3rdparty/qtwebengine-chromium
               - sources/playground/docker/bitcoin-signet/*
               - sources/playground/docker/bos/*
               - sources/playground/docker/btcd/*
