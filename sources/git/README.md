@@ -4,7 +4,7 @@ description: Nullam urna elit, malesuada eget finibus ut, ac tortor.
 icon: material/emoticon-happy
 ---
 
-## Getting started: 
+## Getting started:
 ### • Create [github.com](https://github.com) account.
 ### • Download [Github Desktop](https://desktop.github.com)
 ### • Configure [Github Desktop](https://docs.github.com/en/desktop/installing-and-configuring-github-desktop)
@@ -29,7 +29,7 @@ cd ~
 git clone https://github.com/<GITHUB_USER>/timechain.academy.git
 cd timechain.academy
 ```
-### Create a local branch on your fork of [timechain.academy](~/timechain.academy)
+### Create a local branch for lesson1
 ```
 git checkout -b lesson1
 ```

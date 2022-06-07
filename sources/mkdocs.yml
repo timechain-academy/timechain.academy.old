@@ -110,6 +110,7 @@ plugins:
               - sources/qt/webengine/src/3rdparty
               - sources/qt/webengine/src/3rdparty/*
               - sources/qt/webengine/src/3rdparty/qtwebengine-chromium
+              - sources/qt/webengine/src/3rdparty/qtwebengine-chromium/*
               - sources/playground/docker/bitcoin-signet/*
               - sources/playground/docker/bos/*
               - sources/playground/docker/btcd/*
