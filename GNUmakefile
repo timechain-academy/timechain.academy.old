@@ -466,7 +466,7 @@ serve: build## 	serve mkdocs
 	#$(PYTHON3) -m http.server $(PORT) --bind 127.0.0.1 -d $(PWD)/docs > /dev/null 2>&1 || open http://127.0.0.1:$(PORT)
 
 build-shell:## 	build the ubuntu docker image
-	docker-compose build $(NOCACHE) $(VERBOSE) ${SERVICE_TARGET} &
+	docker-compose build $(NOCACHE) $(VERBOSE) ${SERVICE_TARGET}
 
 .PHONY: shell
 shell: build-shell## 	run the ubuntu docker environment
@@ -481,6 +481,28 @@ shell-test:## 	shell-test
 
 #shell-network-test:## 	shell-network-test
 #	docker-compose -p $(PROJECT_NAME)_$(HOST_UID) run --rm ${SERVICE_TARGET} bash -c "curl -fsSL https://raw.githubusercontent.com/timechain-academy/timechain.academy/master/scripts/shell-network-test"
+
+
+#######################
+.PHONY: clean-docker-images
+clean-docker-images:## 	remove orphans & rmi all
+	# remove created images
+	@$(DOCKER_COMPOSE) -p $(PROJECT_NAME) down --remove-orphans --rmi all 2>/dev/null \
+	&& echo 'Image(s) for "$(PROJECT_NAME)" removed.' \
+	|| echo 'Image(s) for "$(PROJECT_NAME)" already removed.'
+#######################
+.PHONY: prune-system
+prune-system:## 	docker system prune -af (very destructive!)
+	$(DOCKER_COMPOSE) -p $(PROJECT_NAME) down
+	docker system prune -af &
+#######################
+.PHONY: prune-network
+prune-network:## 	remove timechain-academy network
+	$(DOCKER_COMPOSE) -p $(PROJECT_NAME) down
+	docker network rm $(PROJECT_NAME)* 2>/dev/null || echo
+#######################
+
+
 
 push-docs: ## 	ghp-import to deploy docs folder
 	# NOTES: The docs folder becomes the root on the gh-pages branch
