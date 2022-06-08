@@ -5,20 +5,13 @@ apt install -y apt
 RUN apt-get -y upgrade
 RUN apt-get -y update
 ENV DEBIAN_FRONTEND noninteractive
+RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
 RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y \
 	debconf --reinstall \
-	bsdmainutils socat \
+	bsdmainutils socat locales \
 	apt-utils sudo adduser bash-completion \
 	openssh-client openssh-server \
-	git make vim python3 python3-pip curl
-
-RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
-RUN apt-get install -y \
-debconf --reinstall \
-locales apt-utils bsdmainutils \
-sudo adduser bash-completion \
-openssh-client openssh-server \
-git make vim python3 python3-pip mkdocs
+	git make vim python3 python3-pip curl mkdocs
 
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 locale-gen
