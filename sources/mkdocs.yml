@@ -137,3 +137,6 @@ watch:
     - mkdocs
     - scripts
     - sources
+    - sources/books
+    - sources/books/public
+    - sources/books/private

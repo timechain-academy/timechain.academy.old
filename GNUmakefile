@@ -390,7 +390,7 @@ clean-books:## 	clean
 	rm -rf sources/books/private/lnbook
 	rm -rf sources/books/*.html
 
-books:## 	make books private=true
+books:mastering-bitcoin mastering-lightning python-book## 	make books private=true
 	mkdir -p sources/books/public
 	mkdir -p sources/books/private
 	touch sources/books/private/README.md

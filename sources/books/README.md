@@ -1,5 +1,5 @@
 ---
-title: books/public
+title: books
 subtitle: Install
 tags: [timechain.academy, bitcoin, lighting, development, books, python]
 ---

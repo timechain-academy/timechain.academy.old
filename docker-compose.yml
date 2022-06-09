@@ -21,7 +21,7 @@ services:
         - PASSWORD=${PASSWORD}
         - UBUNTU_VERSION=${UBUNTU_VERSION}
     networks:
-        - frontend
+      - frontend
     command: ["ssh-agent ssh-add"]
     volumes:
       - type: bind
@@ -43,6 +43,8 @@ services:
       # if PRIVATE is not set
       # we default to private!
       - PRIVATE=${PRIVATE:-private}
+      - PRIVATE_BITCOINBOOK=${PRIVATE_BITCOINBOOK:-private}
+      - PRIVATE_LNBOOK=${PRIVATE_LNBOOK:-private}
     expose:
       - '18000'
     ports:
@@ -51,6 +53,8 @@ services:
     build:
       args:
         - PRIVATE=${PRIVATE:-private}
+        - PRIVATE_BITCOINBOOK=${PRIVATE_BITCOINBOOK:-private}
+        - PRIVATE_LNBOOK=${PRIVATE_LNBOOK:-private}
       context: .
       dockerfile: mkdocs/mkdocs.dockerfile
     networks:

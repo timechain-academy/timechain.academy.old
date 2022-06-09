@@ -1,1 +1,4 @@
-public/python-book
+*
+!README.md
+!public/README.md
+!private/README.md
