@@ -54,14 +54,17 @@ services:
       context: .
       dockerfile: mkdocs/mkdocs.dockerfile
     networks:
-        - frontend
+      - frontend
     volumes:
+      # NOTE: /root contains the timechain.academy content
+      # NOTE: /root/sources is the "docs_dir" in mkdocs terms
+      # NOTE: /root/docs is the "site_dir" in mkdocs terms
       - type: bind
         source: ${PWD:-.}
         target: /root
       - type: bind
         source: ${PWD:-.}/sources
-        target: /root/mkdocs
+        target: /root/sources
       - type: bind
         source: ${PWD:-.}/docs
         target: /root/docs

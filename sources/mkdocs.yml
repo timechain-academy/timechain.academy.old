@@ -114,14 +114,14 @@ use_directory_urls: false
 nav:
     - TimeChain.Academy: 'TimeChain.Academy.md'
     - Library:
+          - Install: "books/README.md"
           - Public:
                 # NOTE: meta data begin used in books/public/README.md
                 [
-                    Install: "books/public/README.md",
                     Python: "books/public/python-book"
                 ]
           - Private:
-                !ENV [PRIVATE, "books/private/README.md"]
+                !ENV [PRIVATE, "books/README.md"]
           - Mastering Bitcoin:
                 !ENV [PRIVATE_BITCOINBOOK, "books/private/README.md"]
           - Mastering Lightning:
@@ -131,5 +131,9 @@ nav:
 
 watch:
     - README.md
-    - sources
+    - docker
+    - docker/bin
+    - docker/opt
     - mkdocs
+    - scripts
+    - sources
