@@ -1,9 +1,9 @@
-## [TimeChain.Academy ](http://github.com/timechain-academy)
+---
+title: TimeChain.Academy
+description: Start learning Bitcoin & Lightning Development today!
 
-## Start learning Bitcoin and Lightning development today!
+---
 
-```shell
-
-git clone https://github.com/timechain-academy/timechain.academy.git
-
-```
+---
+### discord: [github-chat](https://discord.gg/XkxafTyQZC)
+---

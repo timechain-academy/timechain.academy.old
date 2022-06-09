@@ -336,8 +336,8 @@ init: initialize## 	init
 docs:## 	make docs private=true to include books
 ifneq ($(private),true)
 	$(MAKE) clean-books
-else
-	$(MAKE) build-docs
+# else
+	# $(MAKE) build-docs
 endif
 	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) build $(NOCACHE) docs
 	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) up -d docs
@@ -426,14 +426,16 @@ endif
 
 .PHONY: build serve build-readme build-shell shell shell-test
 build-readme:## 	build-readme
+	#cat sources/git/GET_STARTED.md >  sources/README.md
 	cat sources/HEADER.md >  sources/README.md
 	#echo '```' >> README.md
-	make help > sources/COMMANDS.md
+	#make help > sources/COMMANDS.md
 	#echo '```' >> README.md
 	cat sources/FOOTER.md >> sources/README.md
 	# bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
 	# bash -c 'pandoc -s README.md -o index.html  --metadata title="" '
 build-docs: build-readme## 	make build-docs private=true to include books
+	$(MAKE) build-readme
 	$(MAKE) sources
 	mkdir -p docs
 	apt install pandoc || brew install pandoc
@@ -447,7 +449,7 @@ ifeq ($(private),true)
 	pushd sources/books/private/lnbook      > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
 	pushd sources/books/private/lnbook      > /dev/null; for string in *.asciidoc; do asciidoctor --doctype book $$string; done; popd || echo "......"
 endif
-	mkdocs $(VERBOSE) build
+	mkdocs $(VERBOSE) build --dirty
 
 build-playground:## 	build-playground
 	pushd sources/playground/docker && make initialize init build && popd
@@ -458,10 +460,10 @@ run-playground:## 	run-playground
 run-playground-cluster:## 	run-playground-cluster
 	pushd sources/playground/docker && make install-cluster && popd
 
-serve: build## 	serve mkdocs
-	$(NOHUP) mkdocs serve & open http://127.0.0.1:$(PORT) || open http://127.0.0.1:$(PORT) &
-	tail -f nohup.out
-	#$(PYTHON3) -m http.server $(PORT) --bind 127.0.0.1 -d $(PWD)/docs > /dev/null 2>&1 || open http://127.0.0.1:$(PORT)
+serve: build-docs## 	build and serve docs using mkdocs on host (not docker)
+	$(NOHUP) mkdocs -v serve --dirtyreload & open http://127.0.0.1:$(PORT) || open http://127.0.0.1:$(PORT) &
+	# $(NOHUP) mkdocs serve --livereload & open http://127.0.0.1:$(PORT) || open http://127.0.0.1:$(PORT) &
+	# $(PYTHON3) -m http.server $(PORT) --bind 127.0.0.1 -d $(PWD)/docs > /dev/null 2>&1 || open http://127.0.0.1:$(PORT)
 
 build-shell:## 	build the ubuntu docker image
 	docker-compose build $(NOCACHE) $(VERBOSE) ${SERVICE_TARGET}

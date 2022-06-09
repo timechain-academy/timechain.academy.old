@@ -123,8 +123,10 @@ use_directory_urls: false
 ## REF: https://squidfunk.github.io/mkdocs-material/reference/#configuration
 ## TODO: consider https://oprypin.github.io/mkdocs-literate-nav/index.html
 nav:
-    - TimeChain.Academy: 'TimeChain.Academy.md'
+    - Getting Started: GETTING_STARTED.md
+    - Git: [git/README.md, git/lessons/lesson1.md, git/lessons/lesson2.md]
     - QT: 'qt'
+    - Commands: COMMANDS.md
     - Library:
           - Install: "books/README.md"
           - Public:
@@ -138,8 +140,6 @@ nav:
                 !ENV [PRIVATE_BITCOINBOOK, "books/private/README.md"]
           - Mastering Lightning:
                 !ENV [PRIVATE_LNBOOK, "books/private/README.md"]
-    - Git: [git/README.md, git/GET_STARTED.md, git/lessons/lesson1.md, git/lessons/lesson2.md]
-    - Commands: COMMANDS.md
 
 watch:
     - README.md

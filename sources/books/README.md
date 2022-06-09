@@ -11,7 +11,7 @@ $`make` commands
 
 Command  | Result
 ------------- | -------------
-$`make books`  | This downloads public books into [sources/books/public](.)
+$`make books`  | This downloads public books into [sources/books](.)
 $`make docs`  | The mkdocs container will be built and started
 
 
