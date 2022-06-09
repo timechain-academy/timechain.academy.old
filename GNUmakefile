@@ -334,8 +334,10 @@ init: initialize## 	init
 	python3 -m pip install -r sources/requirements.txt
 
 docs:## 	make docs private=true to include books
-ifneq ($(private),books)
+ifneq ($(private),true)
 	$(MAKE) clean-books
+else
+	$(MAKE) build-docs
 endif
 	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) build $(NOCACHE) docs
 	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) up -d docs
@@ -361,35 +363,23 @@ clean:## 	clean
 .SILENT:
 sources: resources## 	sources
 resources:
-	( \
-	    rm -f resources.log; \
-	    tail resources.log & \
-	    echo $(TIME) > resources.log; \
-	    $(MAKE) playground; \
-	    $(MAKE) qt-webengine; \
-	    $(MAKE) books; \
-	);
+	$(MAKE) playground
+	$(MAKE) qt-webengine
+	$(MAKE) books
 
-playground:## 	clone-playground
-	git clone --progress --verbose --depth 1 -b master https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker.git   \
-        sources/playground/docker \
-		>> resources.log 2>&1 \
-        || >>  resources.log 2>&1
+playground:## 	clone plebnet=playground-docker
+	[ ! -d "sources/playground/docker" ] && \
+	git clone --progress --verbose --depth 1 -b master https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker.git sources/playground/docker || true
 qt-webengine:## 	qt webengine
-	git clone --progress --verbose --depth 1 -b v5.15.5-lts git://code.qt.io/qt/qtwebengine.git                             \
-        sources/qt/webengine \
-		>> resources.log 2>&1 \
-        || >> resources.log 2>&1
-	git clone --progress --verbose --depth 1 -b v5.15.2 git://code.qt.io/qt/qtwebengine-chromium.git                        \
-        sources/qt/webengine/src/3rdparty/qtwebengine-chromium \
-		>> resources.log 2>&1 \
-        || >> resources.log 2>&1
-
-clean-books:## 	clean
+	[ ! -d "sources/qt" ] && \
+	[ ! -d "sources/qt/webengine" ] && \
+	git clone --progress --verbose --depth 1 -b v5.15.5-lts git://code.qt.io/qt/qtwebengine.git sources/qt/webengine || true
+	[ ! -d "sources/qt/webengine/src/3rdparty/qtwebengine-chromium" ] && \
+	git clone --progress --verbose --depth 1 -b v5.15.2 git://code.qt.io/qt/qtwebengine-chromium.git sources/qt/webengine/src/3rdparty/qtwebengine-chromium || true
+clean-books:## 	clean-books
 	rm -rf sources/books/private/bitcoinbook
 	rm -rf sources/books/private/lnbook
 	rm -rf sources/books/*.html
-
 books:mastering-bitcoin mastering-lightning python-book## 	make books private=true
 	mkdir -p sources/books/public
 	mkdir -p sources/books/private
@@ -444,11 +434,12 @@ build-readme:## 	build-readme
 	# bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
 	# bash -c 'pandoc -s README.md -o index.html  --metadata title="" '
 build-docs: build-readme## 	make build-docs private=true to include books
-	$(MAKE) resources
+	$(MAKE) sources
 	mkdir -p docs
 	apt install pandoc || brew install pandoc
 	apt install asciidoctor || brew install asciidoctor
 ifeq ($(private),true)
+	$(MAKE) books private=$(private)
 	pushd sources/books/private/bitcoinbook > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "."
 	pushd sources/books/private/bitcoinbook > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
 	pushd sources/books/private/bitcoinbook > /dev/null; for string in *.asciidoc; do asciidoctor --doctype=book $$string; done; popd || echo "..."
