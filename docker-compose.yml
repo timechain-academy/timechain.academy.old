@@ -20,6 +20,8 @@ services:
         - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
         - PASSWORD=${PASSWORD}
         - UBUNTU_VERSION=${UBUNTU_VERSION}
+    networks:
+        - frontend
     command: ["ssh-agent ssh-add"]
     volumes:
       - type: bind
@@ -51,6 +53,8 @@ services:
         - PRIVATE=${PRIVATE:-private}
       context: .
       dockerfile: mkdocs/mkdocs.dockerfile
+    networks:
+        - frontend
     volumes:
       - type: bind
         source: ${PWD:-.}
@@ -61,3 +65,7 @@ services:
       - type: bind
         source: ${PWD:-.}/docs
         target: /root/docs
+
+networks:
+  frontend:
+    name: custom_frontend

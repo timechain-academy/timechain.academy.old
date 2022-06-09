@@ -88,16 +88,6 @@ markdown_extensions:
     - pymdownx.details
     - pymdownx.superfences
 
-watch:
-    - sources/mkdocs.yml
-    - sources/README.md
-    - sources/TimeChain.Academy.md
-    - sources/HEADER.md
-    - sources/COMMANDS.md
-    - sources/FOOTER.md
-    - sources/books/public/README.md
-    - sources/books/private/README.md
-
 ## END base.yml
 #
 
@@ -106,22 +96,11 @@ plugins:
           glob:
           # https://www.mkdocs.org/user-guide/configuration/#environment-variables
               - "*.asciidoc"
-              - sources/qt/webengine/*
-              - sources/qt/webengine/src/3rdparty
-              - sources/qt/webengine/src/3rdparty/*
-              - sources/qt/webengine/src/3rdparty/qtwebengine-chromium
-              - sources/qt/webengine/src/3rdparty/qtwebengine-chromium/*
-              - sources/playground/docker/bitcoin-signet/*
-              - sources/playground/docker/bos/*
-              - sources/playground/docker/btcd/*
-              - sources/playground/docker/dashboard/*
-              - sources/playground/docker/docs/*
-              - sources/playground/docker/lnd-signet/*
-              - sources/playground/docker/notebooks/*
-              - sources/playground/docker/thub/*
-              - sources/playground/docker/tor/*
-              - sources/playground/docker/worklogs/*
-              - sources/playground/docker/volumes/*
+              - sources/qt/webengine/*.*
+              - sources/qt/webengine/src/*.*
+              - sources/qt/webengine/src/3rdparty/*.*
+              - sources/qt/webengine/src/3rdparty/qtwebengine-chromium/*.*
+              - sources/playground/docker/*.*
               - "*.tmp"
               - "*.pdf"
               - "*.gz"
@@ -130,10 +109,27 @@ plugins:
 
 use_directory_urls: false
 
+## REF: https://www.mkdocs.org/user-guide/writing-your-docs/
+## REF: https://squidfunk.github.io/mkdocs-material/reference/#configuration
 nav:
     - TimeChain.Academy: 'TimeChain.Academy.md'
-    - Books:
-          - books/public/README.md
-          - !ENV [PRIVATE, "books"]
+    - Library:
+          - Public:
+                # NOTE: meta data begin used in books/public/README.md
+                [
+                    Install: "books/public/README.md",
+                    Python: "books/public/python-book"
+                ]
+          - Private:
+                !ENV [PRIVATE, "books/private/README.md"]
+          - Mastering Bitcoin:
+                !ENV [PRIVATE_BITCOINBOOK, "books/private/README.md"]
+          - Mastering Lightning:
+                !ENV [PRIVATE_LNBOOK, "books/private/README.md"]
     - Git: [git/README.md, git/lessons/lesson1.md, git/lessons/lesson2.md]
     - Commands: COMMANDS.md
+
+watch:
+    - README.md
+    - sources
+    - mkdocs

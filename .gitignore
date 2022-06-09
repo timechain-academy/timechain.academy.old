@@ -1,14 +1,7 @@
 *.asciidoc
 
 sources/*.html
-sources/ide
-sources/bitcoinbook
-sources/lnbook
-
 sources/books/*.html
-sources/books/bitcoinbook
-sources/books/lnbook
-sources/books/python
 
 sources/playground/docker/volumes
 

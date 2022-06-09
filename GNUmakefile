@@ -168,11 +168,17 @@ export CMD_ARGUMENTS
 
 ifeq ($(private),true)
 # make docs private=true
-PRIVATE := private
+PRIVATE := books/private/PRIVATE.md
+PRIVATE_BITCOINBOOK := books/private/bitcoinbook
+PRIVATE_LNBOOK := books/private/lnbook
 else
-PRIVATE :=
+PRIVATE := books/private/README.md
+PRIVATE_BITCOINBOOK := books/private/README.md
+PRIVATE_LNBOOK := books/private/README.md
 endif
 export PRIVATE
+export PRIVATE_BITCOINBOOK
+export PRIVATE_LNBOOK
 
 DOCKER:=$(shell which docker)
 export DOCKER
@@ -327,12 +333,12 @@ initialize:## 	initialize
 init: initialize## 	init
 	python3 -m pip install -r sources/requirements.txt
 
-docs:## 	docs
+docs:## 	make docs private=true to include books
 ifneq ($(private),books)
 	$(MAKE) clean-books
 endif
 	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) build $(NOCACHE) docs
-	$(DOCKER_COMPOSE) $(VERBOSE) up -d
+	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) up -d docs
 
 
 run: docs shell
@@ -383,7 +389,8 @@ clean-books:## 	clean
 	rm -rf sources/books/private/bitcoinbook
 	rm -rf sources/books/private/lnbook
 	rm -rf sources/books/*.html
-books: mastering-bitcoin mastering-lightning python
+
+books:## 	make books private=true
 	mkdir -p sources/books/public
 	mkdir -p sources/books/private
 	touch sources/books/private/README.md
@@ -402,7 +409,7 @@ else
 	$(MAKE) clean-books
 endif
 
-mastering-bitcoin:## 	mastering bitcoin
+mastering-bitcoin:## 		included when private=true
 ifeq ($(private),true)
 	git clone --progress --verbose --depth 1 -b 1653630097/6f13274/77b91b1 https://github.com/randymcmillan/bitcoinbook.git \
 		sources/books/private/bitcoinbook || true
@@ -410,7 +417,7 @@ else
 	rm -rf sources/books/private/bitcoinbook
 	rm -rf docs/books/private/bitcoinbook
 endif
-mastering-lightning:## 	mastering lightning
+mastering-lightning:## 		included when private=true
 ifeq ($(private),true)
 	git clone --progress --verbose --depth 1 https://github.com/lnbook/lnbook.git                                           \
 		sources/books/private/lnbook || true
@@ -418,13 +425,13 @@ else
 	rm -rf sources/books/private/lnbook
 	rm -rf docs/books/private/lnbook
 endif
-python:## 	python
-ifeq ($(private),books)
+python-book:## 		excluded when private=false
+ifneq ($(python-book),false)
 	git clone --progress --verbose --depth 1 https://github.com/kyclark/tiny_python_projects.git                             \
-        sources/books/public/python
+        sources/books/public/python-book || true
 else
-	rm -rf sources/books/public/python
-	rm -rf docs/books/public/python
+	rm -rf sources/books/public/python-book
+	rm -rf docs/books/public/python-book
 endif
 
 .PHONY: build serve build-readme build-shell shell shell-test
@@ -436,7 +443,7 @@ build-readme:## 	build-readme
 	cat sources/FOOTER.md >> sources/README.md
 	# bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
 	# bash -c 'pandoc -s README.md -o index.html  --metadata title="" '
-build-docs: build-readme## 	build mkdocs
+build-docs: build-readme## 	make build-docs private=true to include books
 	$(MAKE) resources
 	mkdir -p docs
 	apt install pandoc || brew install pandoc
@@ -493,13 +500,13 @@ clean-docker-images:## 	remove orphans & rmi all
 #######################
 .PHONY: prune-system
 prune-system:## 	docker system prune -af (very destructive!)
-	$(DOCKER_COMPOSE) -p $(PROJECT_NAME) down
+	$(DOCKER_COMPOSE) -p $(PROJECT_NAME)_$(HOST_UID) down
 	docker system prune -af &
 #######################
 .PHONY: prune-network
 prune-network:## 	remove timechain-academy network
-	$(DOCKER_COMPOSE) -p $(PROJECT_NAME) down
-	docker network rm $(PROJECT_NAME)* 2>/dev/null || echo
+	$(DOCKER_COMPOSE) -p $(PROJECT_NAME)_$(HOST_UID) down
+	docker network rm $(PROJECT_NAME)_$(HOST_UID) 2>/dev/null || echo
 #######################
 
 

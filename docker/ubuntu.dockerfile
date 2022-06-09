@@ -51,7 +51,7 @@ COPY docker/bin /usr/local/bin
 COPY docker/opt/healthcheck.sh /opt/healthcheck.sh
 
 WORKDIR /home/${HOST_USER}/timechain.academy
-CMD [  "python3", "-m", "pip", "install", "-r", "sources/requirements.txt" ]
+CMD [  "python3", "-m", "pip", "install", "-U", "-r", "sources/requirements.txt" ]
 CMD [ "ssh-agent" ]
 HEALTHCHECK --interval=5s --timeout=1s --retries=3 CMD ["/opt/healthcheck.sh"]
 

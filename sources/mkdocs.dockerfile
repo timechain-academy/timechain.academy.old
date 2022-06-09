@@ -36,5 +36,5 @@ RUN echo "${PRIVATE}"
 
 # Start development server by default
 ENTRYPOINT ["mkdocs"]
-CMD [ "-v", "serve", "-a", "0.0.0.0:18000", "-t", "material" ]
+CMD [ "-v", "serve", "--dirtyreload", "-a", "0.0.0.0:18000", "-t", "material" ]
 
