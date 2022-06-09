@@ -95,24 +95,36 @@ plugins:
     - exclude:
           glob:
           # https://www.mkdocs.org/user-guide/configuration/#environment-variables
+              - qt/webengine/*
+              - qt/webengine/src/*
+              - qt/webengine/src/*.*
+              - qt/webengine/src/*.md
+              - qt/webengine/src/3rdparty/*
+              - qt/webengine/src/3rdparty/*.*
+              - qt/webengine/src/3rdparty/*.md
+              - qt/webengine/src/3rdparty/qtwebengine-chromium/*
+              - qt/webengine/src/3rdparty/qtwebengine-chromium/*.*
+              - qt/webengine/src/3rdparty/qtwebengine-chromium/*.md
+              - playground/docker/*
               - "*.asciidoc"
-              - sources/qt/webengine/*.*
-              - sources/qt/webengine/src/*.*
-              - sources/qt/webengine/src/3rdparty/*.*
-              - sources/qt/webengine/src/3rdparty/qtwebengine-chromium/*.*
-              - sources/playground/docker/*.*
+              - "*.pro"
+              - "*.h"
+              - "*.c"
+              - "*.cpp"
               - "*.tmp"
               - "*.pdf"
               - "*.gz"
           regex:
-              - '.*\.(tmp|bin|tar)$'
+              - '.*\.(3rdparty|tmp|bin|tar|c\+\+)$'
 
 use_directory_urls: false
 
 ## REF: https://www.mkdocs.org/user-guide/writing-your-docs/
 ## REF: https://squidfunk.github.io/mkdocs-material/reference/#configuration
+## TODO: consider https://oprypin.github.io/mkdocs-literate-nav/index.html
 nav:
     - TimeChain.Academy: 'TimeChain.Academy.md'
+    - QT: 'qt'
     - Library:
           - Install: "books/README.md"
           - Public:
@@ -126,7 +138,7 @@ nav:
                 !ENV [PRIVATE_BITCOINBOOK, "books/private/README.md"]
           - Mastering Lightning:
                 !ENV [PRIVATE_LNBOOK, "books/private/README.md"]
-    - Git: [git/README.md, git/lessons/lesson1.md, git/lessons/lesson2.md]
+    - Git: [git/README.md, git/GET_STARTED.md, git/lessons/lesson1.md, git/lessons/lesson2.md]
     - Commands: COMMANDS.md
 
 watch:
@@ -137,6 +149,8 @@ watch:
     - mkdocs
     - scripts
     - sources
+    - sources/git
+    - sources/qt
     - sources/books
     - sources/books/public
     - sources/books/private

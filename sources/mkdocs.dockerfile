@@ -19,12 +19,11 @@
 # IN THE SOFTWARE.
 
 FROM docker.io/minidocks/mkdocs:latest
-VOLUME /root/mkdocs
 WORKDIR /root
-VOLUME /root/mkdocs
-VOLUME /root/docs
-RUN mkdir -p /root/mkdocs
+RUN mkdir -p /root/sources
 RUN mkdir -p /root/docs
+VOLUME /root/sources
+VOLUME /root/docs
 
 # Expose MkDocs development server port
 EXPOSE 18000
