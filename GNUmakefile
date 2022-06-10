@@ -529,7 +529,7 @@ push:
 	#git commit --no-edit --allow-empty -m "$(TIME)" || echo failed to commit --amend --no-edit
 	git push -f origin $(TIME)/$(GIT_PREVIOUS_HASH)/$(GIT_HASH):$(TIME)/$(GIT_PREVIOUS_HASH)/$(GIT_HASH)
 
-push-all: push-to-master push-docs#push-to-main ## 	push-to-master push-docs
+push-all: push push-to-master push-docs#push-to-main ## 	push-to-master push-docs
 push-to-master:## 	push-to-master
 	git push -f  $(GIT_REPO_ORIGIN) $(GIT_BRANCH):master || echo failed to push docs
 push-to-main:## 	push-to-main
