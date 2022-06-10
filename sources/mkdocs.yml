@@ -134,7 +134,8 @@ nav:
     - Getting Started: GETTING_STARTED.md
     - Git: [git/README.md, git/lessons/lesson1.md, git/lessons/lesson2.md]
     - Plebnet Playground:
-          !ENV [PLAYGROUND_DOCS, "https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker/blob/master/docs/docs/index.md"]
+        - Setup: playground/README.md
+        - Docker: !ENV [PLAYGROUND_DOCS, "https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker/blob/master/docs/docs/index.md"]
     - QT: 'qt'
     - Commands: COMMANDS.md
     - Library:
