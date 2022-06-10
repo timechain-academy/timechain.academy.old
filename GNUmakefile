@@ -521,8 +521,8 @@ push-docs: ## 	ghp-import to deploy docs folder
 
 
 push:
-	@echo push
-	$(MAKE) docs
+	@echo clean-books is being performed....
+	$(MAKE) clean-books
 	git checkout -b $(TIME)/$(GIT_PREVIOUS_HASH)/$(GIT_HASH)
 	git push --set-upstream origin $(TIME)/$(GIT_PREVIOUS_HASH)/$(GIT_HASH)
 	#git add docs
