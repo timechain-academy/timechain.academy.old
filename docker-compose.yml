@@ -45,6 +45,7 @@ services:
       - PRIVATE=${PRIVATE:-private}
       - PRIVATE_BITCOINBOOK=${PRIVATE_BITCOINBOOK:-private}
       - PRIVATE_LNBOOK=${PRIVATE_LNBOOK:-private}
+      - PLAYGROUND_DOCS=${PLAYGROUND_DOCS:-https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker/blob/master/docs/docs/index.md}
     expose:
       - '18000'
     ports:
@@ -55,6 +56,7 @@ services:
         - PRIVATE=${PRIVATE:-private}
         - PRIVATE_BITCOINBOOK=${PRIVATE_BITCOINBOOK:-private}
         - PRIVATE_LNBOOK=${PRIVATE_LNBOOK:-private}
+        - PLAYGROUND_DOCS=${PLAYGROUND_DOCS:-https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker/blob/master/docs/docs/index.md}
       context: .
       dockerfile: mkdocs/mkdocs.dockerfile
     networks:

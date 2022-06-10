@@ -27,12 +27,21 @@ VOLUME /root/docs
 
 # Expose MkDocs development server port
 EXPOSE 18000
+# NOTES: These ARGs are exported from the GNUmakefile
+# when
+# make build-docs private=true
+# make docs private=true
+# is called
+# The container needs to have these values
+# so the containerizes mkdocs instance can use them
 ARG PRIVATE
 ARG PRIVATE_BITCOINBOOK
 ARG PRIVATE_LNBOOK
 ENV PRIVATE=${PRIVATE}
 ENV PRIVATE_BITCOINBOOK=${PRIVATE_BITCOINBOOK}
 ENV PRIVATE_LNBOOK=${PRIVATE_LNBOOK}
+ARG PLAYGROUND_DOCS
+ENV PLAYGROUND_DOCS=${PLAYGROUND_DOCS}
 RUN echo "$PRIVATE"
 RUN echo $PRIVATE
 RUN echo "${PRIVATE}"

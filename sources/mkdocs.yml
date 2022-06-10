@@ -122,9 +122,19 @@ use_directory_urls: false
 ## REF: https://www.mkdocs.org/user-guide/writing-your-docs/
 ## REF: https://squidfunk.github.io/mkdocs-material/reference/#configuration
 ## TODO: consider https://oprypin.github.io/mkdocs-literate-nav/index.html
+## NOTE:
+## make build-docs private=true
+## make docs private=true
+## are needed to build the books/private content
+## We are careful NOT to push the mastering bitcoin/lightning
+## content to the timechain.academy repo
+## TODO: ensure make push-to-master has strict test
+## to remove this content before pushing
 nav:
     - Getting Started: GETTING_STARTED.md
     - Git: [git/README.md, git/lessons/lesson1.md, git/lessons/lesson2.md]
+    - Plebnet Playground:
+          !ENV [PLAYGROUND_DOCS, "https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker/blob/master/docs/docs/index.md"]
     - QT: 'qt'
     - Commands: COMMANDS.md
     - Library:
@@ -142,15 +152,32 @@ nav:
                 !ENV [PRIVATE_LNBOOK, "books/private/README.md"]
 
 watch:
-    - README.md
+    # alphabetical
     - docker
     - docker/bin
     - docker/opt
     - mkdocs
+    - mkdocs/mkdocs.yml
     - scripts
     - sources
-    - sources/git
-    - sources/qt
+    - sources/GETTING_STARTED.md
+    - sources/README.md
     - sources/books
-    - sources/books/public
     - sources/books/private
+    - sources/books/public
+    - sources/git
+    - sources/gnupg
+    - sources/lnbits
+    - sources/overrides
+    - sources/playground
+    - sources/playground/docker
+    - sources/playground/docker/docs
+    - sources/playground/images
+    - sources/qt
+    - mkdocs
+    # NOTE: inspect the container to ensure
+    # make environment variables are being passed
+    # NOTE: mkdocs usage without using the make command:
+    # NOTE: PRIVATE=true mkdocs build
+    # NOTE: PRIVATE=true mkdocs serve
+    - GNUmakefile

@@ -4,10 +4,17 @@ description: Setup your learning environment.
 icon: material/emoticon-happy
 ---
 
-## Getting started:
+## Getting started:[github.community help](https://github.community)
 ### • Create [github.com](https://github.com) account.
+##### [signing up](https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account)
+##### [verify email](https://docs.github.com/en/get-started/signing-up-for-github/verifying-your-email-address#verifying-your-email-address)
+##### [authenticating](https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/installing-and-authenticating-to-github-desktop/authenticating-to-github)
 ### • Download [Github Desktop](https://desktop.github.com)
+##### [Installing GitHub Desktop](https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/installing-and-authenticating-to-github-desktop/installing-github-desktop)
 ### • Configure [Github Desktop](https://docs.github.com/en/desktop/installing-and-configuring-github-desktop)
+#### [SSH keys](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+##### [](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#adding-your-ssh-key-to-the-ssh-agent)
+#### [github.com - glossary](https://docs.github.com/en/get-started/quickstart/github-glossary)
 
 ![](https://desktop.github.com/images/github-desktop-screenshot-mac.png)
 ---

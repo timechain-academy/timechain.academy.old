@@ -248,7 +248,7 @@ export
 
 .PHONY: - help init build serve push signin git-add
 -:
-	#NOTE: 2 hashes are detected as 1st column output with color
+	# NOTE: 2 hashes are detected as 1st column output with color
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?##/ {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 help:## 	verbose help
@@ -315,6 +315,9 @@ report:## 	report
 	@echo '        - ARCH=${ARCH}'
 	@echo '        - TRIPLET=${TRIPLET}'
 	@echo '        - PORT=${PORT}'
+	@echo '        - PRIVATE=${PRIVATE}'
+	@echo '        - PRIVATE_BITCOINBOOK=${PRIVATE_BITCOINBOOK}'
+	@echo '        - PRIVATE_LNBOOK=${PRIVATE_LNBOOK}'
 	@echo '        - GIT_USER_NAME=${GIT_USER_NAME}'
 	@echo '        - GIT_USER_EMAIL=${GIT_USER_EMAIL}'
 	@echo '        - GIT_SERVER=${GIT_SERVER}'
@@ -352,13 +355,10 @@ run: docs shell
 clean-sources: 	clean sources
 clean:## 	clean
 	rm -rf sources/playground/docker
-	rm -rf sources/git
-	rm -rf sources/ide
 	rm -rf sources/books/bitcoinbook
 	rm -rf sources/books/lnbook
 	rm -rf sources/books/python
 	rm -rf sources/qt/webengine
-	rm -f  *.log
 
 .SILENT:
 sources: resources## 	sources
@@ -369,7 +369,10 @@ resources:
 
 playground:## 	clone plebnet=playground-docker
 	[ ! -d "sources/playground/docker" ] && \
-	git clone --progress --verbose --depth 1 -b master https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker.git sources/playground/docker || true
+        git clone --progress --verbose --depth 1 -b master https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker.git sources/playground/docker || true
+	[ -d sources/playground/docker/docs ] && \
+        PLAYGROUND_DOCS=sources/playground/docker/docs && export PLAYGROUND_DOCS
+	echo test $(PLAYGROUND_DOCS)
 qt-webengine:## 	qt webengine
 	[ ! -d "sources/qt" ] && \
 	[ ! -d "sources/qt/webengine" ] && \
@@ -449,6 +452,7 @@ ifeq ($(private),true)
 	pushd sources/books/private/lnbook      > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
 	pushd sources/books/private/lnbook      > /dev/null; for string in *.asciidoc; do asciidoctor --doctype book $$string; done; popd || echo "......"
 endif
+	[ -d sources/playground/docker/docs ]; export PLAYGROUND_DOCS=sources/playground/docker/docs
 	mkdocs $(VERBOSE) build --dirty
 
 build-playground:## 	build-playground
@@ -505,8 +509,8 @@ prune-network:## 	remove timechain-academy network
 
 
 push-docs: ## 	ghp-import to deploy docs folder
-	# NOTES: The docs folder becomes the root on the gh-pages branch
-	# NOTES: In the github.com pages setting use branch: gh-pages / (root)
+	# NOTE: The docs folder becomes the root on the gh-pages branch
+	# NOTE: In the github.com pages setting use branch: gh-pages / (root)
 	ghp-import -n \
         -m "$(TIME):Deployed by $(GIT_USER_NAME) commit: $(GIT_HASH)" \
         -c $(GIT_REPO_NAME) \
