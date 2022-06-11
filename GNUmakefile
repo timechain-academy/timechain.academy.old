@@ -412,6 +412,8 @@ clean-books:## 	clean-books
 	rm -rf sources/books/private/bitcoinbook
 	rm -rf sources/books/private/lnbook
 	rm -rf sources/books/*.html
+	rm -rf docs/books/private/bitcoinbook
+	rm -rf docs/books/private/lnbook
 books:mastering-bitcoin mastering-lightning python-book## 	make books private=true
 	mkdir -p sources/books/public
 	mkdir -p sources/books/private
@@ -561,7 +563,7 @@ prune-network:## 	remove timechain-academy network
 
 
 
-push-docs: ## 	ghp-import to deploy docs folder
+push-docs: clean-books ## 	ghp-import to deploy docs folder
 	# NOTE: The docs folder becomes the root on the gh-pages branch
 	# NOTE: In the github.com pages setting use branch: gh-pages / (root)
 	ghp-import -n \
