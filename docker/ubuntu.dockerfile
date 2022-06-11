@@ -1,5 +1,10 @@
 ARG UBUNTU_VERSION=${UBUNTU_VERSION}
 FROM ubuntu:${UBUNTU_VERSION} as base
+
+# EXPOSE 3142
+# RUN echo 'Acquire::HTTP::Proxy "http://127.0.0.1:3142";' >> /etc/apt/apt.conf.d/01proxy \
+#  && echo 'Acquire::HTTPS::Proxy "false";' >> /etc/apt/apt.conf.d/01proxy
+
 RUN set -xe; \
 apt install -y apt
 RUN apt-get -y upgrade
@@ -50,37 +55,6 @@ RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recomme
     xz-utils \
     && rm -rf /var/lib/apt/lists/*
 
-# EXPOSE 3142
-# RUN echo 'Acquire::HTTP::Proxy "http://127.0.0.1:3142";' >> /etc/apt/apt.conf.d/01proxy \
-#  && echo 'Acquire::HTTPS::Proxy "false";' >> /etc/apt/apt.conf.d/01proxy
-
-RUN apt-get update && apt-get upgrade -y && apt-get install --fix-missing --no-install-recommends -y \
-    automake \
-    binutils \
-    bison \
-    bzip2 \
-    ca-certificates \
-    clang \
-    cmake \
-    curl \
-    diffoscope \
-    g++ \
-    gcc \
-    gdb \
-    git \
-    libtool \
-    man \
-    make \
-    patch \
-    pkg-config \
-    python3 \
-    unzip \
-    valgrind \
-    vim \
-    wget \
-    xz-utils
-
-
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 locale-gen
 
@@ -119,7 +93,6 @@ COPY docker/bin /usr/local/bin
 COPY docker/opt/healthcheck.sh /opt/healthcheck.sh
 
 WORKDIR /home/${HOST_USER}/timechain.academy
-CMD [  "python3", "-m", "pip", "install", "-U", "-r", "sources/requirements.txt" ]
 CMD [ "ssh-agent" ]
 HEALTHCHECK --interval=5s --timeout=1s --retries=3 CMD ["/opt/healthcheck.sh"]
 
