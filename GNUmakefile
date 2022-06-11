@@ -170,6 +170,8 @@ ifeq ($(private),true)
 # make docs private=true
 PRIVATE := books/private/PRIVATE.md
 PRIVATE_BITCOINBOOK := books/private/bitcoinbook/book.html
+PRIVATE_BITCOINBOOKCH01 := books/private/bitcoinbook/ch01.html
+PRIVATE_BITCOINBOOKCH02 := books/private/bitcoinbook/ch02.html
 PRIVATE_LNBOOK := books/private/lnbook/index.html
 else
 PRIVATE := books/private/README.md
@@ -355,6 +357,11 @@ docs:## 	make docs private=true to include books
 ifneq ($(private),true)
 	$(MAKE) clean-books
 else
+
+	PRIVATE_LNBOOK01=books/private/lnbook/01_introduction.html
+	PRIVATE_LNBOOK02=books/private/lnbook/02_getting_started.html
+	export
+
 	$(MAKE) serve
 endif
 
@@ -493,6 +500,11 @@ ifeq ($(private),true)
 	pushd sources/books/private/lnbook      > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "...."
 	pushd sources/books/private/lnbook      > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
 	pushd sources/books/private/lnbook      > /dev/null; for string in *.asciidoc; do asciidoctor --doctype book $$string; done; popd || echo "......"
+
+	PRIVATE_LNBOOK01=books/private/lnbook/01_introduction.html
+	PRIVATE_LNBOOK02=books/private/lnbook/02_getting_started.html
+	export
+
 endif
 	[ -d sources/playground/docker/docs ]; export PLAYGROUND_DOCS=sources/playground/docker/docs
 	mkdocs $(VERBOSE) build --dirty
@@ -507,8 +519,8 @@ run-playground-cluster:## 	run-playground-cluster
 	pushd sources/playground/docker && make install-cluster && popd
 
 serve: build-docs## 	build and serve docs using mkdocs on host (not docker)
-	# docker stop timechain.academy_docs
-	docker run -dit --rm --name timechain.academy_docs -p 8080:80 -v "$(PWD)/docs":/usr/local/apache2/htdocs/ httpd:2.4
+	docker stop timechain.academy_docs || true
+	docker run -dit --rm --name timechain.academy_docs -p 8080:80 -v "$(PWD)/docs":/usr/local/apache2/htdocs httpd:2.4
 
 build-shell:## 	build the ubuntu docker image
 	docker-compose build $(NOCACHE) $(VERBOSE) ${SERVICE_TARGET}
