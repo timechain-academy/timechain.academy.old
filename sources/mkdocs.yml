@@ -147,9 +147,8 @@ nav:
     - Private:
           # NOTE: meta data begin used in books/public/README.md
           [
-              Mastering Bitcoin: !ENV [PRIVATE_BITCOINBOOK, "books/private/README.md"]
-              # !ENV [PRIVATE_BITCOINBOOK, "books/private/README.md"]
-                  # Mastering Lightning: !ENV [PRIVATE_LNBOOK, "books/private/README.md"
+              Mastering Bitcoin: !ENV [PRIVATE_BITCOINBOOK, "books/private/README.md"],
+              Mastering Lightning: !ENV [PRIVATE_LNBOOK, "books/private/README.md"]
                   ]
                   # - Private: !ENV [PRIVATE, "books/README.md"]
                   #     Mastering Bitcoin: !ENV [PRIVATE, "books/README.md"]
