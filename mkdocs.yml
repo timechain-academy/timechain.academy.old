@@ -1,0 +1,198 @@
+# Copyright (c) 2022 TimeChain.Academy | @RandyMcMillan
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to
+# deal in the Software without restriction, including without limitation the
+# rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+# IN THE SOFTWARE.
+---
+## Begin base.yml
+# Project information
+site_name: TimeChain.Academy
+site_url: http://localhost:8008
+site_author: Randy McMillan & \
+    [timechain-academy/people](https://github.com/orgs/timechain-academy/people)
+site_description: >-
+  Educational Community dedicated to Bitcoin & Lightning Development
+
+# Repository
+repo_name: timechain.academy
+repo_url: https://github.com/timechain-academy/timechain.academy
+edit_uri: ""
+docs_dir: sources
+site_dir: docs
+
+# Copyright
+copyright: Copyright &copy; 2022 - TimeChain.Academy - @RandyMcMillan
+
+
+theme:
+    name: material
+    custom_dir: sources/overrides
+
+    language: en
+
+    highlightjs: true
+    hljs_languages: [yaml, rust, bash, python]
+
+    features:
+
+        - header.autohide
+
+        - navigation.top
+        - navigation.tabs
+        - navigation.tabs.sticky
+        - navigation.sections
+        - navigation.tracking
+        - navigation.expand
+        - navigation.instant
+        # - navigation.indexes # (1)!
+
+        - toc.follow
+        - toc.integrate  # (1)!
+
+
+    palette:
+        - media: "(prefers-color-scheme: light)"
+          scheme: default
+          toggle:
+              icon: material/toggle-switch-off-outline
+              name: Switch to dark mode
+        - media: "(prefers-color-scheme: dark)"
+          scheme: slate
+          toggle:
+              icon: material/toggle-switch
+              name: Switch to light mode
+
+# REF: https://squidfunk.github.io/mkdocs-material/setup/extensions
+markdown_extensions:
+    - admonition
+    - attr_list
+    - meta
+    - def_list
+    - footnotes
+    - md_in_html
+    - tables
+    - pymdownx.details
+    - pymdownx.superfences
+
+## END base.yml
+#
+
+plugins:
+    - exclude:
+          glob:
+          # https://www.mkdocs.org/user-guide/configuration/#environment-variables
+              - qt/webengine/*
+              - qt/webengine/src/*
+              - qt/webengine/src/*.*
+              - qt/webengine/src/*.md
+              - qt/webengine/src/3rdparty/*
+              - qt/webengine/src/3rdparty/*.*
+              - qt/webengine/src/3rdparty/*.md
+              - qt/webengine/src/3rdparty/qtwebengine-chromium/*
+              - qt/webengine/src/3rdparty/qtwebengine-chromium/*.*
+              - qt/webengine/src/3rdparty/qtwebengine-chromium/*.md
+              - playground/docker/*
+              - "*.asciidoc"
+              - "*.pro"
+              - "*.h"
+              - "*.c"
+              - "*.cpp"
+              - "*.tmp"
+              - "*.pdf"
+              - "*.gz"
+          regex:
+              - '.*\.(3rdparty|tmp|bin|tar|c\+\+)$'
+
+use_directory_urls: false
+
+## REF: https://www.mkdocs.org/user-guide/writing-your-docs/
+## REF: https://squidfunk.github.io/mkdocs-material/reference/#configuration
+## TODO: consider https://oprypin.github.io/mkdocs-literate-nav/index.html
+## NOTE:
+## make build-docs private=true
+## make docs private=true
+## are needed to build the books/private content
+## We are careful NOT to push the mastering bitcoin/lightning
+## content to the timechain.academy repo
+## TODO: ensure make push-to-master has strict test
+## to remove this content before pushing
+nav:
+    - Getting Started: GETTING_STARTED.md
+    - Git: [git/README.md, git/lessons/lesson1.md, git/lessons/lesson2.md]
+    - Plebnet Playground:
+        - Setup: playground/README.md
+        - Docker: !ENV [PLAYGROUND_DOCS, "https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker/blob/master/docs/docs/index.md"]
+    - QT: 'qt'
+    - Commands: COMMANDS.md
+    - Library: "books/README.md"
+    - Public:
+          # NOTE: meta data begin used in books/public/README.md
+          [
+              Python: "books/public/python-book"
+          ]
+    - Private:
+
+               - Mastering Bitcoin:
+                   - CH01: !ENV [PRIVATE_BITCOINBOOKCH01, "books/private/README.md"]
+                   - CH02: !ENV [PRIVATE_BITCOINBOOKCH02, "books/private/README.md"]
+
+               - Mastering Lightning:
+                   - Intro: !ENV [PRIVATE_LNBOOK01, "books/private/README.md"]
+                   - Getting Started: !ENV [PRIVATE_LNBOOK02, "books/private/README.md"]
+
+                  # - Private: !ENV [PRIVATE, "books/README.md"]
+                  #     Mastering Bitcoin: !ENV [PRIVATE, "books/README.md"]
+                  # - Mastering Bitcoin:
+                  #       !ENV [PRIVATE_BITCOINBOOK, "books/private/README.md"]
+                  # - Mastering Lightning:
+                  #     !ENV [PRIVATE_LNBOOK, "books/private/README.md"
+                  #   Chapter 1:
+                  #         "books/private/lnbook/01_interoduction.html"]
+                  # - Chapters:
+                  #     Chapter 1: "books/private/lnbook/01_introduction.html"
+                  # - Install: "books/README.md"
+
+watch:
+    # alphabetical
+    - docker
+    - docker/bin
+    - docker/opt
+    - mkdocs
+    - mkdocs/mkdocs.yml
+    - scripts
+    - sources
+    - sources/GETTING_STARTED.md
+    - sources/README.md
+    - sources/books
+    - sources/books/private
+    - sources/books/public
+    - sources/git
+    - sources/gnupg
+    - sources/lnbits
+    - sources/overrides
+    - sources/playground
+    - sources/playground/docker
+    - sources/playground/docker/docs
+    - sources/playground/images
+    - sources/qt
+    - mkdocs
+    # NOTE: inspect the container to ensure
+    # make environment variables are being passed
+    # NOTE: mkdocs usage without using the make command:
+    # NOTE: PRIVATE=true mkdocs build
+    # NOTE: PRIVATE=true mkdocs serve
+    - GNUmakefile
