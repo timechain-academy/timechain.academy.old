@@ -138,21 +138,30 @@ nav:
         - Docker: !ENV [PLAYGROUND_DOCS, "https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker/blob/master/docs/docs/index.md"]
     - QT: 'qt'
     - Commands: COMMANDS.md
-    - Library:
-          - Install: "books/README.md"
-          - Public:
-                # NOTE: meta data begin used in books/public/README.md
-                [
-                    Python: "books/public/python-book"
-                ]
-          - Private:
-                !ENV [PRIVATE, "books/README.md"]
-          - Mastering Bitcoin:
-                !ENV [PRIVATE_BITCOINBOOK, "books/private/README.md"]
-          - Mastering Lightning:
-                !ENV [PRIVATE_LNBOOK, "books/private/README.md"]
-          - Chapters:
-              Chapter 1: "books/private/lnbook/01_introduction.html"
+    - Library: "books/README.md"
+    - Public:
+          # NOTE: meta data begin used in books/public/README.md
+          [
+              Python: "books/public/python-book"
+          ]
+    - Private:
+          # NOTE: meta data begin used in books/public/README.md
+          [
+              Mastering Bitcoin: !ENV [PRIVATE_BITCOINBOOK, "books/private/README.md"]
+              # !ENV [PRIVATE_BITCOINBOOK, "books/private/README.md"]
+                  # Mastering Lightning: !ENV [PRIVATE_LNBOOK, "books/private/README.md"
+                  ]
+                  # - Private: !ENV [PRIVATE, "books/README.md"]
+                  #     Mastering Bitcoin: !ENV [PRIVATE, "books/README.md"]
+                  # - Mastering Bitcoin:
+                  #       !ENV [PRIVATE_BITCOINBOOK, "books/private/README.md"]
+                  # - Mastering Lightning:
+                  #     !ENV [PRIVATE_LNBOOK, "books/private/README.md"
+                  #   Chapter 1:
+                  #         "books/private/lnbook/01_interoduction.html"]
+                  # - Chapters:
+                  #     Chapter 1: "books/private/lnbook/01_introduction.html"
+                  # - Install: "books/README.md"
 
 watch:
     # alphabetical
