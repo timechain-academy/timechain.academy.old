@@ -8,10 +8,78 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
 RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y \
 	debconf --reinstall \
-	bsdmainutils socat locales \
-	apt-utils sudo adduser bash-completion \
+
+    apt-utils \
+    adduser \
+    autoconf \
+    automake \
+    bash-completion \
+    binutils \
+    bison \
+	bsdmainutils \
+    build-essential \
+    bzip2 \
+    ca-certificates \
+    clang \
+    cmake \
+    curl \
+    diffoscope \
+    fzf \
+    g++ \
+    gcc \
+    gdb \
+    git \
+    libboost-dev \
+    libevent-dev \
+    libtool \
+    locales \
+    man \
+    make \
+    mkdocs \
 	openssh-client openssh-server \
-	git make vim python3 python3-pip curl mkdocs
+    patch \
+    pkg-config \
+    python3 \
+    python3-pip \
+    socat \
+    sudo \
+    unzip \
+    valgrind \
+    vim \
+    wget \
+    xz-utils \
+    && rm -rf /var/lib/apt/lists/*
+
+# EXPOSE 3142
+# RUN echo 'Acquire::HTTP::Proxy "http://127.0.0.1:3142";' >> /etc/apt/apt.conf.d/01proxy \
+#  && echo 'Acquire::HTTPS::Proxy "false";' >> /etc/apt/apt.conf.d/01proxy
+
+RUN apt-get update && apt-get upgrade -y && apt-get install --fix-missing --no-install-recommends -y \
+    automake \
+    binutils \
+    bison \
+    bzip2 \
+    ca-certificates \
+    clang \
+    cmake \
+    curl \
+    diffoscope \
+    g++ \
+    gcc \
+    gdb \
+    git \
+    libtool \
+    man \
+    make \
+    patch \
+    pkg-config \
+    python3 \
+    unzip \
+    valgrind \
+    vim \
+    wget \
+    xz-utils
+
 
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 locale-gen
