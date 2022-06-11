@@ -169,8 +169,8 @@ export CMD_ARGUMENTS
 ifeq ($(private),true)
 # make docs private=true
 PRIVATE := books/private/PRIVATE.md
-PRIVATE_BITCOINBOOK := books/private/bitcoinbook
-PRIVATE_LNBOOK := books/private/lnbook
+PRIVATE_BITCOINBOOK := books/private/bitcoinbook/book.html
+PRIVATE_LNBOOK := books/private/lnbook/index.html
 else
 PRIVATE := books/private/README.md
 PRIVATE_BITCOINBOOK := books/private/README.md
@@ -339,11 +339,9 @@ init: initialize## 	init
 docs:## 	make docs private=true to include books
 ifneq ($(private),true)
 	$(MAKE) clean-books
-# else
-	# $(MAKE) build-docs
+else
+	$(MAKE) serve
 endif
-	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) build $(NOCACHE) docs
-	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID) up -d docs
 
 
 run: docs shell
@@ -465,9 +463,7 @@ run-playground-cluster:## 	run-playground-cluster
 	pushd sources/playground/docker && make install-cluster && popd
 
 serve: build-docs## 	build and serve docs using mkdocs on host (not docker)
-	$(NOHUP) mkdocs -v serve --dirtyreload & open http://127.0.0.1:$(PORT) || open http://127.0.0.1:$(PORT) &
-	# $(NOHUP) mkdocs serve --livereload & open http://127.0.0.1:$(PORT) || open http://127.0.0.1:$(PORT) &
-	# $(PYTHON3) -m http.server $(PORT) --bind 127.0.0.1 -d $(PWD)/docs > /dev/null 2>&1 || open http://127.0.0.1:$(PORT)
+	docker run -dit --rm --name timechain.academy_docs -p 8080:80 -v "$(PWD)/docs":/usr/local/apache2/htdocs/ httpd:2.4
 
 build-shell:## 	build the ubuntu docker image
 	docker-compose build $(NOCACHE) $(VERBOSE) ${SERVICE_TARGET}
