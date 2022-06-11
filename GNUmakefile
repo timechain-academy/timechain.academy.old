@@ -226,6 +226,16 @@ export GIT_REPO_PATH
 
 PORT:=8000
 export PORT
+
+PLAYGROUND_DOCKER=$(wildcard sources/playground/docker)
+# PLAYGROUND_DOCKER=$(sources/playground/docker)
+export PLAYGROUND_DOCKER
+# $(if $(filter $(PLAYGROUND_DOCKER) ,$(wildcard ~/*)), the expected file exists)
+PLAYGROUND_DOCS:=$(wildcard $(PLAYGROUND_DOCKER)/docs)
+# PLAYGROUND_DOCS=$($(PLAYGROUND_DOCKER)/docs)
+export PLAYGROUND_DOCS
+
+
 export
 
 #REF: https://linuxize.com/post/bash-printf-command/
@@ -318,6 +328,8 @@ report:## 	report
 	@echo '        - PRIVATE=${PRIVATE}'
 	@echo '        - PRIVATE_BITCOINBOOK=${PRIVATE_BITCOINBOOK}'
 	@echo '        - PRIVATE_LNBOOK=${PRIVATE_LNBOOK}'
+	@echo '        - PLAYGROUND_DOCKER=${PLAYGROUND_DOCKER}'
+	@echo '        - PLAYGROUND_DOCS=${PLAYGROUND_DOCS}'
 	@echo '        - GIT_USER_NAME=${GIT_USER_NAME}'
 	@echo '        - GIT_USER_EMAIL=${GIT_USER_EMAIL}'
 	@echo '        - GIT_SERVER=${GIT_SERVER}'
@@ -365,12 +377,21 @@ resources:
 	$(MAKE) qt-webengine
 	$(MAKE) books
 
-playground:## 	clone plebnet=playground-docker
-	[ ! -d "sources/playground/docker" ] && \
-        git clone --progress --verbose --depth 1 -b master https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker.git sources/playground/docker || true
-	[ -d sources/playground/docker/docs ] && \
-        PLAYGROUND_DOCS=sources/playground/docker/docs && export PLAYGROUND_DOCS
-	echo test $(PLAYGROUND_DOCS)
+.PHONY: playground $(PLAYGROUND_DOCKER)
+playground: | $(PLAYGROUND_DOCKER)## 	clone plebnet=playground-docker
+	# echo test1 $(PLAYGROUND_DOCKER)
+	# echo test1 $(PLAYGROUND_DOCS)
+ifeq ($(PLAYGROUND_DOCKER),)
+	git clone --progress --verbose --depth 1 -b master https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker.git sources/playground/docker || true
+endif
+
+$(PLAYGROUND_DOCKER):
+	@echo "sources/playground/docker/docs exists!!"
+	# echo test2 $(PLAYGROUND_DOCKER)
+	# echo test2 $(PLAYGROUND_DOCS)
+	git -C $(PLAYGROUND_DOCKER) reset --hard
+	git -C $(PLAYGROUND_DOCKER) pull
+
 qt-webengine:## 	qt webengine
 	[ ! -d "sources/qt" ] && \
 	[ ! -d "sources/qt/webengine" ] && \
