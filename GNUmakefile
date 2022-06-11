@@ -235,6 +235,9 @@ PLAYGROUND_DOCS:=$(wildcard $(PLAYGROUND_DOCKER)/docs)
 # PLAYGROUND_DOCS=$($(PLAYGROUND_DOCKER)/docs)
 export PLAYGROUND_DOCS
 
+PYTHON_BOOK=$(wildcard sources/books/public/python-book)
+export PYTHON_BOOK
+
 
 export
 
@@ -437,14 +440,34 @@ else
 	rm -rf sources/books/private/lnbook
 	rm -rf docs/books/private/lnbook
 endif
-python-book:## 		excluded when private=false
-ifneq ($(python-book),false)
+
+python-book: | $(PYTHON_BOOK)## 		excluded when public=false
+ifneq ($(public),false)
+
+ifeq ($(PYTHON_BOOK),)
+	@echo "cloning python-book"
 	git clone --progress --verbose --depth 1 https://github.com/kyclark/tiny_python_projects.git                             \
         sources/books/public/python-book || true
+endif
+
 else
 	rm -rf sources/books/public/python-book
 	rm -rf docs/books/public/python-book
 endif
+
+$(PYTHON_BOOK):
+	@echo "sources/books/public/python-book exists!!"
+	# echo test2 $(PLAYGROUND_DOCKER)
+	# echo test2 $(PLAYGROUND_DOCS)
+	git -C $(PYTHON_BOOK) reset --hard
+	git -C $(PYTHON_BOOK) pull -f
+
+
+
+
+
+
+
 
 .PHONY: build serve build-readme build-shell shell shell-test
 build-readme:## 	build-readme
@@ -484,6 +507,7 @@ run-playground-cluster:## 	run-playground-cluster
 	pushd sources/playground/docker && make install-cluster && popd
 
 serve: build-docs## 	build and serve docs using mkdocs on host (not docker)
+	# docker stop timechain.academy_docs
 	docker run -dit --rm --name timechain.academy_docs -p 8080:80 -v "$(PWD)/docs":/usr/local/apache2/htdocs/ httpd:2.4
 
 build-shell:## 	build the ubuntu docker image
