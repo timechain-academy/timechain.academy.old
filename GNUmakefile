@@ -490,14 +490,16 @@ build-readme:## 	build-readme
 	#make help > sources/COMMANDS.md
 	#echo '```' >> README.md
 	cat sources/FOOTER.md >> sources/README.md
-	# bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
+	# bash -c "if hash brew 2>/dev/null; then echo 'brew installed'; brew install pandoc asciidoc; fi"
+	# bash -c "if hash apt-get 2>/dev/null; then echo 'apt-get installed'; apt-get install pandoc asciidoc; fi"
 	# bash -c 'pandoc -s README.md -o index.html  --metadata title="" '
+    #
 build-docs: build-readme## 	make build-docs private=true to include books
 	$(MAKE) build-readme
 	$(MAKE) sources
 	mkdir -p docs
-	apt install pandoc || brew install pandoc
-	apt install asciidoctor || brew install asciidoctor
+	bash -c "if hash brew 2>/dev/null; then echo 'brew installed'; brew install pandoc asciidoc; fi"
+	bash -c "if hash apt-get 2>/dev/null; then echo 'apt-get installed'; apt-get install pandoc asciidoc; fi"
 ifeq ($(private),true)
 	$(MAKE) books private=$(private)
 	pushd sources/books/private/bitcoinbook > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "."
