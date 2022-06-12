@@ -138,33 +138,33 @@ nav:
         - Docker: !ENV [PLAYGROUND_DOCS, "https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker/blob/master/docs/docs/index.md"]
     - QT: 'qt'
     - Commands: COMMANDS.md
-    - Library: "books/README.md"
-    - Public:
-          # NOTE: meta data begin used in books/public/README.md
-          [
-              Python: "books/public/python-book"
-          ]
-    - Private:
+    - Library: # "books/README.md"
+            - Public:
+                  # NOTE: meta data begin used in books/public/README.md
+                  [
+                      Python: "books/public/python-book"
+                  ]
+            - Private:
 
-               - Mastering Bitcoin:
-                   - CH01: !ENV [PRIVATE_BITCOINBOOKCH01, "books/private/README.md"]
-                   - CH02: !ENV [PRIVATE_BITCOINBOOKCH02, "books/private/README.md"]
+                       - Mastering Bitcoin:
+                           - CH01: !ENV [PRIVATE_BITCOINBOOKCH01, "books/private/README.md"]
+                           - CH02: !ENV [PRIVATE_BITCOINBOOKCH02, "books/private/README.md"]
 
-               - Mastering Lightning:
-                   - Intro: !ENV [PRIVATE_LNBOOK01, "books/private/README.md"]
-                   - Getting Started: !ENV [PRIVATE_LNBOOK02, "books/private/README.md"]
+                       - Mastering Lightning:
+                           - Intro: !ENV [PRIVATE_LNBOOK01, "books/private/README.md"]
+                           - Getting Started: !ENV [PRIVATE_LNBOOK02, "books/private/README.md"]
 
-                  # - Private: !ENV [PRIVATE, "books/README.md"]
-                  #     Mastering Bitcoin: !ENV [PRIVATE, "books/README.md"]
-                  # - Mastering Bitcoin:
-                  #       !ENV [PRIVATE_BITCOINBOOK, "books/private/README.md"]
-                  # - Mastering Lightning:
-                  #     !ENV [PRIVATE_LNBOOK, "books/private/README.md"
-                  #   Chapter 1:
-                  #         "books/private/lnbook/01_interoduction.html"]
-                  # - Chapters:
-                  #     Chapter 1: "books/private/lnbook/01_introduction.html"
-                  # - Install: "books/README.md"
+                          # - Private: !ENV [PRIVATE, "books/README.md"]
+                          #     Mastering Bitcoin: !ENV [PRIVATE, "books/README.md"]
+                          # - Mastering Bitcoin:
+                          #       !ENV [PRIVATE_BITCOINBOOK, "books/private/README.md"]
+                          # - Mastering Lightning:
+                          #     !ENV [PRIVATE_LNBOOK, "books/private/README.md"
+                          #   Chapter 1:
+                          #         "books/private/lnbook/01_interoduction.html"]
+                          # - Chapters:
+                          #     Chapter 1: "books/private/lnbook/01_introduction.html"
+                          # - Install: "books/README.md"
 
 watch:
     # alphabetical
