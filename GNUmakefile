@@ -408,20 +408,23 @@ qt-webengine:## 	qt webengine
 	git clone --progress --verbose --depth 1 -b v5.15.5-lts git://code.qt.io/qt/qtwebengine.git sources/qt/webengine || true
 	[ ! -d "sources/qt/webengine/src/3rdparty/qtwebengine-chromium" ] && \
 	git clone --progress --verbose --depth 1 -b v5.15.2 git://code.qt.io/qt/qtwebengine-chromium.git sources/qt/webengine/src/3rdparty/qtwebengine-chromium || true
+
 clean-books:## 	clean-books
 	rm -rf sources/books/private/bitcoinbook
 	rm -rf sources/books/private/lnbook
 	rm -rf sources/books/*.html
 	rm -rf docs/books/private/bitcoinbook
 	rm -rf docs/books/private/lnbook
+
 books:mastering-bitcoin mastering-lightning python-book## 	make books private=true
 	mkdir -p sources/books/public
 	mkdir -p sources/books/private
+	touch sources/books/README.md
+	touch sources/books/public/README.md
 	touch sources/books/private/README.md
-	apt install pandoc || brew install pandoc
-	#bash -c "if hash pandoc 2>/dev/null; then echo; fi || brew or apt install pandoc"
+	bash -c "if hash brew 2>/dev/null; then echo 'brew installed'; brew install pandoc asciidoc; fi"
+	bash -c "if hash apt-get 2>/dev/null; then echo 'apt-get installed'; apt-get install pandoc asciidoc; fi"
 	#bash -c 'pandoc -s sources/books/README.md -o sources/books/index.html  --metadata title="" '
-	apt install asciidoctor || brew install asciidoctor
 ifeq ($(private),true)
 	pushd sources/books/private/bitcoinbook > /dev/null; for string in *.asciidoc; do echo "$$string"; done; popd || echo "."
 	pushd sources/books/private/bitcoinbook > /dev/null; for string in *.md; do sed 's/asciidoc/html/g' $$string | tee $$string; done; popd || echo "....."
