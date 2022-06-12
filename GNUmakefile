@@ -493,8 +493,10 @@ build-readme:## 	build-readme
 	# bash -c "if hash brew 2>/dev/null; then echo 'brew installed'; brew install pandoc asciidoc; fi"
 	# bash -c "if hash apt-get 2>/dev/null; then echo 'apt-get installed'; apt-get install pandoc asciidoc; fi"
 	# bash -c 'pandoc -s README.md -o index.html  --metadata title="" '
-    #
+
 build-docs: build-readme## 	make build-docs private=true to include books
+# DEV NOTES: It is useful to make serve (no private=true) and ensure nav is
+# working first - then make serve private=true and test nav with private
 	$(MAKE) build-readme
 	$(MAKE) sources
 	mkdir -p docs
