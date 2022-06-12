@@ -349,7 +349,8 @@ report:## 	report
 .PHONY: init initialize docs
 initialize:## 	initialize
 	./scripts/initialize
-	test ./sources/playground/docker/scripts/initialize && ./sources/playground/docker/scripts/initialize || echo "Try: `make resources`"
+	# disable until playground initialize fixed
+	# test ./sources/playground/docker/scripts/initialize && ./sources/playground/docker/scripts/initialize || echo "Try: `make resources`"
 init: initialize## 	init
 	python3 -m pip install -r sources/requirements.txt
 
