@@ -138,13 +138,15 @@ nav:
         - Docker: !ENV [PLAYGROUND_DOCS, "https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker/blob/master/docs/docs/index.md"]
     - QT: 'qt'
     - Commands: COMMANDS.md
-    - Library: # "books/README.md"
-            - Public:
+    - Library:
+            Setup: "books/README.md"
+            Public:
                   # NOTE: meta data begin used in books/public/README.md
                   [
+                      "books/public/README.md",
                       Python: "books/public/python-book"
                   ]
-            - Private:
+            Private:
 
                        - Mastering Bitcoin:
                            - CH01: !ENV [PRIVATE_BITCOINBOOKCH01, "books/private/README.md"]
@@ -165,7 +167,6 @@ nav:
                           # - Chapters:
                           #     Chapter 1: "books/private/lnbook/01_introduction.html"
                           # - Install: "books/README.md"
-
 watch:
     # alphabetical
     - docker
