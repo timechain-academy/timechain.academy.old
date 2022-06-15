@@ -139,13 +139,12 @@ nav:
     - QT: 'qt'
     - Commands: COMMANDS.md
     - Library:
-            Setup: "books/README.md"
-            Public:
+            📖:
                       [
                           Public: "books/public/README.md",
                           Python:
                           [
-                            books/public/python-book/README.md,
+                              Videos: books/public/python-book/README.md,
                             01_hello: books/public/python-book/01_hello/README.md,
                             01: books/public/python-book/02_crowsnest/README.md,
                             01: books/public/python-book/03_picnic/README.md,
