@@ -141,11 +141,40 @@ nav:
     - Library:
             Setup: "books/README.md"
             Public:
-                  # NOTE: meta data begin used in books/public/README.md
-                  [
-                      "books/public/README.md",
-                      Python: "books/public/python-book"
-                  ]
+                    # Public Stub: "books/public/README.md",
+                      [ Python:
+                          [
+                            books/public/python-book/README.md,
+                            01_hello: books/public/python-book/01_hello/README.md,
+                            01: books/public/python-book/02_crowsnest/README.md,
+                            01: books/public/python-book/03_picnic/README.md,
+                            01: books/public/python-book/04_jump_the_five/README.md,
+                            01: books/public/python-book/05_howler/README.md,
+                            01: books/public/python-book/06_wc/README.md,
+                            01: books/public/python-book/07_gashlycrumb/README.md,
+                            01: books/public/python-book/08_apples_and_bananas/README.md,
+                            01: books/public/python-book/09_abuse/README.md,
+                            01: books/public/python-book/10_telephone/README.md,
+                            01: books/public/python-book/11_bottles_of_beer/README.md,
+                            01: books/public/python-book/12_ransom/README.md,
+                            01: books/public/python-book/13_twelve_days/README.md,
+                            01: books/public/python-book/14_rhymer/README.md,
+                            01: books/public/python-book/15_kentucky_friar/README.md,
+                            01: books/public/python-book/16_scrambler/README.md,
+                            01:
+                                books/public/python-book/17_mad_libs/README.md,
+                            01:
+                                books/public/python-book/18_gematria/README.md,
+                            01: books/public/python-book/19_wod/README.md,
+                            01:
+                                books/public/python-book/20_password/README.md,
+                            01: books/public/python-book/21_tictactoe/README.md,
+                            01: books/public/python-book/22_itictactoe/README.md,
+                            01: books/public/python-book/appendix_argparse/README.md,
+                            01: books/public/python-book/docker/README.md,
+                            01: books/public/python-book/extra/README.md
+                  ],
+                ]
             Private:
 
                        - Mastering Bitcoin:
