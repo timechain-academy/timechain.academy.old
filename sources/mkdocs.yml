@@ -52,13 +52,13 @@ theme:
         - header.autohide
 
         - navigation.top
-        - navigation.tabs
-        - navigation.tabs.sticky
+          # - navigation.tabs
+          # - navigation.tabs.sticky
         - navigation.sections
         - navigation.tracking
-        - navigation.expand
+          # - navigation.expand
         - navigation.instant
-        # - navigation.indexes # (1)!
+        - navigation.indexes # (1)!
 
         - toc.follow
         - toc.integrate  # (1)!
@@ -146,33 +146,29 @@ nav:
                           [
                               Videos: books/public/python-book/README.md,
                             01_hello: books/public/python-book/01_hello/README.md,
-                            01: books/public/python-book/02_crowsnest/README.md,
-                            01: books/public/python-book/03_picnic/README.md,
-                            01: books/public/python-book/04_jump_the_five/README.md,
-                            01: books/public/python-book/05_howler/README.md,
-                            01: books/public/python-book/06_wc/README.md,
-                            01: books/public/python-book/07_gashlycrumb/README.md,
-                            01: books/public/python-book/08_apples_and_bananas/README.md,
-                            01: books/public/python-book/09_abuse/README.md,
-                            01: books/public/python-book/10_telephone/README.md,
-                            01: books/public/python-book/11_bottles_of_beer/README.md,
-                            01: books/public/python-book/12_ransom/README.md,
-                            01: books/public/python-book/13_twelve_days/README.md,
-                            01: books/public/python-book/14_rhymer/README.md,
-                            01: books/public/python-book/15_kentucky_friar/README.md,
-                            01: books/public/python-book/16_scrambler/README.md,
-                            01:
-                                books/public/python-book/17_mad_libs/README.md,
-                            01:
-                                books/public/python-book/18_gematria/README.md,
-                            01: books/public/python-book/19_wod/README.md,
-                            01:
-                                books/public/python-book/20_password/README.md,
-                            01: books/public/python-book/21_tictactoe/README.md,
-                            01: books/public/python-book/22_itictactoe/README.md,
-                            01: books/public/python-book/appendix_argparse/README.md,
-                            01: books/public/python-book/docker/README.md,
-                            01: books/public/python-book/extra/README.md
+                            02_crowsnest: books/public/python-book/02_crowsnest/README.md,
+                            03_picnic: books/public/python-book/03_picnic/README.md,
+                            04_jump_the_five: books/public/python-book/04_jump_the_five/README.md,
+                            05_howler: books/public/python-book/05_howler/README.md,
+                            06_wc: books/public/python-book/06_wc/README.md,
+                            07_gashlycrumb: books/public/python-book/07_gashlycrumb/README.md,
+                            08_apples_and_bananas: books/public/python-book/08_apples_and_bananas/README.md,
+                            09_abuse: books/public/python-book/09_abuse/README.md,
+                            10_telephone: books/public/python-book/10_telephone/README.md,
+                            11_bottles_of_beer: books/public/python-book/11_bottles_of_beer/README.md,
+                            12_ransom: books/public/python-book/12_ransom/README.md,
+                            13_twelve_days: books/public/python-book/13_twelve_days/README.md,
+                            14_rhymer: books/public/python-book/14_rhymer/README.md,
+                            15_kentucky_friar: books/public/python-book/15_kentucky_friar/README.md,
+                            16_scrambler: books/public/python-book/16_scrambler/README.md,
+                            17_mob_libs: books/public/python-book/17_mad_libs/README.md,
+                            18_gematria: books/public/python-book/18_gematria/README.md,
+                            19_wod: books/public/python-book/19_wod/README.md,
+                            20_password: books/public/python-book/20_password/README.md,
+                            21_tictactoe: books/public/python-book/21_tictactoe/README.md,
+                            22_itictactoe: books/public/python-book/22_itictactoe/README.md,
+                            appendix_argparse: books/public/python-book/appendix_argparse/README.md,
+                            Extra: books/public/python-book/extra/README.md
                   ],
                 ]
             Private:
