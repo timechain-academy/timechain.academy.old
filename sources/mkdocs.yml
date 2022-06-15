@@ -141,8 +141,9 @@ nav:
     - Library:
             Setup: "books/README.md"
             Public:
-                    # Public Stub: "books/public/README.md",
-                      [ Python:
+                      [
+                          Public: "books/public/README.md",
+                          Python:
                           [
                             books/public/python-book/README.md,
                             01_hello: books/public/python-book/01_hello/README.md,
