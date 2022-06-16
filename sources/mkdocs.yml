@@ -58,7 +58,7 @@ theme:
           # - navigation.tracking
           # - navigation.expand
         - navigation.instant
-          # - navigation.indexes # (1)!
+        - navigation.indexes # (1)!
 
           # - toc.follow
           # - toc.integrate  # (1)!
@@ -137,10 +137,11 @@ nav:
         - Setup: playground/README.md
         - Docker: !ENV [PLAYGROUND_DOCS, "https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker/blob/master/docs/docs/index.md"]
     - Library:
-            README: "books/public"
+            📖 Book Stub:
+                     README: "books"
             📖 Python:
-                     README: "books/public/python-book"
                      Lessons:
+                         Intro: books/public/python-book/README.md
                          01_hello: books/public/python-book/01_hello/README.md
                          02_crowsnest: books/public/python-book/02_crowsnest/README.md
                          03_picnic: books/public/python-book/03_picnic/README.md
