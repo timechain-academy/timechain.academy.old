@@ -61,19 +61,19 @@ jobs:
       - name: automate.yml make report
         run: |
           make report
-      - name: automate.yml make sources
-        run: |
-          make sources
-      - name: automate.yml make init
-        run: |
-          make init
       - name: automate.yml git config
         run: |
           git config --global user.email "admin@timechain.academy"
           git config --global user.name "TimeChain Academy Admin"
+      - name: automate.yml make sources
+        run: |
+          sudo -s make sources
+      - name: automate.yml make init
+        run: |
+          make init
       - name: automate.yml make resources
         run: |
-          make resources
+          sudo -s make resources
       - name: automate.yml build-shell
         run: |
           make build-shell
