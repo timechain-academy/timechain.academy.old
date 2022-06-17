@@ -3,8 +3,40 @@ version: '3.4'
 services:
 
   ubuntu:
-    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}
-    hostname: ${PROJECT_NAME}_${HOST_UID:-4000}
+    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}_ubuntu
+    hostname: ubuntu_${HOST_UID:-4000}
+    environment:
+      - UID=${HOST_UID:-4000}
+    user: ${HOST_USER:-nodummy}
+    image: ${PROJECT_NAME}:${HOST_USER:-nodummy}
+    privileged: true
+    build:
+      context: .
+      target: base
+      dockerfile: docker/ubuntu.dockerfile
+      args:
+        - HOST_UID=${HOST_UID:-4000}
+        - HOST_USER=${HOST_USER:-nodummy}
+        - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
+        - PASSWORD=${PASSWORD}
+        - UBUNTU_VERSION=${UBUNTU_VERSION}
+    networks:
+      - frontend
+    command: ["ssh-agent ssh-add"]
+    volumes:
+      - type: bind
+        source: ${HOME:-.}
+        target: /home/${HOST_USER}
+      - type: bind
+        source: ${PWD:-.}
+        target: /home/${HOST_USER}/timechain.academy
+      - type: bind
+        source: ~/.ssh
+        target: /home/${HOST_USER}/.ssh
+
+  elliptic:
+    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}_elliptic
+    hostname: elliptic_${HOST_UID:-4000}
     environment:
       - UID=${HOST_UID:-4000}
     user: ${HOST_USER:-nodummy}
@@ -36,6 +68,7 @@ services:
 
   docs:
     container_name: ${PROJECT_NAME}_${HOST_UID:-4000}_docs
+    hostname: docs_${HOST_UID:-4000}
     restart: unless-stopped
     environment:
       # Always error on the side of NOT publishing
