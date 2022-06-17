@@ -41,26 +41,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://localhost:8008/books/private/bitcoinbook/index.html</loc>
-         <lastmod>2022-06-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>http://localhost:8008/books/private/lnbook/index.html</loc>
-         <lastmod>2022-06-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>http://localhost:8008/books/private/lnbook/CONTRIBUTING.html</loc>
-         <lastmod>2022-06-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>http://localhost:8008/books/private/lnbook/LICENSE.html</loc>
-         <lastmod>2022-06-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>http://localhost:8008/books/public/index.html</loc>
          <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
