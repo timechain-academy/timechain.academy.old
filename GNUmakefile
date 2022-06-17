@@ -237,6 +237,9 @@ PLAYGROUND_DOCS:=$(wildcard $(PLAYGROUND_DOCKER)/docs)
 # PLAYGROUND_DOCS=$($(PLAYGROUND_DOCKER)/docs)
 export PLAYGROUND_DOCS
 
+ELLIPTIC_DOCKER=$(wildcard sources/elliptic)
+export ELLIPTIC_DOCKER
+
 PYTHON_BOOK=$(wildcard sources/books/public/python-book)
 export PYTHON_BOOK
 
@@ -387,9 +390,10 @@ resources:
 	$(MAKE) playground
 	$(MAKE) qt-webengine
 	$(MAKE) books
+	$(MAKE) elliptic
 
 .PHONY: playground $(PLAYGROUND_DOCKER)
-playground: | $(PLAYGROUND_DOCKER)## 	clone plebnet=playground-docker
+playground: | $(PLAYGROUND_DOCKER)## 	clone plebnet-playground-docker
 	# echo test1 $(PLAYGROUND_DOCKER)
 	# echo test1 $(PLAYGROUND_DOCS)
 ifeq ($(PLAYGROUND_DOCKER),)
@@ -402,6 +406,17 @@ $(PLAYGROUND_DOCKER):
 	# echo test2 $(PLAYGROUND_DOCS)
 	git -C $(PLAYGROUND_DOCKER) reset --hard
 	git -C $(PLAYGROUND_DOCKER) pull -f
+
+.PHONY: elliptic $(ELLIPTIC_DOCKER)
+elliptic: | $(ELLIPTIC_DOCKER)## 	clone asher-pembroke/elliptic
+ifeq ($(ELLIPTIC_DOCKER),)
+	git clone --progress --verbose --depth 1 -b master https://github.com/asher-pembroke/elliptic.git sources/elliptic || true
+endif
+
+$(ELLIPTIC_DOCKER):
+	@echo "sources/elliptic exists!!"
+	git -C $(ELLIPTIC_DOCKER) reset --hard
+	git -C $(ELLIPTIC_DOCKER) pull -f
 
 qt-webengine:## 	qt webengine
 	[ ! -d "sources/qt" ] && \
