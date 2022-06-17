@@ -2,227 +2,257 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>http://localhost:8008/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/COMMANDS.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/FOOTER.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/GETTING_STARTED.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/HEADER.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/TimeChain.Academy.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/private/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://localhost:8008/books/private/bitcoinbook/index.html</loc>
+         <lastmod>2022-06-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://localhost:8008/books/private/lnbook/index.html</loc>
+         <lastmod>2022-06-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://localhost:8008/books/private/lnbook/CONTRIBUTING.html</loc>
+         <lastmod>2022-06-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://localhost:8008/books/private/lnbook/LICENSE.html</loc>
+         <lastmod>2022-06-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://localhost:8008/books/public/index.html</loc>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/01_hello/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/02_crowsnest/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/03_picnic/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/04_jump_the_five/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/05_howler/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/06_wc/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/07_gashlycrumb/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/08_apples_and_bananas/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/09_abuse/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/10_telephone/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/11_bottles_of_beer/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/12_ransom/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/13_twelve_days/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/14_rhymer/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/15_kentucky_friar/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/16_scrambler/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/17_mad_libs/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/18_gematria/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/19_wod/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/20_password/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/21_tictactoe/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/22_itictactoe/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/appendix_argparse/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/docker/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/books/public/python-book/extra/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://localhost:8008/books/public/test_dir/index.html</loc>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/git/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/git/GET_STARTED.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/git/lessons/lesson1.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/git/lessons/lesson2.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/git/lessons/lesson3.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/git/lessons/lesson4.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/git/lessons/lesson5.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/gnupg/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/lnbits/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/playground/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://localhost:8008/qt/index.html</loc>
-         <lastmod>2022-06-11</lastmod>
+         <lastmod>2022-06-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
