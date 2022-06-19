@@ -420,10 +420,10 @@ $(ELLIPTIC_DOCKER):
 	git -C $(ELLIPTIC_DOCKER) pull -f
 
 	docker-compose build $(NOCACHE) $(VERBOSE) elliptic
-	$(DOCKER_COMPOSE) $(VERBOSE) -p elliptic_$(HOST_UID) run --publish 8050:8050 -dit --rm elliptic
+	$(DOCKER_COMPOSE) $(VERBOSE) -p elliptic_$(HOST_UID) run --publish 8050:8050 -d --rm elliptic
 
 	docker-compose build $(NOCACHE) $(VERBOSE) elliptic_notebook
-    $(DOCKER_COMPOSE) $(VERBOSE) -p elliptic_notebook_$(HOST_UID) run --publish 8888:8888 -dit --rm elliptic_notebook
+    $(DOCKER_COMPOSE) $(VERBOSE) -p elliptic_notebook_$(HOST_UID) run --publish 8888:8888 -d --rm elliptic_notebook
 
 
 
