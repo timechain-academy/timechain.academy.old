@@ -383,6 +383,7 @@ clean:## 	clean
 	rm -rf sources/books/lnbook
 	rm -rf sources/books/python
 	rm -rf sources/qt/webengine
+	rm -rf sources/elliptic
 
 .SILENT:
 sources: resources## 	sources
@@ -411,7 +412,8 @@ $(PLAYGROUND_DOCKER):
 elliptic: | $(ELLIPTIC_DOCKER)## 	run elliptic docker service on http://localhost:8050
 
 ifeq ($(ELLIPTIC_DOCKER),)
-	git clone --progress --verbose --depth 1 -b master https://github.com/timechain-academy/elliptic.git sources/elliptic || true
+	git clone --progress --verbose --depth 1 -b master \
+        https://github.com/timechain-academy/elliptic.git sources/elliptic || true
 endif
 
 $(ELLIPTIC_DOCKER):
@@ -424,11 +426,6 @@ $(ELLIPTIC_DOCKER):
 
 	docker-compose build $(NOCACHE) $(VERBOSE) elliptic_notebook
     $(DOCKER_COMPOSE) $(VERBOSE) -p elliptic_notebook_$(HOST_UID) run --publish 8888:8888 -d --rm elliptic_notebook
-
-
-
-
-
 
 qt-webengine:## 	qt webengine
 	[ ! -d "sources/qt" ] && \
