@@ -407,16 +407,28 @@ $(PLAYGROUND_DOCKER):
 	git -C $(PLAYGROUND_DOCKER) reset --hard
 	git -C $(PLAYGROUND_DOCKER) pull -f
 
-.PHONY: elliptic $(ELLIPTIC_DOCKER)
-elliptic: | $(ELLIPTIC_DOCKER)## 	clone asher-pembroke/elliptic
+.PHONY: elliptic $(ELLIPTIC_DOCKER) $(ELLIPTIC_NOTEBOOK)
+elliptic: | $(ELLIPTIC_DOCKER)## 	run elliptic docker service on http://localhost:8050
+
 ifeq ($(ELLIPTIC_DOCKER),)
-	git clone --progress --verbose --depth 1 -b master https://github.com/asher-pembroke/elliptic.git sources/elliptic || true
+	git clone --progress --verbose --depth 1 -b master https://github.com/timechain-academy/elliptic.git sources/elliptic || true
 endif
 
 $(ELLIPTIC_DOCKER):
 	@echo "sources/elliptic exists!!"
 	git -C $(ELLIPTIC_DOCKER) reset --hard
 	git -C $(ELLIPTIC_DOCKER) pull -f
+
+	docker-compose build $(NOCACHE) $(VERBOSE) elliptic
+	$(DOCKER_COMPOSE) $(VERBOSE) -p elliptic_$(HOST_UID) run --publish 8050:8050 -dit --rm elliptic
+
+	docker-compose build $(NOCACHE) $(VERBOSE) elliptic_notebook
+    $(DOCKER_COMPOSE) $(VERBOSE) -p elliptic_notebook_$(HOST_UID) run --publish 8888:8888 -dit --rm elliptic_notebook
+
+
+
+
+
 
 qt-webengine:## 	qt webengine
 	[ ! -d "sources/qt" ] && \

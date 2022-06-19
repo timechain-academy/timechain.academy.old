@@ -39,32 +39,55 @@ services:
     hostname: elliptic_${HOST_UID:-4000}
     environment:
       - UID=${HOST_UID:-4000}
-    user: ${HOST_USER:-nodummy}
-    image: ${PROJECT_NAME}:${HOST_USER:-nodummy}
+    image: ${PROJECT_NAME}:${HOST_USER:-nodummy}_elliptic
     privileged: true
     build:
-      context: .
-      target: base
-      dockerfile: docker/ubuntu.dockerfile
-      args:
-        - HOST_UID=${HOST_UID:-4000}
-        - HOST_USER=${HOST_USER:-nodummy}
-        - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
-        - PASSWORD=${PASSWORD}
-        - UBUNTU_VERSION=${UBUNTU_VERSION}
+      context: sources/elliptic
+      dockerfile: Dockerfile
+    expose:
+      - "8050"
+    ports:
+      - "8050:8050"
     networks:
       - frontend
-    command: ["ssh-agent ssh-add"]
+    command:
+      - python
+      - main.py
     volumes:
       - type: bind
-        source: ${HOME:-.}
-        target: /home/${HOST_USER}
+        source: ${PWD}/sources/elliptic
+        target: /home/elliptic
+    working_dir: /home/elliptic
+
+  elliptic_notebook:
+    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}_elliptic_notebook
+    hostname: elliptic_${HOST_UID:-4000}
+    environment:
+      - UID=${HOST_UID:-4000}
+    image: ${PROJECT_NAME}:${HOST_USER:-nodummy}_elliptic_notebook
+    privileged: true
+    build:
+      context: sources/elliptic
+      dockerfile: Dockerfile
+    expose:
+      - "8888"
+    ports:
+      - "8888:8888"
+    networks:
+      - frontend
+    command:
+      - jupyter
+      - notebook
+      - .
+      - --port=8888
+      - --no-browser
+      - --ip=0.0.0.0
+      - --allow-root
+    volumes:
       - type: bind
-        source: ${PWD:-.}
-        target: /home/${HOST_USER}/timechain.academy
-      - type: bind
-        source: ~/.ssh
-        target: /home/${HOST_USER}/.ssh
+        source: ${PWD}/sources/elliptic
+        target: /home/elliptic
+    working_dir: /home/elliptic
 
   docs:
     container_name: ${PROJECT_NAME}_${HOST_UID:-4000}_docs
