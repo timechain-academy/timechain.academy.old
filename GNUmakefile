@@ -243,6 +243,11 @@ export ELLIPTIC_DOCKER
 PYTHON_BOOK=$(wildcard sources/books/public/python-book)
 export PYTHON_BOOK
 
+SNI=$(wildcard sources/sni/repo)
+export SNI
+
+SNI_DOCS_ZIP=$(wildcard sources/sni/repo/app/static/docs.zip)
+export SNI_DOCS_ZIP
 
 export
 
@@ -373,8 +378,6 @@ endif
 run: docs shell
 	$(NOHUP) $(DOCKER_COMPOSE) $(VERBOSE) up &
 
-
-
 .PHONY: clean-resources clean sources resources
 clean-sources: 	clean sources
 clean:## 	clean
@@ -384,6 +387,7 @@ clean:## 	clean
 	rm -rf sources/books/python
 	rm -rf sources/qt/webengine
 	rm -rf sources/elliptic
+	rm -rf sources/sni
 
 .SILENT:
 sources: resources## 	sources
@@ -392,6 +396,7 @@ resources:
 	$(MAKE) qt-webengine
 	$(MAKE) books
 	$(MAKE) elliptic
+	$(MAKE) sni
 
 .PHONY: playground $(PLAYGROUND_DOCKER)
 playground: | $(PLAYGROUND_DOCKER)## 	clone plebnet-playground-docker
@@ -500,10 +505,29 @@ $(PYTHON_BOOK):
 	git -C $(PYTHON_BOOK) pull -f
 
 
+sni: | $(SNI)## 		excluded when public=false
+ifneq ($(public),false)
 
+ifeq ($(SNI),)
+	@echo "cloning python-book"
+	git clone --progress --verbose --depth 1 \
+	https://github.com/NakamotoInstitute/nakamotoinstitute.org.git \
+	sources/sni/repo || true
+ifeq ($(SNI_DOCS),)
+	curl https://nakamotoinstitute.org/static/docs/sni-docs.zip --output sources/sni/repo/app/static/docs.zip
+endif
+	unzip -o sources/sni/repo/app/static/docs.zip -d sources/sni/repo/app/static/docs
+endif
 
+else
+	rm -rf sources/sni/repo
+	# rm -rf docs/sni
+endif
 
-
+$(SNI):
+	@echo "sources/sni exists!!"
+	git -C $(SNI) reset --hard
+	git -C $(SNI) pull -f
 
 
 .PHONY: build serve build-readme build-shell shell shell-test

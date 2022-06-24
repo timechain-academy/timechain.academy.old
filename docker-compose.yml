@@ -89,6 +89,32 @@ services:
         target: /home/elliptic
     working_dir: /home/elliptic
 
+  sni:
+    container_name: ${PROJECT_NAME}_${HOST_UID:-4000}_sni
+    hostname: sni
+    environment:
+      - UID=${HOST_UID:-4000}
+    image: ${PROJECT_NAME}:${HOST_USER:-nodummy}_sni
+    privileged: true
+    build:
+      context: sources/sni
+      dockerfile: Dockerfile
+    expose:
+      - "5000"
+    ports:
+      - "5000:5000"
+    command:
+      - python3
+      - -m
+      - flask
+      - run
+      - --host=0.0.0.0
+    volumes:
+      - type: bind
+        source: ${PWD}/sources/sni
+        target: /sni
+    working_dir: /sni
+
   docs:
     container_name: ${PROJECT_NAME}_${HOST_UID:-4000}_docs
     hostname: docs_${HOST_UID:-4000}
@@ -131,6 +157,3 @@ services:
         source: ${PWD:-.}/docs
         target: /root/docs
 
-networks:
-  frontend:
-    name: custom_frontend
