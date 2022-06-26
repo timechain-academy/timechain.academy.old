@@ -509,20 +509,27 @@ sni: | $(SNI)## 		excluded when public=false
 ifneq ($(public),false)
 
 ifeq ($(SNI),)
+
 	@echo "cloning python-book"
 	git clone --progress --verbose --depth 1 \
 	https://github.com/NakamotoInstitute/nakamotoinstitute.org.git \
 	sources/sni/repo || true
+
 ifeq ($(SNI_DOCS),)
 	curl https://nakamotoinstitute.org/static/docs/sni-docs.zip --output sources/sni/repo/app/static/docs.zip
 endif
+
 	unzip -o sources/sni/repo/app/static/docs.zip -d sources/sni/repo/app/static/docs
+
 endif
 
 else
 	rm -rf sources/sni/repo
 	# rm -rf docs/sni
 endif
+	cp sources/sni/repo/.env.example sources/sni/repo/.env
+	docker-compose build $(NOCACHE) $(VERBOSE) sni
+	$(DOCKER_COMPOSE) $(VERBOSE) -p $(PROJECT_NAME)_$(HOST_UID)_sni run -it --rm sni
 
 $(SNI):
 	@echo "sources/sni exists!!"

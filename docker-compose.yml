@@ -20,8 +20,6 @@ services:
         - SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}
         - PASSWORD=${PASSWORD}
         - UBUNTU_VERSION=${UBUNTU_VERSION}
-    networks:
-      - frontend
     command: ["ssh-agent ssh-add"]
     volumes:
       - type: bind
@@ -48,8 +46,6 @@ services:
       - "8050"
     ports:
       - "8050:8050"
-    networks:
-      - frontend
     command:
       - python
       - main.py
@@ -73,8 +69,6 @@ services:
       - "8888"
     ports:
       - "8888:8888"
-    networks:
-      - frontend
     command:
       - jupyter
       - notebook
@@ -97,8 +91,8 @@ services:
     image: ${PROJECT_NAME}:${HOST_USER:-nodummy}_sni
     privileged: true
     build:
-      context: sources/sni
-      dockerfile: Dockerfile
+      context: ${PWD}/sources/sni
+      dockerfile: ${PWD}/sources/sni/Dockerfile
     expose:
       - "5000"
     ports:
@@ -111,7 +105,7 @@ services:
       - --host=0.0.0.0
     volumes:
       - type: bind
-        source: ${PWD}/sources/sni
+        source: ${PWD}/sources/sni/repo
         target: /sni
     working_dir: /sni
 
@@ -141,8 +135,6 @@ services:
         - PLAYGROUND_DOCS=${PLAYGROUND_DOCS:-https://github.com/PLEBNET-PLAYGROUND/plebnet-playground-docker/blob/master/docs/docs/index.md}
       context: .
       dockerfile: mkdocs/mkdocs.dockerfile
-    networks:
-      - frontend
     volumes:
       # NOTE: /root contains the timechain.academy content
       # NOTE: /root/sources is the "docs_dir" in mkdocs terms
