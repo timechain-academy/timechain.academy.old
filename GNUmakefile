@@ -240,6 +240,9 @@ export PLAYGROUND_DOCS
 ELLIPTIC_DOCKER=$(wildcard sources/elliptic)
 export ELLIPTIC_DOCKER
 
+LEARNING_C=$(wildcard sources/learning-c)
+export LEARNING_C
+
 PYTHON_BOOK=$(wildcard sources/books/public/python-book)
 export PYTHON_BOOK
 
@@ -384,6 +387,7 @@ clean:## 	clean
 	rm -rf sources/books/python
 	rm -rf sources/qt/webengine
 	rm -rf sources/elliptic
+	rm -rf sources/learning-c
 
 .SILENT:
 sources: resources## 	sources
@@ -392,6 +396,7 @@ resources:
 	$(MAKE) qt-webengine
 	$(MAKE) books
 	$(MAKE) elliptic
+	$(MAKE) learning-c
 
 .PHONY: playground $(PLAYGROUND_DOCKER)
 playground: | $(PLAYGROUND_DOCKER)## 	clone plebnet-playground-docker
@@ -426,6 +431,27 @@ $(ELLIPTIC_DOCKER):
 
 	docker-compose build $(NOCACHE) $(VERBOSE) elliptic_notebook
     $(DOCKER_COMPOSE) $(VERBOSE) -p elliptic_notebook_$(HOST_UID) run --publish 8888:8888 -d --rm elliptic_notebook
+
+.PHONY: learning-c $(LEARNING_C)
+learning-c: | $(LEARING_C)## 	install learning-c examples
+
+ifeq ($(LEARNING_C),)
+	git clone --progress --verbose --depth 1 -b master \
+        https://github.com/timechain-academy/learning-c.git sources/learning-c || true
+endif
+
+$(LEARNING_C):
+	@echo "sources/elliptic exists!!"
+	git -C $(LEARNING_C) reset --hard
+	git -C $(LEARNING_C) pull -f
+
+	# docker-compose build $(NOCACHE) $(VERBOSE) elliptic
+	# $(DOCKER_COMPOSE) $(VERBOSE) -p elliptic_$(HOST_UID) run --publish 8050:8050 -d --rm #<learning-c>
+
+	# docker-compose build $(NOCACHE) $(VERBOSE) elliptic_notebook
+    # $(DOCKER_COMPOSE) $(VERBOSE) -p elliptic_notebook_$(HOST_UID) run --publish 8888:8888 -d --rm #<learning-c>
+
+
 
 qt-webengine:## 	qt webengine
 	[ ! -d "sources/qt" ] && \
