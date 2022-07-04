@@ -1,3 +1,6 @@
+android-ndk.zip
+android-sdk.zip
+
 *.asciidoc
 
 sources/*.html

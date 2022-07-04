@@ -78,14 +78,6 @@ export python_version_minor
 export python_version_patch
 export PYTHON_VERSION
 
-ANDROID_HOME                            := $(HOME)/Android/Sdk
-ANDROID_SDK_ROOT                        := $(HOME)/Library/Android/sdk
-ANDROID_AVD_HOME                        := $(HOME)/.android/avd
-
-export ANDROID_HOME
-export ANDROID_SDK_ROOT
-export ANDROID_AVD_HOME
-
 # NOTE: docker doesnt like names with dots
 # Use $(GIT_REPO_NAME) for commands that need the dotted name
 # $(PROJECT_NAME) is used in many docker commands in the GNUmakefile
@@ -253,13 +245,21 @@ export LEARNING_C
 CRYPTOPP=$(wildcard sources/cryptopp)
 export CRYPTOPP
 
-ANDROID_SDK=$(wildcard $(HOME)/Library/Android/sdk)
-export ANDROID_SDK
+ANDROID_HOME                            := $(HOME)/Android/sdk
+ANDROID_SDK_ROOT                        := $(HOME)/Library/Android/sdk
+ANDROID_NDK_ROOT                        := $(HOME)/Library/Android/android-ndk
+ANDROID_AVD_HOME                        := $(HOME)/.android/avd
 
+NDK_SAMPLES                             := $(wildcard sources/nkd-samples)
 
-PYTHON_BOOK=$(wildcard sources/books/public/python-book)
+export ANDROID_HOME
+export ANDROID_SDK_ROOT
+export ANDROID_NDK_ROOT
+export ANDROID_AVD_HOME
+export NDK_SAMPLES
+
+PYTHON_BOOK                             := $(wildcard sources/books/public/python-book)
 export PYTHON_BOOK
-
 
 export
 
@@ -358,6 +358,7 @@ report:## 	report
 	@echo '        - PRIVATE=${PRIVATE}'
 	@echo '        - PRIVATE_BITCOINBOOK=${PRIVATE_BITCOINBOOK}'
 	@echo '        - PRIVATE_LNBOOK=${PRIVATE_LNBOOK}'
+	@echo '        - PYTHON_BOOK=${PYTHON_BOOK}'
 	@echo ' '
 	@echo '        - PLAYGROUND_DOCKER=${PLAYGROUND_DOCKER}'
 	@echo '        - PLAYGROUND_DOCS=${PLAYGROUND_DOCS}'
@@ -375,7 +376,9 @@ report:## 	report
 	@echo ' '
 	@echo '        - ANDROID_HOME=${ANDROID_HOME}'
 	@echo '        - ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT}'
+	@echo '        - ANDROID_NDK_ROOT=${ANDROID_NDK_ROOT}'
 	@echo '        - ANDROID_AVD_HOME=${ANDROID_AVD_HOME}'
+	@echo '        - NDK_SAMPLES=${NDK_SAMPLES}'
 
 .PHONY: init initialize docs
 initialize:## 	initialize
@@ -478,19 +481,37 @@ $(LEARNING_C):
 	# docker-compose build $(NOCACHE) $(VERBOSE) elliptic_notebook
     # $(DOCKER_COMPOSE) $(VERBOSE) -p elliptic_notebook_$(HOST_UID) run --publish 8888:8888 -d --rm #<learning-c>
 
-.PHONY: cryptopp $(CRYPTOPP)
-cryptopp: | $(CRYPTOPP)## 	install crypto++ library
+.PHONY: cryptopp $(CRYPTOPP) $(NDK_SAMPLES)
+cryptopp: | $(CRYPTOPP) $(NDK_SAMPLES)## 	install crypto++ library option: NDK=true to install android SDK & NDK
 
 ifeq ($(CRYPTOPP),)
 	git clone --progress --verbose --depth 1 -b master \
         https://github.com/timechain-academy/cryptopp.git sources/cryptopp || true
 endif
-	$(MAKE) install -C sources/cryptopp CXXFLAGS+=-stdlib=libc++
+
+	CXXFLAGS+=-stdlib=libc++ $(MAKE) install -C sources/cryptopp
+
+ifeq ($(NDK),true)
+	$(shell mkdir -p $(ANDROID_SDK))
+	$(shell mkdir -p $(ANDROID_HOME))
+	$(shell mkdir -p $(ANDROID_SDK_ROOT))
+	$(shell mkdir -p $(ANDROID_NDK_ROOT))
+	$(shell mkdir -p $(ANDROID_AVD_HOME))
+	./sources/cryptopp/TestScripts/install-ndk.sh
+ifeq ($(NDK_SAMPLES),)
+	git clone https://github.com/android/ndk-samples.git sources/nkd-samples
+endif
+endif
 
 $(CRYPTOPP):
 	@echo "sources/cryptopp exists!!"
 	git -C $(CRYPTOPP) reset --hard
 	git -C $(CRYPTOPP) pull -f
+
+$(NDK_SAMPLES):
+	@echo "sources/ndk-samples exists!!"
+	git -C $(NDK_SAMPLES) reset --hard
+	git -C $(NDK_SAMPLES) pull -f
 
 
 qt-webengine:## 	qt webengine
