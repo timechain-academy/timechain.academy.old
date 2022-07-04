@@ -426,7 +426,7 @@ resources:
 	$(MAKE) books
 	$(MAKE) elliptic
 	$(MAKE) learning-c
-	$(MAKE) cryptopp
+	#  $(MAKE) cryptopp
 
 .PHONY: playground $(PLAYGROUND_DOCKER)
 playground: | $(PLAYGROUND_DOCKER)## 	clone plebnet-playground-docker
