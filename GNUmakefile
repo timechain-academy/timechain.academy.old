@@ -639,6 +639,10 @@ run-playground:## 	run-playground
 run-playground-cluster:## 	run-playground-cluster
 	pushd sources/playground/docker && make install-cluster && popd
 
+run-all:
+	$(MAKE) run-playground
+	$(MAKE) elliptic
+
 serve: build-docs## 	build and serve docs using mkdocs on host (not docker)
 	docker stop timechain.academy_docs || true
 	docker run -dit --rm --name timechain.academy_docs -p 8080:80 -v "$(PWD)/docs":/usr/local/apache2/htdocs httpd:2.4
