@@ -253,7 +253,7 @@ export LEARNING_C
 CRYPTOPP=$(wildcard sources/cryptopp)
 export CRYPTOPP
 
-ANDROID_SDK=$(wildcard $(shell HOME)/Library/Android/sdk)
+ANDROID_SDK=$(wildcard $(HOME)/Library/Android/sdk)
 export ANDROID_SDK
 
 
@@ -335,11 +335,14 @@ report:## 	report
 	@echo ''
 	@echo '	[ARGUMENTS]	'
 	@echo '      args:'
+	@echo ' '
 	@echo '        - THIS_FILE=${THIS_FILE}'
 	@echo '        - TIME=${TIME}'
 	@echo '        - PROJECT_NAME=${PROJECT_NAME}'
+	@echo ' '
 	@echo '        - HOME=${HOME}'
 	@echo '        - PWD=${PWD}'
+	@echo ' '
 	@echo '        - PYTHON=${PYTHON}'
 	@echo '        - PYTHON3=${PYTHON3}'
 	@echo '        - PYTHON_VERSION=${PYTHON_VERSION}'
@@ -347,14 +350,18 @@ report:## 	report
 	@echo '        - PYTHON_VERSION_MINOR=${PYTHON_VERSION_MINOR}'
 	@echo '        - PIP=${PIP}'
 	@echo '        - PIP3=${PIP3}'
+	@echo ' '
 	@echo '        - ARCH=${ARCH}'
 	@echo '        - TRIPLET=${TRIPLET}'
 	@echo '        - PORT=${PORT}'
+	@echo ' '
 	@echo '        - PRIVATE=${PRIVATE}'
 	@echo '        - PRIVATE_BITCOINBOOK=${PRIVATE_BITCOINBOOK}'
 	@echo '        - PRIVATE_LNBOOK=${PRIVATE_LNBOOK}'
+	@echo ' '
 	@echo '        - PLAYGROUND_DOCKER=${PLAYGROUND_DOCKER}'
 	@echo '        - PLAYGROUND_DOCS=${PLAYGROUND_DOCS}'
+	@echo ' '
 	@echo '        - GIT_USER_NAME=${GIT_USER_NAME}'
 	@echo '        - GIT_USER_EMAIL=${GIT_USER_EMAIL}'
 	@echo '        - GIT_SERVER=${GIT_SERVER}'
@@ -365,6 +372,10 @@ report:## 	report
 	@echo '        - GIT_REPO_ORIGIN=${GIT_REPO_ORIGIN}'
 	@echo '        - GIT_REPO_NAME=${GIT_REPO_NAME}'
 	@echo '        - GIT_REPO_PATH=${GIT_REPO_PATH}'
+	@echo ' '
+	@echo '        - ANDROID_HOME=${ANDROID_HOME}'
+	@echo '        - ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT}'
+	@echo '        - ANDROID_AVD_HOME=${ANDROID_AVD_HOME}'
 
 .PHONY: init initialize docs
 initialize:## 	initialize
