@@ -527,7 +527,7 @@ else
 	$(MAKE) clean-books
 endif
 
-mastering-bitcoin:## 		included when private=true
+mastering-bitcoin:## 	included when private=true
 ifeq ($(private),true)
 	git clone --progress --verbose --depth 1 -b 1653630097/6f13274/77b91b1 https://github.com/randymcmillan/bitcoinbook.git \
 		sources/books/private/bitcoinbook || true
@@ -535,7 +535,7 @@ else
 	rm -rf sources/books/private/bitcoinbook
 	rm -rf docs/books/private/bitcoinbook
 endif
-mastering-lightning:## 		included when private=true
+mastering-lightning:## 	included when private=true
 ifeq ($(private),true)
 	git clone --progress --verbose --depth 1 https://github.com/lnbook/lnbook.git                                           \
 		sources/books/private/lnbook || true
@@ -544,7 +544,7 @@ else
 	rm -rf docs/books/private/lnbook
 endif
 
-python-book: | $(PYTHON_BOOK)## 		excluded when public=false
+python-book: | $(PYTHON_BOOK)## 	excluded when public=false
 ifneq ($(public),false)
 
 ifeq ($(PYTHON_BOOK),)
