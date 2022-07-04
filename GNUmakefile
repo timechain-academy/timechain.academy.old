@@ -78,6 +78,13 @@ export python_version_minor
 export python_version_patch
 export PYTHON_VERSION
 
+ANDROID_HOME                            := $(HOME)/Android/Sdk
+ANDROID_SDK_ROOT                        := $(HOME)/Library/Android/sdk
+ANDROID_AVD_HOME                        := $(HOME)/.android/avd
+
+export ANDROID_HOME
+export ANDROID_SDK_ROOT
+export ANDROID_AVD_HOME
 
 # NOTE: docker doesnt like names with dots
 # Use $(GIT_REPO_NAME) for commands that need the dotted name
@@ -245,6 +252,10 @@ export LEARNING_C
 
 CRYPTOPP=$(wildcard sources/cryptopp)
 export CRYPTOPP
+
+ANDROID_SDK=$(wildcard $(shell HOME)/Library/Android/sdk)
+export ANDROID_SDK
+
 
 PYTHON_BOOK=$(wildcard sources/books/public/python-book)
 export PYTHON_BOOK
