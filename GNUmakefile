@@ -243,6 +243,9 @@ export ELLIPTIC_DOCKER
 LEARNING_C=$(wildcard sources/learning-c)
 export LEARNING_C
 
+CRYPTOPP=$(wildcard sources/cryptopp)
+export CRYPTOPP
+
 PYTHON_BOOK=$(wildcard sources/books/public/python-book)
 export PYTHON_BOOK
 
@@ -388,6 +391,7 @@ clean:## 	clean
 	rm -rf sources/qt/webengine
 	rm -rf sources/elliptic
 	rm -rf sources/learning-c
+	rm -rf sources/cryptopp
 
 .SILENT:
 sources: resources## 	sources
@@ -397,6 +401,7 @@ resources:
 	$(MAKE) books
 	$(MAKE) elliptic
 	$(MAKE) learning-c
+	$(MAKE) cryptopp
 
 .PHONY: playground $(PLAYGROUND_DOCKER)
 playground: | $(PLAYGROUND_DOCKER)## 	clone plebnet-playground-docker
@@ -451,6 +456,19 @@ $(LEARNING_C):
 	# docker-compose build $(NOCACHE) $(VERBOSE) elliptic_notebook
     # $(DOCKER_COMPOSE) $(VERBOSE) -p elliptic_notebook_$(HOST_UID) run --publish 8888:8888 -d --rm #<learning-c>
 
+.PHONY: cryptopp $(CRYPTOPP)
+cryptopp: | $(CRYPTOPP)## 	install crypto++ library
+
+ifeq ($(CRYPTOPP),)
+	git clone --progress --verbose --depth 1 -b master \
+        https://github.com/timechain-academy/cryptopp.git sources/cryptopp || true
+endif
+	$(MAKE) install -C sources/cryptopp CXXFLAGS+=-stdlib=libc++
+
+$(CRYPTOPP):
+	@echo "sources/cryptopp exists!!"
+	git -C $(CRYPTOPP) reset --hard
+	git -C $(CRYPTOPP) pull -f
 
 
 qt-webengine:## 	qt webengine
