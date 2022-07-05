@@ -480,8 +480,8 @@ clean:## 	clean
 	rm -rf sources/qt/webengine
 	rm -rf sources/elliptic
 	rm -rf sources/learning-c
+	rm -rf sources/nkd-samples
 	rm -rf sources/cryptopp
-	rm -rf sources/ndk-samples
 
 .SILENT:
 sources: resources## 	sources
@@ -491,7 +491,7 @@ resources:
 	$(MAKE) books
 	$(MAKE) elliptic
 	$(MAKE) learning-c
-	#  $(MAKE) cryptopp
+	$(MAKE) cryptopp
 
 .PHONY: playground $(PLAYGROUND_DOCKER)
 playground: | $(PLAYGROUND_DOCKER)## 	clone plebnet-playground-docker
@@ -555,13 +555,13 @@ ifeq ($(CRYPTOPP),)
 endif
 
 ifeq ($(CXX),gcc)
-CXX:=g++
-	echo "CXX=$(CXX)"
-	$(MAKE) install -C sources/cryptopp
+CXX=g++
+	# @echo "CXX=$(CXX)"
+	$(MAKE) -C sources/cryptopp install
 else
-CXX:=c++
-	echo "CXX=$(CXX)"
-	CXXFLAGS+=-stdlib=libc++ $(MAKE) install -C sources/cryptopp
+CXX=c++
+	# @echo "CXX=$(CXX)"
+	CXXFLAGS+=-stdlib=libc++ $(MAKE) -C sources/cryptopp install
 endif
 
 ifeq ($(NDK),true)
@@ -585,7 +585,6 @@ $(NDK_SAMPLES):
 	@echo "sources/ndk-samples exists!!"
 	git -C $(NDK_SAMPLES) reset --hard
 	git -C $(NDK_SAMPLES) pull -f
-
 
 qt-webengine:## 	qt webengine
 	[ ! -d "sources/qt" ] && \
