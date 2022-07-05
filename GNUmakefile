@@ -3,6 +3,67 @@ NOHUP := $(shell which nohup)
 
 PWD                                     ?= pwd_unknown
 
+CP ?= cp
+MV ?= mv
+RM ?= rm -f
+GREP ?= grep
+SED ?= sed
+CHMOD ?= chmod
+MKDIR ?= mkdir -p
+
+LN ?= ln -sf
+LDCONF ?= /sbin/ldconfig -n
+
+# Solaris provides a non-Posix sed and grep at /usr/bin
+# Solaris 10 is missing AR in /usr/bin
+ifneq ($(wildcard /usr/xpg4/bin/grep),)
+  GREP := /usr/xpg4/bin/grep
+endif
+ifneq ($(wildcard /usr/xpg4/bin/sed),)
+  SED := /usr/xpg4/bin/sed
+endif
+ifneq ($(wildcard /usr/xpg4/bin/ar),)
+  AR := /usr/xpg4/bin/ar
+endif
+
+# Clang is reporting armv8l-unknown-linux-gnueabihf
+# for ARMv7 images on Aarch64 hardware.
+MACHINEX := $(shell $(CXX) $(CXXFLAGS) -dumpmachine 2>/dev/null)
+HOSTX := $(shell echo $(MACHINEX) | cut -f 1 -d '-')
+ifeq ($(HOSTX),)
+  HOSTX := $(shell uname -m 2>/dev/null)
+endif
+
+IS_X86 := $(shell echo "$(HOSTX)" | $(GREP) -v "64" | $(GREP) -i -c -E 'i.86|x86|i86')
+IS_X64 := $(shell echo "$(HOSTX)" | $(GREP) -i -c -E '_64|d64')
+IS_PPC32 := $(shell echo "$(HOSTX)" | $(GREP) -v "64" | $(GREP) -i -c -E 'ppc|power')
+IS_PPC64 := $(shell echo "$(HOSTX)" | $(GREP) -i -c -E 'ppc64|powerpc64|power64')
+IS_SPARC32 := $(shell echo "$(HOSTX)" | $(GREP) -v "64" | $(GREP) -i -c -E 'sun|sparc')
+IS_SPARC64 := $(shell echo "$(HOSTX)" | $(GREP) -i -c -E 'sun|sparc64')
+IS_ARM32 := $(shell echo "$(HOSTX)" | $(GREP) -v "64" | $(GREP) -i -c -E 'arm|armhf|armv7|eabihf|armv8')
+IS_ARMV8 := $(shell echo "$(HOSTX)" | $(GREP) -i -c -E 'aarch32|aarch64|arm64')
+
+# Attempt to determine platform
+SYSTEMX := $(shell $(CXX) $(CXXFLAGS) -dumpmachine 2>/dev/null)
+ifeq ($(SYSTEMX),)
+  SYSTEMX := $(shell uname -s 2>/dev/null)
+endif
+
+IS_LINUX := $(shell echo "$(SYSTEMX)" | $(GREP) -i -c "Linux")
+IS_HURD := $(shell echo "$(SYSTEMX)" | $(GREP) -i -c -E "GNU|Hurd")
+IS_MINGW := $(shell echo "$(SYSTEMX)" | $(GREP) -i -c "MinGW")
+IS_CYGWIN := $(shell echo "$(SYSTEMX)" | $(GREP) -i -c "Cygwin")
+IS_DARWIN := $(shell echo "$(SYSTEMX)" | $(GREP) -i -c "Darwin")
+IS_NETBSD := $(shell echo "$(SYSTEMX)" | $(GREP) -i -c "NetBSD")
+IS_AIX := $(shell echo "$(SYSTEMX)" | $(GREP) -i -c "aix")
+IS_SUN := $(shell echo "$(SYSTEMX)" | $(GREP) -i -c -E "SunOS|Solaris")
+
+SUN_COMPILER := $(shell $(CXX) -V 2>&1 | $(GREP) -i -c -E 'CC: (Sun|Studio)')
+GCC_COMPILER := $(shell $(CXX) --version 2>/dev/null | $(GREP) -v -E '(llvm|clang)' | $(GREP) -i -c -E '(gcc|g\+\+)')
+XLC_COMPILER := $(shell $(CXX) -qversion 2>/dev/null |$(GREP) -i -c "IBM XL")
+CLANG_COMPILER := $(shell $(CXX) --version 2>/dev/null | $(GREP) -i -c -E '(llvm|clang)')
+INTEL_COMPILER := $(shell $(CXX) --version 2>/dev/null | $(GREP) -i -c '\(icc\)')
+
 THIS_FILE                               := $(lastword $(MAKEFILE_LIST))
 export THIS_FILE
 TIME                                    := $(shell date +%s)
@@ -351,6 +412,9 @@ report:## 	report
 	@echo '        - PIP=${PIP}'
 	@echo '        - PIP3=${PIP3}'
 	@echo ' '
+	@echo '        - IS_LINUX=${IS_LINUX}'
+	@echo '        - IS_MINGW=${IS_MINGW}'
+	@echo '        - IS_DARWIN=${IS_DARWIN}'
 	@echo '        - ARCH=${ARCH}'
 	@echo '        - TRIPLET=${TRIPLET}'
 	@echo '        - PORT=${PORT}'
@@ -417,6 +481,7 @@ clean:## 	clean
 	rm -rf sources/elliptic
 	rm -rf sources/learning-c
 	rm -rf sources/cryptopp
+	rm -rf sources/ndk-samples
 
 .SILENT:
 sources: resources## 	sources
@@ -489,7 +554,15 @@ ifeq ($(CRYPTOPP),)
         https://github.com/timechain-academy/cryptopp.git sources/cryptopp || true
 endif
 
+ifeq ($(CXX),gcc)
+CXX:=g++
+	echo "CXX=$(CXX)"
+	$(MAKE) install -C sources/cryptopp
+else
+CXX:=c++
+	echo "CXX=$(CXX)"
 	CXXFLAGS+=-stdlib=libc++ $(MAKE) install -C sources/cryptopp
+endif
 
 ifeq ($(NDK),true)
 	$(shell mkdir -p $(ANDROID_SDK))
